@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/bg_color"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="30dp"
+            android:background="?attr/bg_color">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="?attr/main_color"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/tv_cancel"
+                android:background="@drawable/ft2_checkcountry_search"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_search" />
+
+                <com.fota.android.widget.btbwidget.ClearEdittext
+                    android:id="@+id/filter_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/countrycheck_hint"
+                    android:maxLines="1"
+                    android:textColor="?attr/font_color"
+                    android:textColorHint="?attr/font_color3"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/dialog"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:background="#9DDE76"
+                android:gravity="center"
+                android:textColor="#ffffffff"
+                android:textSize="30sp"
+                android:visibility="invisible" />
+
+            <com.fota.android.widget.sortrecyclerview.SideBar
+                android:id="@+id/sideBar"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="40dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</layout>

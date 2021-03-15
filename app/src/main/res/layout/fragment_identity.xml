@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_include" />
+
+        <LinearLayout
+            android:id="@+id/ll_checking"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="180dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="?attr/identity_checking" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/identity_checking_msg"
+                    android:textColor="?attr/font_color"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_checkfail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="180dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="?attr/ident_fail" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/identity_fail_msg"
+                    android:textColor="?attr/font_color"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_recheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="3dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/identity_recheck_msg"
+                    android:textColor="?attr/main_color"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/bg_color"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/bg_color"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/reverse_bg"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/identity_warn"
+                        android:textColor="#FFE15A55"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="38dp"
+                        android:layout_marginRight="38dp"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="40dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/identity_country"
+                                android:textColor="?attr/font_color2"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tv_country"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:drawableRight="?attr/icon_right"
+                                android:drawablePadding="5dp"
+                                android:text="@string/china"
+                                android:textColor="?attr/font_color4"
+                                android:textSize="15sp" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="80dp"
+                            android:layout_marginTop="3dp"
+                            android:background="?attr/line_color"
+                            android:visibility="gone" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="80dp"
+                            android:layout_marginTop="3dp"
+                            android:background="?attr/line_color"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_fullname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="40dp">
+
+                                <TextView
+                                    android:id="@+id/tv_fullname"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/identity_fullname"
+                                    android:textColor="?attr/font_color2"
+                                    android:textSize="15sp" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rl_fullname"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@+id/tv_fullname">
+
+                                    <EditText
+                                        android:id="@+id/edt_fullname"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:background="@null"
+                                        android:minWidth="2dp"
+                                        android:singleLine="true"
+                                        android:textColor="?attr/font_color"
+                                        android:textColorHint="?attr/font_color3"
+                                        android:textSize="15sp" />
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                            <View
+                                android:id="@+id/view_fullname"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginLeft="80dp"
+                                android:layout_marginTop="3dp"
+                                android:background="?attr/line_color" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_surandname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="40dp"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <com.fota.android.widget.btbwidget.ClearEdittext
+                                    android:id="@+id/edt_surname"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:background="@null"
+                                    android:hint="@string/identity_surname"
+                                    android:singleLine="true"
+                                    android:textColor="?attr/font_color"
+                                    android:textColorHint="?attr/font_color3"
+                                    android:textSize="15sp"
+                                    android:visibility="gone" />
+
+                                <View
+                                    android:id="@+id/view_shortname"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="3dp"
+                                    android:background="?attr/line_color" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:orientation="vertical">
+
+                                <com.fota.android.widget.btbwidget.ClearEdittext
+                                    android:id="@+id/edt_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:background="@null"
+                                    android:hint="@string/identity_name"
+                                    android:singleLine="true"
+                                    android:textColor="?attr/font_color"
+                                    android:textColorHint="?attr/font_color3"
+                                    android:textSize="15sp"
+                                    android:visibility="gone" />
+
+                                <View
+                                    android:id="@+id/view_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="3dp"
+                                    android:background="?attr/line_color" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="40dp">
+
+                                <TextView
+                                    android:id="@+id/tv_id"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/identity_typename_id"
+                                    android:textColor="?attr/font_color2"
+                                    android:textSize="15sp" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rl_id"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@+id/tv_id">
+
+                                    <EditText
+                                        android:id="@+id/edt_id_no"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:background="@null"
+                                        android:minWidth="2dp"
+                                        android:singleLine="true"
+                                        android:textColor="?attr/font_color"
+                                        android:textColorHint="?attr/font_color3"
+                                        android:textSize="15sp" />
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                            <View
+                                android:id="@+id/view_id"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginLeft="80dp"
+                                android:layout_marginTop="3dp"
+                                android:background="?attr/line_color" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_uploadmsg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/identity_pic_id"
+                                android:textColor="?attr/font_color2"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="12dp"
+                        android:background="?attr/id_bg">
+
+                        <RelativeLayout
+                            android:id="@+id/front"
+                            android:layout_width="242dp"
+                            android:layout_height="150dp"
+                            android:layout_centerInParent="true">
+
+                            <RelativeLayout
+                                android:id="@+id/rl_front"
+                                android:layout_width="242dp"
+                                android:layout_height="150dp">
+
+                                <ImageView
+                                    android:id="@+id/imv_front"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="fitXY"
+                                    android:src="?attr/id_front" />
+
+                                <TextView
+                                    android:id="@+id/tv_front"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="30dp"
+                                    android:text="@string/identity_front_msg_id"
+                                    android:textColor="?attr/font_color3"
+                                    android:textSize="12sp" />
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_loading_front"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:focusable="true">
+
+                                <com.airbnb.lottie.LottieAnimationView
+                                    android:visibility="gone"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    app:lottie_autoPlay="true"
+                                    app:lottie_fileName="loading.json"
+                                    app:lottie_imageAssetsFolder="null"
+                                    app:lottie_loop="true" />
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/imv_del_front"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_above="@+id/front"
+                            android:layout_marginLeft="-12dp"
+                            android:layout_marginBottom="-12dp"
+                            android:layout_toRightOf="@+id/front"
+                            android:adjustViewBounds="true"
+                            android:src="?attr/ident_del"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_back_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="12dp"
+                        android:background="?attr/id_bg">
+
+                        <RelativeLayout
+                            android:id="@+id/back"
+                            android:layout_width="242dp"
+                            android:layout_height="150dp"
+                            android:layout_centerInParent="true">
+
+                            <RelativeLayout
+                                android:id="@+id/rl_back"
+                                android:layout_width="242dp"
+                                android:layout_height="150dp">
+
+                                <ImageView
+                                    android:id="@+id/imv_back"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="fitXY"
+                                    android:src="?attr/id_back" />
+
+                                <TextView
+                                    android:id="@+id/tv_back"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="30dp"
+                                    android:text="@string/identity_back_msg_id"
+                                    android:textColor="?attr/font_color3"
+                                    android:textSize="12sp" />
+                            </RelativeLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/ll_loading_back"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:focusable="true">
+
+                                <com.airbnb.lottie.LottieAnimationView
+                                    android:visibility="gone"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    app:lottie_autoPlay="true"
+                                    app:lottie_fileName="loading.json"
+                                    app:lottie_imageAssetsFolder="null"
+                                    app:lottie_loop="true" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/imv_del_back"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_above="@+id/back"
+                            android:layout_marginLeft="-12dp"
+                            android:layout_marginBottom="-12dp"
+                            android:layout_toRightOf="@+id/back"
+                            android:adjustViewBounds="true"
+                            android:src="?attr/ident_del"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <com.fota.android.widget.btbwidget.FotaButton
+                        android:id="@+id/btn_submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/ll_edt"
+                        android:layout_marginLeft="38dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="38dp"
+                        android:layout_marginBottom="30dp"
+                        android:background="@drawable/selector_login_btn_ft"
+                        android:clickable="true"
+                        android:enabled="true"
+                        android:text="@string/identity_submit"
+                        android:textColor="#ffffff"
+                        android:textSize="15sp"
+                        android:focusable="true" />
+
+
+                </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</layout>

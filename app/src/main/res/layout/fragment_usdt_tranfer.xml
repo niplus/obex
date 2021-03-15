@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        style="@style/all_fill"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_include" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="?attr/reverse_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:text="@string/assetmanage_fenbu"
+            android:textColor="?attr/font_color5"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="?attr/bg_color"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingTop="12dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="12dp">
+
+            <LinearLayout
+                android:id="@+id/ll_wallet"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/bg_wallet"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="12dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/icon_wallet" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:text="@string/mine_wallet"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/mine_totalbtc"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/mine_hengxian"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_bzjaccount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@mipmap/bg_bzj"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12.5dp"
+                        android:layout_height="13.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/icon_bzj" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:text="@string/mine_heyueusdt"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/mine_totalbtc"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_heyueusdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/mine_hengxian"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="?attr/reverse_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:text="@string/mine_huazhuan"
+            android:textColor="?attr/font_color5"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/reverse_bg"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardBackgroundColor="?attr/reverse_bg2"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:id="@+id/rl_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imv_change"
+                        android:layout_width="17.4dp"
+                        android:layout_height="19dp"
+                        android:layout_centerInParent="true"
+                        android:src="?attr/icon_trans" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="40dp"
+                        android:layout_toLeftOf="@+id/imv_change"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/common_from"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_from"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:text="@string/mine_wallet"
+                            android:textColor="?attr/font_color2"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/imv_change"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/common_to"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_to"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:text="@string/mine_heyueusdt"
+                            android:textColor="?attr/font_color2"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/vertical_weight1"
+            android:background="?attr/bg_color"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/horizontal_fill"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="27dp"
+                android:paddingRight="27dp">
+
+                <LinearLayout
+                    style="@style/horizontal_fill"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center_vertical">
+
+                    <com.fota.android.widget.btbwidget.ClearEdittext
+                        android:id="@+id/edit_transfer"
+                        style="@style/horizontal_weight1"
+                        android:hint="@string/common_amount"
+                        android:inputType="numberDecimal"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txt_all_in"
+                        style="@style/wrap_style"
+                        android:layout_marginLeft="10dp"
+                        android:onClick="@{view.onClick}"
+                        android:text="@string/wallet_all_transfer"
+                        android:textColor="?attr/main_color"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <View
+                    style="@style/horizontal_line"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="9dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_btc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/small_dp0.5"
+                        android:text="USDT"
+                        android:textColor="?attr/font_color4"
+                        android:textSize="11sp" />
+
+
+                    <TextView
+                        android:id="@+id/txt_max_transfer_tips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/small_dp0.5"
+                        android:layout_toLeftOf="@+id/tv_btc"
+                        android:textColor="?attr/font_color"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/txt_max_transfer_tips"
+                        android:text="@string/trans_max"
+                        android:textColor="?attr/font_color4"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <com.fota.android.widget.btbwidget.FotaButton
+                android:id="@+id/bt_sure"
+                style="@style/horizontal_fill"
+                android:layout_height="@dimen/normal_button_height"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="20dp"
+                android:onClick="@{view.onClick}"
+                android:text="@string/wallet_comfirm_tranfer"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        style="@style/all_fill"
+        android:background="?attr/reverse_bg"
+        android:clickable="true"
+        android:paddingBottom="10dp"
+        android:orientation="vertical"
+        android:focusable="true">
+
+        <include layout="@layout/title_include" />
+
+        <LinearLayout
+            style="@style/horizontal_fill"
+            android:layout_height="40dp"
+            android:background="?attr/bg_color"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/asset_name"
+                style="@style/wrap_style"
+                android:layout_marginLeft="50dp"
+                android:onClick="@{view.onClick}"
+                android:textColor="?attr/font_color"
+                android:textSize="15sp" />
+
+            <com.fota.android.commonlib.view.DownTrigonView
+                android:id="@+id/asset_name_icon"
+                android:layout_width="7.9dp"
+                android:layout_height="4.6dp"
+                android:layout_marginLeft="5dp"
+                android:onClick="@{view.onClick}" />
+
+            <View style="@style/horizontal_weight1" />
+
+            <TextView
+                android:id="@+id/type_name"
+                style="@style/wrap_style"
+                android:onClick="@{view.onClick}"
+                android:textColor="?attr/font_color"
+                android:textSize="15sp"
+                tools:text="- -" />
+
+            <com.fota.android.commonlib.view.DownTrigonView
+                android:id="@+id/type_icon"
+                android:layout_width="7.9dp"
+                android:layout_height="4.6dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="61dp"
+                android:onClick="@{view.onClick}" />
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/recycler_head"
+            layout="@layout/recyclerview_include" />
+
+    </LinearLayout>
+
+</layout>

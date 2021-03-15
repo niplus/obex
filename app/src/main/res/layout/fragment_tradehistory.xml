@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_include" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/reverse_bg"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_name_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:drawableRight="@mipmap/icon_down"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:text="@string/tradehis_spot"
+                    android:textColor="?attr/font_color2"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_type_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="50dp"
+                    android:drawableRight="@mipmap/icon_down"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:text="@string/exchange_complete"
+                    android:textColor="?attr/font_color2"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <com.fota.android.widget.IndexViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="?attr/reverse_bg" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</layout>

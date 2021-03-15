@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_back" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imv_logo"
+            android:layout_width="237dp"
+            android:layout_height="61.5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="59dp"
+            android:src="@mipmap/icon_logo_login" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/imv_logo"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="?attr/reverse_bg2"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_phone_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="17dp"
+                            android:src="?attr/phone_check" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginBottom="1dp"
+                            android:text="@string/login_byphone"
+                            android:textColor="?attr/main_color"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_phone_uncheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="14dp"
+                            android:src="?attr/phone_uncheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginBottom="1dp"
+                            android:text="@string/login_byphone"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_email_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"
+                            android:src="?attr/email_check" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginBottom="1dp"
+                            android:text="@string/login_byemail"
+                            android:textColor="?attr/main_color"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_email_uncheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="12dp"
+                            android:src="?attr/email_uncheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginBottom="1dp"
+                            android:text="@string/login_byemail"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edt_parent"
+                    android:layout_marginTop="15dp">
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edt_child"
+                        android:layout_alignParentBottom="true">
+
+                        <com.fota.android.widget.btbwidget.ClearEdittext
+                            android:id="@+id/edt_account_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:background="@null"
+                            android:digits="1234567890"
+                            android:hint="@string/login_phone_hint"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            android:textColor="?attr/font_color"
+                            android:textColorHint="?attr/font_color3"
+                            android:textSize="15sp" />
+
+                        <View
+                            android:id="@+id/view_account_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="?attr/line_color" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edt_child"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="gone">
+
+                        <com.fota.android.widget.btbwidget.ClearEdittext
+                            android:id="@+id/edt_account_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:background="@null"
+                            android:hint="@string/login_email_hint"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:textColor="?attr/font_color"
+                            android:textColorHint="?attr/font_color3"
+                            android:textSize="15sp"
+                            android:visibility="gone" />
+
+                        <View
+                            android:id="@+id/view_account_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="?attr/line_color" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edt_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edt_child"
+                        android:layout_alignParentBottom="true">
+
+                        <com.fota.android.widget.btbwidget.ClearEdittext
+                            android:id="@+id/edt_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="30dp"
+                            android:background="@null"
+                            android:hint="@string/login_password_hint"
+                            android:inputType="textPassword"
+                            android:maxLength="32"
+                            android:singleLine="true"
+                            android:textColor="?attr/font_color"
+                            android:textColorHint="?attr/font_color3"
+                            android:textSize="15sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_eye_psw"
+                            style="@style/eyecheckbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:checked="false" />
+
+                        <View
+                            android:id="@+id/view_psw"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="?attr/line_color" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <com.fota.android.widget.btbwidget.FotaButton
+                    android:id="@+id/btn_login_ft"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/selector_login_btn_ft"
+                    android:clickable="true"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:text="@string/login_broker"
+                    android:textSize="15sp"
+                    android:focusable="true" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_forget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/login_fotget_login"
+                        android:textColor="?attr/main_color"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/ll_regist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="36dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="    "
+                android:textColor="?attr/font_color4"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="@string/common_regist"
+                android:textColor="?attr/main_color"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

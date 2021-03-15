@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/horizontal_fill"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="5dip"
+    android:background="?attr/bg_color"
+    android:padding="10dp">
+
+    <!--<ImageView-->
+    <!--android:id="@+id/address_select"-->
+    <!--android:layout_width="22dp"-->
+    <!--android:layout_height="22dip"-->
+    <!--android:gravity="center"-->
+    <!--android:src="@drawable/selector_login_btn_ft" />-->
+
+    <com.fota.android.widget.myview.AddressSelectView
+        android:id="@+id/address_select"
+        android:layout_width="22dp"
+        android:layout_height="22dp" />
+
+    <LinearLayout
+        style="@style/horizontal_weight1"
+        android:layout_marginLeft="@dimen/small_dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/address_text"
+            style="@style/horizontal_fill"
+            android:text="address"
+            android:textColor="?attr/font_color"
+            android:textSize="@dimen/normal_size" />
+
+        <TextView
+            android:id="@+id/address_name"
+            style="@style/horizontal_fill"
+            android:layout_marginTop="@dimen/small_dp"
+            android:text="sddkksp9e4545adfaszaeuieu56565"
+            android:textColor="?attr/font_color3"
+            android:textSize="@dimen/normal_size" />
+
+    </LinearLayout>
+
+</LinearLayout>

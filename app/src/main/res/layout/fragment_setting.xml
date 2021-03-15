@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color">
+
+        <include layout="@layout/title_include" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_safe"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:drawableRight="?attr/icon_right"
+                    android:gravity="center_vertical"
+                    android:text="@string/mine_safe"
+                    android:textColor="?attr/font_color2"
+                    android:textSize="14sp"
+                    android:focusable="true" />
+
+                <RelativeLayout
+                    android:id="@+id/tl_identity"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:text="@string/mine_identity"
+                        android:textColor="?attr/font_color2"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_identity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:drawableRight="?attr/icon_right"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/safesetting_unsetting"
+                        android:textColor="?attr/font_color4"
+                        android:textSize="13sp" />
+
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_tradelever"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:drawableRight="?attr/icon_right"
+                    android:gravity="center_vertical"
+                    android:text="@string/tradelever_title"
+                    android:textColor="?attr/font_color2"
+                    android:textSize="14sp"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:onClick="@{view.onClick}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:text="@string/setting_language"
+                        android:textColor="?attr/font_color2"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="false"
+                        android:drawableRight="?attr/icon_right"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/set_language_cn"
+                        android:textColor="?attr/font_color4"
+                        android:textSize="13sp" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/setting_theme"
+                        android:textColor="?attr/font_color2"
+                        android:textSize="15sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_theme"
+                        style="@style/safecheckbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:checked="true" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_aboutfota"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:drawableRight="?attr/icon_right"
+                    android:gravity="center_vertical"
+                    android:text="@string/mine_about_broker"
+                    android:textColor="?attr/font_color2"
+                    android:textSize="14sp"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/tv_versionupdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:drawableRight="?attr/icon_right"
+                    android:gravity="center_vertical"
+                    android:text="@string/set_versionupdate"
+                    android:textColor="?attr/font_color2"
+                    android:textSize="14sp"
+                    android:focusable="true" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.fota.android.widget.btbwidget.FotaButton
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/mine_logout2" />
+    </RelativeLayout>
+
+
+</layout>

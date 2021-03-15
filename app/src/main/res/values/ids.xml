@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--新增地址-->
+    <item name="event_notify_address_edit" type="id" />
+
+    <!--主题切换-->
+    <item name="event_theme_changed" type="id" />
+    <!--语言切换-->
+    <item name="event_language_changed" type="id" />
+
+    <!--行情卡片，搜索返回-->
+    <item name="event_market_search_back" type="id" />
+    <!--行情卡片，无数据 点击刷新-->
+    <item name="event_market_reload" type="id" />
+    <!--行情卡片，收藏 点击同步自选，登录完成之后-->
+    <item name="event_market_favor_login" type="id" />
+    <!--行情卡片，收藏 点击添加自选-->
+    <item name="event_market_favor_add" type="id" />
+
+    <!--登录注册-->
+    <!--登录国家回传-->
+    <item name="event_login_countrycheck" type="id" />
+    <!--注册国家回传-->
+    <item name="event_regist_countrycheck" type="id" />
+    <!--注册国家回传-->
+    <item name="event_bindphone_countrycheck" type="id" />
+    <!--忘记密码关闭上一页面-->
+    <item name="event_forget_closepre" type="id" />
+    <!--注册通知登录页显示注册账号-->
+    <item name="event_regist_setaccount" type="id" />
+
+    <!--首页-->
+    <!--热门合约概览登录后重新订阅-->
+    <item name="event_homefrg_gailansocket" type="id" />
+
+    <!--手势密码设置成功关闭上一页面-->
+    <item name="gestureset_closepre" type="id" />
+
+    <!--我的数据改变后，重新请求数据-->
+    <item name="mine_refresh" type="id" />
+
+    <!--我的数据改变后，更新安全设置界面-->
+    <item name="safe_refresh" type="id" />
+
+    <!--重置密码后关闭安全设置界面-->
+    <item name="safe_finish" type="id" />
+
+    <!--身份认证选择国家-->
+    <item name="event_identity_countrycheck" type="id" />
+
+    <!--指纹手势验证自己密码结果回传成功-->
+    <item name="event_capital_quickcheck_suc" type="id" />
+
+    <!--指纹手势验证自己密码结果回传失败-->
+    <item name="event_capital_quickcheck_fail" type="id" />
+
+    <!--通知主页告诉服务器切换语言-->
+    <item name="event_main_changelanguage" type="id" />
+
+    <!--修改完主题后通知我的页面更新状态栏颜色-->
+    <item name="mine_refreshbar" type="id" />
+
+    <!--下载完成，修改更新提示框状态-->
+    <item name="update_downloaded" type="id" />
+
+    <!--修改完主题后通知我的页面更新状态栏颜色-->
+    <item name="mine_noticedel" type="id" />
+
+    <!--提示弹出快速登录提示框-->
+    <item name="login_quicktoast" type="id" />
+
+
+</resources>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WheelView">
+        <attr name="itemVisibleNum" format="integer" />
+        <attr name="textColorOuter" format="color" />
+        <attr name="textSizeOuter" format="dimension" />
+        <attr name="textColorCenter" format="color" />
+        <attr name="textSizeCenter" format="dimension" />
+        <attr name="lineColor" format="color" />
+        <attr name="isLoop" format="boolean" />
+        <attr name="lineSpaceingDimens" format="dimension" />
+        <attr name="wheelGravity" format="enum">
+            <enum name="left" value="234" />
+            <enum name="center" value="354" />
+            <enum name="right" value="894" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="redTipTextView">
+        <attr name="redTipsVisibility">
+            <enum name="invisible" value="0"></enum>
+            <enum name="visible" value="1"></enum>
+            <enum name="gone" value="2"></enum>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="depth">
+        <attr name="numbers" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="deep">
+        <attr name="reverse" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RightTrigonView">
+        <attr name="view_color" />
+    </declare-styleable>
+
+    <!--带三角指向的弹出气泡-->
+    <declare-styleable name="bubble">
+        <attr name="shadowColor" format="color" />
+        <attr name="padding" format="dimension" />
+        <attr name="customStrokeWidth" format="float" />
+        <attr name="customCornerRadius" format="float" />
+        <attr name="halfBaseOfLeg" format="dimension" />
+    </declare-styleable>
+
+    <!-- app中的item attrs -->
+    <attr name="common_arrow_up" format="reference" />
+    <attr name="common_arrow_down" format="reference"></attr>
+    <attr name="chart_kline" format="reference"></attr>
+    <attr name="chart_time_line" format="reference"></attr>
+    <attr name="common_change" format="reference"></attr>
+    <attr name="chart_full_screen" format="reference"></attr>
+    <attr name="chart_small_screen" format="reference"></attr>
+    <attr name="common_search_small" format="reference"></attr>
+    <attr name="markets_home_card" format="reference"></attr>
+    <attr name="markets_home_list" format="reference"></attr>
+    <attr name="icon_back" format="reference"></attr>
+    <attr name="icon_search" format="reference"></attr>
+    <attr name="icon_x" format="reference"></attr>
+    <attr name="common_star_grey" format="reference"></attr>
+    <attr name="common_star_red" format="reference"></attr>
+    <attr name="common_no_data" format="reference"></attr>
+
+    <attr name="select_main_bottom_home_iv" format="reference"></attr>
+    <attr name="select_main_bottom_market_iv" format="reference"></attr>
+    <attr name="select_main_bottom_trade_iv" format="reference"></attr>
+    <attr name="select_main_bottom_exchange_iv" format="reference"></attr>
+    <attr name="select_main_bottom_me_iv" format="reference"></attr>
+    <attr name="selector_safe_gestfinger_check" format="reference"></attr>
+
+    <attr name="history_addition" format="color|reference" />
+    <!-- icon home mine -->
+    <attr name="trade_newuser" format="reference" />
+    <attr name="home_del" format="reference" />
+    <attr name="trade_zhgl" format="reference" />
+    <attr name="home_zhgl_mohu" format="reference" />
+    <attr name="trade_aboutfota" format="reference" />
+    <attr name="trade_safe" format="reference" />
+    <attr name="mine_huazhuan" format="reference" />
+    <attr name="mine_wallet" format="reference" />
+    <attr name="mine_hyzh_usdt" format="reference" />
+    <attr name="mine_money" format="reference" />
+    <attr name="selector_edt_eye" format="reference" />
+    <attr name="icon_right" format="reference" />
+    <attr name="id_front" format="reference" />
+    <attr name="id_back" format="reference" />
+    <attr name="id_bg" format="reference" />
+    <attr name="ident_del" format="reference" />
+    <attr name="icon_del_edt" format="reference" />
+    <attr name="identity_checking" format="reference" />
+    <attr name="ident_fail" format="reference" />
+    <attr name="ident_submission" format="reference" />
+    <attr name="lever_popup_bg" format="reference" />
+    <attr name="popup_arrow" format="reference" />
+    <attr name="banner_bg" format="reference" />
+
+    <attr name="email_check" format="reference" />
+    <attr name="phone_check" format="reference" />
+    <attr name="email_uncheck" format="reference" />
+    <attr name="phone_uncheck" format="reference" />
+    <attr name="helpcenter" format="reference" />
+    <attr name="kefu" format="reference" />
+    <attr name="tradehis" format="reference" />
+    <attr name="activitycenter" format="reference" />
+    <attr name="icon_zichan" format="reference" />
+    <attr name="wallet_his" format="reference" />
+    <attr name="icon_chongbi" format="reference" />
+    <attr name="icon_tibi" format="reference" />
+    <attr name="icon_trans" format="reference" />
+    <attr name="icon_chexiao" format="reference" />
+    <attr name="mine_fota_logo" format="reference" />
+    <attr name="icon_contractlever_check" format="reference" />
+    <attr name="commission" format="reference" />
+
+
+</resources>

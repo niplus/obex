@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/horizontal_fill"
+    android:background="?attr/bg_color"
+    android:gravity="center_vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:id="@+id/order_main"
+        style="@style/horizontal_fill"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <LinearLayout
+            style="@style/horizontal_fill"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/asset_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/asset_name"
+                style="@style/wrap_style"
+                android:layout_marginLeft="10dp"
+                android:textColor="?attr/font_color"
+                android:textSize="16.32sp"
+                tools:text="BTC/USDK" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizontal_fill"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <LinearLayout
+                style="@style/wrap_style"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/wrap_style"
+                    android:text="@string/exchange_totol_money"
+                    android:textColor="#FF464A55"
+                    android:textSize="9.6sp" />
+
+                <TextView
+                    style="@style/wrap_style"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/exchange_valuation_btc"
+                    android:textColor="#FF464A55"
+                    android:textSize="9.6sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/horizontal_weight_fill"
+                android:gravity="center_vertical|right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/total_money"
+                    style="@style/wrap_style"
+                    android:maxLines="1"
+                    android:text="234337.34"
+                    android:textColor="?attr/font_color"
+                    android:textSize="9.6sp" />
+
+                <TextView
+                    android:id="@+id/valuation"
+                    style="@style/wrap_style"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="234356.32"
+                    android:textColor="?attr/font_color"
+                    android:textSize="9.6sp" />
+
+            </LinearLayout>
+
+            <com.fota.android.widget.myview.DashLineView
+                android:layout_width="2dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <LinearLayout
+                style="@style/wrap_style"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/wrap_style"
+                    android:text="@string/common_usable"
+                    android:textColor="#FF464A55"
+                    android:textSize="9.6sp" />
+
+                <TextView
+                    style="@style/wrap_style"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/common_freeze"
+                    android:textColor="#FF464A55"
+                    android:textSize="9.6sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/horizontal_weight_fill"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical|right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/amount"
+                    style="@style/wrap_style"
+                    android:maxLines="1"
+                    android:text="234337.34"
+                    android:textColor="?attr/font_color"
+                    android:textSize="9.6sp" />
+
+                <TextView
+                    android:id="@+id/locked_amount"
+                    style="@style/wrap_style"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="1"
+                    android:text="234356.32"
+                    android:textColor="?attr/font_color"
+                    android:textSize="9.6sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+

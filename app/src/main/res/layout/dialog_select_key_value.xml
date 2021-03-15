@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <View
+            android:id="@+id/outside"
+            style="@style/vertical_weight1" />
+
+        <LinearLayout
+            style="@style/horizontal_fill"
+            android:background="@drawable/bg_corner_digital"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:textColor="?attr/font_color4"
+                android:textSize="13sp"
+                tools:text="选择要充值的币种" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/key_list"
+                style="@style/horizontal_fill">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_corner_digital"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="?attr/font_color4"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+</layout>

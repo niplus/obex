@@ -1,0 +1,37 @@
+{
+  "tabbar": [
+    {
+      "code": 1002,
+      "position": 1,
+      "url": "fota://goto/market",
+      "nameZh": "行情",
+      "nameEn": "Market Info",
+      "remarks": ""
+    },
+    {
+      "code": 1004,
+      "position": 2,
+      "url": "fota://goto/coin",
+      "nameZh": "现货",
+      "nameEn": "Exchange",
+      "remarks": ""
+    },
+    {
+      "code": 1003,
+      "position": 3,
+      "url": "fota://goto/contract",
+      "nameZh": "合约",
+      "nameEn": "Trade",
+      "remarks": ""
+    },
+    {
+      "code": 1005,
+      "position": 4,
+      "url": "fota://goto/mine",
+      "nameZh": "我的",
+      "nameEn": "Me",
+      "remarks": ""
+    }
+  ],
+  "versionStatus": "2"
+}

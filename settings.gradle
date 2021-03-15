@@ -1,0 +1,8 @@
+include ':mzbanner'
+include ':lottie'
+include ':UdeskSDKUI'
+include ':lock9view'
+include ':klinelib'
+include ':imagepicker'
+include ':app'
+rootProject.name = "obex_android"

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        style="@style/all_fill"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_asset_check"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:drawableRight="@mipmap/icon_down"
+                android:drawablePadding="3dp"
+                android:gravity="center"
+                android:text="@string/common_all"
+                android:textColor="?attr/font_color2"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+
+        <include
+            android:id="@+id/recycler_head"
+            layout="@layout/recyclerview_include" />
+
+    </LinearLayout>
+
+</layout>

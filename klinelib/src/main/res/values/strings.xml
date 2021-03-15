@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">klinelib</string>
+    <string name="loading">""</string>
+
+
+    <string name="price">价格</string>
+    <string name="change_rate">涨幅</string>
+    <string name="volume">成交额</string>
+    <string name="value">成交额</string>
+
+    <string name="open_price">开盘</string>
+    <string name="close_price">收盘</string>
+    <string name="high_price">最高</string>
+    <string name="low_price">最低</string>
+    <string name="hold_total">持仓量</string>
+    <string name="spot_index">现货指数</string>
+
+    <string name="legend_price">现货指数</string>
+    <string name="legend_future_price">合约价格</string>
+    <string name="usdt_price">价格</string>
+</resources>

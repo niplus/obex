@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bubbleView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="@dimen/space_40"
+    android:layout_marginTop="@dimen/space_20"
+    android:background="?attr/font_color5"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/space_40">
+
+    <com.fota.android.widget.btbwidget.ClearEdittext
+        android:id="@+id/reclclerview"
+        style="@style/horizontal_fill"
+        android:inputType="number"
+        android:minWidth="@dimen/space_40"
+        android:minHeight="@dimen/space_40" />
+
+    <com.fota.android.widget.btbwidget.FotaButton
+        android:id="@+id/sure"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="80dp"
+        android:minHeight="@dimen/space_40"
+        android:text="@string/sure" />
+
+    <!--<View-->
+    <!--android:layout_width="18dp"-->
+    <!--android:layout_height="18dp"-->
+    <!--android:layout_marginLeft="70dp"-->
+
+    <!--android:background="@drawable/triangle_leverset"/>-->
+
+</LinearLayout>

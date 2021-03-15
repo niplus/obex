@@ -1,0 +1,18 @@
+<resources>
+    <string name="ip_title">pic</string>
+    <string name="ip_all_images">All Images</string>
+    <string name="ip_permission_notallow_local">Unable to visit your photo library out of systemic causes.</string>
+    <string name="ip_permission_notallow_camera">Permissions are forbidden and camera cannot be turned on</string>
+    <!--以下在本项目暂未使用-->
+    <string name="ip_folder_image_count">共%1$d张</string>
+    <string name="ip_preview_image_count">%1$d/%2$d</string>
+    <string name="ip_select_limit">最多选择%1$d张图片</string>
+    <string name="ip_complete">完成</string>
+    <string name="ip_select_complete">完成(%1$d/%2$d)</string>
+    <string name="ip_preview">预览</string>
+    <string name="ip_preview_count">预览(%1$d)</string>
+    <string name="ip_photo_crop">图片裁剪</string>
+    <string name="ip_origin">原图</string>
+    <string name="ip_origin_size">原图(%1$s)</string>
+    <string name="ip_sure_bt">完成(0/3)</string>
+</resources>

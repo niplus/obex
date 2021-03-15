@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color"
+        android:paddingTop="8dp">
+
+
+        <LinearLayout
+            android:id="@+id/layout_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/bg_color"
+            android:orientation="vertical">
+
+            <com.fota.android.widget.btbwidget.FotaRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/bg_color"
+                android:overScrollMode="never" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

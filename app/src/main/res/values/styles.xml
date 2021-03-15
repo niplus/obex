@@ -1,0 +1,410 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme_Common">
+        <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="colorPrimary">#FF20222D</item>
+        <item name="colorPrimaryDark">#FFA4ACBD</item>
+        <item name="colorAccent">@color/check_color</item>
+
+        <item name="tradeset_lever_checked_bg">#FF30323C</item>
+
+        <item name="color_kline_period">#C3C7CD</item>
+        <item name="ticker_bg">#20222D</item>
+        <item name="divider_line_color">@color/line_color_black</item>
+        <item name="market_main_tab_select">#FFA4ACBD</item>
+        <item name="market_main_tab_color">#FF464A55</item>
+        <!--<item name="market_second_tab_color">#FF464A55</item>-->
+        <item name="search_bg_color">#FF20222D</item>
+        <!--  2A2C34 -->
+        <item name="market_card_item_color1">#44464d</item>
+        <item name="kline_pop_check">#FFA4ACBD</item>
+        <item name="kline_pop_uncheck">#FF464A55</item>
+        <item name="favor_sync_color">#FF464A55</item>
+        <item name="line_color_focus">#A4ACBD</item>
+        <item name="market_notice_bg">#1D2029</item>
+        <item name="tradehis_search">#6694EE</item>
+        <item name="history_addition">#353844</item>
+
+        <item name="common_arrow_up">@mipmap/common_arrow_up</item>
+        <item name="common_arrow_down">@mipmap/common_arrow_down</item>
+        <item name="chart_kline">@mipmap/chart_kline</item>
+        <item name="chart_time_line">@mipmap/chart_time_line</item>
+        <item name="common_change">@mipmap/common_change</item>
+        <item name="chart_full_screen">@mipmap/chart_full_screen</item>
+        <item name="chart_small_screen">@mipmap/chart_small_screen</item>
+        <item name="common_search_small">@mipmap/common_search_small</item>
+        <item name="markets_home_card">@mipmap/markets_home_card</item>
+        <item name="markets_home_list">@mipmap/markets_home_list</item>
+        <item name="icon_back">@mipmap/icon_back</item>
+        <item name="icon_search">@mipmap/icon_search</item>
+        <item name="icon_x">@mipmap/icon_x</item>
+        <item name="common_star_grey">@mipmap/common_star_grey</item>
+        <item name="common_star_red">@mipmap/common_star_blue</item>
+        <item name="common_no_data">@mipmap/common_no_data</item>
+
+        <item name="select_main_bottom_home_iv">@drawable/select_main_bottom_home_iv</item>
+        <item name="select_main_bottom_market_iv">@drawable/select_main_bottom_market_iv</item>
+        <item name="select_main_bottom_trade_iv">@drawable/select_main_bottom_trade_iv</item>
+        <item name="select_main_bottom_exchange_iv">@drawable/select_main_bottom_exchange_iv</item>
+        <item name="select_main_bottom_me_iv">@drawable/select_main_bottom_me_iv</item>
+        <item name="selector_safe_gestfinger_check">@drawable/selector_safe_gestfinger_check_black
+        </item>
+
+        <!--home mine-->
+        <item name="trade_newuser">@mipmap/trade_newuser</item>
+        <item name="home_del">@mipmap/home_del</item>
+        <item name="trade_zhgl">@mipmap/trade_zhgl</item>
+        <item name="home_zhgl_mohu">@mipmap/home_zhgl_mohu</item>
+        <item name="trade_aboutfota">@mipmap/trade_aboutfota</item>
+        <item name="trade_safe">@mipmap/trade_safe</item>
+        <item name="mine_huazhuan">@mipmap/mine_huazhuan</item>
+        <item name="mine_wallet">@mipmap/mine_wallet</item>
+        <item name="mine_hyzh_usdt">@mipmap/mine_hyzh_usdt</item>
+        <item name="mine_money">@mipmap/mine_money</item>
+        <item name="selector_edt_eye">@drawable/selector_edt_eye</item>
+        <item name="icon_right">@mipmap/icon_right</item>
+        <item name="id_front">@mipmap/id_front_black</item>
+        <item name="id_back">@mipmap/id_back_black</item>
+        <item name="id_bg">@mipmap/id_back_bg_black</item>
+        <item name="ident_del">@mipmap/ident_del_black</item>
+        <item name="icon_del_edt">@mipmap/icon_del_edt</item>
+        <item name="identity_checking">@mipmap/identity_checking_black</item>
+        <item name="ident_fail">@mipmap/ident_fail_black</item>
+        <item name="ident_submission">@mipmap/ident_submission_black</item>
+        <item name="lever_popup_bg">@drawable/lever_popup_bg_black</item>
+        <item name="popup_arrow">@drawable/popup_arrow_black</item>
+        <item name="banner_bg">@mipmap/banner_bg_black</item>
+
+        <item name="email_check">@mipmap/email_check_black</item>
+        <item name="phone_check">@mipmap/phone_check_black</item>
+        <item name="email_uncheck">@mipmap/email_uncheck_black</item>
+        <item name="phone_uncheck">@mipmap/phone_uncheck_black</item>
+        <item name="helpcenter">@mipmap/helpcenter_black</item>
+        <item name="kefu">@mipmap/kefu_black</item>
+        <item name="tradehis">@mipmap/tradehis_black</item>
+        <item name="activitycenter">@mipmap/activitycenter_black</item>
+        <item name="icon_zichan">@mipmap/icon_zichan_black</item>
+        <item name="wallet_his">@mipmap/wallet_his_black</item>
+        <item name="icon_chongbi">@mipmap/icon_chongbi_black</item>
+        <item name="icon_tibi">@mipmap/icon_tibi_black</item>
+        <item name="icon_trans">@mipmap/icon_trans_black</item>
+        <item name="icon_chexiao">@mipmap/icon_chexiao_black</item>
+        <item name="mine_fota_logo">@mipmap/mine_fota_logo_black</item>
+        <item name="icon_contractlever_check">@mipmap/icon_contractlever_check</item>
+        <item name="commission">@mipmap/commission_black</item>
+
+    </style>
+
+
+    <!-- Base application theme. -->
+    <style name="AppTheme_White" parent="AppTheme_White_Common">
+
+        <item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>
+        <item name="android:windowBackground">@color/welcome</item>
+        <item name="colorPrimary">#EEEEEE</item>
+        <item name="colorPrimaryDark">#666666</item>
+        <item name="colorAccent">@color/check_color</item>
+
+        <item name="tradeset_lever_checked_bg">#FFF7F8FC</item>
+        <item name="color_kline_period">#333333</item>
+        <item name="ticker_bg">#F4F4F4</item>
+        <item name="divider_line_color">@color/line_color_white</item>
+        <item name="market_main_tab_select">#153995</item>
+        <item name="market_main_tab_color">#666666</item>
+        <!--<item name="market_second_tab_color">#FFAAAFB9</item>-->
+        <item name="search_bg_color">#FFFFFF</item>
+        <item name="market_card_item_color1">#F8F8F8</item>
+        <item name="kline_pop_check">@color/check_color</item>
+        <item name="kline_pop_uncheck">#AAAAAA</item>
+        <item name="favor_sync_color">#FFAAAFB9</item>
+        <item name="line_color_focus">#0F182A</item>
+        <item name="market_notice_bg">#F8F9FD</item>
+        <item name="tradehis_search">#6694EE</item>
+        <item name="history_addition">#F3F5F9</item>
+        <!--<item name="market_main_tab_border">#2D323B</item>-->
+
+        <item name="common_arrow_up">@mipmap/common_arrow_up_white</item>
+        <item name="common_arrow_down">@mipmap/common_arrow_down_white</item>
+        <item name="chart_kline">@mipmap/chart_kline_white</item>
+        <item name="chart_time_line">@mipmap/chart_time_line_white</item>
+        <item name="common_change">@mipmap/common_change_white</item>
+        <item name="chart_full_screen">@mipmap/chart_full_screen_white</item>
+        <item name="chart_small_screen">@mipmap/chart_small_screen_white</item>
+        <item name="common_search_small">@mipmap/common_search_small_white</item>
+        <item name="markets_home_card">@mipmap/markets_home_card_white</item>
+        <item name="markets_home_list">@mipmap/markets_home_list_white</item>
+        <item name="icon_back">@mipmap/icon_back_white</item>
+        <item name="icon_search">@mipmap/icon_search_white</item>
+        <item name="icon_x">@mipmap/icon_x_white</item>
+        <item name="common_star_grey">@mipmap/common_star_grey_white</item>
+        <item name="common_star_red">@mipmap/common_star_blue_white</item>
+        <item name="common_no_data">@mipmap/common_no_data_white</item>
+
+        <item name="select_main_bottom_home_iv">@drawable/select_main_bottom_home_white_iv</item>
+        <item name="select_main_bottom_market_iv">@drawable/select_main_bottom_market_white_iv
+        </item>
+        <item name="select_main_bottom_trade_iv">@drawable/select_main_bottom_trade_white_iv</item>
+        <item name="select_main_bottom_exchange_iv">@drawable/select_main_bottom_exchange_white_iv
+        </item>
+        <item name="select_main_bottom_me_iv">@drawable/select_main_bottom_me_white_iv</item>
+        <item name="selector_safe_gestfinger_check">@drawable/selector_safe_gestfinger_check_white
+        </item>
+
+
+        <!--home mine-->
+        <item name="trade_newuser">@mipmap/trade_newuser_white</item>
+        <item name="home_del">@mipmap/home_del_white</item>
+        <item name="trade_zhgl">@mipmap/trade_zhgl_white</item>
+        <item name="home_zhgl_mohu">@mipmap/home_zhgl_mohu_white</item>
+        <item name="trade_aboutfota">@mipmap/trade_aboutfota_white</item>
+        <item name="trade_safe">@mipmap/trade_safe_white</item>
+        <item name="mine_huazhuan">@mipmap/mine_huazhuan_white</item>
+        <item name="mine_wallet">@mipmap/mine_wallet_white</item>
+        <item name="mine_hyzh_usdt">@mipmap/mine_hyzh_usdt_white</item>
+        <item name="mine_money">@mipmap/mine_money_white</item>
+        <item name="selector_edt_eye">@drawable/selector_edt_eye_white</item>
+        <item name="icon_right">@mipmap/icon_right_white</item>
+        <item name="id_front">@mipmap/id_front_white</item>
+        <item name="id_back">@mipmap/id_back_white</item>
+        <item name="id_bg">@mipmap/id_back_bg_white</item>
+        <item name="ident_del">@mipmap/ident_del_white</item>
+        <item name="icon_del_edt">@mipmap/icon_del_edt</item>
+        <item name="identity_checking">@mipmap/identity_checking_white</item>
+        <item name="ident_fail">@mipmap/ident_fail_white</item>
+        <item name="ident_submission">@mipmap/ident_submission_white</item>
+        <item name="lever_popup_bg">@drawable/lever_popup_bg_white</item>
+        <item name="popup_arrow">@drawable/popup_arrow_white</item>
+        <item name="banner_bg">@mipmap/banner_bg_white</item>
+
+        <item name="email_check">@mipmap/email_check_white</item>
+        <item name="phone_check">@mipmap/phone_check_white</item>
+        <item name="email_uncheck">@mipmap/email_uncheck_white</item>
+        <item name="phone_uncheck">@mipmap/phone_uncheck_white</item>
+        <item name="helpcenter">@mipmap/helpcenter_white</item>
+        <item name="kefu">@mipmap/kefu_white</item>
+        <item name="tradehis">@mipmap/tradehis_white</item>
+        <item name="activitycenter">@mipmap/activitycenter_white</item>
+        <item name="icon_zichan">@mipmap/icon_zichan_white</item>
+        <item name="wallet_his">@mipmap/wallet_his_white</item>
+        <item name="icon_chongbi">@mipmap/icon_chongbi_white</item>
+        <item name="icon_tibi">@mipmap/icon_tibi_white</item>
+        <item name="icon_trans">@mipmap/icon_trans_white</item>
+        <item name="icon_chexiao">@mipmap/icon_chexiao_white</item>
+        <item name="mine_fota_logo">@mipmap/mine_fota_logo_white</item>
+        <item name="icon_contractlever_check">@mipmap/icon_contractlever_check_white</item>
+        <item name="commission">@mipmap/commission_white</item>
+    </style>
+
+    <style name="horizontal_fill">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <!--自适应-->
+    <style name="wrap_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 水平填充 -->
+    <style name="horizontal_weight1">
+        <!-- 水平填充 垂直适应.. -->
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 水平填充 -->
+    <style name="horizontal_weight_fill">
+        <!-- 水平填充 垂直适应.. -->
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- 垂直填充 -->
+    <style name="vertical_weight1">
+        <!-- 水平填充 垂直适应.. -->
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dip</item>
+    </style>
+
+    <!-- 水平填充 -->
+    <!-- 水平填充 垂直适应.. -->
+    <style name="all_fill">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+    <style name="horizontal_line">
+        <!-- 水平填充 垂直1px.. -->
+        <item name="android:background">?attr/line_color</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+    </style>
+
+    <!-- 水平填充 垂直1px.. -->
+    <!-- 水平填充 垂直1px.. -->
+    <style name="vertical_fill">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+    <style name="vertical_line">
+        <!-- 水平填充 垂直1px.. -->
+        <item name="android:background">?attr/line_color</item>
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="horizontal_block">
+        <item name="android:background">?attr/bg_color2</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dip</item>
+    </style>
+
+    <style name="BtbTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--在Android 4.4之前的版本上运行，直接跟随系统主题-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- item分割线 -->
+    <style name="item_rule">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?attr/bg_color2</item>
+    </style>
+
+    <style name="Smile">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Smile.TextView">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Animations" />
+
+
+    <!--<style name="Animations.GrowFromBottom">--><!--<item name="android:windowEnterAnimation">@anim/grow_from_bottom</item>--><!--<item name="android:windowExitAnimation">@anim/shrink_from_top</item>--><!--</style>-->
+    <style name="kyc_dialog" parent="@android:style/Theme.Dialog">
+        //Dialog的windowFrame框为无
+        <item name="android:windowFrame">@null</item>
+        //是否浮现在activity之上
+        <item name="android:windowIsFloating">true</item>
+        //是否半透明
+        <item name="android:windowIsTranslucent">true</item>
+        //是否显示title
+        <item name="android:windowNoTitle">true</item>
+        //设置dialog的背景
+        <item name="android:background">@android:color/transparent</item>
+        //显示区域背景是否透明
+        <item name="android:windowBackground">@android:color/transparent</item>
+        //就是用来控制灰度的值，当为1时，界面除了我们的dialog内容是高亮显示的，dialog以外的区域是黑色的，完全看不到其他内容，系统的默认值是0.5
+        <item name="android:backgroundDimAmount">0.5</item>
+        //显示区域以外是否使用黑色半透明背景
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="bubble_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <!--透明dialog-->
+    <style name="CustomProgressDialog" parent="@style/CustomDialog">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+    <!--注册选择框-->
+    <style name="regsitcheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/selector_regist_checkbox</item>
+    </style>
+
+    <!--掩藏按钮选择框-->
+    <style name="eyecheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">?attr/selector_edt_eye</item>
+    </style>
+
+    <!--掩藏按钮选择框-->
+    <style name="safecheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">?attr/selector_safe_gestfinger_check</item>
+    </style>
+
+    <style name="TimePickerDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">?attr/bg_color</item>
+    </style>
+
+    <style name="AppSplash" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/welcome</item>
+    </style>
+
+    <style name="AppSplash2" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/welcome</item>
+    </style>
+
+    <style name="matchDialog" parent="@android:style/Theme.Holo.DialogWhenLarge">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:backgroundDimEnabled">true</item><!--模糊-->
+    </style>
+
+    <style name="ActivityInOutAnimation" parent="@android:style/Animation.Activity">
+        <!--B 界面右进右出-->
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+
+        <!--A 界面左出左进-->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+
+    </style>
+
+    <style name="FotaActvityTheme" parent="@android:style/Animation.Activity">
+        <item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>
+    </style>
+
+    <!-- 设置pop由下自上的动画 -->
+       
+
+    <style name="mypopwindow_anim_style">
+               
+        <item name="android:windowEnterAnimation">@anim/popshow</item>
+        <item name="android:windowExitAnimation">@anim/pophide</item>
+           
+    </style>
+
+    <style name="WXNoTitleBar" parent="@android:style/Theme.Translucent.NoTitleBar">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+</resources>

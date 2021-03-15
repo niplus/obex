@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="10dp"
+    app:cardBackgroundColor="?attr/reverse_bg2"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0.3dp">
+
+    <LinearLayout
+        style="@style/horizontal_fill"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            style="@style/horizontal_fill"
+            android:gravity="center_vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center_vertical"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="0dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#E52855" />
+
+                <View
+                    android:id="@+id/view_recharge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#4C9E2B" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                style="@style/horizontal_weight1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/amount"
+                    style="@style/wrap_style"
+                    android:text="--"
+                    android:textColor="?attr/font_color"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/tv_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="1dp"
+                    android:gravity="bottom"
+                    android:textColor="?attr/font_color"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/status_reverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:drawableLeft="?attr/icon_chexiao"
+                android:drawablePadding="3dp"
+                android:gravity="center"
+                android:text="@string/exchange_cancel"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/status"
+                style="@style/wrap_style"
+                android:text="--"
+                android:textColor="?attr/main_color"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/status_details"
+            style="@style/horizontal_fill"
+            android:gravity="right"
+            android:textColor="#FFC1C1C1"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            style="@style/horizontal_fill"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/wallet_fee"
+                android:textColor="?attr/font_color5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/fee"
+                style="@style/horizontal_weight1"
+                android:layout_marginLeft="4dp"
+                android:text="0.001BTC"
+                android:textColor="?attr/font_color2"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/horizontal_fill"
+            android:gravity="center"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/wallet_address_m"
+                android:textColor="?attr/font_color5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/address"
+                style="@style/horizontal_weight1"
+                android:layout_marginLeft="4dp"
+                android:text="--"
+                android:textColor="?attr/font_color2"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/horizontal_fill"
+            android:gravity="center"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/exchange_trade_hash_m"
+                android:textColor="?attr/font_color5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txHash"
+                style="@style/horizontal_weight1"
+                android:layout_marginLeft="4dp"
+                android:text="--"
+                android:textColor="?attr/font_color2"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizontal_fill"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/common_time_m"
+                android:textColor="?attr/font_color5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txTime"
+                style="@style/horizontal_weight1"
+                android:layout_marginLeft="4dp"
+                android:text="--"
+                android:textColor="?attr/font_color2"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+

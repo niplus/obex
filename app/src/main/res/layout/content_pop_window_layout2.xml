@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+    <LinearLayout style="@style/horizontal_fill">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/first_listview"
+            style="@style/wrap_style">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <View style="@style/vertical_line" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listview"
+            style="@style/wrap_style">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+</LinearLayout>

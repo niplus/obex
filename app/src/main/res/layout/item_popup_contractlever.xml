@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="35dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imv_gou"
+            android:layout_width="15dp"
+            android:layout_height="11dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
+            android:src="?attr/icon_contractlever_check" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_lever"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

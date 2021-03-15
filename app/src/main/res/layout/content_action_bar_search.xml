@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/bg_color"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:background="@drawable/ft_corner_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1">
+        <com.fota.android.widget.btbwidget.SearchEdittext
+            android:id="@+id/markets_search"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:textColor="?attr/font_color"
+            android:textSize="14sp"
+            tools:text="btc"
+            android:layout_marginLeft="2dp"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/search_cancel"
+        android:layout_marginLeft="@dimen/normal_dp"
+        android:layout_marginRight="@dimen/normal_dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="?attr/font_color3"
+        android:text="@string/cancel"/>
+</LinearLayout>

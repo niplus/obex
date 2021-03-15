@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_about_bg">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp">
+
+            <LinearLayout
+                android:id="@+id/ll_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_back" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/mine_about"
+                android:textColor="@color/white_color"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imv_logo"
+            android:layout_width="237dp"
+            android:layout_height="61.5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
+            android:src="@mipmap/icon_logo_login" />
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+
+</layout>

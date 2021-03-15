@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/main_content"
+        style="@style/horizontal_fill"
+        android:background="?attr/bg_color"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:scrollbars="none">
+
+        </HorizontalScrollView>
+
+        <View style="@style/horizontal_line"
+            android:background="?attr/line_color"/>
+        <!--<View style="@style/horizontal_block" />-->
+
+        <include layout="@layout/common_empty_layout" />
+
+    </LinearLayout>
+</layout>

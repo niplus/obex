@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#33000000"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/ft_corner_white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="25dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="25dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:tag="beta_title"
+            android:text="find new version"
+            android:textColor="@color/font_color_white"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:tag="beta_upgrade_info" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:tag="beta_tip_message" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:tag="beta_upgrade_feature"
+            android:text="update info"
+            android:textColor="@color/font_color2_white"
+            android:textSize="17sp" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_surecancle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/update_sure_button_bg2"
+                android:gravity="center"
+                android:maxWidth="200dp"
+                android:minWidth="100dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:tag="beta_cancel_button"
+                android:text="@string/cancel"
+                android:textColor="@color/font_color2_white"
+                android:textSize="12sp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/update_sure_button_bg"
+                android:gravity="center"
+                android:maxWidth="200dp"
+                android:minWidth="100dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:tag="beta_confirm_button"
+                android:text="@string/sure"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+

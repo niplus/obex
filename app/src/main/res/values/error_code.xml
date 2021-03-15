@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="code_101306">该币种暂不支持提币</string>
+    <string name="code_101060">该证件号已经被绑定！</string>
+    <string name="code_120032">该价格已超出最高买价: %s, 请重新输入！</string>
+    <string name="code_120033">该价格已超出最低卖价: %s, 请重新输入！</string>
+    <string name="code_120034">最小交易数量为%s，请重新输入！</string>
+    <string name="code_120035">最大交易数量为%s，请重新输入！</string>
+    <string name="code_120036">您已超出单日最大买入数量%s，请在 UTC+0 00:00 后再进行交易！</string>
+    <string name="code_120037">您已超出单日最大卖出数量%s，请在 UTC+0 00:00 后再进行交易！</string>
+</resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="?attr/bg_color"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/llLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/top_hight"
+        android:layout_alignParentLeft="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:minWidth="60dip"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/normal_dp"
+        android:paddingRight="@dimen/normal_dp">
+
+        <ImageView
+            android:id="@+id/imgLeft"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="?attr/markets_home_list" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs_markets_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:tabBackground="@android:color/transparent"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable"
+            app:tabPaddingBottom="0dp"
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingTop="0dp">
+        </android.support.design.widget.TabLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llRight"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/top_hight"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:minWidth="60dip"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/normal_dp"
+        android:paddingRight="@dimen/normal_dp">
+
+        <ImageView
+            android:id="@+id/imgRight"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/small_dp"
+            android:src="?attr/icon_search" />
+
+    </LinearLayout>
+
+</LinearLayout>

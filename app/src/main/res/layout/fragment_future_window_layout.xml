@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:background="?attr/bg_color"
+    android:orientation="vertical"
+    android:paddingRight="19dp">
+
+    <LinearLayout
+        style="@style/horizontal_fill"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingRight="10dp">
+
+        <LinearLayout
+            style="@style/horizontal_weight1"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                style="@style/wrap_style"
+                android:text="@string/future_available"
+                android:textColor="?attr/font_color4"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/available"
+                style="@style/horizontal_weight1"
+                android:layout_marginLeft="4dp"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:maxLines="1"
+                android:text="--"
+                android:textColor="?attr/font_color"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizontal_weight1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                style="@style/wrap_style"
+                android:text="@string/future_account_margin"
+                android:textColor="?attr/font_color4"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/account_margin"
+                style="@style/horizontal_weight1"
+                android:layout_marginLeft="4dp"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:maxLines="1"
+                android:text="--"
+                android:textColor="?attr/font_color"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/futures_top_info"
+        style="@style/horizontal_fill"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:paddingRight="10dp">
+
+        <LinearLayout
+            style="@style/horizontal_weight1"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                style="@style/wrap_style"
+                android:text="@string/future_effective_lever"
+                android:textColor="?attr/font_color4"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/effective_lever"
+                style="@style/horizontal_weight1"
+                android:layout_marginLeft="4dp"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:maxLines="1"
+                android:text="--"
+                android:textColor="?attr/font_color"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizontal_weight1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                style="@style/wrap_style"
+                android:text="@string/future_security_border"
+                android:textColor="?attr/font_color4"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/security_border"
+                style="@style/horizontal_weight1"
+                android:layout_marginLeft="4dp"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:maxLines="1"
+                android:text="--"
+                android:textColor="?attr/font_color"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        style="@style/horizontal_line"
+        android:layout_marginTop="5dp" />
+
+</LinearLayout>

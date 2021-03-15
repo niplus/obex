@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/horizontal_fill"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <com.fota.android.widget.myview.ViewPagerBackView
+        android:id="@+id/item_viewpager_title_tab"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:id="@+id/item_viewpager_title_title"
+        style="@style/horizontal_fill"
+        android:layout_height="25dp"
+        android:gravity="center"
+        android:text="--"
+        android:textColor="?attr/font_color"
+        android:textSize="13.44sp" />
+
+</RelativeLayout>

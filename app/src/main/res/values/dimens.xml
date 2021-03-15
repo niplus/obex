@@ -1,0 +1,100 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!--<dimen name="space_102">20.0dip</dimen>-->
+    <dimen name="space_0.5">0.5dip</dimen>
+
+    <dimen name="space_4">4dip</dimen>
+    <dimen name="space_7">7dip</dimen>
+    <dimen name="space_64">64dip</dimen>
+    <dimen name="space_10">10dip</dimen>
+    <dimen name="space_12">12dip</dimen>
+    <dimen name="space_13">13dip</dimen>
+    <dimen name="space_15">15dip</dimen>
+    <dimen name="space_16">16dip</dimen>
+    <dimen name="space_17">17dip</dimen>
+    <dimen name="space_20">20dip</dimen>
+    <dimen name="space_24">24dip</dimen>
+    <dimen name="space_25">25dip</dimen>
+    <dimen name="space_35">35dip</dimen>
+    <dimen name="space_31.5">31.5dip</dimen>
+    <dimen name="space_63">63dip</dimen>
+    <dimen name="space_200">200dip</dimen>
+    <dimen name="space_18.5">18.5dip</dimen>
+    <dimen name="space_58">58dip</dimen>
+    <dimen name="space_65">65dip</dimen>
+    <dimen name="space_44">44dip</dimen>
+    <dimen name="space_136">136dip</dimen>
+    <dimen name="space_71">71dip</dimen>
+    <dimen name="space_30">30dip</dimen>
+    <dimen name="space_40">40dip</dimen>
+    <dimen name="space_22">22dip</dimen>
+    <dimen name="space_50">50dip</dimen>
+    <dimen name="space_74">74dip</dimen>
+    <dimen name="space_60">60dip</dimen>
+
+
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="space_57">57dip</dimen>
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_11">11sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_18">18.5sp</dimen>
+    <dimen name="text_size_28">28sp</dimen>
+    <dimen name="text_size_30">30sp</dimen>
+    <dimen name="text_size_44">44sp</dimen>
+
+    <!--12特殊像素-->
+    <dimen name="small_dp0.5">4dip</dimen>
+
+    <dimen name="small_dp">8dip</dimen>
+    <!--12特殊像素-->
+    <dimen name="small_dp1.5">12dip</dimen>
+    <dimen name="normal_dp">16dip</dimen>
+    <dimen name="big_dp">24dp</dimen>
+
+
+    <dimen name="small_button_height">36dip</dimen>
+    <dimen name="normal_button_height">40dip</dimen>
+
+    <dimen name="little_size">10sp</dimen>
+    <dimen name="small_size">12sp</dimen>
+    <dimen name="normal_size">14sp</dimen>
+    <dimen name="big_size">16sp</dimen>
+    <dimen name="large_size">18sp</dimen>
+    <dimen name="huge_size">24sp</dimen>
+
+    //大标题
+    <dimen name="big_title_size">24sp</dimen>
+    //小标题/标注
+    <dimen name="little_title_size">12sp</dimen>
+
+    <dimen name="top_hight">48dip</dimen>
+
+    <dimen name="me_item_height">46dp</dimen>
+    //二标题
+    <dimen name="second_tile_size">14sp</dimen>
+    //输入提示
+    <dimen name="input_title_size">14sp</dimen>
+    //安全中心item height
+    <dimen name="security_center_item_height">52dp</dimen>
+    //layout_maigin top
+    <dimen name="layout_margin_top">32dp</dimen>
+
+
+    <dimen name="tab_layout_height">40dip</dimen>
+    <dimen name="tab_layout_left_padding">4.5dip</dimen>
+
+    <dimen name="font_line_height">7dip</dimen>
+    <dimen name="login_item_height">54dp</dimen>
+    <dimen name="btb_edit_text_margin_right">20dp</dimen>
+
+    <dimen name="corner_width">6dip</dimen>
+
+    //输入框高度
+    <dimen name="edt_parent">65dip</dimen>
+    <dimen name="edt_child">30dip</dimen>
+
+</resources>

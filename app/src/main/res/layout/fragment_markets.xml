@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/content_layout"
+        android:background="?attr/bg_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                <!--trade viewpager banner-->
+                <!--android:background="?attr/bg_color"-->
+                <LinearLayout
+                    android:id="@+id/id_topview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/bg_color"
+                    android:paddingBottom="8dp"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.5" >
+                    <RelativeLayout
+                        android:id="@+id/banner_ll"
+                        android:visibility="visible"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/banner_imagebg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:scaleType="fitXY"
+                            android:src="?attr/banner_bg" />
+
+                        <com.zhouwei.mzbanner.MZBannerView
+                            android:id="@+id/mzbanner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:canLoop="true"
+                            app:indicatorAlign="right"
+                            app:indicatorPaddingBottom="7dp"
+                            app:indicatorPaddingRight="12dp"
+                            app:middle_page_cover="true"
+                            app:open_mz_mode="true" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_head"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:onClick="@{view.onClick}"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:id="@+id/imv_notice"
+                                android:layout_width="10dp"
+                                android:layout_height="11dp"
+                                android:src="@mipmap/icon_notice_market" />
+
+                            <com.fota.android.widget.TextSwitcherView
+                                android:id="@+id/tv_activity_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="1dp"
+                                android:layout_marginLeft="@dimen/small_dp0.5"
+                                android:textColor="?attr/font_color"
+                                android:textSize="@dimen/small_size" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:background="?attr/reverse_bg"/>
+                </LinearLayout>
+
+                <!--android:layout_height="?android:attr/actionBarSize"-->
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_fota_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/transparent"
+                    app:layout_collapseMode="pin">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/markets_fota_logo" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+            <!-- 分割线 -->
+            <LinearLayout
+                android:id="@+id/id_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="?attr/bg_color"
+                    android:orientation="horizontal"
+                    >
+                    <com.fota.android.widget.btbwidget.FotaMarketTabLayout
+                        android:id="@+id/tab_coin_title"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/bg_color"
+                        android:layout_height="40dp">
+
+                    </com.fota.android.widget.btbwidget.FotaMarketTabLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_change"
+                        android:layout_width="36dp"
+                        android:layout_gravity="center"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="16dp"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/img_change"
+                            android:layout_width="16dp"
+                            android:layout_gravity="center"
+                            android:layout_height="16dp"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:src="?attr/markets_home_list" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View style="@style/horizontal_line"
+                    android:background="?attr/divider_line_color"/>
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="?attr/bg_color"-->
+            <!--android:orientation="vertical">-->
+
+        <!--<include-->
+            <!--android:id="@+id/markets_bar"-->
+            <!--layout="@layout/content_market_title_header" />-->
+
+        <!--<View style="@style/horizontal_line"-->
+            <!--android:background="?attr/divider_line_color"/>-->
+
+        <!--android:background="?attr/market_bg"-->
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/all_viewPager"
+            android:background="?attr/reverse_bg"
+            android:paddingBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <!--</LinearLayout>-->
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

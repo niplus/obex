@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--&lt;!&ndash;基本基本色&ndash;&gt;-->
+    <!--&lt;!&ndash;深背景色&ndash;&gt;-->
+    <!--<color name="bg_color">?attr/bg_color</color>-->
+    <!--&lt;!&ndash;浅背景色&ndash;&gt;-->
+    <!--<color name="bg_color2">#FF20222D</color>-->
+    <!--&lt;!&ndash;前景色&ndash;&gt;-->
+    <!--<color name="fore_color">#FFFFFF</color>-->
+    <!--&lt;!&ndash;字体主色 深字体色&ndash;&gt;-->
+    <!--<color name="font_color">?attr/font_color</color>-->
+    <!--&lt;!&ndash;字体辅助色 浅字体色&ndash;&gt;-->
+    <!--<color name="font_gray">?attr/font_gray</color>-->
+    <!--&lt;!&ndash;不可用色 一般也表示没选中的颜色&ndash;&gt;-->
+    <!--<color name="unable">#FF464A55</color>-->
+    <!--&lt;!&ndash;线的颜色&ndash;&gt;-->
+    <!--<color name="line_color">?attr/line_color</color>-->
+
+    <!--不透明	100%	FF-->
+    <!--95%	F2-->
+    <!--90%	E6-->
+    <!--85%	D9-->
+    <!--80%	CC-->
+    <!--75%	BF-->
+    <!--70%	B3-->
+    <!--65%	A6-->
+    <!--60%	99-->
+    <!--55%	8C-->
+    <!--半透明	50%	80-->
+    <!--45%	73-->
+    <!--40%	66-->
+    <!--35%	59-->
+    <!--30%	4D-->
+    <!--25%	40-->
+    <!--20%	33-->
+    <!--15%	26-->
+    <!--10%	1A-->
+    <!--5%	0D-->
+    <!--全透明	0%	00-->
+
+    <color name="main_buy_color">#FF33C891</color>
+
+</resources>

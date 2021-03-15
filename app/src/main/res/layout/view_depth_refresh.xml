@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/bg_color"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/wrap_style"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:text="@string/common_price"
+            android:textColor="?attr/font_color4"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_digital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/small_dp"
+            android:paddingRight="@dimen/small_dp"
+            android:textAlignment="center"
+            android:textColor="?attr/font_color4"
+            android:textSize="12sp"
+            tools:text="15min" />
+
+        <!--<LinearLayout-->
+        <!--style="@style/wrap_style"-->
+        <!--android:background="@drawable/ft2_round_font_gray"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="2dp">-->
+
+
+        <!--<TextView-->
+        <!--android:id="@+id/digit2"-->
+        <!--android:layout_width="26dp"-->
+        <!--android:layout_height="14dp"-->
+        <!--android:background="@drawable/ft_left_round"-->
+        <!--android:gravity="center"-->
+        <!--android:text="2"-->
+        <!--android:textColor="?attr/font_color"-->
+        <!--android:textSize="10sp" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/digit3"-->
+        <!--android:layout_width="26dp"-->
+        <!--android:layout_height="14dp"-->
+        <!--android:background="@drawable/ft_right_round"-->
+        <!--android:gravity="center"-->
+        <!--android:text="3"-->
+        <!--android:textColor="?attr/font_gray"-->
+        <!--android:textSize="10sp" />-->
+
+        <!--</LinearLayout>-->
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/txt_unit"
+            style="@style/wrap_style"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:text="@string/market_amount_unit1"
+            android:textColor="?attr/font_color4"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <com.fota.android.widget.DepthFixNumberLinearView
+        android:id="@+id/depth_top_five"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/ll_ticker"
+        style="@style/horizontal_fill"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/ft_left_corner_ticker"
+        android:gravity="center"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_ticker_price"
+                style="@style/wrap_style"
+                android:layout_marginLeft="4dp"
+                android:text="-- --"
+                android:textColor="#FF4DB871"
+                android:textSize="14sp" />
+
+            <com.fota.android.commonlib.view.DownTrigonView
+                android:id="@+id/img_up_down"
+                android:layout_width="8dp"
+                android:layout_height="6dp"
+                android:layout_marginLeft="@dimen/small_dp0.5"
+                android:textSize="10sp"
+                app:view_color="?attr/font_color4" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_ticker_trend"
+            style="@style/wrap_style"
+            android:layout_marginLeft="5dp"
+            android:singleLine="true"
+            android:text="- -"
+            android:textColor="#FF4DB871"
+            android:textSize="10sp"
+            android:visibility="gone"
+            tools:text="+1.47%" />
+
+    </LinearLayout>
+
+    <com.fota.android.widget.DepthFixNumberLinearView
+        android:id="@+id/depth_bottom_five"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+</LinearLayout>

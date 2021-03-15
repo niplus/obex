@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color2"
+        android:fillViewport="true">
+
+
+        <RelativeLayout style="@style/all_fill">
+
+
+            <ImageView
+                android:id="@+id/imv_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-60dp"
+                android:layout_marginRight="-60dp"
+                android:src="@mipmap/option_welcome_white" />
+
+            <include layout="@layout/title_include" />
+
+
+            <LinearLayout
+                style="@style/horizontal_fill"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    style="@style/horizontal_fill"
+                    android:layout_weight="12">
+
+
+                    <ImageView
+                        android:id="@+id/option_iv_1"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black1"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/option_iv_2"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1.6dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black2"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/option_iv_3"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black3"
+                        android:visibility="gone" />
+
+
+                    <ImageView
+                        android:id="@+id/option_iv_4"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black4"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/option_iv_5"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black5"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/option_iv_6"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1.5dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black6"
+                        android:visibility="gone" />
+
+
+                    <ImageView
+                        android:id="@+id/option_iv_7"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black7"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/option_iv_8"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black8"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/option_iv_9"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black9"
+                        android:visibility="gone" />
+
+
+                    <ImageView
+                        android:id="@+id/option_iv_10"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1.3dp"
+                        android:paddingRight="-2.6dp"
+                        android:src="@mipmap/column_black10"
+
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/option_iv_11"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1.3dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black11"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/option_iv_12"
+                        style="@style/horizontal_weight1"
+                        android:layout_marginTop="267dp"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="-1dp"
+                        android:paddingRight="-2dp"
+                        android:src="@mipmap/column_black12"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                style="@style/horizontal_fill"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="50dp"
+                app:lottie_autoPlay="true"
+                app:lottie_imageAssetsFolder="null"
+                app:lottie_loop="false" />
+
+
+            <LinearLayout
+                android:id="@+id/bottom_ll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="267dp"
+                android:orientation="vertical"
+                android:paddingLeft="19.2dp"
+                android:paddingTop="25dp"
+                android:paddingRight="19.2dp"
+                android:visibility="gone">
+
+                <LinearLayout style="@style/horizontal_fill">
+
+                    <RelativeLayout
+                        style="@style/wrap_style"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/ll_line1"
+                            style="@style/wrap_style"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <RelativeLayout
+                                android:layout_width="13.4dp"
+                                android:layout_height="13.4dp">
+
+                                <View
+                                    android:id="@+id/out_circle"
+                                    android:layout_width="13.4dp"
+                                    android:layout_height="13.4dp" />
+
+                                <View
+                                    android:id="@+id/in_circle"
+                                    android:layout_width="6.7dp"
+                                    android:layout_height="6.7dp"
+                                    android:layout_centerInParent="true" />
+
+                            </RelativeLayout>
+
+                            <com.fota.android.widget.myview.DashLineView
+                                android:id="@+id/dash_line"
+                                android:layout_width="1dp"
+                                android:layout_height="61.4dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_line2"
+                            style="@style/wrap_style"
+                            android:layout_marginTop="74.8dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <RelativeLayout
+                                android:layout_width="13.4dp"
+                                android:layout_height="13.4dp">
+
+                                <View
+                                    android:id="@+id/out_circle2"
+                                    android:layout_width="13.4dp"
+                                    android:layout_height="13.4dp" />
+
+                                <View
+                                    android:id="@+id/in_circle2"
+                                    android:layout_width="6.7dp"
+                                    android:layout_height="6.7dp"
+                                    android:layout_centerInParent="true" />
+
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="100.2dp">
+
+                                <com.fota.android.widget.myview.DashLineView
+                                    android:id="@+id/dash_line2"
+                                    android:layout_width="1dp"
+                                    android:layout_height="100.2dp" />
+
+                                <View
+                                    android:id="@+id/view_linebg"
+                                    android:layout_width="1dp"
+                                    android:layout_height="50dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="@drawable/bg_optionwel_line" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/horizontal_fill"
+                        android:layout_marginLeft="10dp">
+
+                        <LinearLayout
+                            android:id="@+id/ll_txt1"
+                            android:layout_width="match_parent"
+                            android:layout_height="73dp"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/optionwelcome_msg1"
+                                android:textColor="?attr/font_color"
+                                android:textSize="14.4sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:layout_marginRight="10dp"
+                                    android:background="?attr/line_color" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <me.codeboy.android.aligntextview.CBAlignTextView
+                            android:id="@+id/tv_txt2"
+                            android:layout_width="match_parent"
+                            android:layout_height="121.6dp"
+                            android:layout_marginTop="103dp"
+                            android:alpha="0"
+                            android:text="@string/optionwelcome_msg2"
+                            android:textColor="?attr/font_color"
+                            android:textSize="14.4sp"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <com.fota.android.widget.btbwidget.FotaButton
+                    android:id="@+id/bt_sure"
+                    style="@style/horizontal_fill"
+                    android:layout_height="@dimen/normal_button_height"
+                    android:layout_margin="10dp"
+                    android:alpha="0"
+                    android:onClick="@{view.onClick}"
+                    android:scaleX="0"
+                    android:scaleY="0"
+                    android:text="@string/optionwelcome_entermsg"
+                    android:textColor="?attr/bg_color" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+</layout>

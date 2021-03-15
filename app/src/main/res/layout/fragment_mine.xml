@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/reverse_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_parent_head"
+            android:layout_width="match_parent"
+            android:layout_height="139dp"
+            android:background="?attr/bg_color2"
+            android:paddingLeft="12dp">
+
+
+            <LinearLayout
+                android:id="@+id/ll_login_click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="39dp"
+                    android:layout_height="39dp"
+                    android:src="?attr/mine_fota_logo" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mine_welcome"
+                        android:textColor="#C1C1C1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mine_login"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/ll_login_click"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/ll_login_click"
+                android:background="@drawable/ft_round_id"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="7dp"
+                android:paddingTop="2dp">
+
+                <ImageView
+                    android:id="@+id/imv_id"
+                    android:layout_width="11.5dp"
+                    android:layout_height="11.5dp" />
+
+                <TextView
+                    android:id="@+id/tv_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="33dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imv_notice"
+                    android:layout_width="25dp"
+                    android:layout_height="28dp"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    android:src="@mipmap/mine_notice_none"
+                    android:focusable="true" />
+
+                <ImageView
+                    android:id="@+id/imv_setting"
+                    android:layout_width="27dp"
+                    android:layout_height="26dp"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    android:src="@mipmap/icon_setting"
+                    android:focusable="true" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="179dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="-30dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0.3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/reverse_bg2"
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_val_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/mine_total"
+                        android:textColor="?attr/font_color5"
+                        android:textSize="12sp" />
+
+                    <CheckBox
+                        android:id="@+id/imv_eye"
+                        style="@style/eyecheckbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="19dp"
+                        android:layout_alignBaseline="@id/tv_val_title"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6dp"
+                        android:layout_toRightOf="@+id/tv_val_title"
+                        android:background="@android:color/transparent"
+                        android:checked="true"
+                        android:gravity="center_vertical" />
+
+                    <TextView
+                        android:id="@+id/tv_assetsmanager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@mipmap/icon_zichan"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="?attr/icon_right"
+                        android:text="@string/mine_assetmanage"
+                        android:textColor="?attr/font_color4"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <LinearLayout
+                        android:id="@+id/ll_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/tv_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="@string/mine_hengxian"
+                            android:textColor="?attr/font_color"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tv_totalval"
+                            style="@style/wrap_style"
+                            android:layout_marginLeft="1dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textColor="?attr/font_color3"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="86dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/ll_wallet"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@mipmap/bg_wallet"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="11dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="12dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/icon_wallet" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="30dp"
+                                android:text="@string/mine_wallet"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/mine_totalbtc"
+                            android:textColor="#80FFFFFF"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/tv_wallet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="3dp"
+                            android:singleLine="true"
+                            android:text="@string/mine_hengxian"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_bzjaccount"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:background="@mipmap/bg_bzj"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="11dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="12.5dp"
+                                android:layout_height="13.5dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/icon_bzj" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="30dp"
+                                android:text="@string/mine_heyueusdt"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/mine_totalbtc"
+                            android:textColor="#80FFFFFF"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/tv_heyueusdt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="3dp"
+                            android:singleLine="true"
+                            android:text="@string/mine_hengxian"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/ll_tradehistory"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="?attr/bg_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <ImageView
+                android:layout_width="15.5dp"
+                android:layout_height="15.5dp"
+                android:src="?attr/tradehis" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:drawableRight="?attr/icon_right"
+                android:gravity="center_vertical"
+                android:text="@string/mine_trade_history"
+                android:textColor="?attr/font_color"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_commission"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/bg_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <ImageView
+                android:layout_width="15.5dp"
+                android:layout_height="16.5dp"
+                android:src="?attr/commission" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:drawableRight="?attr/icon_right"
+                android:gravity="center_vertical"
+                android:text="@string/commission_page_title"
+                android:textColor="?attr/font_color"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_activite"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/bg_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <ImageView
+                android:layout_width="15.5dp"
+                android:layout_height="15.5dp"
+                android:src="?attr/activitycenter" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:drawableRight="?attr/icon_right"
+                android:gravity="center_vertical"
+                android:text="@string/mine_activitys_title"
+                android:textColor="?attr/font_color"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_helpcenter"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/bg_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <ImageView
+                android:layout_width="15.5dp"
+                android:layout_height="15.5dp"
+                android:src="?attr/helpcenter" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:drawableRight="?attr/icon_right"
+                android:gravity="center_vertical"
+                android:text="@string/mine_help"
+                android:textColor="?attr/font_color"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_kefu"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/bg_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <ImageView
+                android:layout_width="15.5dp"
+                android:layout_height="15.5dp"
+                android:src="?attr/kefu" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:drawableRight="?attr/icon_right"
+                android:gravity="center_vertical"
+                android:text="@string/help_kefu"
+                android:textColor="?attr/font_color"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

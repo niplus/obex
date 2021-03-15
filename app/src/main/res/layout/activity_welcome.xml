@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#181A22"
+    android:clipChildren="false">
+
+    <View
+        android:id="@+id/view_bg"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginLeft="-50dp"
+        android:layout_marginRight="-100dp"
+        android:layout_marginTop="40dp"
+        android:background="@mipmap/welcome_bg" />
+
+    <LinearLayout
+        android:id="@+id/ll_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="130dp"
+        android:layout_marginLeft="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_msg1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_page1_title"
+            android:textColor="#FFA4ACBD"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_msg2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/welcome_page1_msg"
+            android:textColor="#FF606572"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <com.fota.android.widget.myview.CustomPageIndicator
+        android:id="@+id/pagerIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"></com.fota.android.widget.myview.CustomPageIndicator>
+
+    <LinearLayout
+        android:id="@+id/ll_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+
+        <com.fota.android.widget.myview.BounceBackViewPager
+            android:id="@+id/vp_guide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:clipChildren="false" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_enter"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/next_main"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/common_enterapp"
+        android:textColor="#00ffffff"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>

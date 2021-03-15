@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_include" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/bg_color"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+
+            <TextView
+                android:id="@+id/assetName"
+                style="@style/horizontal_fill"
+                android:text="BTC"
+                android:textColor="#FF6694EE"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout style="@style/horizontal_fill">
+
+                <LinearLayout
+                    style="@style/horizontal_weight1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/wrap_style"
+                        android:text="@string/common_usable"
+                        android:textColor="?attr/font_color3"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/amount"
+                        style="@style/horizontal_fill"
+                        android:text="0 BTC"
+                        android:textColor="?attr/font_color"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/horizontal_weight1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/wrap_style"
+                        android:text="@string/common_freeze"
+                        android:textColor="?attr/font_color3"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/locked_amount"
+                        style="@style/horizontal_fill"
+                        android:text="0 BTC"
+                        android:textColor="?attr/font_color"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/valuation_locked_account_layout"
+                style="@style/horizontal_fill">
+
+                <LinearLayout
+                    android:id="@+id/locked_account_amount_layout"
+                    style="@style/horizontal_weight1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/wrap_style"
+                        android:text="@string/wallet_lock_repertory"
+                        android:textColor="?attr/font_color3"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/locked_account_amount"
+                        style="@style/horizontal_fill"
+                        android:text="0 BTC"
+                        android:textColor="?attr/font_color"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/horizontal_weight1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/valuation_tip"
+                        style="@style/wrap_style"
+                        android:text="@string/common_valuation"
+                        android:textColor="?attr/font_color3"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/valuation"
+                        style="@style/horizontal_fill"
+                        android:text="0 BTC"
+                        android:textColor="?attr/font_color"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/vertical_weight1" />
+
+            <LinearLayout
+                android:id="@+id/other_button_layout"
+                style="@style/horizontal_fill">
+
+                <com.fota.android.widget.btbwidget.FotaButton
+                    android:id="@+id/withdraw_button"
+                    style="@style/horizontal_weight1"
+                    android:layout_height="@dimen/normal_button_height"
+                    android:onClick="@{view.onClick}"
+                    android:text="@string/wallet_withdraw_money"
+                    android:textColor="?attr/font_color3"
+                    android:textSize="15sp" />
+
+                <com.fota.android.widget.btbwidget.FotaButton
+                    android:id="@+id/recharge_button"
+                    style="@style/horizontal_weight1"
+                    android:layout_height="@dimen/normal_button_height"
+                    android:layout_marginLeft="23dp"
+                    android:onClick="@{view.onClick}"
+                    android:text="@string/wallet_recharge_money"
+                    android:textColor="#FFE1E5ED"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

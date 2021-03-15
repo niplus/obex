@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        style="@style/all_fill"
+        android:background="?attr/bg_color2"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:focusable="true">
+
+        <com.fota.android.widget.TitleLayout
+            android:id="@+id/app_title_layout"
+            style="@style/horizontal_fill" />
+
+        <include
+            android:id="@+id/recycler_head"
+            layout="@layout/recyclerview_include" />
+
+        <com.fota.android.widget.btbwidget.FotaButton
+            android:id="@+id/bt_sure"
+            style="@style/horizontal_fill"
+            android:layout_height="@dimen/normal_button_height"
+            android:layout_margin="@dimen/normal_dp"
+            android:background="@drawable/ft_round_use_able"
+            android:onClick="@{view.onClick}"
+            android:text="@string/sure"
+            android:textColor="?attr/bg_color" />
+
+    </LinearLayout>
+
+</layout>

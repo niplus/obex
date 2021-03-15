@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color">
+
+        <include layout="@layout/title_include" />
+
+        <LinearLayout
+            android:id="@+id/ll_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="38dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginRight="38dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edt_child"
+                    android:layout_alignParentBottom="true">
+
+                    <com.fota.android.widget.btbwidget.ClearEdittext
+                        android:id="@+id/edt_pasword_old"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:hint="@string/safe_capitalreset_hint1"
+                        android:inputType="textPassword"
+                        android:maxLength="32"
+                        android:textColor="?attr/font_color"
+                        android:textColorHint="?attr/font_color3"
+                        android:textSize="15sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_eye_psw_old"
+                        style="@style/eyecheckbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:checked="false"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view_oldpsw"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/line_color" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edt_child"
+                    android:layout_alignParentBottom="true">
+
+                    <com.fota.android.widget.btbwidget.ClearEdittext
+                        android:id="@+id/edt_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:hint="@string/safe_capitalreset_hint2"
+                        android:inputType="textPassword"
+                        android:maxLength="32"
+                        android:textColor="?attr/font_color"
+                        android:textColorHint="?attr/font_color3"
+                        android:textSize="15sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_eye_psw"
+                        style="@style/eyecheckbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:checked="false"
+                        android:gravity="center_vertical"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_pass_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFE04D4D"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view_newpsw"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/line_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edt_child"
+                    android:layout_alignParentBottom="true">
+
+                    <com.fota.android.widget.btbwidget.ClearEdittext
+                        android:id="@+id/edt_repassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:hint="@string/resetpsw_renewpsw_hint"
+                        android:inputType="textPassword"
+                        android:maxLength="32"
+                        android:textColor="?attr/font_color"
+                        android:textColorHint="?attr/font_color3"
+                        android:textSize="15sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_eye_psw2"
+                        style="@style/eyecheckbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:checked="false"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view_newpsw2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/line_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edt_child"
+                    android:layout_alignParentBottom="true">
+
+                    <com.fota.android.widget.btbwidget.ClearEdittext
+                        android:id="@+id/edt_google"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:digits="0123456789"
+                        android:hint="@string/safe_bindgoogle_hint"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:singleLine="true"
+                        android:textColor="?attr/font_color"
+                        android:textColorHint="?attr/font_color3"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view_code"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/line_color" />
+
+
+            <com.fota.android.widget.btbwidget.FotaButton
+                android:id="@+id/btn_sure"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/ll_edt"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/selector_login_btn_ft"
+                android:clickable="true"
+                android:enabled="true"
+                android:text="@string/sure"
+                android:textSize="15sp"
+                android:focusable="true" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_suc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="150dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="49dp"
+                    android:layout_height="49dp"
+                    android:src="@mipmap/icon_check_suc" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/safe_capitalforget_suc"
+                    android:textColor="?attr/font_color2"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

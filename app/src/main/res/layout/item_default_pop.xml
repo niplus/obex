@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/wrap_style"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_default_pop_tv"
+        style="@style/wrap_style"
+        android:layout_width="90dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/ft2_corner_select"
+        android:paddingBottom="3.1dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="3.1dp"
+        android:text="ETH/USDT"
+        android:textColor="#FF464A55"
+        android:textSize="11.52sp" />
+
+</LinearLayout>
+

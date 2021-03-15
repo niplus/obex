@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/bg_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="@string/market_last_price"
+            android:textColor="?attr/font_color2"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="(USDT)"
+            android:textColor="?attr/font_color2"
+            android:textSize="10sp" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/txt_click_for_more"
+            style="@style/horizontal_weight_fill"
+            android:gravity="right"
+            android:text="@string/market_click_more"
+            android:drawableRight="@mipmap/icon_right_blue"
+            android:textColor="?attr/main_color"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_index"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_index"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_ave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="14sp"
+            android:textColor="?attr/font_color"
+            tools:text="15min"
+            android:layout_width="wrap_content"
+            android:text="@string/market_ave_price"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="10sp"
+            android:textColor="?attr/font_color2"
+            tools:text="15min"
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:text="(USDT)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_ave_price"
+            android:textSize="14sp"
+            android:textColor="?attr/font_color"
+            tools:text="15min"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="14sp"
+            android:textColor="?attr/font_color"
+            tools:text="15min"
+            android:layout_width="wrap_content"
+            android:text="@string/market_rate_usdt_usd"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="10sp"
+            android:textColor="?attr/font_color2"
+            tools:text="15min"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="(USDT/USD)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_exchange_rate"
+            android:textSize="14sp"
+            android:textColor="?attr/font_color"
+            tools:text="15min"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        style="@style/horizontal_line"
+        android:background="?attr/line_color"/>
+
+    <LinearLayout
+        android:id="@+id/ll_spot_index"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="15sp"
+            android:textColor="?attr/font_color"
+            tools:text="15min"
+            android:layout_width="wrap_content"
+            android:text="@string/market_spot_index"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="10sp"
+            android:textColor="?attr/font_color2"
+            tools:text="15min"
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:text="(USD)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_spot_index"
+            android:textSize="16sp"
+            android:textColor="?attr/font_color"
+            android:textStyle="bold"
+            tools:text="15min"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

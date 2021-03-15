@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/doing_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/bg_color"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/small_dp0.5"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/doing_item_iv"
+                android:layout_width="match_parent"
+                android:layout_height="161dp"
+                android:scaleType="fitXY"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/doing_item_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="?attr/font_color"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="@dimen/large_size"
+                    android:textStyle="bold"/>
+
+                <!--<TextView
+                    android:id="@+id/doing_item_content_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/doing_item_title_tv"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/little_title_color"
+                    android:textSize="12sp"/>-->
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

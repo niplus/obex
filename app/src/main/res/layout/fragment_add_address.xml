@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+
+    <LinearLayout
+        style="@style/all_fill"
+        android:background="?attr/bg_color"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <com.fota.android.widget.TitleLayout
+            android:id="@+id/app_title_layout"
+            style="@style/horizontal_fill" />
+
+        <LinearLayout
+            style="@style/vertical_weight1"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/normal_dp"
+            android:paddingTop="@dimen/normal_dp">
+
+
+            <LinearLayout
+                style="@style/horizontal_fill"
+                android:layout_marginTop="@dimen/normal_dp">
+
+                <ImageView
+                    android:id="@+id/address_icon"
+                    android:layout_width="17dp"
+                    android:layout_height="23dp"
+                    android:src="@mipmap/address_white" />
+
+                <com.fota.android.widget.btbwidget.ClearEdittext
+                    android:id="@+id/et_address_text"
+                    style="@style/horizontal_weight1"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="@dimen/btb_edit_text_margin_right"
+                    android:background="@null"
+                    android:hint="@string/please_input_address"
+                    android:singleLine="true"
+                    android:textColor="?attr/font_color"
+                    android:textSize="@dimen/normal_size" />
+
+                <ImageView
+                    android:id="@+id/scan"
+                    android:layout_width="22dip"
+                    android:layout_height="22dip"
+                    android:layout_marginLeft="10dp"
+                    android:onClick="@{view.onClick}"
+                    android:src="@mipmap/scan" />
+
+            </LinearLayout>
+
+
+            <View
+                style="@style/horizontal_line"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                style="@style/wrap_style"
+                android:gravity="center"
+                android:textColor="?attr/font_color"
+                android:textSize="@dimen/small_size"
+                android:visibility="gone" />
+
+            <com.fota.android.widget.btbwidget.ClearEdittext
+                android:id="@+id/et_address_remark_name"
+                style="@style/horizontal_fill"
+                android:layout_height="100dp"
+                android:layout_marginRight="@dimen/btb_edit_text_margin_right"
+                android:layout_marginTop="30dp"
+                android:gravity="top"
+                android:hint="@string/please_input_remark_name"
+                android:singleLine="true"
+                android:textColor="?attr/font_color"
+                android:textSize="@dimen/normal_size" />
+
+            <!--<View-->
+            <!--style="@style/horizontal_line"-->
+            <!--android:layout_marginTop="10dp" />-->
+
+
+        </LinearLayout>
+
+        <com.fota.android.widget.btbwidget.FotaButton
+            android:id="@+id/bt_sure"
+            style="@style/horizontal_fill"
+            android:layout_height="@dimen/normal_button_height"
+            android:layout_margin="@dimen/normal_dp"
+            android:background="@drawable/bg_button_unable"
+            android:onClick="@{view.onClick}"
+            android:text="@string/sure"
+            android:textColor="?attr/bg_color" />
+
+    </LinearLayout>
+
+
+</layout>

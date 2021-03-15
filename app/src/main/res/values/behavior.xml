@@ -1,0 +1,4 @@
+<resources>
+    <string name="behavior_excharge">com.fota.android.widget.behavior.ExchangeBehavior</string>
+    <string name="behavior_excharge2">com.fota.android.widget.behavior.ExchangeBehavior2</string>
+</resources>

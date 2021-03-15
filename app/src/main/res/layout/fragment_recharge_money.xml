@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+
+    <LinearLayout
+        style="@style/all_fill"
+        android:background="?attr/bg_color"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_include" />
+
+        <ScrollView style="@style/vertical_weight1">
+
+            <LinearLayout
+                style="@style/vertical_weight1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/horizontal_fill"
+                    android:layout_marginTop="13dp"
+                    android:background="?attr/reverse_bg"
+                    android:padding="10dp"
+                    android:text="@string/select_recharge_asset"
+                    android:textColor="?attr/font_color3"
+                    android:textSize="13sp" />
+
+                <FrameLayout
+                    style="@style/horizontal_fill"
+                    android:background="?attr/reverse_bg"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/select_asset"
+                        style="@style/horizontal_fill"
+                        android:background="?attr/reverse_bg2"
+                        android:gravity="center_vertical"
+                        android:onClick="@{view.onClick}"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/asset_icon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                        <TextView
+                            android:id="@+id/asset_name"
+                            style="@style/horizontal_weight1"
+                            android:layout_marginLeft="7dp"
+                            android:textColor="?attr/font_color"
+                            android:textSize="15sp"
+                            tools:text=" BTC" />
+
+                        <com.fota.android.commonlib.view.DownTrigonView
+                            android:id="@+id/futures_change_currency_arrow"
+                            android:layout_width="10.4dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="4dp"
+                            app:view_close="false"
+                            app:view_color="?attr/font_color3" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <TextView
+                    style="@style/horizontal_fill"
+                    android:background="?attr/reverse_bg"
+                    android:padding="10dp"
+                    android:text="@string/rechange_address"
+                    android:textColor="?attr/font_color3"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    style="@style/horizontal_fill"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="170dp"
+                        android:layout_height="170dp"
+                        android:layout_marginTop="13dp"
+                        android:background="@color/white"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/iv_qrcode"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/recharge_without_memo_layout"
+                        style="@style/horizontal_fill"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_qrcode"
+                            style="@style/horizontal_fill"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginTop="@dimen/normal_dp"
+                            android:gravity="center"
+                            android:textColor="?attr/font_color"
+                            android:textSize="17sp"
+                            tools:text="2MwC2KC8NFGAijWbnGxFGAijWbnGxdKC8NFGAijWbnGxdsMDZyeRMop2Cn7E" />
+
+                        <com.fota.android.widget.btbwidget.FotaButton
+                            android:id="@+id/tv_copy"
+                            style="@style/wrap_style"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp"
+                            android:onClick="@{view.onClick}"
+                            android:text="@string/wallet_withdraw_copy_address"
+                            android:textColor="?attr/bg_color" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/horizontal_fill"
+                    android:layout_margin="10dp"
+                    android:background="?attr/bg_color2"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/wrap_style"
+                        android:text="Tips："
+                        android:textColor="?attr/font_color3"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tip"
+                        style="@style/horizontal_fill"
+                        android:layout_marginTop="5dp"
+                        android:textColor="?attr/font_color3"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

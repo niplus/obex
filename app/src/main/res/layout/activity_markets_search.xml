@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <FrameLayout style="@style/all_fill">
+
+        <LinearLayout
+            style="@style/all_fill"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/content_action_bar_search"
+                android:id="@+id/bar_markets_search"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?attr/bg_color" />
+
+            <View style="@style/horizontal_line"
+                android:background="?attr/divider_line_color"/>
+
+            <LinearLayout
+                style="@style/vertical_weight1"
+                android:background="?attr/search_bg_color"
+                android:orientation="vertical">
+
+                <com.fota.android.widget.btbwidget.FotaRecyclerView
+                    android:id="@+id/search_recycler_view"
+                    style="@style/all_fill"
+                    android:background="?attr/search_bg_color"/>
+            </LinearLayout>
+            <!--<View style="@style/horizontal_line" />-->
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

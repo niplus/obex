@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_color_red">#ffE15A55</color>
+    <color name="main_color_green">#ff31AC5D</color>
+
+
+    <!--图表-->
+    <color name="marker_color">#A5AFBD</color>
+    <color name="marker_text_color">#ffffff</color>
+    <color name="chart_grid_color">#333333</color>
+
+    <color name="ma5">#823E66</color>
+    <color name="ma10">#B99C7A</color>
+    <color name="ma20">#3C7193</color>
+    <color name="ma30">#7F9976</color>
+
+    <color name="dif">@color/ma5</color>
+    <color name="dea">@color/ma10</color>
+
+    <color name="k">@color/ma5</color>
+    <color name="d">@color/ma10</color>
+    <color name="j">@color/ma20</color>
+
+    <color name="red_color">@color/main_color_red</color>
+    <color name="green_color">@color/main_color_green</color>
+    <color name="red_color_tran">#4DE15A55</color>
+    <color name="green_color_trans">#4D4DB871</color>
+
+    <color name="chart_info_color">#88000000</color>
+    <color name="chart_no_data_color">#A5AFBD</color>
+    <!--<color name="highlight_color">#be945c</color>-->
+
+    <color name="broker">#212837</color>
+
+    <color name="welcome">#1b1b33</color>
+    <color name="white">#ffffff</color>
+    <color name="white_color">#ffffff</color>
+    <color name="shadow_color">#33dedede</color>
+
+    <!--fota-->
+    <color name="color_little_page_index">#4D2485E7</color>
+    <color name="color_little_page">#4D4DB871</color>
+    <color name="color_text_page_x">#464A55</color>
+
+    <color name="spot_marker_color">#FF2485E7</color>
+    <color name="spot_marker_text_color">#2485E7</color>
+    <color name="future_marker_color">#4DB871</color>
+    <color name="future_marker_text_color">#4DB871</color>
+
+    <color name="color_imbed_usdt">#0d4db871</color>
+    <color name="color_imbed_spot">#0d2485E7</color>
+    <color name="color_imbed_future">#0d4db871</color>
+
+</resources>

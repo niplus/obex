@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="progress_fota" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
+        <item name="android:progressDrawable">@drawable/progress</item>
+    </style>
+
+    <declare-styleable name="bubble">
+        <attr name="shadowColor" format="color" />
+        <attr name="padding" format="dimension" />
+        <attr name="customStrokeWidth" format="float" />
+        <attr name="customCornerRadius" format="float" />
+        <attr name="halfBaseOfLeg" format="dimension" />
+    </declare-styleable>
+</resources>

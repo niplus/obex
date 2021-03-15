@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/vertical_weight1">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        style="@style/all_fill"
+        app:srlAccentColor="?attr/font_color"
+        app:srlPrimaryColor="?attr/bg_color">
+
+        <com.fota.android.widget.btbwidget.FotaRecyclerView
+            android:id="@+id/btb_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</FrameLayout>
+

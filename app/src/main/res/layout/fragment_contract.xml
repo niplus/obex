@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+
+    <LinearLayout
+        style="@style/all_fill"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_include" />
+
+        <ScrollView style="@style/all_fill">
+
+            <LinearLayout
+                style="@style/vertical_weight1"
+                android:background="?attr/bg_color"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="86dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@mipmap/bzj_bg2"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="12dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/icon_bzj" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:text="@string/wallet_contact_account"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/margin_total"
+                        android:textColor="#C1C1C1"
+                        android:textSize="10sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/usdt_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/mine_hengxian"
+                            android:textColor="#FFFFFF"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="2dp"
+                            android:text="BTC"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/usd_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="1dp"
+                            android:singleLine="true"
+                            android:text="@string/mine_hengxian"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="2dp"
+                            android:text="USDT"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="?attr/reverse_bg" />
+
+                <LinearLayout
+                    style="@style/horizontal_fill"
+                    android:orientation="vertical"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="@string/contract_entitlement"
+                            android:textColor="?attr/font_color"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txt_contract_all"
+                            style="@style/horizontal_weight1"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="--"
+                            android:textColor="?attr/font_color2"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="USDT"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="@string/hold_floating"
+                            android:textColor="?attr/font_color"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txt_contract_floating"
+                            style="@style/horizontal_weight1"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="--"
+                            android:textColor="?attr/font_color2"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="USDT"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="@string/contract_margin_avaliable"
+                            android:textColor="?attr/font_color"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txt_contract_remains"
+                            style="@style/horizontal_weight1"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="--"
+                            android:textColor="?attr/font_color2"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="USDT"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="@string/contract_margin_used"
+                            android:textColor="?attr/font_color"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txt_contract_used"
+                            style="@style/horizontal_weight1"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="--"
+                            android:textColor="?attr/font_color2"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="USDT"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="@string/contract_frozen"
+                            android:textColor="?attr/font_color"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txt_contract_lock"
+                            style="@style/horizontal_weight1"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="--"
+                            android:textColor="?attr/font_color2"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="USDT"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="?attr/reverse_bg" />
+
+                <LinearLayout
+                    style="@style/horizontal_fill"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/wallet_contact_account"
+                            android:textColor="?attr/font_color"
+                            android:textSize="14sp" />
+
+                        <com.fota.android.widget.myview.ToRightView
+                            android:layout_width="19dp"
+                            android:layout_height="6.3dp"
+                            android:layout_marginLeft="10dp" />
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/wallet_contact_my_money_account"
+                            android:textColor="?attr/font_color"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/horizontal_fill"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp">
+
+                        <com.fota.android.widget.btbwidget.ClearEdittext
+                            android:id="@+id/edit_transfer"
+                            style="@style/horizontal_weight1"
+                            android:hint="@string/common_amount"
+                            android:inputType="numberDecimal"
+                            android:textColor="#FF464A55"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:id="@+id/txt_all_in"
+                            style="@style/wrap_style"
+                            android:layout_marginLeft="10dp"
+                            android:onClick="@{view.onClick}"
+                            android:text="@string/wallet_all_transfer"
+                            android:textColor="?attr/main_color"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/horizontal_line"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="12dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp">
+
+                        <TextView
+                            android:id="@+id/tv_USDT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/small_dp0.5"
+                            android:text="USDT"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="11sp" />
+
+
+                        <TextView
+                            android:id="@+id/txt_max_transfer_tips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/small_dp0.5"
+                            android:layout_toLeftOf="@+id/tv_USDT"
+                            android:textColor="?attr/font_color"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/txt_max_transfer_tips"
+                            android:text="@string/trans_max"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="11sp" />
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <com.fota.android.widget.btbwidget.FotaButton
+                    android:id="@+id/bt_sure"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/normal_button_height"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="@dimen/space_25"
+                    android:onClick="@{view.onClick}"
+                    android:text="@string/wallet_comfirm_tranfer"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</layout>

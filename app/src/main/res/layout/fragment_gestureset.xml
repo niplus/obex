@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_about_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_include" />
+
+        <RelativeLayout
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="70dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/view1"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/selector_id_circle"
+                    android:enabled="false" />
+
+                <Button
+                    android:id="@+id/view2"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/selector_id_circle"
+                    android:enabled="false" />
+
+                <Button
+                    android:id="@+id/view3"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/selector_id_circle"
+                    android:enabled="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/view4"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/selector_id_circle"
+                    android:enabled="false" />
+
+                <Button
+                    android:id="@+id/view5"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/selector_id_circle"
+                    android:enabled="false" />
+
+                <Button
+                    android:id="@+id/view6"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/selector_id_circle"
+                    android:enabled="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/view7"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/selector_id_circle"
+                    android:enabled="false" />
+
+                <Button
+                    android:id="@+id/view8"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/selector_id_circle"
+                    android:enabled="false" />
+
+                <Button
+                    android:id="@+id/view9"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/selector_id_circle"
+                    android:enabled="false" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/safe_gesture_set"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <com.takwolf.android.lock9.Lock9View
+            android:id="@+id/lock"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            app:lock9_autoLink="false"
+            app:lock9_enableVibrate="true"
+            app:lock9_lineColor="#FFFFFF"
+            app:lock9_lineWidth="10dp"
+            app:lock9_nodeOnAnim="@anim/gesture_node_on_1"
+            app:lock9_nodeOnSrc="@mipmap/gesture_node_active"
+            app:lock9_nodeSrc="@mipmap/gesture_node_normal"
+            app:lock9_padding="35dp"
+            app:lock9_spacing="35dp"
+            app:lock9_vibrateTime="20" />
+
+
+    </LinearLayout>
+
+
+</layout>

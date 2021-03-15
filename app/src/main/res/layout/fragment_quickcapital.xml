@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_about_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_include" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@mipmap/mine_logo" />
+
+                <TextView
+                    android:id="@+id/account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:textColor="@color/font_color_black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:text="@string/quickcapital_msg1"
+                android:textColor="@color/font_color3_black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_gesturetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/red_up"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="15dp">
+
+                <com.takwolf.android.lock9.Lock9View
+                    android:id="@+id/lock"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    app:lock9_autoLink="false"
+                    app:lock9_enableVibrate="true"
+                    app:lock9_lineColor="#FFFFFF"
+                    app:lock9_lineWidth="10dp"
+                    app:lock9_nodeOnAnim="@anim/gesture_node_on_1"
+                    app:lock9_nodeOnSrc="@mipmap/gesture_node_active"
+                    app:lock9_nodeSrc="@mipmap/gesture_node_normal"
+                    app:lock9_padding="28dp"
+                    app:lock9_spacing="28dp"
+                    app:lock9_vibrateTime="20" />
+
+                <LinearLayout
+                    android:id="@+id/imv_finger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/imv_finger2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/icon_finger" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Touch-ID"
+                        android:textColor="@color/font_color_black"
+                        android:textSize="13.44sp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_capitalpsw1"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:text="@string/quickcapital_msg3"
+            android:textColor="@color/font_color_black"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_finger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_finger"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/login_finger"
+                android:textColor="@color/font_color_black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_capitalpsw2"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="30dp"
+                android:gravity="center"
+                android:text="@string/quickcapital_msg3"
+                android:textColor="@color/font_color_black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</layout>

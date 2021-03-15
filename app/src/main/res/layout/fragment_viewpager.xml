@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+
+    <data>
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        style="@style/all_fill"
+        android:background="?attr/bg_color"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:focusable="true">
+
+        <include
+            layout="@layout/title_include"/>
+
+        <com.fota.android.widget.btbwidget.FotaTabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_layout_height"
+            android:paddingLeft="@dimen/tab_layout_left_padding"
+        />
+
+        <View style="@style/horizontal_line"/>
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </LinearLayout>
+
+
+</layout>

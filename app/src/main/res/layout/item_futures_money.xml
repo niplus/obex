@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/horizontal_fill"
+    android:background="?attr/bg_color"
+    android:gravity="center_vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp">
+
+    <androidx.cardview.widget.CardView
+        style="@style/horizontal_fill"
+        app:cardBackgroundColor="?attr/bg_color"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
+
+
+        <LinearLayout
+            android:id="@+id/order_main"
+            style="@style/horizontal_fill"
+            android:background="@drawable/ft_corner_mian_color">
+
+
+            <View
+                android:id="@+id/order_left"
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ft_left_corner" />
+
+            <LinearLayout
+
+                style="@style/horizontal_fill"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/horizontal_fill"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        style="@style/horizontal_weight1"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/asset_name"
+                            style="@style/wrap_style"
+                            android:layout_height="25dp"
+                            android:textColor="#FF4DB871"
+                            android:textSize="16.32sp"
+                            tools:text="BTC/USDK" />
+
+                        <TextView
+                            android:id="@+id/buy_or_sell"
+                            android:layout_width="wrap_content"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="3dp"
+                            android:background="@drawable/ft_rectangle"
+                            android:gravity="center"
+                            android:paddingLeft="4dp"
+                            android:paddingRight="4dp"
+                            android:textColor="#FF4DB871"
+                            android:textSize="10sp"
+                            tools:text="——" />
+
+                        <TextView
+                            android:id="@+id/futures_tv_lever"
+                            android:layout_width="wrap_content"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="3dp"
+                            android:background="@drawable/ft_rectangle"
+                            android:gravity="center"
+                            android:paddingLeft="4dp"
+                            android:paddingRight="4dp"
+                            android:textColor="#FF4DB871"
+                            android:textSize="10sp"
+                            tools:text="x10" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/icon_share"
+                            android:id="@+id/iv_share"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        style="@style/wrap_style"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="@string/future_level"
+                            android:textColor="#FF606572"
+                            android:textSize="10sp" />
+
+                        <com.fota.android.widget.myview.LevelView
+                            android:id="@+id/futures_level"
+                            android:layout_width="36dp"
+                            android:layout_height="4.1dp"
+                            android:layout_marginLeft="10dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/horizontal_fill"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        style="@style/wrap_style"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="@string/future_money_avg_price"
+                            android:textColor="#FF606572"
+                            android:textSize="9.6sp" />
+
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/future_money_value"
+                            android:textColor="#FF606572"
+                            android:textSize="9.6sp" />
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/future_money_now_value"
+                            android:textColor="#FF606572"
+                            android:textSize="9.6sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/horizontal_weight_fill"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center_vertical|right"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/average_price"
+                            style="@style/wrap_style"
+                            android:text="--"
+                            android:textColor="?attr/font_color"
+                            android:textSize="9.6sp" />
+
+                        <TextView
+                            android:id="@+id/open_position_price"
+                            style="@style/wrap_style"
+                            android:layout_marginTop="5dp"
+                            android:text="7660.27"
+                            android:textColor="?attr/font_color"
+                            android:textSize="9.6sp" />
+
+                        <TextView
+                            android:id="@+id/current_price"
+                            style="@style/wrap_style"
+                            android:layout_marginTop="5dp"
+                            android:text="23"
+                            android:textColor="?attr/font_color"
+                            android:textSize="9.6sp" />
+
+                    </LinearLayout>
+
+                    <com.fota.android.widget.myview.DashLineView
+                        android:layout_width="2dp"
+                        android:layout_height="27dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+                    <LinearLayout
+                        style="@style/wrap_style"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:text="@string/future_money"
+                            android:textColor="#FF606572"
+                            android:textSize="9.6sp" />
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/future_applies"
+                            android:textColor="#FF606572"
+                            android:textSize="9.6sp" />
+
+                        <TextView
+                            style="@style/wrap_style"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/futures_earning_rate"
+                            android:textColor="#FF606572"
+                            android:textSize="9.6sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/horizontal_weight_fill"
+                        android:gravity="center_vertical|right"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/margin"
+                            style="@style/wrap_style"
+                            android:text="--"
+                            android:textColor="?attr/font_color"
+                            android:textSize="9.6sp" />
+
+                        <TextView
+                            android:id="@+id/applies"
+                            style="@style/wrap_style"
+                            android:layout_marginTop="5dp"
+                            android:text="7660.27"
+                            android:textColor="?attr/font_color"
+                            android:textSize="9.6sp" />
+
+                        <TextView
+                            android:id="@+id/earning_rate"
+                            style="@style/wrap_style"
+                            android:layout_marginTop="5dp"
+                            android:text="23"
+                            android:textColor="?attr/font_color"
+                            android:textSize="9.6sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
+

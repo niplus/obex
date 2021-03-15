@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        style="@style/all_fill"
+        android:background="?attr/bg_color"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:focusable="true">
+
+        <com.fota.android.widget.TitleLayout
+            android:id="@+id/app_title_layout"
+            style="@style/horizontal_fill" />
+
+        <include
+            android:id="@+id/recycler_head"
+            layout="@layout/recyclerview_include" />
+
+    </LinearLayout>
+
+</layout>

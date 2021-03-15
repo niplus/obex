@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="view"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color">
+
+        <include layout="@layout/title_include" />
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="12dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_chinese"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:onClick="@{view.onClick}">
+
+                <ImageView
+                    android:id="@+id/img_icon_ch"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_chinese" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/img_icon_ch"
+                    android:clickable="false"
+                    android:text="@string/set_language_cn"
+                    android:textColor="?attr/font_color"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/img_chinese"
+                    android:layout_width="22dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="false"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:src="?attr/icon_contractlever_check" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_english"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:onClick="@{view.onClick}">
+
+                <ImageView
+                    android:id="@+id/img_icon_en"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_english" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/img_icon_en"
+                    android:clickable="false"
+                    android:text="@string/set_language_en"
+                    android:textColor="?attr/font_color"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/img_english"
+                    android:layout_width="22dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="false"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:src="?attr/icon_contractlever_check"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ll"
+            android:background="?attr/reverse_bg" />
+    </RelativeLayout>
+
+</layout>

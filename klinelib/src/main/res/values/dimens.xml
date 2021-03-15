@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_chart_height">80dp</dimen>
+    <dimen name="bottom_chart_height_add_one">81dp</dimen>
+    <dimen name="bottom_chart_height_littlepage">35dp</dimen>
+</resources>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#33000000"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/ft_corner_bg_color"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="25dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="25dp"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:textColor="?attr/font_color3"
+            android:textSize="17sp"
+            android:visibility="gone"
+            tools:text="title title title title" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:breakStrategy="simple"
+            android:clickable="true"
+            android:lineSpacingExtra="3dp"
+            android:textColor="?attr/font_color"
+            android:textSize="17sp"
+            tools:text="content content content content"
+            android:focusable="true" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_surecancle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:focusable="true">
+
+            <LinearLayout
+                android:id="@+id/ll_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:gravity="center">
+
+                <com.fota.android.widget.btbwidget.FotaButton
+                    android:id="@+id/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:maxWidth="200dp"
+                    android:minWidth="100dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:singleLine="true"
+                    android:text="@string/cancel"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_submit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:gravity="center">
+
+                <com.fota.android.widget.btbwidget.FotaButton
+                    android:id="@+id/submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:maxWidth="200dp"
+                    android:minWidth="100dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:singleLine="true"
+                    android:text="@string/sure"
+                    android:textColor="?attr/bg_color"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
