@@ -345,11 +345,11 @@
             android:required="false" />
         <uses-library android:name="android.test.runner" />
         <!-- facebook -->
-        <activity
-            android:name="com.umeng.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+<!--        <activity-->
+<!--            android:name="com.umeng.facebook.FacebookActivity"-->
+<!--            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
+<!--            android:label="@string/app_name"-->
+<!--            android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
         <!--1104087112943046-->
         <provider
             android:name="com.umeng.facebook.FacebookContentProvider"

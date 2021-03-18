@@ -120,7 +120,7 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
                                 model.getContractName(),
                                 model.getEarningRate(),
                                 model.getAveragePrice(),
-                                model.getCurrentPrice(),
+                                ((FuturesFragment)getParentFragment()).getCurrentPrice(),
                                 getActivity()).show();
                     }
                 });

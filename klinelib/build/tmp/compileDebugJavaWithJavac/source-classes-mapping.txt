@@ -6,26 +6,18 @@ com/guoziwei/fota/util/DataUtils.java
  com.guoziwei.fota.util.DataUtils
 com/guoziwei/fota/chart/FotaTimeBaseRenderChart.java
  com.guoziwei.fota.chart.FotaTimeBaseRenderChart
-com/guoziwei/fota/chart/view/fota/FotaBigTimeLineBarChartView.java
- com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView
- com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView$1
- com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView$2
- com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView$ChartType
-com/guoziwei/fota/chart/view/fota/ImBeddedTimeLineBarChartView.java
- com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView
- com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView$1
- com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView$2
- com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView$ChartType
+com/guoziwei/fota/chart/render/FotaLittleTimeBarXAxisRenderer.java
+ com.guoziwei.fota.chart.render.FotaLittleTimeBarXAxisRenderer
+com/guoziwei/fota/chart/render/LineChartRenderer.java
+ com.guoziwei.fota.chart.render.LineChartRenderer
+ com.guoziwei.fota.chart.render.LineChartRenderer$1
+ com.guoziwei.fota.chart.render.LineChartRenderer$DataSetImageCache
 com/guoziwei/fota/chart/view/fota/FotaChartYFutureMarkerView.java
  com.guoziwei.fota.chart.view.fota.FotaChartYFutureMarkerView
 com/guoziwei/fota/chart/render/ScatterChartRenderer.java
  com.guoziwei.fota.chart.render.ScatterChartRenderer
-com/guoziwei/fota/chart/view/fota/FotaBigKLineBarChartView.java
- com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView
- com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView$1
- com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView$2
- com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView$3
- com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView$ChartType
+com/guoziwei/fota/chart/view/fota/FotaAutoTriagleView.java
+ com.guoziwei.fota.chart.view.fota.FotaAutoTriagleView
 com/guoziwei/fota/chart/view/fota/FotaChartMarkerView.java
  com.guoziwei.fota.chart.view.fota.FotaChartMarkerView
 com/guoziwei/fota/chart/view/ChartInfoView.java
@@ -55,8 +47,8 @@ com/guoziwei/fota/chart/FotaInfoViewListener.java
  com.guoziwei.fota.chart.FotaInfoViewListener
  com.guoziwei.fota.chart.FotaInfoViewListener$1
  com.guoziwei.fota.chart.FotaInfoViewListener$2
-com/guoziwei/fota/chart/FotaCombinedChart.java
- com.guoziwei.fota.chart.FotaCombinedChart
+com/guoziwei/fota/util/DateUtils.java
+ com.guoziwei.fota.util.DateUtils
 com/guoziwei/fota/model/KDJ.java
  com.guoziwei.fota.model.KDJ
 com/guoziwei/fota/chart/view/BaseChartView.java
@@ -96,13 +88,21 @@ com/guoziwei/fota/chart/view/fota/FotaLeftTriagleView.java
  com.guoziwei.fota.chart.view.fota.FotaLeftTriagleView
 com/guoziwei/fota/chart/render/FotaTimeBarXAxisRenderer.java
  com.guoziwei.fota.chart.render.FotaTimeBarXAxisRenderer
-com/guoziwei/fota/chart/view/fota/FotaAutoTriagleView.java
- com.guoziwei.fota.chart.view.fota.FotaAutoTriagleView
-com/guoziwei/fota/chart/render/LineChartRenderer.java
- com.guoziwei.fota.chart.render.LineChartRenderer
- com.guoziwei.fota.chart.render.LineChartRenderer$1
- com.guoziwei.fota.chart.render.LineChartRenderer$DataSetImageCache
-com/guoziwei/fota/chart/render/FotaLittleTimeBarXAxisRenderer.java
- com.guoziwei.fota.chart.render.FotaLittleTimeBarXAxisRenderer
-com/guoziwei/fota/util/DateUtils.java
- com.guoziwei.fota.util.DateUtils
+com/guoziwei/fota/chart/FotaCombinedChart.java
+ com.guoziwei.fota.chart.FotaCombinedChart
+com/guoziwei/fota/chart/view/fota/FotaBigTimeLineBarChartView.java
+ com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView
+ com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView$1
+ com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView$2
+ com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView$ChartType
+com/guoziwei/fota/chart/view/fota/ImBeddedTimeLineBarChartView.java
+ com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView
+ com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView$1
+ com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView$2
+ com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView$ChartType
+com/guoziwei/fota/chart/view/fota/FotaBigKLineBarChartView.java
+ com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView
+ com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView$1
+ com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView$2
+ com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView$3
+ com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView$ChartType

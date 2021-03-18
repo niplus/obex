@@ -268,6 +268,7 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
     @Override
     public void onRefreshTicker(CurrentPriceBean price) {
         super.onRefreshTicker(price);
+        currentPrice = price.getPrice();
         //受市场价影响
         if (!isLimit) {
             //暂时不需要设置
@@ -276,6 +277,12 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         if (mHeadBinding.imbedSpot.getVisibility() != View.VISIBLE) {
             mHeadBinding.imbedSpot.setVisibility(View.VISIBLE);
         }
+    }
+
+    private String currentPrice;
+
+    public String getCurrentPrice() {
+        return currentPrice;
     }
 
     @Override

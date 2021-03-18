@@ -25,5 +25,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    api('com.fota.android:option:0.5.2@aar') { transitive = true; changing = true }
+    api('com.fota.android:option:0.5.2@aar') {
+        transitive = true; changing = true
+        exclude group: 'com.squareup.retrofit2', module:'retrofit'
+        exclude group: 'com.squareup.retrofit2', module:'converter-gson'
+        exclude group: 'com.fota.android', module: 'mpchart'
+    }
 }

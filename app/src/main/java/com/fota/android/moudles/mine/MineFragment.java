@@ -140,22 +140,26 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
                     FtRounts.toQuickLogin(mContext);
                     return;
                 }
-                BtbMap map = new BtbMap();
-                Http.getWalletService().invite(map)
-                        .compose(new CommonTransformer<String>())
-                        .subscribe(new CommonSubscriber<String>(this) {
 
-                            @Override
-                            public void onNext(String list) {
-                                FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/share?invitationCode=" + list);
-                            }
-
-                            @Override
-                            protected void onError(ApiException e) {
-                                //super.onError(e);
-                                FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/share");
-                            }
-                        });
+                String userId = UserLoginUtil.getId();
+                if (!userId.equals("0"))
+                    FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/invite?userId=" + userId);
+//                BtbMap map = new BtbMap();
+//                Http.getWalletService().invite(map)
+//                        .compose(new CommonTransformer<String>())
+//                        .subscribe(new CommonSubscriber<String>(this) {
+//
+//                            @Override
+//                            public void onNext(String list) {
+//                                FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/invite?userId=" + list);
+//                            }
+//
+//                            @Override
+//                            protected void onError(ApiException e) {
+//                                //super.onError(e);
+//                                FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/share");
+//                            }
+//                        });
 
         }
 

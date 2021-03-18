@@ -15,10 +15,12 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Environment
+import android.os.ParcelFileDescriptor.MODE_READ_WRITE
+import android.os.ParcelFileDescriptor.MODE_WORLD_READABLE
 import android.provider.MediaStore
 import android.util.Log
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.fota.android.commonlib.utils.ToastUitl
+import kotlinx.coroutines.*
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
@@ -41,7 +43,6 @@ fun Context.saveBitmap2File(fileName: String, bitmap: Bitmap){
         imgFile.createNewFile()
         if (imgFile.exists())
             GlobalScope.launch {
-
                 try {
                     val fos = FileOutputStream(imgFile)
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos)
@@ -55,20 +56,42 @@ fun Context.saveBitmap2File(fileName: String, bitmap: Bitmap){
     }
 }
 
-fun Context.saveBitmap2Public(fileName: String){
-
-    if (Build.VERSION.SDK_INT < 29){
-
-    }else{//适配android 10+
-        val contentUri = if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) MediaStore.Images.Media.EXTERNAL_CONTENT_URI else MediaStore.Images.Media.INTERNAL_CONTENT_URI
-        val contentValues = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
-            put(MediaStore.Images.Media.MIME_TYPE, "image/*")
-            put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM + "/")
-            put(MediaStore.MediaColumns.IS_PENDING, 1) //告诉系统，文件还未准备好，暂时不对外暴露
-        }
-
-        val uri = contentResolver.insert(contentUri, contentValues)
+fun Context.saveBitmap2Public(fileName: String, bitmap: Bitmap, block: (Boolean)->Unit){
+    val contentValues = ContentValues().apply {
+        put(MediaStore.Images.ImageColumns.DISPLAY_NAME, fileName)
+        put(MediaStore.Images.ImageColumns.MIME_TYPE, "image/*")
+    }
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+        //10以下不能通过相对路径relative_path, 所以直接设置绝对路径
+        contentValues.put(MediaStore.MediaColumns.DATA, "${Environment.getExternalStorageDirectory().path}/${Environment.DIRECTORY_DCIM}/$fileName")
+    }else{
+        contentValues.put(MediaStore.Images.ImageColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
     }
 
+    var uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+    //在一加7 pro上发现无法通过relative_path获取路径
+    if (uri == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+        contentValues.remove(MediaStore.Images.ImageColumns.RELATIVE_PATH)
+        contentValues.put(MediaStore.MediaColumns.DATA, "${Environment.getExternalStorageDirectory().path}/${Environment.DIRECTORY_DCIM}/$fileName")
+        uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+    }
+
+    if (uri != null){
+        MainScope().launch {
+            withContext(Dispatchers.IO){
+                val output = contentResolver.openOutputStream(uri)
+                if (output == null){
+                    block.invoke(false)
+                    return@withContext
+                }
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, output)
+                output?.flush()
+                output?.close()
+                block.invoke(true)
+            }
+        }
+    }else{
+        block.invoke(false)
+    }
 }

@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+klinelib/build
+lock9view/build
+app/release

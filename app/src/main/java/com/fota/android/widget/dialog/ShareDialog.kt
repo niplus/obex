@@ -24,11 +24,14 @@ import com.fota.android.R
 import com.fota.android.commonlib.http.exception.ApiException
 import com.fota.android.commonlib.http.rx.CommonSubscriber
 import com.fota.android.commonlib.http.rx.CommonTransformer
+import com.fota.android.commonlib.utils.ToastUitl
 import com.fota.android.commonlib.utils.UIUtil
 import com.fota.android.core.base.BtbMap
 import com.fota.android.databinding.DialogShareBinding
 import com.fota.android.http.Http
 import com.fota.android.utils.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -46,7 +49,7 @@ val activity: Activity) : Dialog(context) {
     var dataBinding: DialogShareBinding? = null
 
     init {
-        dataBinding = DataBindingUtil.inflate<DialogShareBinding>(LayoutInflater.from(context), R.layout.dialog_share, null, false)
+        dataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_share, null, false)
         setContentView(dataBinding!!.root)
 
         val params = window!!.attributes
@@ -80,6 +83,12 @@ val activity: Activity) : Dialog(context) {
             tvShareProfitLoss.text = profitLoss
             tvOpenPrice.text = openPrice
             tvMarkPrice.text = markPrice
+
+            vOutside.setOnClickListener {
+                dismiss()
+            }
+
+            container.setOnClickListener {  }
 
             if (inviteCode == "") {
                 val map = BtbMap()
@@ -118,63 +127,18 @@ val activity: Activity) : Dialog(context) {
     }
 
     private fun getPath(): String? {
-        Log.i("nidongliang", "container: ${dataBinding?.container}")
         val bitmap: Bitmap? = getBitmap(dataBinding!!.container)
-        Log.i("nidongliang", "bitmap: $bitmap")
 
-        context.saveBitmap2File("test.jpg", bitmap!!)
-        return ""
-//        return saveImageToGallery(context, bitmap!!)
-    }
-
-    //保存文件到指定路径
-    fun saveImageToGallery(context: Context, bmp: Bitmap): String? {
-        // 首先保存图片
-        val storePath =
-            Environment.getExternalStorageDirectory().toString() + "/images/"
-        val appDir = File(storePath)
-        if (!appDir.exists()) {
-            appDir.mkdir()
-        }
-        val fileName = System.currentTimeMillis().toString() + ".jpg"
-        val file = File(appDir, fileName)
-        try {
-            val fos = FileOutputStream(file)
-            //通过io流的方式来压缩保存图片
-            val isSuccess =
-                bmp.compress(Bitmap.CompressFormat.JPEG, 60, fos)
-            fos.flush()
-            fos.close()
-
-            //把文件插入到系统图库
-
-            //保存图片后发送广播通知更新数据库
-            val uri = Uri.fromFile(file)
-            // 通知图库更新
-            MediaScannerConnection.scanFile(
-                context,
-                arrayOf(file.absolutePath),
-                null
-            ) { path, uri ->
-                val mediaScanIntent =
-                    Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
-                mediaScanIntent.data = uri
-                context.sendBroadcast(mediaScanIntent)
+        activity.saveBitmap2Public("test.jpg", bitmap!!){
+            MainScope().launch {
+                if (it) {
+                    ToastUitl.show("图片保存成功", Toast.LENGTH_SHORT)
+                    dismiss()
+                }else{
+                    ToastUitl.show("图片保存失败", Toast.LENGTH_SHORT)
+                }
             }
-            val path = MediaStore.Images.Media.insertImage(
-                context.contentResolver,
-                file.absolutePath,
-                fileName,
-                null
-            )
-            val delete = file.delete()
-            return if (delete) {
-                path
-            } else {
-                ""
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
+
         }
         return ""
     }
@@ -186,16 +150,8 @@ val activity: Activity) : Dialog(context) {
      * @return Bitmap
      */
     fun getBitmap(view: View): Bitmap? {
-
         val width = view.width
         val height = view.height
-
-        // getDrawingCache()获取Bitmap方法
-//        view.setDrawingCacheEnabled(true);
-//        view.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-//        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-//        view.destroyDrawingCache();
-//        view.setDrawingCacheEnabled(false);
 
         // draw(canvas)获取Bitmap方法
         val bitmap = Bitmap.createBitmap(

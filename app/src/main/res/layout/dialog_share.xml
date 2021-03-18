@@ -10,8 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/v_bottom_content"
+            android:id="@+id/v_outside"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -149,7 +153,6 @@
                 android:textColor="#99A4AD"
                 android:textSize="12sp"
                 android:text="标记价格"
-                android:visibility="gone"
                 android:id="@+id/tv_share_mark_price_label"
                 app:layout_constraintStart_toStartOf="@+id/tv_share_profit_loss"
                 app:layout_constraintTop_toBottomOf="@+id/tv_share_open_price_label"
@@ -163,7 +166,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:text="287.034"
-                android:visibility="gone"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tv_share_mark_price_label"
                 app:layout_constraintStart_toEndOf="@+id/tv_share_mark_price_label"
                 android:id="@+id/tv_mark_price"
@@ -232,6 +234,7 @@
 
 
 
+
         <View
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -240,13 +243,15 @@
             android:id="@+id/v_bottom_content" />
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@mipmap/icon_share_download"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@+id/v_bottom_content"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="5dp"
+            android:background="@drawable/shape_share_button"
             android:id="@+id/iv_download"/>
 
 
