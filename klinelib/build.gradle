@@ -29,6 +29,6 @@ dependencies {
         transitive = true; changing = true
         exclude group: 'com.squareup.retrofit2', module:'retrofit'
         exclude group: 'com.squareup.retrofit2', module:'converter-gson'
-        exclude group: 'com.fota.android', module: 'mpchart'
+//        exclude group: 'com.fota.android', module: 'mpchart'
     }
 }

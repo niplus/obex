@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.fota.android.R;
 import com.fota.android.app.BundleKeys;
-import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.FotaApplication;
 import com.fota.android.common.bean.BeanChangeFactory;
 import com.fota.android.common.bean.exchange.CurrentPriceBean;
@@ -24,7 +24,6 @@ import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.commonlib.utils.UIUtil;
 import com.fota.android.core.base.BaseFragmentAdapter;
 import com.fota.android.core.base.BtbMap;
-import com.fota.android.core.base.SimpleFragmentActivity;
 import com.fota.android.core.base.ft.FtKeyValue;
 import com.fota.android.moudles.exchange.index.ExchangeFragment;
 import com.fota.android.moudles.futures.complete.FuturesCompleteFragment;
@@ -34,11 +33,13 @@ import com.fota.android.moudles.futures.order.FuturesOrdersFragment;
 import com.fota.android.moudles.market.FullScreenKlineActivity;
 import com.fota.android.moudles.market.bean.ChartLineEntity;
 import com.fota.android.moudles.market.bean.HoldingEntity;
+import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.KeyBoardUtils;
+import com.fota.android.utils.MoneyUtilsKt;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.utils.apputils.TradeUtils;
 import com.fota.android.widget.btbwidget.FotaTextWatch;
-import com.fota.android.widget.dialog.ShareDialog;
+import com.fota.android.widget.dialog.LeverDialog;
 import com.fota.android.widget.popwin.FutureTopWindow;
 import com.fota.android.widget.popwin.PasswordDialog;
 import com.fota.android.widget.popwin.SpinerPopWindow3;
@@ -47,9 +48,13 @@ import com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView;
 import com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView;
 import com.guoziwei.fota.model.HisData;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateFragment, FutureTradeView {
 
@@ -57,7 +62,10 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
     private FutureTopInfoBean topInfo;
     private FutureTopWindow popupTopWindow;
     private BtbMap preciseMargin;
+
+    private boolean isLeverChange = false;
     /**
+     *
      * 【线上】【合约交易】保证金需求目前显示为实时刷新，应为下拉刷新
      */
     private boolean onRefreshDepthReqed;
@@ -114,12 +122,38 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         super.onInitView(view);
         mHeadBinding.kline.setChartType(FotaBigKLineBarChartView.ChartType.FUTURE);
         mHeadBinding.tline.setChartType(ImBeddedTimeLineBarChartView.ChartType.FUTURE);
+//        mHeadBinding.tline.setChartType(ImBeddedTimeLineBarChartView.ChartType.USDT);
+//        mHeadBinding.tline.setChartType(FotaBigTimeLineBarChartView.ChartType.SPOT);
 
         int color = AppConfigs.isWhiteTheme() ? getThemeColor(R.attr.font_color) : getThemeColor(R.attr.font_color3);
         mHeadBinding.futuresTvDate.setTextColor(color);
 
         UIUtil.setRectangleBorderBg(mHeadBinding.futuresTvLever, color);
         mHeadBinding.futuresTvLever.setTextColor(color);
+
+        mHeadBinding.fprogress.setLever(false);
+        mHeadBinding.fprogress.setLeverChangeListener(new Function1<Integer, Unit>() {
+            @Override
+            public Unit invoke(Integer rate) {
+
+                if (!FotaApplication.getLoginSrtatus()){
+                    return null;
+                }
+                String price;
+                if (isLimit){
+                    price = mHeadBinding.price2.getText().toString();
+                }else {
+                    price = getCurrentPrice();
+                }
+
+
+                String moneyUnit = MoneyUtilsKt.divide(price, getLevel(), getPricePrecision());
+                String amountTotal = MoneyUtilsKt.divide(topInfo.getAvailable(), moneyUnit, getAmountPrecision());
+                String amount = MoneyUtilsKt.mul(amountTotal, rate / 100f + "");
+                mHeadBinding.amount2.setText(new BigDecimal(amount).setScale(getAmountPrecision(), BigDecimal.ROUND_HALF_UP).toPlainString());
+                return null;
+            }
+        });
         //GradientDrawableUtils.setBoardColor(mHeadBinding.futuresTvDate, color);
     }
 
@@ -152,6 +186,30 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
             @Override
             protected void onTextChanged(String s) {
                 validMaxValue();
+
+                if (isLeverChange) {
+                    isLeverChange = false;
+                    return;
+                }
+
+
+
+                if (!FotaApplication.getLoginSrtatus()){
+                    return;
+                }
+                String price;
+                if (isLimit){
+                    price = mHeadBinding.price2.getText().toString();
+                }else {
+                    price = getCurrentPrice();
+                }
+
+
+                String moneyUnit = MoneyUtilsKt.divide(price, getLevel(), getPricePrecision());
+                String amountTotal = MoneyUtilsKt.divide(topInfo.getAvailable(), moneyUnit, getAmountPrecision());
+
+                String rate = MoneyUtilsKt.divide(mHeadBinding.amount2.getText().toString(), amountTotal, 2);
+                mHeadBinding.fprogress.setProgress(Math.round(Float.valueOf(rate) * 100));
             }
         };
 
@@ -279,7 +337,7 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         }
     }
 
-    private String currentPrice;
+    private String currentPrice = "0.00";
 
     public String getCurrentPrice() {
         return currentPrice;
@@ -303,7 +361,9 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         setDelievery();
         List<ChartLineEntity> chartList = FotaApplication.getInstance().getListFromTimesByType(2);
         List<ChartLineEntity> spotList = FotaApplication.getInstance().getListFromTimesByType(1);
-        freshChartView(chartList, spotList);
+//        freshChartView(chartList, spotList);
+        //合约去掉现货指数
+        freshChartView(chartList, null);
         //当前现货指数
         if (spotList != null && spotList.size() > 0) {
             int length = spotList.size();
@@ -365,7 +425,8 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         }
         if (isAdd) {//add 直接重刷
             klineDataConvert(chartList);
-            mHeadBinding.kline.addData(klineData, spotData);
+//            mHeadBinding.kline.addData(klineData, spotData);
+            mHeadBinding.kline.addData(klineData, null);
             if (time15Data != null && time15Data.size() > 0) {
                 double hour24Close = time15Data.get(0).getClose();
                 mHeadBinding.kline.setLastClose(hour24Close);
@@ -403,7 +464,8 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         klineDataConvert(chartList);
         mHeadBinding.kline.setNeedMoveToLast(true);
         mHeadBinding.kline.setmDigits(holdingEntity.getDecimal());
-        mHeadBinding.kline.initData(klineData, spotData);
+//        mHeadBinding.kline.initData(klineData, spotData);
+        mHeadBinding.kline.initData(klineData, null);
 
         if (holdingEntity != null && holdingEntity.getHoldingPrice() != -1) {
             mHeadBinding.kline.setLimitLine(holdingEntity.getHoldingPrice(), holdingEntity.getHoldingDescription());
@@ -509,11 +571,27 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         mHeadBinding.futuresTvDate.setText(tips);
     }
 
+    LeverDialog leverDialog;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.futures_tv_lever:
-                SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.TradeLeverFragment);
+
+
+                if (!FotaApplication.getLoginSrtatus()){
+                    FtRounts.toLogin(requireContext());
+                    return;
+                }
+                leverDialog = new LeverDialog(requireContext());
+                leverDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getPresenter().setLever(Integer.valueOf(getAssetId()), getAssetName(), leverDialog.getLever());
+                    }
+                });
+                leverDialog.show();
+                leverDialog.setLever(Integer.valueOf(getLevel()));
                 break;
             case R.id.img_type_change2:
                 isKline = !isKline;
@@ -565,10 +643,21 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
                 isLimit = !isLimit;
                 refreshPriceType();
                 break;
+            case R.id.iv_calc:
+                Intent calcIntent = new Intent(requireContext(), FuturesCalcActivity.class);
+                calcIntent.putExtra("coinName", getPresenter().getSelectContact().getAssetName());
+                calcIntent.putExtra("amountPercision", getAmountPrecision());
+                startActivity(calcIntent);
+                break;
             default:
                 super.onClick(v);
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private void showTopPop() {
@@ -846,6 +935,28 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         } else {
             UIUtil.setText(mHeadBinding.preciseMargin, map.get("ask"), "--");
         }
+    }
+
+    @Override
+    public void onLeverChange() {
+
+        isLeverChange = true;
+        leverDialog.dismiss();
+        String price;
+        if (isLimit){
+            price = mHeadBinding.price2.getText().toString();
+        }else {
+            price = getCurrentPrice();
+        }
+
+
+        String moneyUnit = MoneyUtilsKt.divide(price, leverDialog.getLever()+"", getPricePrecision());
+        String amountTotal = MoneyUtilsKt.divide(topInfo.getAvailable(), moneyUnit, getAmountPrecision());
+        String amount = MoneyUtilsKt.mul(amountTotal, (float) mHeadBinding.fprogress.getLever() / 100f + "");
+
+//        Log.i("nidongliang", "unit: " + moneyUnit + "aamount: " + amountTotal + "")
+        mHeadBinding.amount2.setText(new BigDecimal(amount).setScale(getAmountPrecision(), BigDecimal.ROUND_HALF_UP).toPlainString());
+
     }
 
     @Override

@@ -144,13 +144,22 @@
                     android:layout_gravity="center"
                     android:onClick="@{view.onClick}"
                     android:src="?attr/common_change" />
+                
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="?attr/icon_calc"
+                    android:layout_marginBottom="3dp"
+                    android:onClick="@{view.onClick}"
+                    android:id="@+id/iv_calc"
+                    android:layout_marginLeft="15dp"/>
 
                 <TextView
                     android:id="@+id/futures_tv_lever"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginLeft="15dp"
                     android:background="@drawable/ft_rectangle"
                     android:gravity="center"
                     android:onClick="@{view.onClick}"
@@ -349,15 +358,16 @@
                         </com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView>
                     </LinearLayout>
 
-                    <androidx.core.widget.NestedScrollView
+                    <com.fota.android.widget.FutureScrollView
                         style="@style/horizontal_fill"
                         app:layout_scrollFlags="scroll">
 
-                        <LinearLayout
+                        <com.fota.android.widget.FuturesLinearLayout
                             style="@style/horizontal_fill"
                             android:background="?attr/bg_color"
                             android:paddingBottom="6dp"
                             android:paddingTop="6dp"
+                            android:clipChildren="false"
                             app:layout_scrollFlags="scroll">
 
                             <LinearLayout
@@ -600,11 +610,12 @@
 
                             </LinearLayout>
 
-                            <LinearLayout
+                            <com.fota.android.widget.FuturesLinearLayout
                                 android:id="@+id/future_layout"
                                 style="@style/horizontal_weight1"
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:clipChildren="true">
 
                                 <LinearLayout
                                     android:id="@+id/future_layout_top"
@@ -761,6 +772,12 @@
 
                                 </LinearLayout>
 
+                                <com.fota.android.widget.FuturesProgressBar
+                                    style="@style/horizontal_fill"
+                                    android:layout_marginTop="-15dp"
+                                    android:background="?attr/bg_color"
+                                    android:id="@+id/fprogress"/>
+
                                 <LinearLayout
                                     style="@style/horizontal_fill"
                                     android:layout_height="21dp"
@@ -821,7 +838,7 @@
                                     android:textSize="17sp"
                                     tools:text="@string/common_buy" />
 
-                            </LinearLayout>
+                            </com.fota.android.widget.FuturesLinearLayout>
 
                             <com.fota.android.widget.DepthRefreshView
                                 android:id="@+id/right_container"
@@ -833,9 +850,9 @@
 
                             </com.fota.android.widget.DepthRefreshView>
 
-                        </LinearLayout>
+                        </com.fota.android.widget.FuturesLinearLayout>
 
-                    </androidx.core.widget.NestedScrollView>
+                    </com.fota.android.widget.FutureScrollView>
 
 
                 </com.google.android.material.appbar.AppBarLayout>

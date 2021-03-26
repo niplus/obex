@@ -526,4 +526,19 @@
     <string name="share_qq">QQ</string>
     <string name="share_twitter">推特</string>
 
+    <string name="main_tab1">行情</string>
+    <string name="main_tab2">现货</string>
+    <string name="main_tab3">合约</string>
+    <string name="main_tab4">我的</string>
+
+    <!--合约计算器， 杠杆-->
+    <string name="target_price">目标价格</string>
+    <string name="open_price">开仓价格</string>
+    <string name="close_price">平仓价格</string>
+    <string name="calc_result">计算结果</string>
+    <string name="initial_margin">起始保证金</string>
+    <string name="response_rate">回报率</string>
+    <string name="confirm">确认</string>
+    <string name="adjust_leverage">调整杠杆</string>
+    <string name="lever_warning">当前杠杆倍数较高，请注意风险。</string>
 </resources>

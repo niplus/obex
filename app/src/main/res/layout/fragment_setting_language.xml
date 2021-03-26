@@ -38,13 +38,14 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_centerVertical="true"
+                    android:visibility="gone"
                     android:src="@mipmap/icon_chinese" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/img_icon_ch"
                     android:clickable="false"
                     android:text="@string/set_language_cn"
@@ -63,6 +64,36 @@
                     android:src="?attr/icon_contractlever_check" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rl_traditional_chinese"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:onClick="@{view.onClick}">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:clickable="false"
+                    android:text="繁體中文"
+                    android:textColor="?attr/font_color"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/img_traditional_chinese"
+                    android:layout_width="22dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="false"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    android:src="?attr/icon_contractlever_check" />
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:id="@+id/rl_english"
@@ -75,13 +106,14 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_centerVertical="true"
+                    android:visibility="gone"
                     android:src="@mipmap/icon_english" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/img_icon_en"
                     android:clickable="false"
                     android:text="@string/set_language_en"

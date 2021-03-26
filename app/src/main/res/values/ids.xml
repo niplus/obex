@@ -68,6 +68,4 @@
 
     <!--提示弹出快速登录提示框-->
     <item name="login_quicktoast" type="id" />
-
-
 </resources>

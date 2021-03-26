@@ -28,6 +28,7 @@ import com.fota.android.moudles.exchange.index.ExchangeTradeView;
 import com.fota.android.moudles.futures.money.FuturesMoneyBean;
 import com.fota.android.socket.SocketAdditionEntity;
 import com.fota.android.socket.WebSocketEntity;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 import java.util.Map;
@@ -446,9 +447,42 @@ public class FuturesPresenter extends ExchangePresenter {
 
     @Override
     public void onHide() {
-        super.onHide();
         removeChannel();
     }
 
+    /**
+     * 设置杠杆
+     *
+     * @param assetId
+     * @param assetName
+     * @param lever
+     */
+    public void setLever(int assetId, String assetName, int lever) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("assetId", assetId);
+        jsonObject.addProperty("assetName", assetName);
+        jsonObject.addProperty("lever", lever);
+        JsonObject jsonObject2 = new JsonObject();
+        jsonObject2.addProperty("data", "[" + jsonObject.toString() + "]");
+        Http.getHttpService().setContractLever(jsonObject2)
+                .compose(new NothingTransformer<BaseHttpEntity>())
+                .subscribe(new CommonSubscriber<BaseHttpEntity>(FotaApplication.getInstance()) {
+                    @Override
+                    public void onNext(BaseHttpEntity object) {
+                        if (getView() == null) {
+                            return;
+                        }
+                        onRefresh();
+
+                        getView().onLeverChange();
+                    }
+
+                    @Override
+                    protected void onError(ApiException e) {
+                        super.onError(e);
+
+                    }
+                });
+    }
 
 }

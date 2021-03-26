@@ -3,6 +3,7 @@ package com.fota.android.moudles.market;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -160,7 +161,7 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
     }
 
     private void initViews() {
-        mBinding.tline.setDateFormat(dateFormats[1]);
+//        mBinding.tline.setDateFormat(dateFormats[1]);
         mBinding.kline.setDateFormat(dateFormats[1]);
         mBinding.kline.setOnEdgeListener(new OnLoadEdgeListener() {
             @Override
@@ -400,6 +401,7 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
             mBinding.kline.setChartType(FotaBigKLineBarChartView.ChartType.FUTURE);
             mBinding.tline.setChartType(FotaBigTimeLineBarChartView.ChartType.FUTURE);
         } else {
+
             mBinding.kline.setChartType(FotaBigKLineBarChartView.ChartType.USDT);
             mBinding.tline.setChartType(entityType == 1 ? FotaBigTimeLineBarChartView.ChartType.SPOT : FotaBigTimeLineBarChartView.ChartType.USDT);
             if (entityType == 3) {
@@ -581,7 +583,9 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
         double holdingPrice = entity.getHoldingPrice();
         String holdingStr = entity.getHoldingDescription();
         if (entityType == 2) {
-            mBinding.tline.initData(time15Data, spot15Data);
+//            mBinding.tline.initData(time15Data, spot15Data);
+            //合约去掉现货指数
+            mBinding.tline.initData(time15Data, null);
         } else {
             mBinding.tline.initData(time15Data);
         }
@@ -606,7 +610,8 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
         mBinding.kline.setNeedMoveToLast(true);
         mBinding.kline.setmDigits(holdingEntity.getDecimal());
         if (entityType == 2) {
-            mBinding.kline.initData(klineData, spotData);
+//            mBinding.kline.initData(klineData, spotData);
+            mBinding.kline.initData(klineData, null);
         } else {
             mBinding.kline.initData(klineData);
         }
@@ -725,7 +730,8 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
         if (isAdd) {//add 直接重刷
             klineDataConvert(chartList);
             if (entityType == 2) {
-                mBinding.kline.addData(klineData, spotData);
+//                mBinding.kline.addData(klineData, spotData);
+                mBinding.kline.addData(klineData, null);
             } else {
                 mBinding.kline.addData(klineData, null);
             }

@@ -1,10 +1,11 @@
 package com.fota.android.moudles.mine.identity;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,11 @@ import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.fota.android.R;
 import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.FotaApplication;
@@ -25,7 +31,6 @@ import com.fota.android.commonlib.http.rx.CommonSubscriber;
 import com.fota.android.commonlib.http.rx.CommonTransformer;
 import com.fota.android.commonlib.http.rx.NothingTransformer;
 import com.fota.android.commonlib.utils.L;
-import com.fota.android.commonlib.utils.NetworkUtil;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.core.base.MvpFragment;
 import com.fota.android.core.base.SimpleFragmentActivity;
@@ -35,12 +40,15 @@ import com.fota.android.http.Http;
 import com.fota.android.moudles.mine.bean.MineBean;
 import com.fota.android.moudles.mine.identity.imageloader.GlideImageLoader;
 import com.fota.android.moudles.mine.login.bean.CounrtyAreasBean;
+import com.fota.android.utils.FileUtilsKt;
+import com.fota.android.utils.GlideEngine;
 import com.fota.android.utils.KeyBoardUtils;
 import com.fota.android.utils.StringFormatUtils;
 import com.google.gson.JsonObject;
+import com.huantansheng.easyphotos.EasyPhotos;
+import com.huantansheng.easyphotos.callback.SelectCallback;
+import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.lzy.imagepicker.ImagePicker;
-import com.lzy.imagepicker.bean.ImageItem;
-import com.lzy.imagepicker.ui.ImageGridActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -49,9 +57,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
+import okhttp3.RequestBody;
 
 /**
  * 身份认证
@@ -61,7 +69,6 @@ public class IdentityFragment extends MvpFragment<IdentityPresenter> implements 
     FragmentIdentityBinding mBinding;
     //    ImagePicker imagePicker = new ImagePicker();
     PopupWindow pop;
-    ArrayList<ImageItem> images = null;
     private int RESULT_CODE = 1000;
     private int TYPE_FRONT = 0;
     private int TYPE_BACK = 1;
@@ -158,17 +165,32 @@ public class IdentityFragment extends MvpFragment<IdentityPresenter> implements 
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.CheckCountryFragment, bundle);
                 break;
             case R.id.tv_camera:
-                Intent intent = new Intent(mContext, ImageGridActivity.class);
-                intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
-                startActivityForResult(intent, RESULT_CODE);
+                EasyPhotos.createCamera(this)
+//                        .setFileProviderAuthority("com.fota.android.fileprovider")
+                        .start(new SelectCallback(){
+
+                            @Override
+                            public void onResult(ArrayList<Photo> photos, ArrayList<String> paths, boolean isOriginal) {
+                                onPictureSelect(photos.get(0).path);
+                            }
+                        });
                 pop.dismiss();
                 break;
             case R.id.tv_gallery:
-                Intent intent2 = new Intent(mContext, ImageGridActivity.class);
-                intent2.putExtra(ImageGridActivity.EXTRAS_IMAGES, images);
-                //ImagePicker.getInstance().setSelectedImages(images);
-                startActivityForResult(intent2, RESULT_CODE);
+                EasyPhotos.createAlbum(this,  false, GlideEngine.getInstance())
+                .start(new SelectCallback(){
+
+                    @Override
+                    public void onResult(ArrayList<Photo> photos, ArrayList<String> paths, boolean isOriginal) {
+                        onPictureSelect(photos.get(0).path);
+                    }
+                });
                 pop.dismiss();
+//                Intent intent2 = new Intent(mContext, ImageGridActivity.class);
+//                intent2.putExtra(ImageGridActivity.EXTRAS_IMAGES, images);
+//                //ImagePicker.getInstance().setSelectedImages(images);
+//                startActivityForResult(intent2, RESULT_CODE);
+//                pop.dismiss();
                 break;
             case R.id.tv_cancel:
                 pop.dismiss();
@@ -269,115 +291,204 @@ public class IdentityFragment extends MvpFragment<IdentityPresenter> implements 
         imagePicker.setMultiMode(false);//单选模式
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
-            if (data != null && requestCode == RESULT_CODE) {
-                images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-//                MyAdapter adapter = new MyAdapter(images);
-//                gridView.setAdapter(adapter);
-                if (images.size() > 0) {
-                    if (TYPE == TYPE_FRONT) {
-                        if (TextUtils.isEmpty(images.get(0).path))
-                            return;
-                        ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, images.get(0).path, mBinding.imvFront, 0, 0);
-                        path_front = images.get(0).path;
-                        Luban.with(mContext)
-                                .load(path_front)
-                                .ignoreBy(1000)
-                                .setTargetDir(getPath())
-                                .setCompressListener(new OnCompressListener() {
-                                    @Override
-                                    public void onStart() {
-                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                                    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+//            if (data != null && requestCode == RESULT_CODE) {
+//                images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+//                if (images.size() > 0) {
+//                    if (TYPE == TYPE_FRONT) {
+//                        if (TextUtils.isEmpty(images.get(0).path))
+//                            return;
+//                        ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, images.get(0).path, mBinding.imvFront, 0, 0);
+//                        path_front = images.get(0).path;
+//                        Luban.with(mContext)
+//                                .load(path_front)
+//                                .ignoreBy(1000)
+//                                .setTargetDir(getPath())
+//                                .setCompressListener(new OnCompressListener() {
+//                                    @Override
+//                                    public void onStart() {
+//                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+//                                    }
+//
+//                                    @Override
+//                                    public void onSuccess(File file) {
+//                                        file.getAbsolutePath();
+//                                        // TODO 压缩成功后调用，返回压缩后的图片文件
+//                                        uploadPic(file.getAbsolutePath(), path_front);
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(Throwable e) {
+//                                        // TODO 当压缩过程出现问题时调用
+//                                    }
+//                                }).launch();
+//
+//                    } else if (TYPE == TYPE_BACK) {
+//                        if (TextUtils.isEmpty(images.get(0).path))
+//                            return;
+//                        ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, images.get(0).path, mBinding.imvBack, 0, 0);
+//                        path_back = images.get(0).path;
+//                        Luban.with(mContext)
+//                                .load(path_back)
+//                                .ignoreBy(1000)
+//                                .setTargetDir(getPath())
+//                                .setCompressListener(new OnCompressListener() {
+//                                    @Override
+//                                    public void onStart() {
+//                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+//                                    }
+//
+//                                    @Override
+//                                    public void onSuccess(File file) {
+//                                        file.getAbsolutePath();
+//                                        // TODO 压缩成功后调用，返回压缩后的图片文件
+//                                        uploadPic(file.getAbsolutePath(), path_back);
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(Throwable e) {
+//                                        // TODO 当压缩过程出现问题时调用
+//                                    }
+//                                }).launch();
+//                    }
+//                }
+//            } else {
+//                showToast("no data");
+//            }
+//        }
+//    }
 
-                                    @Override
-                                    public void onSuccess(File file) {
-                                        file.getAbsolutePath();
-                                        // TODO 压缩成功后调用，返回压缩后的图片文件
-                                        uploadPic(file.getAbsolutePath(), path_front);
-
-                                    }
-
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        // TODO 当压缩过程出现问题时调用
-                                    }
-                                }).launch();
-
-                    } else if (TYPE == TYPE_BACK) {
-                        if (TextUtils.isEmpty(images.get(0).path))
-                            return;
-                        ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, images.get(0).path, mBinding.imvBack, 0, 0);
-                        path_back = images.get(0).path;
-                        Luban.with(mContext)
-                                .load(path_back)
-                                .ignoreBy(1000)
-                                .setTargetDir(getPath())
-                                .setCompressListener(new OnCompressListener() {
-                                    @Override
-                                    public void onStart() {
-                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                                    }
-
-                                    @Override
-                                    public void onSuccess(File file) {
-                                        file.getAbsolutePath();
-                                        // TODO 压缩成功后调用，返回压缩后的图片文件
-                                        uploadPic(file.getAbsolutePath(), path_back);
-                                    }
-
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        // TODO 当压缩过程出现问题时调用
-                                    }
-                                }).launch();
-                    }
+    void onPictureSelect(String path){
+        if (TYPE == TYPE_FRONT) {
+//            ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, path, mBinding.imvFront, 0, 0);
+            Glide.with(requireContext()).load(path).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    return false;
                 }
-            } else {
-                showToast("no data");
-            }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    String path = FileUtilsKt.saveBitmap2File(requireContext(), "front.jpg",((BitmapDrawable)resource).getBitmap());
+                    uploadPic(new File(path), path_front, true);
+                    return false;
+                }
+            }).into(mBinding.imvFront);
+//            path_front = path;
+//            Luban.with(mContext)
+//                    .load(path_front)
+//                    .ignoreBy(1000)
+//                    .setTargetDir(getPath())
+//                    .setCompressListener(new OnCompressListener() {
+//                        @Override
+//                        public void onStart() {
+//                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
+//                        }
+//
+//                        @Override
+//                        public void onSuccess(File file) {
+//                            file.getAbsolutePath();
+//                            // TODO 压缩成功后调用，返回压缩后的图片文件
+//                            uploadPic(file, path_front);
+//
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            // TODO 当压缩过程出现问题时调用
+//                        }
+//                    }).launch();
+
+        } else if (TYPE == TYPE_BACK) {
+//            ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, path, mBinding.imvBack, 0, 0);
+            Glide.with(requireContext()).load(path).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    String path = FileUtilsKt.saveBitmap2File(requireContext(), "back.jpg",((BitmapDrawable)resource).getBitmap());
+                    uploadPic(new File(path), path_back, false);
+                    return false;
+                }
+            }).into(mBinding.imvBack);
+//            path_back = path;
+//            Luban.with(mContext)
+//                    .load(path_back)
+//                    .ignoreBy(1000)
+//                    .setTargetDir(getPath())
+//                    .setCompressListener(new OnCompressListener() {
+//                        @Override
+//                        public void onStart() {
+//                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
+//                        }
+//
+//                        @Override
+//                        public void onSuccess(File file) {
+//                            file.getAbsolutePath();
+//                            // TODO 压缩成功后调用，返回压缩后的图片文件
+//                            uploadPic(file, path_back);
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            // TODO 当压缩过程出现问题时调用
+//                        }
+//                    }).launch();
         }
     }
 
+
+    public static List<MultipartBody.Part> files2Parts(String key, File file) {
+        List<MultipartBody.Part> parts = new ArrayList(1);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("images/jpeg"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData(key, file.getName(), requestBody);
+        parts.add(part);
+
+        return parts;
+    }
     /**
      * 上传图片
      *
      * @param file       上传的文件
      * @param path_index 标记是正面还是反面
      */
-    private void uploadPic(final String file, final String path_index) {
-        if (path_index.equals(path_front)) {
+    private void uploadPic(final File file, final String path_index, boolean isFront) {
+        if (isFront) {
             mBinding.imvDelFront.setVisibility(View.GONE);
             mBinding.llLoadingFront.setVisibility(View.VISIBLE);
             mBinding.tvFront.setVisibility(View.GONE);
-        } else if (path_index.equals(path_back)) {
+        } else {
             mBinding.imvDelBack.setVisibility(View.GONE);
             mBinding.llLoadingBack.setVisibility(View.VISIBLE);
             mBinding.tvBack.setVisibility(View.GONE);
         }
 
         List<File> fileList = new ArrayList<>();
-        fileList.add(new File(file));
-        List<MultipartBody.Part> partList = NetworkUtil.files2Parts("file", new String[]{file});
+        fileList.add(file);
+        List<MultipartBody.Part> partList = files2Parts("file", file);
 
         Http.getHttpService().uploadIdPic(partList)
                 .compose(new CommonTransformer<String>())
                 .subscribe(new CommonSubscriber<String>(this) {
                     @Override
                     public void onNext(String path) {
-                        L.a("uploadIdPic = " + path.toString());
 //                        showToast("uploadIdPic  suc");
-                        if (path_index.equals(path_front)) {
+                        if (isFront) {
                             if (!TextUtils.isEmpty(path)) {
                                 path_front_url = path;
                             }
                             mBinding.imvDelFront.setVisibility(View.VISIBLE);
                             mBinding.llLoadingFront.setVisibility(View.GONE);
                             mBinding.imvFront.setClickable(false);
-                        } else if (path_index.equals(path_back)) {
+                        } else {
                             if (!TextUtils.isEmpty(path)) {
                                 path_back_url = path;
                             }
@@ -386,8 +497,6 @@ public class IdentityFragment extends MvpFragment<IdentityPresenter> implements 
                             mBinding.imvBack.setClickable(false);
                         }
                         valid();
-
-
                     }
 
                     @Override
@@ -398,14 +507,13 @@ public class IdentityFragment extends MvpFragment<IdentityPresenter> implements 
                     @Override
                     protected void onError(ApiException e) {
                         super.onError(e);
-                        L.a("reset", "uploadIdPic fail fail ---" + e.toString());
-                        if (path_index.equals(path_front)) {
+                        if (isFront) {
                             mBinding.imvDelFront.setVisibility(View.GONE);
                             mBinding.tvFront.setVisibility(View.VISIBLE);
                             mBinding.llLoadingFront.setVisibility(View.GONE);
                             mBinding.imvFront.setImageDrawable(mContext.getResources().getDrawable(Pub.getThemeResource(mContext, R.attr.id_front)));
 
-                        } else if (path_index.equals(path_back)) {
+                        } else {
                             mBinding.imvDelBack.setVisibility(View.GONE);
                             mBinding.llLoadingBack.setVisibility(View.GONE);
                             mBinding.tvBack.setVisibility(View.VISIBLE);

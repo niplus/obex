@@ -13,10 +13,12 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/UdeskSDKUI" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/easyPhotos" />
             <option value="$PROJECT_DIR$/imagepicker" />
             <option value="$PROJECT_DIR$/klinelib" />
             <option value="$PROJECT_DIR$/lock9view" />
             <option value="$PROJECT_DIR$/lottie" />
+            <option value="$PROJECT_DIR$/mpchart" />
             <option value="$PROJECT_DIR$/mzbanner" />
           </set>
         </option>

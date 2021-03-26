@@ -54,6 +54,7 @@ public class FingerFragment extends BaseFragment {
                 L.a("finger Exception：" + exception.getLocalizedMessage());
             }
         });
+        mFingerprintIdentify.init();
 
         initFinger();
         mBinding.cbFinger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

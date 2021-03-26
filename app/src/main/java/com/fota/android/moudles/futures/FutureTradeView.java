@@ -10,4 +10,6 @@ public interface FutureTradeView extends ExchangeTradeView {
     void setContractDelivery(BtbMap map);
 
     void setPreciseMargin(BtbMap map);
+
+    void onLeverChange();
 }

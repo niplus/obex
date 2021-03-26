@@ -6,15 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.LocaleList;
 import android.os.StrictMode;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -52,6 +49,7 @@ import com.fota.option.websocket.data.AccountInfo;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.beta.upgrade.UpgradeStateListener;
+import com.tencent.mmkv.MMKV;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
@@ -130,8 +128,11 @@ public class FotaApplication extends BaseApplication {
         OptionManager.setConfig(config);
         OptionManager.setApplication(this);
         AppVariables.put("option-socket", "ws-client");
-        switchLanguage();
+
+        MMKV.initialize(this);
+//        switchLanguage();
         ErrorCodeUtil.getInstance().setOtherAppCodeUtils(FotaErrorUtils.getInstance());
+
     }
 
     private void initNetAndScreenReceiver() {
@@ -460,31 +461,31 @@ public class FotaApplication extends BaseApplication {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        switchLanguage();//
+//        switchLanguage();//
     }
 
-    public void switchLanguage() {
-        if (AppConfigs.getLanguegeInt() == -1) {
-            setLanguage();
-        }
-
-        Locale lacale = AppConfigs.getLanguege();
-        Resources resources = getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        Configuration config = resources.getConfiguration();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            config.setLocale(lacale);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                LocaleList localeList = new LocaleList(lacale);
-                LocaleList.setDefault(localeList);
-                config.setLocales(localeList);
-                getApplicationContext().createConfigurationContext(config);
-            }
-        } else {
-            config.locale = lacale;
-        }
-        resources.updateConfiguration(config, dm);
-    }
+//    public void switchLanguage() {
+//        if (AppConfigs.getLanguegeInt() == -1) {
+//            setLanguage();
+//        }
+//
+//        Locale lacale = AppConfigs.getLanguege();
+//        Resources resources = getResources();
+//        DisplayMetrics dm = resources.getDisplayMetrics();
+//        Configuration config = resources.getConfiguration();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//            config.setLocale(lacale);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                LocaleList localeList = new LocaleList(lacale);
+//                LocaleList.setDefault(localeList);
+//                config.setLocales(localeList);
+//                getApplicationContext().createConfigurationContext(config);
+//            }
+//        } else {
+//            config.locale = lacale;
+//        }
+//        resources.updateConfiguration(config, dm);
+//    }
 
     public static int containerToobar(String className) {
         if (Pub.isListExists(tabbar)) {

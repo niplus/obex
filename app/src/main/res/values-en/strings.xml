@@ -16,6 +16,7 @@
     <string name="common_buy">Buy</string>
     <string name="common_again_press_exit_app">Press again to exit the app
     </string>
+    <string name="facebook_app_id">279309876118668</string>
     <string name="common_sending">%1$ss</string>
     <string name="common_send_suc">Verification code sent</string>
     <string name="common_enterapp">Trade Now</string>
@@ -524,5 +525,19 @@
     <string name="share_qq">QQ</string>
     <string name="share_twitter">Twitter</string>
 
+    <!--合约计算器， 杠杆-->
+    <string name="target_price">target price</string>
+    <string name="open_price">Opening price</string>
+    <string name="close_price">Closing price</string>
+    <string name="calc_result">Calculation results</string>
+    <string name="initial_margin">Initial margin</string>
+    <string name="response_rate">response rate</string>
+    <string name="confirm">confirm</string>
+    <string name="adjust_leverage">Adjust leverage</string>
+    <string name="lever_warning">The current leverage is high, please pay attention to the risks.</string>
 
+    <string name="main_tab1">Market Info</string>
+    <string name="main_tab2">Exchange</string>
+    <string name="main_tab3">Trade</string>
+    <string name="main_tab4">Me</string>
 </resources>

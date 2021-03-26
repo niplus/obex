@@ -3,11 +3,11 @@ package com.fota.android.utils;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.fota.android.http.Http;
 import com.fota.android.app.FotaApplication;
 import com.fota.android.app.SocketKey;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.utils.SharedPreferencesUtil;
+import com.fota.android.http.Http;
 import com.fota.android.moudles.mine.login.bean.LoginBean;
 import com.fota.android.socket.WebSocketClient;
 import com.fota.option.OptionManager;

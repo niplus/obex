@@ -46,6 +46,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.fota.android.LanguageContextWrapper;
 import com.fota.android.R;
 import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.IConstant;
@@ -73,6 +74,7 @@ import com.fota.android.core.event.EventWrapper;
 import com.fota.android.moudles.main.MainActivity;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.KeyBoardUtils;
+import com.fota.android.utils.LanguageKt;
 import com.fota.android.utils.StatusBarUtil;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.TitleLayout;
@@ -114,7 +116,7 @@ public class BaseActivity extends FragmentActivity
         proxy = BtbBaseProxy.with(this);
         initData(getIntent().getExtras());
         MobclickAgent.onResume(this);
-        switchLanguage();
+//        switchLanguage();
         if (AppConfigs.getTheme() == AppConfigs.THEME_WHITE) {
             //默認是白天主題
             setTheme(R.style.AppTheme_White);
@@ -322,10 +324,13 @@ public class BaseActivity extends FragmentActivity
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(createLanguageContext(newBase));
+        Context context = LanguageContextWrapper.Companion.wrap(newBase, LanguageKt.getLocale());
+        super.attachBaseContext(context);
     }
 
     public static Context createLanguageContext(Context context) {
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return updateResources(context);
         } else {

@@ -1,5 +1,6 @@
 package com.fota.android.moudles.mine;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.fota.android.core.event.Event;
 import com.fota.android.core.event.EventWrapper;
 import com.fota.android.databinding.FragmentMineBinding;
 import com.fota.android.http.Http;
+import com.fota.android.moudles.futures.FuturesCalcActivity;
 import com.fota.android.moudles.mine.bean.MineBean;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.StatusBarUtil;
@@ -117,6 +119,8 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("security", userSecurity);
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.SettingFragment, bundle);
+
+//                startActivity(new Intent(requireContext(), FuturesCalcActivity.class));
                 break;
             case R.id.imv_notice:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.NoticeCenterFragment);

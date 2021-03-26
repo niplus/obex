@@ -103,10 +103,17 @@ public class MainActivity extends BaseActivity {
     CommomDialog updateDialog;
     VersionBean updateVersionBean = null;
 
+    String[] tabName = new String[4];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        tabName[0] = getString(R.string.main_tab1);
+        tabName[1] = getString(R.string.main_tab2);
+        tabName[2] = getString(R.string.main_tab3);
+        tabName[3] = getString(R.string.main_tab4);
         setContentView(R.layout.activity_main);
 //        Beta.checkUpgrade();
         ToastUtils.setGravity(Gravity.CENTER, 0, 0);
@@ -143,7 +150,8 @@ public class MainActivity extends BaseActivity {
         adapter = new EasyAdapter<BottomMenuItem, ViewHolder>(getContext(), R.layout.item_activity_main_bottom) {
             @Override
             public void convert(ViewHolder holder, final BottomMenuItem model, final int position) {
-                holder.setText(R.id.tv_me, (AppConfigs.isChinaLanguage() ? model.getNameZh() : model.getNameEn()));
+//                holder.setText(R.id.tv_me, (AppConfigs.isChinaLanguage() ? model.getNameZh() : model.getNameEn()));
+                holder.setText(R.id.tv_me, tabName[position]);
                 holder.<TextView>getView(R.id.tv_me).setSelected(position == selected_tab);
                 holder.setVisible(R.id.image_me, position != selected_tab);
                 holder.setVisible(R.id.image_me_select, position == selected_tab);

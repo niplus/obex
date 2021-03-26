@@ -39,7 +39,9 @@ import com.fota.android.moudles.mine.bean.VersionBean;
 import com.fota.android.service.UpdateIntentService;
 import com.fota.android.utils.DeviceUtils;
 import com.fota.android.utils.FtRounts;
+import com.fota.android.utils.LanguageKt;
 import com.fota.android.utils.UserLoginUtil;
+import com.fota.android.widget.dialog.ShareDialog;
 import com.fota.android.widget.popwin.CommomDialog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -74,7 +76,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         } else {
             fragmentSettingBinding.btnLogout.setVisibility(View.GONE);
         }
-        fragmentSettingBinding.tvLanguage.setText(AppConfigs.getLanguegeString());
+        fragmentSettingBinding.tvLanguage.setText(LanguageKt.getLanguageString());
         fragmentSettingBinding.tvAboutfota.setOnClickListener(this);
         fragmentSettingBinding.rlLanguage.setOnClickListener(this);
 //        fragmentSettingBinding.rlBg.setOnClickListener(this);
@@ -155,6 +157,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                         })
                 );
 
+//
                 break;
             case R.id.rl_language:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.LanguageFragment);
@@ -209,8 +212,10 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                     @Override
                     public void onNext(String outBean) {
                         UserLoginUtil.delUser();
+                        ShareDialog.Companion.setInviteCode("");
                         if (getView() == null) return;
                         FtRounts.toQuickLogin(mContext);
+                        FotaApplication.setLoginStatus(false);
                         getActivity().finish();
                     }
 
@@ -219,6 +224,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                         super.onError(e);
                         UserLoginUtil.delUser();
                         if (getView() == null) return;
+                        FotaApplication.setLoginStatus(false);
                         FtRounts.toQuickLogin(mContext);
                         finish();
                     }

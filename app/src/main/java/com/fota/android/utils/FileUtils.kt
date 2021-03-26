@@ -36,24 +36,35 @@ fun Context.getSandBoxDir(type: String): File? {
     }
 }
 
-fun Context.saveBitmap2File(fileName: String, bitmap: Bitmap){
+fun Context.saveBitmap2File(fileName: String, bitmap: Bitmap): String{
     val dir = getSandBoxDir(Environment.DIRECTORY_PICTURES)
     if (dir != null && dir.exists()){
-        val imgFile = File("${dir.absolutePath}${File.separator}share${File.separator}$fileName")
-        imgFile.createNewFile()
-        if (imgFile.exists())
-            GlobalScope.launch {
-                try {
-                    val fos = FileOutputStream(imgFile)
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos)
-                    fos.flush()
-                    fos.close()
-                }catch (e: Exception){
-                }
+//        val imgFile = File("${dir.absolutePath}${File.separator}share${File.separator}$fileName")
+        val imgFileDir = File("${dir.absolutePath}${File.separator}share")
+        if (!imgFileDir.exists())
+            imgFileDir.mkdirs()
 
+        val imgFile = File(imgFileDir, fileName)
+        if(!imgFile.exists())
+            imgFile.createNewFile()
+
+
+        if (imgFile.exists()) {
+//            GlobalScope.launch {
+            try {
+                val fos = FileOutputStream(imgFile)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos)
+                fos.flush()
+                fos.close()
+            } catch (e: Exception) {
             }
+            return imgFile.absolutePath
+        }
+
+        return ""
 
     }
+    return ""
 }
 
 fun Context.saveBitmap2Public(fileName: String, bitmap: Bitmap, block: (Boolean)->Unit){

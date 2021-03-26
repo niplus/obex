@@ -95,7 +95,25 @@
         <item name="mine_fota_logo">@mipmap/mine_fota_logo_black</item>
         <item name="icon_contractlever_check">@mipmap/icon_contractlever_check</item>
         <item name="commission">@mipmap/commission_black</item>
+        <item name="icon_share">@mipmap/icon_share_night</item>
 
+        <item name="btn_color">@drawable/selector_futures_calc_type_bg_night</item>
+        <item name="sell_btn_color">@drawable/selector_futures_calc_sell_type_bg_night</item>
+        <item name="bar_default">#444751</item>
+        <item name="bar_select_color">#3C78D7</item>
+        <item name="progress_bottom_text_color">#E5E5E5</item>
+        <item name="future_calc_input_bg">@drawable/shape_futures_calc_input_bg_night</item>
+        <item name="future_calc_result_bg">#2D2F39</item>
+        <item name="future_calc_text1">#919296</item>
+        <item name="lever_dialog_bg">#2D2F39</item>
+        <item name="lever_bar_default_color">#444751</item>
+        <item name="lever_bar_select_small_color">#444751</item>
+        <item name="icon_cancel">@mipmap/icon_cancel_night</item>
+        <item name="icon_plus">@mipmap/icon_plus_night</item>
+        <item name="icon_sub">@mipmap/icon_sub_night</item>
+        <item name="icon_calc">@mipmap/icon_calc_night</item>
+        <item name="future_calc_btn_color">#59AD6D</item>
+        <item name="futures_calc_line">#5D5D5D</item>
     </style>
 
 
@@ -124,6 +142,8 @@
         <item name="market_notice_bg">#F8F9FD</item>
         <item name="tradehis_search">#6694EE</item>
         <item name="history_addition">#F3F5F9</item>
+
+
         <!--<item name="market_main_tab_border">#2D323B</item>-->
 
         <item name="common_arrow_up">@mipmap/common_arrow_up_white</item>
@@ -196,6 +216,26 @@
         <item name="mine_fota_logo">@mipmap/mine_fota_logo_white</item>
         <item name="icon_contractlever_check">@mipmap/icon_contractlever_check_white</item>
         <item name="commission">@mipmap/commission_white</item>
+        <item name="icon_share">@mipmap/icon_share</item>
+
+
+        <item name="btn_color">@drawable/selector_futures_calc_type_bg</item>
+        <item name="sell_btn_color">@drawable/selector_futures_calc_type_bg</item>
+        <item name="bar_default">#F3F5F9</item>
+        <item name="bar_select_color">#3D50A4</item>
+        <item name="progress_bottom_text_color">#394C9E</item>
+        <item name="future_calc_input_bg">@drawable/shape_futures_calc_input_bg</item>
+        <item name="future_calc_result_bg">#F0F2F8</item>
+        <item name="future_calc_text1">#9BA5CE</item>
+        <item name="lever_dialog_bg">#FFFFFF</item>
+        <item name="lever_bar_default_color">#D9DADD</item>
+        <item name="lever_bar_select_small_color">#FFFFFF</item>
+        <item name="icon_cancel">@mipmap/icon_cancel</item>
+        <item name="icon_plus">@mipmap/icon_plus</item>
+        <item name="icon_sub">@mipmap/icon_sub</item>
+        <item name="icon_calc">@mipmap/icon_calc</item>
+        <item name="future_calc_btn_color">#7C8FDD</item>
+        <item name="futures_calc_line">#F9F9F9</item>
     </style>
 
     <style name="horizontal_fill">
@@ -405,6 +445,28 @@
 
     <style name="WXNoTitleBar" parent="@android:style/Theme.Translucent.NoTitleBar">
         <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <!--底部进出dialog-->
+    <style name="BottomDialog" parent="@android:style/Theme.Holo.Dialog">
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--阴影  -->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 还可以加入一些弹出和退出的动画 (lan)-->
+        <item name="android:windowAnimationStyle">@style/BottomDialogAnimation</item>
+    </style>
+
+    <!-- 自定义Dialog动画 -->
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_bottom_out</item>
     </style>
 
 </resources>

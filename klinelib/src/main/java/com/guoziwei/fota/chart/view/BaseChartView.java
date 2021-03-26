@@ -175,30 +175,30 @@ public class BaseChartView extends LinearLayout {
                     }
                 });
             }
-            if (entityType == 1) {
-
-            } else if (entityType == 2) {
-                llLengendFutre.setVisibility(View.VISIBLE);
-                llLengendFutre.setVisibility(View.GONE);
-                llLengendSpot.setVisibility(View.VISIBLE);
-            } else if (entityType == 3) {
-                llLengendFutre.setVisibility(View.GONE);
-                llLengendSpot.setVisibility(View.GONE);
-            }
+//            if (entityType == 1) {
+//
+//            } else if (entityType == 2) {
+//                llLengendFutre.setVisibility(View.VISIBLE);
+//                llLengendFutre.setVisibility(View.GONE);
+//                llLengendSpot.setVisibility(View.VISIBLE);
+//            } else if (entityType == 3) {
+//                llLengendFutre.setVisibility(View.GONE);
+//                llLengendSpot.setVisibility(View.GONE);
+//            }
         } else {
-            llLengendFutre.setVisibility(View.VISIBLE);
-            if (entityType == 1) {
-                llLengendFutre.setVisibility(View.GONE);
-                llLengendSpot.setVisibility(View.VISIBLE);
-            } else if (entityType == 2) {
-                TextView txtTradePriceName = layoutLegend.findViewById(R.id.txt_trade_price_name);
-                txtTradePriceName.setText(getContext().getString(R.string.legend_future_price));
-                llLengendFutre.setVisibility(View.VISIBLE);
-                llLengendSpot.setVisibility(View.VISIBLE);
-            } else if (entityType == 3) {
-                llLengendFutre.setVisibility(View.VISIBLE);
-                llLengendSpot.setVisibility(View.GONE);
-            }
+//            llLengendFutre.setVisibility(View.VISIBLE);
+//            if (entityType == 1) {
+//                llLengendFutre.setVisibility(View.GONE);
+//                llLengendSpot.setVisibility(View.VISIBLE);
+//            } else if (entityType == 2) {
+//                TextView txtTradePriceName = layoutLegend.findViewById(R.id.txt_trade_price_name);
+//                txtTradePriceName.setText(getContext().getString(R.string.legend_future_price));
+//                llLengendFutre.setVisibility(View.VISIBLE);
+//                llLengendSpot.setVisibility(View.VISIBLE);
+//            } else if (entityType == 3) {
+//                llLengendFutre.setVisibility(View.VISIBLE);
+//                llLengendSpot.setVisibility(View.GONE);
+//            }
         }
     }
 

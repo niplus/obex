@@ -47,18 +47,12 @@ com/guoziwei/fota/chart/FotaInfoViewListener.java
  com.guoziwei.fota.chart.FotaInfoViewListener
  com.guoziwei.fota.chart.FotaInfoViewListener$1
  com.guoziwei.fota.chart.FotaInfoViewListener$2
-com/guoziwei/fota/util/DateUtils.java
- com.guoziwei.fota.util.DateUtils
+com/guoziwei/fota/chart/FotaCombinedChart.java
+ com.guoziwei.fota.chart.FotaCombinedChart
 com/guoziwei/fota/model/KDJ.java
  com.guoziwei.fota.model.KDJ
-com/guoziwei/fota/chart/view/BaseChartView.java
- com.guoziwei.fota.chart.view.BaseChartView
- com.guoziwei.fota.chart.view.BaseChartView$1
- com.guoziwei.fota.chart.view.BaseChartView$2
- com.guoziwei.fota.chart.view.BaseChartView$3
- com.guoziwei.fota.chart.view.BaseChartView$4
- com.guoziwei.fota.chart.view.BaseChartView$KlinePeriodInterface
- com.guoziwei.fota.chart.view.BaseChartView$KlineScreenInterface
+com/guoziwei/fota/util/DateUtils.java
+ com.guoziwei.fota.util.DateUtils
 com/guoziwei/fota/chart/view/fota/LittlePageTimeView.java
  com.guoziwei.fota.chart.view.fota.LittlePageTimeView
  com.guoziwei.fota.chart.view.fota.LittlePageTimeView$1
@@ -88,8 +82,14 @@ com/guoziwei/fota/chart/view/fota/FotaLeftTriagleView.java
  com.guoziwei.fota.chart.view.fota.FotaLeftTriagleView
 com/guoziwei/fota/chart/render/FotaTimeBarXAxisRenderer.java
  com.guoziwei.fota.chart.render.FotaTimeBarXAxisRenderer
-com/guoziwei/fota/chart/FotaCombinedChart.java
- com.guoziwei.fota.chart.FotaCombinedChart
+com/guoziwei/fota/chart/view/BaseChartView.java
+ com.guoziwei.fota.chart.view.BaseChartView
+ com.guoziwei.fota.chart.view.BaseChartView$1
+ com.guoziwei.fota.chart.view.BaseChartView$2
+ com.guoziwei.fota.chart.view.BaseChartView$3
+ com.guoziwei.fota.chart.view.BaseChartView$4
+ com.guoziwei.fota.chart.view.BaseChartView$KlinePeriodInterface
+ com.guoziwei.fota.chart.view.BaseChartView$KlineScreenInterface
 com/guoziwei/fota/chart/view/fota/FotaBigTimeLineBarChartView.java
  com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView
  com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView$1
