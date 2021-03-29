@@ -67,6 +67,8 @@ public class GuideActivity extends BaseActivity {
                 enterMainActivity();
             }
         });
+
+
         if (AppConfigs.getLanguegeInt() == 0){
             imv_txt1.setImageResource(R.mipmap.guide2_txt1_cn);
             imv_txt2.setImageResource(R.mipmap.guide2_txt2_cn);

@@ -541,4 +541,5 @@
     <string name="confirm">确认</string>
     <string name="adjust_leverage">调整杠杆</string>
     <string name="lever_warning">当前杠杆倍数较高，请注意风险。</string>
+    <string name="insufficient_margin">保证金不足</string>
 </resources>

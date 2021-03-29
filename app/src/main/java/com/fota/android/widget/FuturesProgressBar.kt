@@ -55,7 +55,10 @@ class FuturesProgressBar: View {
 
     var progress = 0
     set(value) {
-        field = value
+        field = if (value > 100)
+            100
+        else
+            value
         invalidate()
     }
 
@@ -219,6 +222,7 @@ class FuturesProgressBar: View {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when(event.actionMasked){
             MotionEvent.ACTION_DOWN -> {
+
                 val downX = event.x
                 val downY = event.y
 
@@ -238,6 +242,11 @@ class FuturesProgressBar: View {
             }
 
             MotionEvent.ACTION_MOVE -> {
+                if (!touchEnable){
+                    selectPointPosition = paddingLeft + selectCircleRadius
+                    invalidate()
+                    return true
+                }
                 selectPointPosition = event.x
                 if (selectPointPosition < paddingLeft + selectCircleRadius){
                     selectPointPosition = paddingLeft + selectCircleRadius
@@ -251,8 +260,15 @@ class FuturesProgressBar: View {
             }
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+
                 showSelectText = false
                 invalidate()
+
+                if (!touchEnable){
+                    touchEnable = true
+                    invalidate()
+                    return true
+                }
             }
         }
 
@@ -285,6 +301,13 @@ class FuturesProgressBar: View {
         paint.getFontMetrics(fontMetrics)
         val offset = (fontMetrics.descent + fontMetrics.ascent) / 2
         return centerY - offset
+    }
+
+    var touchEnable = true
+    fun init(enableTouch: Boolean){
+        touchEnable = enableTouch
+        selectPointPosition = paddingLeft + selectCircleRadius
+        invalidate()
     }
 
 }

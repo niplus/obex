@@ -515,4 +515,5 @@
      <string name="confirm">確認</string>
      <string name="adjust_leverage">調整槓桿</string>
      <string name="lever_warning">當前杠桿倍數較高，請注意風險。 </string>
+     <string name="insufficient_margin">保證金不足</string>
    </resources>

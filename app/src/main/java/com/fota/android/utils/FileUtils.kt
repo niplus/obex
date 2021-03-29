@@ -39,7 +39,6 @@ fun Context.getSandBoxDir(type: String): File? {
 fun Context.saveBitmap2File(fileName: String, bitmap: Bitmap): String{
     val dir = getSandBoxDir(Environment.DIRECTORY_PICTURES)
     if (dir != null && dir.exists()){
-//        val imgFile = File("${dir.absolutePath}${File.separator}share${File.separator}$fileName")
         val imgFileDir = File("${dir.absolutePath}${File.separator}share")
         if (!imgFileDir.exists())
             imgFileDir.mkdirs()
@@ -50,7 +49,6 @@ fun Context.saveBitmap2File(fileName: String, bitmap: Bitmap): String{
 
 
         if (imgFile.exists()) {
-//            GlobalScope.launch {
             try {
                 val fos = FileOutputStream(imgFile)
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos)

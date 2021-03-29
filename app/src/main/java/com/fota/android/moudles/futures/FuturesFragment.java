@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,6 +35,7 @@ import com.fota.android.moudles.market.bean.HoldingEntity;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.KeyBoardUtils;
 import com.fota.android.utils.MoneyUtilsKt;
+import com.fota.android.utils.ToastUtils;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.utils.apputils.TradeUtils;
 import com.fota.android.widget.btbwidget.FotaTextWatch;
@@ -139,6 +139,7 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
                 if (!FotaApplication.getLoginSrtatus()){
                     return null;
                 }
+
                 String price;
                 if (isLimit){
                     price = mHeadBinding.price2.getText().toString();
@@ -149,6 +150,16 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
 
                 String moneyUnit = MoneyUtilsKt.divide(price, getLevel(), getPricePrecision());
                 String amountTotal = MoneyUtilsKt.divide(topInfo.getAvailable(), moneyUnit, getAmountPrecision());
+
+                String minValue = 1f / Math.pow(10, getAmountPrecision()) + "";
+
+                //如果保证金不够则不让滑动，并且提示保证金不足
+                if (new BigDecimal(amountTotal).compareTo(new BigDecimal(minValue)) < 0){
+                    mHeadBinding.fprogress.init(false);
+                    ToastUtils.INSTANCE.showToast(getString(R.string.insufficient_margin));
+                    return null;
+                }
+
                 String amount = MoneyUtilsKt.mul(amountTotal, rate / 100f + "");
                 mHeadBinding.amount2.setText(new BigDecimal(amount).setScale(getAmountPrecision(), BigDecimal.ROUND_HALF_UP).toPlainString());
                 return null;
@@ -207,7 +218,6 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
 
                 String moneyUnit = MoneyUtilsKt.divide(price, getLevel(), getPricePrecision());
                 String amountTotal = MoneyUtilsKt.divide(topInfo.getAvailable(), moneyUnit, getAmountPrecision());
-
                 String rate = MoneyUtilsKt.divide(mHeadBinding.amount2.getText().toString(), amountTotal, 2);
                 mHeadBinding.fprogress.setProgress(Math.round(Float.valueOf(rate) * 100));
             }
@@ -320,6 +330,7 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         if (Pub.isStringEmpty(mHeadBinding.amount2.getText().toString())) {
             mHeadBinding.amount2.setText(getDefaultAmount());
         }
+        mHeadBinding.fprogress.init(true);
 
     }
 

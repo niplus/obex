@@ -712,7 +712,8 @@
                                 <LinearLayout
                                     style="@style/horizontal_fill"
                                     android:layout_marginTop="10dp"
-                                    android:gravity="center_vertical">
+                                    android:gravity="center_vertical"
+                                    android:elevation="1dp">
 
                                     <TextView
                                         android:id="@+id/amount2_tip"

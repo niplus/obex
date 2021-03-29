@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,6 +121,7 @@ public class IdentityFragment extends MvpFragment<IdentityPresenter> implements 
         countryArea.setCode("86");
         countryArea.setName_en("China");
         countryArea.setName_zh("中国");
+        countryArea.setName_tw("中國");
         countryArea.setKey("CN");
         mBinding.tvCountry.setText(countryArea.getName_zh());
         bindValid(mBinding.btnSubmit, mBinding.edtFullname, mBinding.edtName, mBinding.edtSurname, mBinding.edtIdNo);

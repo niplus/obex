@@ -2,1152 +2,1344 @@
 	"areas": [{
 			"name_en": "Angola",
 			"name_zh": "安哥拉",
+			"name_tw": "安哥拉",
 			"key": "AO",
 			"code": "244"
 		},
 		{
 			"name_en": "Afghanistan",
 			"name_zh": "阿富汗",
+			"name_tw": "阿富汗",
 			"key": "AF",
 			"code": "93"
 		},
 		{
 			"name_en": "Albania",
 			"name_zh": "阿尔巴尼亚",
+			"name_tw": "阿爾巴尼亞",
 			"key": "AL",
 			"code": "355"
 		},
 		{
 			"name_en": "Algeria",
 			"name_zh": "阿尔及利亚",
+			"name_tw": "阿爾及利亞",
 			"key": "ALG",
 			"code": "213"
 		},
 		{
 			"name_en": "Andorra",
 			"name_zh": "安道尔共和国",
+			"name_tw": "安道爾共和國",
 			"key": "AD",
 			"code": "376"
 		},
 		{
 			"name_en": "Anguilla",
 			"name_zh": "安圭拉岛",
+			"name_tw": "安圭拉島",
 			"key": "AI",
 			"code": "1264"
 		},
 		{
 			"name_en": "Antigua and Barbuda",
 			"name_zh": "安提瓜和巴布达",
+			"name_tw": "安提瓜和巴布達",
 			"key": "AG",
 			"code": "1268"
 		},
 		{
 			"name_en": "Argentina",
 			"name_zh": "阿根廷",
+			"name_tw": "阿根廷",
 			"key": "AR",
 			"code": "54"
 		},
 		{
 			"name_en": "Armenia",
 			"name_zh": "亚美尼亚",
+			"name_tw": "亞美尼亞",
 			"key": "AM",
 			"code": "374"
 		},
 		{
 			"name_en": "Ascension",
 			"name_zh": "阿森松",
+			"name_tw": "阿森松",
 			"key": "AS",
 			"code": "247"
 		},
 		{
 			"name_en": "Australia",
 			"name_zh": "澳大利亚",
+			"name_tw": "澳大利亞",
 			"key": "AU",
 			"code": "61"
 		},
 		{
 			"name_en": "Austria",
 			"name_zh": "奥地利",
+			"name_tw": "奧地利",
 			"key": "AT",
 			"code": "43"
 		},
 		{
 			"name_en": "Azerbaijan",
 			"name_zh": "阿塞拜疆",
+			"name_tw": "阿塞拜疆",
 			"key": "AZ",
 			"code": "994"
 		},
 		{
 			"name_en": "Bahamas",
 			"name_zh": "巴哈马",
+			"name_tw": "巴哈馬",
 			"key": "BS",
 			"code": "1242"
 		},
 		{
 			"name_en": "Bahrain",
 			"name_zh": "巴林",
+			"name_tw": "巴林",
 			"key": "BH",
 			"code": "973"
 		},
 		{
 			"name_en": "Bangladesh",
 			"name_zh": "孟加拉国",
+			"name_tw": "孟加拉國",
 			"key": "BD",
 			"code": "880"
 		},
 		{
 			"name_en": "Barbados",
 			"name_zh": "巴巴多斯",
+			"name_tw": "巴巴多斯",
 			"key": "BB",
 			"code": "1246"
 		},
 		{
 			"name_en": "Belarus",
 			"name_zh": "白俄罗斯",
+			"name_tw": "白俄羅斯",
 			"key": "BY",
 			"code": "375"
 		},
 		{
 			"name_en": "Belgium",
 			"name_zh": "比利时",
+			"name_tw": "比利時",
 			"key": "BE",
 			"code": "32"
 		},
 		{
 			"name_en": "Belize",
 			"name_zh": "伯利兹",
+			"name_tw": "伯利茲",
 			"key": "BZ",
 			"code": "501"
 		},
 		{
 			"name_en": "Benin",
 			"name_zh": "贝宁",
+			"name_tw": "貝寧",
 			"key": "BJ",
 			"code": "229"
 		},
 		{
 			"name_en": "Bermuda Is.",
 			"name_zh": "百慕大群岛",
+			"name_tw": "百慕大群島",
 			"key": "BM",
 			"code": "1441"
 		},
 		{
 			"name_en": "Bolivia",
 			"name_zh": "玻利维亚",
+			"name_tw": "玻利維亞",
 			"key": "BO",
 			"code": "591"
 		},
 		{
 			"name_en": "Botswana",
 			"name_zh": "博茨瓦纳",
+			"name_tw": "博茨瓦納",
 			"key": "BW",
 			"code": "267"
 		},
 		{
 			"name_en": "Brazil",
 			"name_zh": "巴西",
+			"name_tw": "巴西",
 			"key": "BR",
 			"code": "55"
 		},
 		{
 			"name_en": "Brunei",
 			"name_zh": "文莱",
+			"name_tw": "文萊",
 			"key": "BN",
 			"code": "673"
 		},
 		{
 			"name_en": "Bulgaria",
 			"name_zh": "保加利亚",
+			"name_tw": "保加利亞",
 			"key": "BG",
 			"code": "359"
 		},
 		{
 			"name_en": "Burkina-faso",
 			"name_zh": "布基纳法索",
+			"name_tw": "布基納法索",
 			"key": "BF",
 			"code": "226"
 		},
 		{
 			"name_en": "Burma",
 			"name_zh": "缅甸",
+			"name_tw": "緬甸",
 			"key": "BUR",
 			"code": "95"
 		},
 		{
 			"name_en": "Burundi",
 			"name_zh": "布隆迪",
+			"name_tw": "布隆迪",
 			"key": "BI",
 			"code": "257"
 		},
 		{
 			"name_en": "Cameroon",
 			"name_zh": "喀麦隆",
+			"name_tw": "喀麥隆",
 			"key": "CM",
 			"code": "237"
 		},
 		{
 			"name_en": "Canada",
 			"name_zh": "加拿大",
+			"name_tw": "加拿大",
 			"key": "CA",
 			"code": "1"
 		},
 		{
 			"name_en": "Cayman Islands",
 			"name_zh": "开曼群岛",
+			"name_tw": "開曼群島",
 			"key": "CAY",
 			"code": "1345"
 		},
 		{
 			"name_en": "Central African Republic",
 			"name_zh": "中非共和国",
+			"name_tw": "中非共和國",
 			"key": "CAR",
 			"code": "236"
 		},
 		{
 			"name_en": "Chad",
 			"name_zh": "乍得",
+			"name_tw": "乍得",
 			"key": "CHAD",
 			"code": "235"
 		},
 		{
 			"name_en": "Chile",
 			"name_zh": "智利",
+			"name_tw": "智利",
 			"key": "CL",
 			"code": "56"
 		},
 		{
 			"name_en": "China",
 			"name_zh": "中国",
+			"name_tw": "中國",
 			"key": "CN",
 			"code": "86"
 		},
 		{
 			"name_en": "Colombia",
 			"name_zh": "哥伦比亚",
+			"name_tw": "哥倫比亞",
 			"key": "CO",
 			"code": "57"
 		},
 		{
 			"name_en": "Congo",
 			"name_zh": "刚果",
+			"name_tw": "剛果",
 			"key": "CG",
 			"code": "242"
 		},
 		{
 			"name_en": "Cook Islands",
 			"name_zh": "库克群岛",
+			"name_tw": "庫克群島",
 			"key": "CK",
 			"code": "682"
 		},
 		{
 			"name_en": "Costa Rica",
 			"name_zh": "哥斯达黎加",
+			"name_tw": "哥斯達黎加",
 			"key": "CR",
 			"code": "506"
 		},
 		{
 			"name_en": "Cuba",
 			"name_zh": "古巴",
+			"name_tw": "古巴",
 			"key": "CU",
 			"code": "53"
 		},
 		{
 			"name_en": "Cyprus",
 			"name_zh": "塞浦路斯",
+			"name_tw": "塞浦路斯",
 			"key": "CY",
 			"code": "357"
 		},
 		{
 			"name_en": "Czech Republic",
 			"name_zh": "捷克",
+			"name_tw": "捷克",
 			"key": "CZ",
 			"code": "420"
 		},
 		{
 			"name_en": "Denmark",
 			"name_zh": "丹麦",
+			"name_tw": "丹麥",
 			"key": "DK",
 			"code": "45"
 		},
 		{
 			"name_en": "Djibouti",
 			"name_zh": "吉布提",
+			"name_tw": "吉布提",
 			"key": "DJ",
 			"code": "253"
 		},
 		{
 			"name_en": "Dominica Rep.",
 			"name_zh": "多米尼加共和国",
+			"name_tw": "多米尼加共和國",
 			"key": "DM",
 			"code": "1767"
 		},
 		{
 			"name_en": "Ecuador",
 			"name_zh": "厄瓜多尔",
+			"name_tw": "厄瓜多爾",
 			"key": "EC",
 			"code": "593"
 		},
 		{
 			"name_en": "Egypt",
 			"name_zh": "埃及",
+			"name_tw": "埃及",
 			"key": "EG",
 			"code": "20"
 		},
 		{
 			"name_en": "EI Salvador",
 			"name_zh": "萨尔瓦多",
+			"name_tw": "薩爾瓦多",
 			"key": "ES",
 			"code": "503"
 		},
 		{
 			"name_en": "Estonia",
 			"name_zh": "爱沙尼亚",
+			"name_tw": "愛沙尼亞",
 			"key": "EE",
 			"code": "372"
 		},
 		{
 			"name_en": "Ethiopia",
 			"name_zh": "埃塞俄比亚",
+			"name_tw": "埃塞俄比亞",
 			"key": "ET",
 			"code": "251"
 		},
 		{
 			"name_en": "Fiji",
 			"name_zh": "斐济",
+			"name_tw": "斐濟",
 			"key": "FJ",
 			"code": "679"
 		},
 		{
 			"name_en": "Finland",
 			"name_zh": "芬兰",
+			"name_tw": "芬蘭",
 			"key": "FI",
 			"code": "358"
 		},
 		{
 			"name_en": "France",
 			"name_zh": "法国",
+			"name_tw": "法國",
 			"key": "FR",
 			"code": "33"
 		},
 		{
 			"name_en": "French Guiana",
 			"name_zh": "法属圭亚那",
+			"name_tw": "法屬圭亞那",
 			"key": "GF",
 			"code": "594"
 		},
 		{
 			"name_en": "Gabon",
 			"name_zh": "加蓬",
+			"name_tw": "加蓬",
 			"key": "GA",
 			"code": "241"
 		},
 		{
 			"name_en": "Gambia",
 			"name_zh": "冈比亚",
+			"name_tw": "岡比亞",
 			"key": "GM",
 			"code": "220"
 		},
 		{
 			"name_en": "Georgia",
 			"name_zh": "格鲁吉亚",
+			"name_tw": "格魯吉亞",
 			"key": "GE",
 			"code": "995"
 		},
 		{
 			"name_en": "Germany",
 			"name_zh": "德国",
+			"name_tw": "德國",
 			"key": "DE",
 			"code": "49"
 		},
 		{
 			"name_en": "Ghana",
 			"name_zh": "加纳",
+			"name_tw": "加納",
 			"key": "GH",
 			"code": "233"
 		},
 		{
 			"name_en": "Gibraltar",
 			"name_zh": "直布罗陀",
+			"name_tw": "直布羅陀",
 			"key": "GI",
 			"code": "350"
 		},
 		{
 			"name_en": "Greece",
 			"name_zh": "希腊",
+			"name_tw": "希臘",
 			"key": "GR",
 			"code": "30"
 		},
 		{
 			"name_en": "Grenada",
 			"name_zh": "格林纳达",
+			"name_tw": "格林納達",
 			"key": "GD",
 			"code": "1473"
 		},
 		{
 			"name_en": "Guam",
 			"name_zh": "关岛",
+			"name_tw": "關島",
 			"key": "GU",
 			"code": "1671"
 		},
 		{
 			"name_en": "Guatemala",
 			"name_zh": "危地马拉",
+			"name_tw": "危地馬拉",
 			"key": "GT",
 			"code": "502"
 		},
 		{
 			"name_en": "Guinea",
 			"name_zh": "几内亚",
+			"name_tw": "幾內亞",
 			"key": "GN",
 			"code": "224"
 		},
 		{
 			"name_en": "Guyana",
 			"name_zh": "圭亚那",
+			"name_tw": "圭亞那",
 			"key": "GY",
 			"code": "592"
 		},
 		{
 			"name_en": "Haiti",
 			"name_zh": "海地",
+			"name_tw": "海地",
 			"key": "HT",
 			"code": "509"
 		},
 		{
 			"name_en": "Honduras",
 			"name_zh": "洪都拉斯",
+			"name_tw": "洪都拉斯",
 			"key": "HN",
 			"code": "504"
 		},
 		{
 			"name_en": "Hong Kong",
 			"name_zh": "香港",
+			"name_tw": "香港",
 			"key": "HK",
 			"code": "852"
 		},
 		{
 			"name_en": "Hungary",
 			"name_zh": "匈牙利",
+			"name_tw": "匈牙利",
 			"key": "HU",
 			"code": "36"
 		},
 		{
 			"name_en": "Iceland",
 			"name_zh": "冰岛",
+			"name_tw": "冰島",
 			"key": "IS",
 			"code": "354"
 		},
 		{
 			"name_en": "India",
 			"name_zh": "印度",
+			"name_tw": "印度",
 			"key": "IN",
 			"code": "91"
 		},
 		{
 			"name_en": "Indonesia",
 			"name_zh": "印度尼西亚",
+			"name_tw": "印度尼西亞",
 			"key": "ID",
 			"code": "62"
 		},
 		{
 			"name_en": "Iran",
 			"name_zh": "伊朗",
+			"name_tw": "伊朗",
 			"key": "IR",
 			"code": "98"
 		},
 		{
 			"name_en": "Iraq",
 			"name_zh": "伊拉克",
+			"name_tw": "伊拉克",
 			"key": "IQ",
 			"code": "964"
 		},
 		{
 			"name_en": "Ireland",
 			"name_zh": "爱尔兰",
+			"name_tw": "愛爾蘭",
 			"key": "IE",
 			"code": "353"
 		},
 		{
 			"name_en": "Israel",
 			"name_zh": "以色列",
+			"name_tw": "以色列",
 			"key": "IL",
 			"code": "972"
 		},
 		{
 			"name_en": "Italy",
 			"name_zh": "意大利",
+			"name_tw": "意大利",
 			"key": "IT",
 			"code": "39"
 		},
 		{
 			"name_en": "Ivory Coast",
 			"name_zh": "科特迪瓦",
+			"name_tw": "科特迪瓦",
 			"key": "CI",
 			"code": "225"
 		},
 		{
 			"name_en": "Jamaica",
 			"name_zh": "牙买加",
+			"name_tw": "牙買加",
 			"key": "JM",
 			"code": "1876"
 		},
 		{
 			"name_en": "Japan",
 			"name_zh": "日本",
+			"name_tw": "日本",
 			"key": "JP",
 			"code": "81"
 		},
 		{
 			"name_en": "Jordan",
 			"name_zh": "约旦",
+			"name_tw": "約旦",
 			"key": "JO",
 			"code": "962"
 		},
 		{
 			"name_en": "Kampuchea (Cambodia )",
 			"name_zh": "柬埔寨",
+			"name_tw": "柬埔寨",
 			"key": "KAM",
 			"code": "855"
 		},
 		{
 			"name_en": "Kazakstan",
 			"name_zh": "哈萨克斯坦",
+			"name_tw": "哈薩克斯坦",
 			"key": "KAZ",
 			"code": "327"
 		},
 		{
 			"name_en": "Kenya",
 			"name_zh": "肯尼亚",
+			"name_tw": "肯尼亞",
 			"key": "KE",
 			"code": "254"
 		},
 		{
 			"name_en": "Korea",
 			"name_zh": "韩国",
+			"name_tw": "韓國",
 			"key": "KOR",
 			"code": "82"
 		},
 		{
 			"name_en": "Kuwait",
 			"name_zh": "科威特",
+			"name_tw": "科威特",
 			"key": "KW",
 			"code": "965"
 		},
 		{
 			"name_en": "Kyrgyzstan",
 			"name_zh": "吉尔吉斯坦",
+			"name_tw": "吉爾吉斯坦",
 			"key": "KG",
 			"code": "996"
 		},
 		{
 			"name_en": "Laos",
 			"name_zh": "老挝",
+			"name_tw": "老撾",
 			"key": "LA",
 			"code": "856"
 		},
 		{
 			"name_en": "Latvia",
 			"name_zh": "拉脱维亚",
+			"name_tw": "拉脫維亞",
 			"key": "LV",
 			"code": "371"
 		},
 		{
 			"name_en": "Lebanon",
 			"name_zh": "黎巴嫩",
+			"name_tw": "黎巴嫩",
 			"key": "LB",
 			"code": "961"
 		},
 		{
 			"name_en": "Lesotho",
 			"name_zh": "莱索托",
+			"name_tw": "萊索托",
 			"key": "LS",
 			"code": "266"
 		},
 		{
 			"name_en": "Liberia",
 			"name_zh": "利比里亚",
+			"name_tw": "利比里亞",
 			"key": "LR",
 			"code": "231"
 		},
 		{
 			"name_en": "Libya",
 			"name_zh": "利比亚",
+			"name_tw": "利比亞",
 			"key": "LY",
 			"code": "218"
 		},
 		{
 			"name_en": "Liechtenstein",
 			"name_zh": "列支敦士登",
+			"name_tw": "列支敦士登",
 			"key": "LI",
 			"code": "423"
 		},
 		{
 			"name_en": "Lithuania",
 			"name_zh": "立陶宛",
+			"name_tw": "立陶宛",
 			"key": "LT",
 			"code": "370"
 		},
 		{
 			"name_en": "Luxembourg",
 			"name_zh": "卢森堡",
+			"name_tw": "盧森堡",
 			"key": "LU",
 			"code": "352"
 		},
 		{
 			"name_en": "Macau",
 			"name_zh": "澳门",
+			"name_tw": "澳門",
 			"key": "MO",
 			"code": "853"
 		},
 		{
 			"name_en": "Madagascar",
 			"name_zh": "马达加斯加",
+			"name_tw": "馬達加斯加",
 			"key": "MG",
 			"code": "261"
 		},
 		{
 			"name_en": "Malawi",
 			"name_zh": "马拉维",
+			"name_tw": "馬拉維",
 			"key": "MW",
 			"code": "265"
 		},
 		{
 			"name_en": "Malaysia",
 			"name_zh": "马来西亚",
+			"name_tw": "馬來西亞",
 			"key": "MY",
 			"code": "60"
 		},
 		{
 			"name_en": "Maldives",
 			"name_zh": "马尔代夫",
+			"name_tw": "馬爾代夫",
 			"key": "MV",
 			"code": "960"
 		},
 		{
 			"name_en": "Mali",
 			"name_zh": "马里",
+			"name_tw": "馬里",
 			"key": "ML",
 			"code": "223"
 		},
 		{
 			"name_en": "Malta",
 			"name_zh": "马耳他",
+			"name_tw": "馬耳他",
 			"key": "MT",
 			"code": "356"
 		},
 		{
 			"name_en": "Mariana Is",
 			"name_zh": "马里亚那群岛",
+			"name_tw": "馬里亞那群島",
 			"key": "MRI",
 			"code": "1670"
 		},
 		{
 			"name_en": "Martinique",
 			"name_zh": "马提尼克",
+			"name_tw": "馬提尼克",
 			"key": "MTQ",
 			"code": "596"
 		},
 		{
 			"name_en": "Mauritius",
 			"name_zh": "毛里求斯",
+			"name_tw": "毛里求斯",
 			"key": "MU",
 			"code": "230"
 		},
 		{
 			"name_en": "Mexico",
 			"name_zh": "墨西哥",
+			"name_tw": "墨西哥",
 			"key": "MX",
 			"code": "52"
 		},
 		{
 			"name_en": "Moldova Republic of",
 			"name_zh": "摩尔多瓦",
+			"name_tw": "摩爾多瓦",
 			"key": "MD",
 			"code": "373"
 		},
 		{
 			"name_en": "Monaco",
 			"name_zh": "摩纳哥",
+			"name_tw": "摩納哥",
 			"key": "MC",
 			"code": "377"
 		},
 		{
 			"name_en": "Mongolia",
 			"name_zh": "蒙古",
+			"name_tw": "蒙古",
 			"key": "MN",
 			"code": "976"
 		},
 		{
 			"name_en": "Montserrat Is",
 			"name_zh": "蒙特塞拉特岛",
+			"name_tw": "蒙特塞拉特島",
 			"key": "MS",
 			"code": "1664"
 		},
 		{
 			"name_en": "Morocco",
 			"name_zh": "摩洛哥",
+			"name_tw": "摩洛哥",
 			"key": "MA",
 			"code": "212"
 		},
 		{
 			"name_en": "Mozambique",
 			"name_zh": "莫桑比克",
+			"name_tw": "莫桑比克",
 			"key": "MZ",
 			"code": "258"
 		},
 		{
 			"name_en": "Namibia",
 			"name_zh": "纳米比亚",
+			"name_tw": "納米比亞",
 			"key": "NAM",
 			"code": "264"
 		},
 		{
 			"name_en": "Nauru",
 			"name_zh": "瑙鲁",
+			"name_tw": "瑙魯",
 			"key": "NR",
 			"code": "674"
 		},
 		{
 			"name_en": "Nepal",
 			"name_zh": "尼泊尔",
+			"name_tw": "尼泊爾",
 			"key": "NP",
 			"code": "977"
 		},
 		{
 			"name_en": "Netheriands Antilles",
 			"name_zh": "荷属安的列斯",
+			"name_tw": "荷屬安的列斯",
 			"key": "NA",
 			"code": "599"
 		},
 		{
 			"name_en": "Netherlands",
 			"name_zh": "荷兰",
+			"name_tw": "荷蘭",
 			"key": "NL",
 			"code": "31"
 		},
 		{
 			"name_en": "New Zealand",
 			"name_zh": "新西兰",
+			"name_tw": "新西蘭",
 			"key": "NZ",
 			"code": "64"
 		},
 		{
 			"name_en": "Nicaragua",
 			"name_zh": "尼加拉瓜",
+			"name_tw": "尼加拉瓜",
 			"key": "NI",
 			"code": "505"
 		},
 		{
 			"name_en": "Niger",
 			"name_zh": "尼日尔",
+			"name_tw": "尼日爾",
 			"key": "NE",
 			"code": "227"
 		},
 		{
 			"name_en": "Nigeria",
 			"name_zh": "尼日利亚",
+			"name_tw": "尼日利亞",
 			"key": "NG",
 			"code": "234"
 		},
 		{
 			"name_en": "North Korea",
 			"name_zh": "朝鲜",
+			"name_tw": "朝鮮",
 			"key": "NK",
 			"code": "850"
 		},
 		{
 			"name_en": "Norway",
 			"name_zh": "挪威",
+			"name_tw": "挪威",
 			"key": "NW",
 			"code": "47"
 		},
 		{
 			"name_en": "Oman",
 			"name_zh": "阿曼",
+			"name_tw": "阿曼",
 			"key": "OM",
 			"code": "968"
 		},
 		{
 			"name_en": "Pakistan",
 			"name_zh": "巴基斯坦",
+			"name_tw": "巴基斯坦",
 			"key": "PK",
 			"code": "92"
 		},
 		{
 			"name_en": "Panama",
 			"name_zh": "巴拿马",
+			"name_tw": "巴拿馬",
 			"key": "PA",
 			"code": "507"
 		},
 		{
 			"name_en": "Papua New Guinea",
 			"name_zh": "巴布亚新几内亚",
+			"name_tw": "巴布亞新幾內亞",
 			"key": "PG",
 			"code": "675"
 		},
 		{
 			"name_en": "Paraguay",
 			"name_zh": "巴拉圭",
+			"name_tw": "巴拉圭",
 			"key": "PY",
 			"code": "595"
 		},
 		{
 			"name_en": "Peru",
 			"name_zh": "秘鲁",
+			"name_tw": "秘魯",
 			"key": "PE",
 			"code": "51"
 		},
 		{
 			"name_en": "Philippines",
 			"name_zh": "菲律宾",
+			"name_tw": "菲律賓",
 			"key": "PH",
 			"code": "63"
 		},
 		{
 			"name_en": "Poland",
 			"name_zh": "波兰",
+			"name_tw": "波蘭",
 			"key": "PL",
 			"code": "48"
 		},
 		{
 			"name_en": "French Polynesia",
 			"name_zh": "法属玻利尼西亚",
+			"name_tw": "法屬玻利尼西亞",
 			"key": "PF",
 			"code": "689"
 		},
 		{
 			"name_en": "Portugal",
 			"name_zh": "葡萄牙",
+			"name_tw": "葡萄牙",
 			"key": "PT",
 			"code": "351"
 		},
 		{
 			"name_en": "Puerto Rico",
 			"name_zh": "波多黎各",
+			"name_tw": "波多黎各",
 			"key": "PR",
 			"code": "1787"
 		},
 		{
 			"name_en": "Qatar",
 			"name_zh": "卡塔尔",
+			"name_tw": "卡塔爾",
 			"key": "QA",
 			"code": "974"
 		},
 		{
 			"name_en": "Reunion",
 			"name_zh": "留尼旺",
+			"name_tw": "留尼旺",
 			"key": "RE",
 			"code": "262"
 		},
 		{
 			"name_en": "Romania",
 			"name_zh": "罗马尼亚",
+			"name_tw": "羅馬尼亞",
 			"key": "RO",
 			"code": "40"
 		},
 		{
 			"name_en": "Russia",
 			"name_zh": "俄罗斯",
+			"name_tw": "俄羅斯",
 			"key": "RU",
 			"code": "7"
 		},
 		{
 			"name_en": "Saint Lucia",
 			"name_zh": "圣卢西亚",
+			"name_tw": "聖盧西亞",
 			"key": "LC",
 			"code": "1758"
 		},
 		{
 			"name_en": "Saint Vincent",
 			"name_zh": "圣文森特岛",
+			"name_tw": "聖文森特島",
 			"key": "VC",
 			"code": "1784"
 		},
 		{
 			"name_en": "Samoa Eastern",
 			"name_zh": "东萨摩亚(美)",
+			"name_tw": "東薩摩亞(美)",
 			"key": "SE",
 			"code": "684"
 		},
 		{
 			"name_en": "Samoa Western",
 			"name_zh": "西萨摩亚",
+			"name_tw": "西薩摩亞",
 			"key": "SW",
 			"code": "685"
 		},
 		{
 			"name_en": "San Marino",
 			"name_zh": "圣马力诺",
+			"name_tw": "聖馬力諾",
 			"key": "SM",
 			"code": "378"
 		},
 		{
 			"name_en": "Sao Tome and Principe",
 			"name_zh": "圣多美和普林西比",
+			"name_tw": "聖多美和普林西比",
 			"key": "ST",
 			"code": "239"
 		},
 		{
 			"name_en": "Saudi Arabia",
 			"name_zh": "沙特阿拉伯",
+			"name_tw": "沙特阿拉伯",
 			"key": "SA",
 			"code": "966"
 		},
 		{
 			"name_en": "Senegal",
 			"name_zh": "塞内加尔",
+			"name_tw": "塞內加爾",
 			"key": "SN",
 			"code": "221"
 		},
 		{
 			"name_en": "Seychelles",
 			"name_zh": "塞舌尔",
+			"name_tw": "塞舌爾",
 			"key": "SC",
 			"code": "248"
 		},
 		{
 			"name_en": "Sierra Leone",
 			"name_zh": "塞拉利昂",
+			"name_tw": "塞拉利昂",
 			"key": "SL",
 			"code": "232"
 		},
 		{
 			"name_en": "Singapore",
 			"name_zh": "新加坡",
+			"name_tw": "新加坡",
 			"key": "SG",
 			"code": "65"
 		},
 		{
 			"name_en": "Slovakia",
 			"name_zh": "斯洛伐克",
+			"name_tw": "斯洛伐克",
 			"key": "SK",
 			"code": "421"
 		},
 		{
 			"name_en": "Slovenia",
 			"name_zh": "斯洛文尼亚",
+			"name_tw": "斯洛文尼亞",
 			"key": "SI",
 			"code": "386"
 		},
 		{
 			"name_en": "Solomon Is",
 			"name_zh": "所罗门群岛",
+			"name_tw": "所羅門群島",
 			"key": "SB",
 			"code": "677"
 		},
 		{
 			"name_en": "Somalia",
 			"name_zh": "索马里",
+			"name_tw": "索馬里",
 			"key": "SO",
 			"code": "252"
 		},
 		{
 			"name_en": "South Africa",
 			"name_zh": "南非",
+			"name_tw": "南非",
 			"key": "ZA",
 			"code": "27"
 		},
 		{
 			"name_en": "Spain",
 			"name_zh": "西班牙",
+			"name_tw": "西班牙",
 			"key": "SPA",
 			"code": "34"
 		},
 		{
 			"name_en": "Sri Lanka",
 			"name_zh": "斯里兰卡",
+			"name_tw": "斯里蘭卡",
 			"key": "LK",
 			"code": "94"
 		},
 		{
 			"name_en": "St.Lucia",
 			"name_zh": "圣卢西亚",
+			"name_tw": "聖盧西亞",
 			"key": "STL",
 			"code": "1758"
 		},
 		{
 			"name_en": "St.Vincent",
 			"name_zh": "St.Vincent",
+			"name_tw": "St.Vincent",
 			"key": "SV",
 			"code": "1784"
 		},
 		{
 			"name_en": "Sudan",
 			"name_zh": "苏丹",
+			"name_tw": "蘇丹",
 			"key": "SD",
 			"code": "249"
 		},
 		{
 			"name_en": "Suriname",
 			"name_zh": "苏里南",
+			"name_tw": "蘇里南",
 			"key": "SR",
 			"code": "597"
 		},
 		{
 			"name_en": "Swaziland",
 			"name_zh": "斯威士兰",
+			"name_tw": "斯威士蘭",
 			"key": "SZ",
 			"code": "268"
 		},
 		{
 			"name_en": "Sweden",
 			"name_zh": "瑞典",
+			"name_tw": "瑞典",
 			"key": "SWE",
 			"code": "46"
 		},
 		{
 			"name_en": "Switzerland",
 			"name_zh": "瑞士",
+			"name_tw": "瑞士",
 			"key": "SWL",
 			"code": "41"
 		},
 		{
 			"name_en": "Syria",
 			"name_zh": "叙利亚",
+			"name_tw": "敘利亞",
 			"key": "SY",
 			"code": "963"
 		},
 		{
 			"name_en": "Taiwan",
 			"name_zh": "台湾",
+			"name_tw": "台灣",
 			"key": "TW",
 			"code": "886"
 		},
 		{
 			"name_en": "Tajikistan",
 			"name_zh": "塔吉克斯坦",
+			"name_tw": "塔吉克斯坦",
 			"key": "TJ",
 			"code": "992"
 		},
 		{
 			"name_en": "Tanzania",
 			"name_zh": "坦桑尼亚",
+			"name_tw": "坦桑尼亞",
 			"key": "TZ",
 			"code": "255"
 		},
 		{
 			"name_en": "Thailand",
 			"name_zh": "泰国",
+			"name_tw": "泰國",
 			"key": "TH",
 			"code": "66"
 		},
 		{
 			"name_en": "Togo",
 			"name_zh": "多哥",
+			"name_tw": "多哥",
 			"key": "TG",
 			"code": "228"
 		},
 		{
 			"name_en": "Tonga",
 			"name_zh": "汤加",
+			"name_tw": "湯加",
 			"key": "TO",
 			"code": "676"
 		},
 		{
 			"name_en": "Trinidadand Tobago",
 			"name_zh": "特立尼达和多巴哥",
+			"name_tw": "特立尼達和多巴哥",
 			"key": "TT",
 			"code": "1868"
 		},
 		{
 			"name_en": "Tunisia",
 			"name_zh": "突尼斯",
+			"name_tw": "突尼斯",
 			"key": "TN",
 			"code": "216"
 		},
 		{
 			"name_en": "Turkey",
 			"name_zh": "土耳其",
+			"name_tw": "土耳其",
 			"key": "TR",
 			"code": "90"
 		},
 		{
 			"name_en": "Turkmenistan",
 			"name_zh": "土库曼斯坦",
+			"name_tw": "土庫曼斯坦",
 			"key": "TM",
 			"code": "993"
 		},
 		{
 			"name_en": "Uganda",
 			"name_zh": "乌干达",
+			"name_tw": "烏干達",
 			"key": "UG",
 			"code": "256"
 		},
 		{
 			"name_en": "Ukraine",
 			"name_zh": "乌克兰",
+			"name_tw": "烏克蘭",
 			"key": "UA",
 			"code": "380"
 		},
 		{
 			"name_en": "United Arab Emirates",
 			"name_zh": "阿拉伯联合酋长国",
+			"name_tw": "阿拉伯聯合酋長國",
 			"key": "AE",
 			"code": "971"
 		},
 		{
 			"name_en": "United Kingdom",
 			"name_zh": "英国",
+			"name_tw": "英國",
 			"key": "GB",
 			"code": "44"
 		},
 		{
 			"name_en": "United States",
 			"name_zh": "美国",
+			"name_tw": "美國",
 			"key": "US",
 			"code": "1"
 		},
 		{
 			"name_en": "Uruguay",
 			"name_zh": "乌拉圭",
+			"name_tw": "烏拉圭",
 			"key": "UY",
 			"code": "598"
 		},
 		{
 			"name_en": "Uzbekistan",
 			"name_zh": "乌兹别克斯坦",
+			"name_tw": "烏茲別克斯坦",
 			"key": "UZ",
 			"code": "998"
 		},
 		{
 			"name_en": "Venezuela",
 			"name_zh": "委内瑞拉",
+			"name_tw": "委內瑞拉",
 			"key": "VE",
 			"code": "58"
 		},
 		{
 			"name_en": "Vietnam",
 			"name_zh": "越南",
+			"name_tw": "越南",
 			"key": "VN",
 			"code": "84"
 		},
 		{
 			"name_en": "Yemen",
 			"name_zh": "也门",
+			"name_tw": "也門",
 			"key": "YE",
 			"code": "967"
 		},
 		{
 			"name_en": "Yugoslavia",
 			"name_zh": "南斯拉夫",
+			"name_tw": "南斯拉夫",
 			"key": "YUG",
 			"code": "381"
 		},
 		{
 			"name_en": "Zaire",
 			"name_zh": "扎伊尔",
+			"name_tw": "扎伊爾",
 			"key": "ZMI",
 			"code": "243"
 		},
 		{
 			"name_en": "Zambia",
 			"name_zh": "赞比亚",
+			"name_tw": "贊比亞",
 			"key": "ZMB",
 			"code": "260"
 		},
 		{
 			"name_en": "Zimbabwe",
 			"name_zh": "津巴布韦",
+			"name_tw": "津巴布韋",
 			"key": "ZW",
 			"code": "263"
 		}

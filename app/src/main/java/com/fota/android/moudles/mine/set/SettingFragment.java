@@ -190,7 +190,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.tv_tradelever:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.TradeLeverFragment);
-
                 break;
 
         }
