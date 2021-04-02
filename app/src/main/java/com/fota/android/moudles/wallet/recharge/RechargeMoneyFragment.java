@@ -2,19 +2,23 @@ package com.fota.android.moudles.wallet.recharge;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.fota.android.MyViewHolder;
 import com.fota.android.R;
-import com.fota.android.http.Http;
 import com.fota.android.app.BundleKeys;
 import com.fota.android.common.bean.wallet.WalletBean;
 import com.fota.android.common.bean.wallet.WalletItem;
@@ -31,6 +35,7 @@ import com.fota.android.core.base.BaseFragment;
 import com.fota.android.core.base.BtbMap;
 import com.fota.android.core.base.ft.FtKeyValue;
 import com.fota.android.databinding.FragmentRechargeMoneyBinding;
+import com.fota.android.http.Http;
 import com.fota.android.moudles.wallet.history.WithDrawHistoryFragment;
 import com.fota.android.utils.ZXingUtils;
 import com.fota.android.widget.TitleLayout;
@@ -53,6 +58,10 @@ public class RechargeMoneyFragment extends BaseFragment implements View.OnClickL
     private ClipboardManager myClipboard;
     Bitmap qrBitmap;
     private List<WalletItem> items;
+
+    public List<String> netData;
+
+    private String selectNet = "";
 
     public static RechargeMoneyFragment newInstance(WalletItem walletItem) {
         Bundle args = new Bundle();
@@ -78,6 +87,7 @@ public class RechargeMoneyFragment extends BaseFragment implements View.OnClickL
     @Override
     protected void onInitView(View view) {
         super.onInitView(view);
+        netData = new ArrayList<>();
         mBinding.tvCopy.setCircleButtonStyle(true);
         myClipboard = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
         getWallet();
@@ -96,6 +106,51 @@ public class RechargeMoneyFragment extends BaseFragment implements View.OnClickL
                     return;
                 }
                 addFragment(WithDrawHistoryFragment.newInstance(model.getAssetId()));
+            }
+        });
+
+        mBinding.rvNet.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
+        mBinding.rvNet.setAdapter(new RecyclerView.Adapter() {
+            @NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_withdraw_recharge_net, null, false);
+//                TextView tvNet = rootView.findViewById(R.id.tv_net);
+                return new MyViewHolder(rootView);
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                TextView view = ((MyViewHolder)holder).itemView.findViewById(R.id.tv_net);
+                view.setText(netData.get(position));
+
+                if (netData.get(position).endsWith(selectNet)){
+                    view.setTextColor((int)0xFF3C78D7);
+                    view.setBackgroundResource(R.drawable.shape_stroke_3c78d7);
+                }else {
+                    view.setTextColor((int)0xFF999999);
+                    view.setBackgroundResource(R.drawable.shape_stroke_cacaca);
+                }
+
+                view.setOnClickListener(v -> {
+                    selectNet = view.getText().toString();
+                    mBinding.rvNet.getAdapter().notifyDataSetChanged();
+                    getAddress();
+                });
+
+            }
+
+            @Override
+            public int getItemCount() {
+                return netData.size();
+            }
+        });
+        mBinding.rvNet.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                if (parent.getChildAdapterPosition(view) != 0){
+                    outRect.left = 30;
+                }
             }
         });
     }
@@ -138,11 +193,11 @@ public class RechargeMoneyFragment extends BaseFragment implements View.OnClickL
         BtbMap map = new BtbMap();
         map.p("assetId", model.getAssetId());
         map.p("assetName", model.getAssetName());
-        if(model.isNetWork()){
-            map.p("network", model.getNetWork());
-        }else{
-            map.p("network", model.getAssetName());
-        }
+//        if(model.isNetWork()){
+            map.p("network", selectNet);
+//        }else{
+//            map.p("network", model.getAssetName());
+//        }
 
 
         Http.getWalletService().deposite(map)
@@ -262,16 +317,16 @@ public class RechargeMoneyFragment extends BaseFragment implements View.OnClickL
                     public void onNext(WalletBean list) {
                         items = new ArrayList<>();
                         for (WalletItem bean : list.getItem()) {
-                            if ("USDT".equals(bean.getAssetName())) {
-                                WalletItem itemOmni = new WalletItem(bean);
-                                itemOmni.OMNI();
-                                WalletItem itemEth = new WalletItem(bean);
-                                itemEth.ETH();
-                                items.add(itemOmni);
-                                items.add(itemEth);
-                            } else {
+//                            if ("USDT".equals(bean.getAssetName())) {
+//                                WalletItem itemOmni = new WalletItem(bean);
+//                                itemOmni.OMNI();
+//                                WalletItem itemEth = new WalletItem(bean);
+//                                itemEth.ETH();
+//                                items.add(itemOmni);
+//                                items.add(itemEth);
+//                            } else {
                                 items.add(bean);
-                            }
+//                            }
                         }
                         setSelectItem(items.get(0));
                     }
@@ -284,6 +339,14 @@ public class RechargeMoneyFragment extends BaseFragment implements View.OnClickL
         mBinding.assetName.setText(model.getAssetName());
         Glide.with(getContext()).load(URLUtils.getFullPath(model.getCoinIconUrl()))
                 .apply(new RequestOptions().error(R.mipmap.icon_logo)).into(mBinding.assetIcon);
+
+        netData.clear();
+        selectNet = "";
+        if (model.getWnetwork() != null) {
+            netData.addAll(model.getWnetwork());
+            selectNet = model.getWnetwork().get(0);
+        }
+        mBinding.rvNet.getAdapter().notifyDataSetChanged();
         getAddress();
     }
 }

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.view.View;
 
 import com.fota.android.R;
+import com.fota.android.app.FotaApplication;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.utils.GradientDrawableUtils;
 import com.fota.android.commonlib.utils.Pub;
@@ -11,6 +12,7 @@ import com.fota.android.core.dialog.DialogModel;
 import com.fota.android.core.dialog.DialogUtils;
 import com.fota.android.moudles.exchange.BaseExchageChlidFragment;
 import com.fota.android.moudles.futures.FuturesFragment;
+import com.fota.android.moudles.market.bean.FutureItemEntity;
 import com.fota.android.widget.dialog.ShareDialog;
 import com.fota.android.widget.myview.LevelView;
 import com.fota.android.widget.recyclerview.EasyAdapter;
@@ -114,13 +116,22 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
                 holder.getView(R.id.iv_share).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        List<FutureItemEntity> applicationCache = FotaApplication.getInstance().getMarketsCardsList();
+                        String price = "";
+                        for (FutureItemEntity each : applicationCache){
+                            if (each.getEntityType() == 2 && model.getContractId().equals(each.getEntityId()+"")){
+                                price = each.getLastPrice();
+                            }
+                        }
+
                         new ShareDialog(getActivity(),
                                 model.isBuy(),
                                 model.getLever(),
                                 model.getContractName(),
                                 model.getEarningRate(),
                                 model.getAveragePrice(),
-                                ((FuturesFragment)getParentFragment()).getCurrentPrice(),
+                                price,
                                 getActivity()).show();
                     }
                 });

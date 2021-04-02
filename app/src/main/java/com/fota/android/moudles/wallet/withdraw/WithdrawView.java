@@ -1,5 +1,6 @@
 package com.fota.android.moudles.wallet.withdraw;
 
+import com.fota.android.common.bean.wallet.RateBean;
 import com.fota.android.common.bean.wallet.WalletItem;
 import com.fota.android.commonlib.base.BaseView;
 import com.fota.android.core.base.BtbMap;
@@ -13,4 +14,6 @@ public interface WithdrawView extends BaseView {
     void setSuccess(BtbMap map);
 
     void setSelectItem(WalletItem walletItem);
+
+    void setRate(RateBean rate);
 }

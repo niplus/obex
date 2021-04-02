@@ -1,6 +1,5 @@
 package com.fota.android.moudles.mine;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,18 +18,12 @@ import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.FotaApplication;
 import com.fota.android.common.listener.ISystembar;
 import com.fota.android.commonlib.base.AppConfigs;
-import com.fota.android.commonlib.http.exception.ApiException;
-import com.fota.android.commonlib.http.rx.CommonSubscriber;
-import com.fota.android.commonlib.http.rx.CommonTransformer;
 import com.fota.android.commonlib.utils.Pub;
-import com.fota.android.core.base.BtbMap;
 import com.fota.android.core.base.SimpleFragmentActivity;
 import com.fota.android.core.base.list.MvpListFragment;
 import com.fota.android.core.event.Event;
 import com.fota.android.core.event.EventWrapper;
 import com.fota.android.databinding.FragmentMineBinding;
-import com.fota.android.http.Http;
-import com.fota.android.moudles.futures.FuturesCalcActivity;
 import com.fota.android.moudles.mine.bean.MineBean;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.StatusBarUtil;
@@ -38,6 +31,7 @@ import com.fota.android.utils.StringFormatUtils;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.recyclerview.EasyAdapter;
 import com.gyf.barlibrary.ImmersionBar;
+import com.tencent.mmkv.MMKV;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -124,7 +118,7 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
                 break;
             case R.id.imv_notice:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.NoticeCenterFragment);
-                break;
+                break; 
             case R.id.ll_activite:
                 FtRounts.toWebView(mContext, mContext.getResources().getString(R.string.mine_activitys_title), Constants.getH5BaseUrl() + Constants.URL_ACTIVIES);
                 break;
@@ -147,7 +141,7 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
 
                 String userId = UserLoginUtil.getId();
                 if (!userId.equals("0"))
-                    FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/invite?userId=" + userId);
+                    FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/invite?userId=" + userId + "&language="+ MMKV.defaultMMKV().decodeString("language"));
 //                BtbMap map = new BtbMap();
 //                Http.getWalletService().invite(map)
 //                        .compose(new CommonTransformer<String>())

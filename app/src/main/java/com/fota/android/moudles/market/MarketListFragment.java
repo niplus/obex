@@ -129,9 +129,9 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
                     }
                     if (model.getEntityType() != 3) {
                         holder.setText(R.id.txt_future_price, model.getUscPrice() == null ? "- -" : model.getUscPrice());
-                        holder.setVisible(R.id.txt_dollar_price, false);
+//                        holder.setVisible(R.id.txt_dollar_price, false);
                     } else {
-                        holder.setVisible(R.id.txt_dollar_price, true);
+//                        holder.setVisible(R.id.txt_dollar_price, true);
                         String temp = model.getUscPrice();
                         if (!TextUtils.isEmpty(temp)) {
                             String[] arrs = temp.split("/");

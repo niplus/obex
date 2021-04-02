@@ -183,6 +183,14 @@ public class FuturesPresenter extends ExchangePresenter {
                         if (getView() != null) {
                             getView().refreshComplete();
                         }
+
+//                        for (int i = 0;i < list.size();i++){
+//                            for (int j = 0;j < list.get(i).getContent().size();j++){
+//                                if (list.get(i).getContent().get(j).getContractType() == 3){
+//                                    list.get(i).getContent().get(j).
+//                                }
+//                            }
+//                        }
                         setAllList(list);
                         //从传值过来的地方处理
                         if (fromKey != null && fromContact != null) {

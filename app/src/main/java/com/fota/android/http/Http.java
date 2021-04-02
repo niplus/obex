@@ -395,6 +395,7 @@ public class Http {
                     .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
                     .addInterceptor(addQueryParameterInterceptor())  //参数添加
                     .addInterceptor(addHeaderInterceptor(apiVersion)) // token过滤
+                    .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                     .cache(cache)  //添加缓存
                     .cookieJar(cookieJar)
                     .connectTimeout(5L, TimeUnit.SECONDS)
@@ -403,9 +404,9 @@ public class Http {
             if (haveCache) {
                 builder.addInterceptor(haveCache ? addCacheInterceptor() : null);
             }
-            if (Constants.DEBUG) {
-                builder.addInterceptor(httpLoggingInterceptor); //日志,debug下可看到
-            }
+//            if (Constants.DEBUG) {
+//                builder.addInterceptor(httpLoggingInterceptor); //日志,debug下可看到
+//            }
             clientConfigurable = builder.build();
 
             // 获取retrofit的实例
@@ -432,6 +433,7 @@ public class Http {
 
 
     public static String getIpAddress() {
+//        return "http://bg-dev.yuchains.com/mapi/";
         return Constants.getHttpUrl();
         //return Pub.isStringEmpty(AppConfigs.getIpAddress()) ? getDefaultAddress() : AppConfigs.getIpAddress();
     }

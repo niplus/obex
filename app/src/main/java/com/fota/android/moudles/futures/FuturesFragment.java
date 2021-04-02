@@ -317,7 +317,10 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         //jiang
         mHeadBinding.rightContainer.resetTicker();
         mHeadBinding.rightContainer.setType(2, getPresenter().getSelectContact().getContractName());
-        mHeadBinding.futuresCurrency.setText(getPresenter().getSelectContact().getContractName());
+
+        FutureContractBean futureContractBean = getPresenter().getSelectContact();
+//        if (futureContractBean.getContractType() == 3)
+        mHeadBinding.futuresCurrency.setText(futureContractBean.getContractName());
         mHeadBinding.futuresTvLever.setText("X" + getPresenter().getSelectContact().getLever());
         if (Pub.isListExists(fragments)) {
             if (fragments.get(0) instanceof FuturesMoneyListFragment) {
@@ -352,6 +355,20 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
 
     public String getCurrentPrice() {
         return currentPrice;
+    }
+
+    public String getPriceByAsset(String id){
+
+//        for (ContractAssetBean bean : getPresenter().getAllList()) {
+//            for (FutureContractBean model : bean.getContent()) {
+//                if (id.equals(model.getContractId())){
+//                    return model.
+//                }
+//            }
+//        }
+//        getPresenter().getAllList();
+
+        return "";
     }
 
     @Override
@@ -858,20 +875,12 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
         super.onRefresh();
         onRefreshDepthReqed = false;
         if (!UserLoginUtil.havaUser()) {
-            //setTopInfo();
             topInfo = null;
             UIUtil.setText(mHeadBinding.preciseMargin, "--");
         }
         setTopInfo();
         getPresenter().getContactList();
-//        if (Pub.isListExists(fragments)) {
-//            for (Fragment fragment : fragments
-//                    ) {
-//                if (fragment instanceof BaseFragment) {
-//                    ((BaseFragment) fragment).onRefresh();
-//                }
-//            }
-//        }
+
     }
 
     @Override

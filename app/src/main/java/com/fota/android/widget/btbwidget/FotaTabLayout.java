@@ -78,6 +78,7 @@ public class FotaTabLayout extends MagicIndicator {
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ColorTransitionPagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 simplePagerTitleView.setText(labels.get(index));
+//                simplePagerTitleView.setTextSize(customerTitleSize > 0 ? customerTitleSize : defaultTitleSize);
                 simplePagerTitleView.setTextSize(customerTitleSize > 0 ? customerTitleSize : defaultTitleSize);
                 simplePagerTitleView.setNormalColor(Pub.getColor(getContext(), R.attr.font_color4));
                 simplePagerTitleView.setSelectedColor(Pub.getColor(getContext(), R.attr.main_color));

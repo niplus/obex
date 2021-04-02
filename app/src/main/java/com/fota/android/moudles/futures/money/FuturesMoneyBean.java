@@ -197,4 +197,28 @@ public class FuturesMoneyBean implements Serializable {
     public void setQuantile(int quantile) {
         this.quantile = quantile;
     }
+
+    @Override
+    public String toString() {
+        return "FuturesMoneyBean{" +
+                "id='" + id + '\'' +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                ", userId='" + userId + '\'' +
+                ", contractId='" + contractId + '\'' +
+                ", contractName='" + contractName + '\'' +
+                ", positionType=" + positionType +
+                ", amount='" + amount + '\'' +
+                ", averagePrice='" + averagePrice + '\'' +
+                ", lever=" + lever +
+                ", applies='" + applies + '\'' +
+                ", margin='" + margin + '\'' +
+                ", contractSize='" + contractSize + '\'' +
+                ", openPositionPrice='" + openPositionPrice + '\'' +
+                ", currentPrice='" + currentPrice + '\'' +
+                ", earningRate='" + earningRate + '\'' +
+                ", quantile=" + quantile +
+                ", isCanceled=" + isCanceled +
+                '}';
+    }
 }

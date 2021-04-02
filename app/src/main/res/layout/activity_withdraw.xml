@@ -97,13 +97,26 @@
 
                     </FrameLayout>
 
-                    <TextView
-                        android:id="@+id/address_title"
-                        style="@style/wrap_style"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:textColor="?attr/font_color"
-                        android:textSize="13sp"
-                        tools:text="Btc Address" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/address_title"
+                            style="@style/wrap_style"
+                            android:textColor="?attr/font_color"
+                            android:textSize="13sp"
+                            tools:text="Btc Address" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rv_net"
+                            android:layout_marginStart="5dp"/>
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/address_remark"

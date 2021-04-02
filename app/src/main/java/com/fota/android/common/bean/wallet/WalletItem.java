@@ -4,6 +4,8 @@ package com.fota.android.common.bean.wallet;
 import com.fota.android.common.bean.BaseAsset;
 import com.fota.android.commonlib.utils.Pub;
 
+import java.util.List;
+
 /**
  * Created by stone on 2018/3/31.
  */
@@ -24,6 +26,8 @@ public class WalletItem extends BaseAsset {
     private String totalAmount;//总资产
     private String network;
     private boolean isNetWork;
+    private List<String> dnetwork;
+    private List<String> wnetwork;
 
 
     public WalletItem(WalletItem item) {
@@ -167,6 +171,22 @@ public class WalletItem extends BaseAsset {
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public List<String> getDnetwork() {
+        return dnetwork;
+    }
+
+    public void setDnetwork(List<String> dnetwork) {
+        this.dnetwork = dnetwork;
+    }
+
+    public List<String> getWnetwork() {
+        return wnetwork;
+    }
+
+    public void setWnetwork(List<String> wnetwork) {
+        this.wnetwork = wnetwork;
     }
 
     public void OMNI() {
