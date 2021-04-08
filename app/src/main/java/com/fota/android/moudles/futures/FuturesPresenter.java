@@ -94,7 +94,7 @@ public class FuturesPresenter extends ExchangePresenter {
         model.setContractName(selectContact.getContractName());
         model.setLever(selectContact.getLever());
         ExchangeBody body = new ExchangeBody();
-        body.setTradeToken(fundCode);
+//        body.setTradeToken(fundCode);
         body.setObj(model);
         Http.getExchangeService().makeContractOrder(body)
                 .compose(new NothingTransformer<BaseHttpEntity>())

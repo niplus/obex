@@ -823,6 +823,8 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
                     return;
                 }
                 verifyPassword();
+
+//                tradeToPresenter(UserLoginUtil.getCapital());
                 break;
             case R.id.exchange_change_currency:
             case R.id.exchange_currency:
@@ -881,7 +883,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         dialog.setListener(new PasswordDialog.OnSureClickListener() {
             @Override
             public void onClick(String fundCode) {
-                changePasswordToToken(fundCode);
+                tradeToPresenter(fundCode);
             }
         });
         dialog.show();
@@ -909,15 +911,15 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
      *
      * @param fundCode
      */
-    protected void changePasswordToToken(String fundCode) {
-        TradeUtils.getInstance().changePasswordToToken(getContext(), fundCode,
-                new TradeUtils.ChangePassWordListener() {
-                    @Override
-                    public void setPasswordToken(String token) {
-                        tradeToPresenter(UserLoginUtil.getCapital());
-                    }
-                });
-    }
+//    protected void changePasswordToToken(String fundCode) {
+//        TradeUtils.getInstance().changePasswordToToken(getContext(), fundCode,
+//                new TradeUtils.ChangePassWordListener() {
+//                    @Override
+//                    public void setPasswordToken(String token) {
+//                        tradeToPresenter(UserLoginUtil.getCapital());
+//                    }
+//                });
+//    }
 
 
     /**

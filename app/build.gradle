@@ -190,4 +190,8 @@ dependencies {
     implementation 'com.joker.HuanTanSheng:EasyPhotos:andX-2.5.6'
 
     implementation 'com.tencent:mmkv-static:1.2.7'
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.3"
 }

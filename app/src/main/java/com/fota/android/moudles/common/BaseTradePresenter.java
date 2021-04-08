@@ -99,7 +99,7 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
         String key = type + "-" + entityId;
         depthMap.put(key, bean);
 
-        List<EntrustBean> limitSells = BeanChangeFactory.getEntrustBeans(bean.getAsks(), 5);
+        List<EntrustBean> limitSells = BeanChangeFactory.getSellEntrustBeans(bean.getAsks(), 5);
         List<EntrustBean> limitBuys = BeanChangeFactory.getEntrustBeans(bean.getBids(), 5);
         if(limitSells != null) {
             Collections.sort(limitSells);

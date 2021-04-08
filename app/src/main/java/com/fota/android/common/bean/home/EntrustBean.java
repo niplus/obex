@@ -62,4 +62,14 @@ public class EntrustBean implements Serializable, Comparable<EntrustBean> {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "EntrustBean{" +
+                "price='" + price + '\'' +
+                ", amount='" + amount + '\'' +
+                ", price2='" + price2 + '\'' +
+                ", price3='" + price3 + '\'' +
+                '}';
+    }
 }

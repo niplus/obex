@@ -664,7 +664,8 @@ public class FuturesFragment extends ExchangeFragment implements IFuturesUpdateF
                     showToast(R.string.future_empty_value);
                     return;
                 }
-                verifyPassword();
+                tradeToPresenter(UserLoginUtil.getCapital());
+//                verifyPassword();
                 break;
             case R.id.price_type2:
             case R.id.price_other_2:
