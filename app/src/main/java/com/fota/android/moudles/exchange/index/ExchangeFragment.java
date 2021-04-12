@@ -822,9 +822,9 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
                     showToast(getXmlString(R.string.exchange_account_hint));
                     return;
                 }
-                verifyPassword();
+//                verifyPassword();
 
-//                tradeToPresenter(UserLoginUtil.getCapital());
+                tradeToPresenter(UserLoginUtil.getCapital());
                 break;
             case R.id.exchange_change_currency:
             case R.id.exchange_currency:

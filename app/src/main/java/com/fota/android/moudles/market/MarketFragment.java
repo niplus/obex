@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -34,6 +35,7 @@ import com.fota.android.moudles.market.bean.FutureItemEntity;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.StatusBarUtil;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.gyf.barlibrary.ImmersionBar;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
@@ -181,11 +183,21 @@ public class MarketFragment extends MvpFragment<MarketPresenter>
         if (adapter == null) {
             adapter = new MarketFragmentAdapter(getChildFragmentManager(), mFragments, coinTitles);
             mBinding.allViewPager.setAdapter(adapter);
-            //  第三步：将ViewPager与TableLayout 绑定在一起
-            mBinding.tabCoinTitle.setFullScreen(true);
-            mBinding.tabCoinTitle.setupWithViewPager(mBinding.allViewPager, adapter, coinTitles);
+
+
+
+
+            mBinding.tabCoinTitle.setupWithViewPager(mBinding.allViewPager);
             mBinding.allViewPager.setOffscreenPageLimit(Pub.getListSize(coinTitles) - 1 <= 0 ? 1 : Pub.getListSize
                     (coinTitles) - 1);
+
+            for (int i = 0;i < 4;i++){
+                TabLayout.Tab tab = mBinding.tabCoinTitle.getTabAt(i);
+                tab.setCustomView(R.layout.tab_market);
+                View tabView = tab.getCustomView();
+                tabView.setBackgroundColor(0x00000000);
+                ((TextView)tabView.findViewById(R.id.tv_tab)).setText(coinTitles.get(i));
+            }
         }
     }
 

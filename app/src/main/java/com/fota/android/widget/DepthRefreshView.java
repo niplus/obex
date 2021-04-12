@@ -135,7 +135,6 @@ public class DepthRefreshView extends LinearLayout implements View.OnClickListen
             String text = type == 3 ? currentDigital + unit : currentDigital;
             digitTextView.setText(text);
         }
-
     }
 
     @Override

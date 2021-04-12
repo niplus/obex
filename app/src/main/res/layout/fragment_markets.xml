@@ -150,14 +150,15 @@
                     android:background="?attr/bg_color"
                     android:orientation="horizontal"
                     >
-                    <com.fota.android.widget.btbwidget.FotaMarketTabLayout
+                    <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tab_coin_title"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabBackground="@null"
+                        app:tabRippleColor="@null"
                         android:background="?attr/bg_color"
-                        android:layout_height="40dp">
-
-                    </com.fota.android.widget.btbwidget.FotaMarketTabLayout>
+                        android:layout_height="wrap_content"/>
 
                     <LinearLayout
                         android:id="@+id/ll_change"

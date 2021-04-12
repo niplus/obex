@@ -6,11 +6,11 @@ import android.text.TextUtils;
 import com.fota.android.app.Constants;
 import com.fota.android.app.FotaApplication;
 import com.fota.android.app.MD5Utils;
-import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.http.HttpsUtils;
 import com.fota.android.utils.DeviceUtils;
 import com.fota.android.utils.StringFormatUtils;
 import com.fota.android.utils.UserLoginUtil;
+import com.tencent.mmkv.MMKV;
 
 import java.io.EOFException;
 import java.io.File;
@@ -133,7 +133,8 @@ public class Http {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 String netStatus = NetworkUtil.getNetworkType(FotaApplication.getInstance());
-                String language = AppConfigs.getLanguege().getLanguage();
+//                String language = AppConfigs.getLanguege().getLanguage();
+                String language = MMKV.defaultMMKV().decodeString("language", "zh");
                 Request originalRequest = chain.request();
                 Long timstamp = getSystemTimeWithDiff();
                 Request.Builder requestBuilder = originalRequest.newBuilder()
@@ -433,8 +434,8 @@ public class Http {
 
 
     public static String getIpAddress() {
-//        return "http://bg-dev.yuchains.com/mapi/";
-        return Constants.getHttpUrl();
+        return "http://bg-dev.yuchains.com/mapi/";
+//        return Constants.getHttpUrl();
         //return Pub.isStringEmpty(AppConfigs.getIpAddress()) ? getDefaultAddress() : AppConfigs.getIpAddress();
     }
 

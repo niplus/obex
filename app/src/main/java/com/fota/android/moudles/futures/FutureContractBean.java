@@ -16,6 +16,7 @@ public class FutureContractBean implements Serializable, FtKeyValue {
     String assetName;
     int status;
     String symbol;
+    String contractPrecision;
 
     ContractAssetBean parent;
 
@@ -104,6 +105,14 @@ public class FutureContractBean implements Serializable, FtKeyValue {
         this.symbol = symbol;
     }
 
+    public String getContractPrecision() {
+        return contractPrecision;
+    }
+
+    public void setContractPrecision(String contractPrecision) {
+        this.contractPrecision = contractPrecision;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -122,4 +131,18 @@ public class FutureContractBean implements Serializable, FtKeyValue {
         return super.equals(obj);
     }
 
+    @Override
+    public String toString() {
+        return "FutureContractBean{" +
+                "contractId='" + contractId + '\'' +
+                ", contractName='" + contractName + '\'' +
+                ", lastDays=" + lastDays +
+                ", lever='" + lever + '\'' +
+                ", contractType=" + contractType +
+                ", assetName='" + assetName + '\'' +
+                ", status=" + status +
+                ", symbol='" + symbol + '\'' +
+                ", parent=" + parent +
+                '}';
+    }
 }

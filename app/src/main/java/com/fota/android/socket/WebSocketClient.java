@@ -601,6 +601,7 @@ public class WebSocketClient implements IWebSocketSubject {
         try {
             String json = GsonSinglon.getInstance().toJson(entity);
             Log.i("wsocket_send", json);
+            Log.i("nidongliang", "send message: " + json);
             webSocket.send(json);
         } catch (Exception e) {
             e.printStackTrace();

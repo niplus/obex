@@ -7,6 +7,7 @@ import com.fota.android.commonlib.http.HttpsUtils;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.commonlib.utils.SharedPreferencesUtil;
 import com.fota.android.utils.DeviceUtils;
+import com.tencent.mmkv.MMKV;
 
 import java.util.concurrent.TimeUnit;
 
@@ -69,7 +70,8 @@ public class WebSocketUtils {
     public static WebSocket doWebSocket(WebSocketListener listener) {
         OkHttpClient client = getWebsocketClient();
         client.pingIntervalMillis();
-        String language = AppConfigs.getLanguege().getLanguage();
+//        String language = AppConfigs.getLanguege().getLanguage();
+        String language = MMKV.defaultMMKV().decodeString("language", "zh");
 
         //构造request对象
         Request request = new Request.Builder()

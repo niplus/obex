@@ -1,6 +1,7 @@
 package com.fota.android.moudles.exchange.index;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -156,7 +157,7 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
         model.setAssetId(String.valueOf(selectItem.getAssetId()));
         model.setAssetName(selectItem.getAssetName());
         ExchangeBody body = new ExchangeBody();
-        body.setTradeToken(fundCode);
+//        body.setTradeToken(fundCode);
         body.setObj(model);
         Http.getExchangeService().makeOrder(body)
                 .compose(new NothingTransformer<BaseHttpEntity>())
@@ -256,6 +257,7 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
                 if (bean == null) {
                     return;
                 }
+                Log.i("onUpdateImplSocket", "jsonString: " + jsonString);
                 onNextDepth(bean);
                 break;
             case SocketKey.HangQingFenShiTuZheXianTuReqType:

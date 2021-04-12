@@ -73,6 +73,7 @@ import com.fota.option.OptionManager;
 import com.fota.option.ShareMenuItem;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.tencent.mmkv.MMKV;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -497,7 +498,7 @@ public class MainActivity extends BaseActivity {
             return;
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("token", token);
-        String lang = AppConfigs.getLanguege().getLanguage();
+        String lang = MMKV.defaultMMKV().decodeString("language", "zh");
         jsonObject.addProperty("currentLanguage", lang);
         Http.getHttpService().changeLanguage(jsonObject)
                 .compose(new NothingTransformer<BaseHttpEntity>())

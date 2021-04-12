@@ -77,6 +77,7 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
         } else {
             socketEntrustParam = new SocketEntrustParam(type, entityId);
         }
+
         socketEntity.setParam(socketEntrustParam);
         socketEntity.setReqType(SocketKey.TradeWeiTuoReqType);
         client.addChannel(socketEntity, BaseTradePresenter.this);
@@ -119,6 +120,7 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
 
     public void getDepthFive(final int type, final int entityId) {
         getDepthFive(type, entityId, basePrecision);
+//        getDepthFive(type, entityId, "0.1");
     }
 
     public void changeDigitalChannel(String remove, String add) {

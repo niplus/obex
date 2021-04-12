@@ -1,9 +1,10 @@
 当前任务
-1.增加繁体切换
-2.完成kotlin + mvvm的base类  //之后都用kotlin
-3.屏幕适配加上autolayout， 页面宽度定375dp
-4.分时图去掉现货指数
-
+完成kotlin + mvvm的base类  //之后都用kotlin
+xlog 集成
+toast 替换成snackbar
 
 已完成
-1.support 转 androidx
+support 转 androidx
+增加繁体切换
+分时图去掉现货指数
+屏幕适配加上autolayout， 页面宽度定375dp

@@ -541,4 +541,6 @@
     <string name="main_tab3">Trade</string>
     <string name="main_tab4">Me</string>
     <string name="insufficient_margin">Insufficient margin</string>
+
+    <string name="perp">PERP</string>
 </resources>
