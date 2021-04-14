@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.fota.android.R
@@ -18,6 +19,7 @@ import com.fota.android.commonlib.utils.*
 import com.fota.android.core.base.BaseFragmentAdapter
 import com.fota.android.core.base.BtbMap
 import com.fota.android.moudles.exchange.index.ExchangeFragment
+import com.fota.android.moudles.futures.bean.SpotIndex
 import com.fota.android.moudles.futures.complete.FuturesCompleteFragment
 import com.fota.android.moudles.futures.money.FuturesMoneyBean
 import com.fota.android.moudles.futures.money.FuturesMoneyListFragment
@@ -25,23 +27,21 @@ import com.fota.android.moudles.futures.order.FuturesOrdersFragment
 import com.fota.android.moudles.market.FullScreenKlineActivity
 import com.fota.android.moudles.market.bean.ChartLineEntity
 import com.fota.android.utils.*
-import com.fota.android.utils.apputils.TradeUtils
-import com.fota.android.utils.apputils.TradeUtils.ExchangePasswordListener
 import com.fota.android.widget.btbwidget.FotaTextWatch
 import com.fota.android.widget.dialog.LeverDialog
 import com.fota.android.widget.popwin.FutureTopWindow
-import com.fota.android.widget.popwin.PasswordDialog
 import com.fota.android.widget.popwin.SpinerPopWindow3
 import com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView
 import com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView
 import com.guoziwei.fota.model.HisData
+import com.ndl.lib_common.log.NLog
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
 import kotlin.math.pow
 
 class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeView {
-    private var spotPrice: String? = null
+    private var spotPrice: String = "0.0"
     private var topInfo: FutureTopInfoBean? = null
     private var popupTopWindow: FutureTopWindow? = null
     private var preciseMargin: BtbMap? = null
@@ -53,11 +53,6 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
      */
     private var onRefreshDepthReqed = false
     //chart relative
-    /**
-     * 现货指数数据
-     * Spot -- T 15m
-     */
-    val spot15Data: List<HisData> = ArrayList(100)
 
     /**
      * 现货指数数据
@@ -228,18 +223,13 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
      * 和现货指数挂钩
      */
     private fun validMaxMinPrice() {
-        val priceDiv =
-            if (isBuy) Pub.GetDouble(spotPrice) * 1.05 else Pub.GetDouble(spotPrice) * 0.95
+        val priceDiv = if (isBuy) Pub.GetDouble(spotPrice) * 1.05 else Pub.GetDouble(spotPrice) * 0.95
         mHeadBinding.maxUsdt2Tip.text =
             if (isBuy) getXmlString(R.string.exchange_heigh_price) else getXmlString(
                 R.string.exchange_low_price
             )
         // Buy DOWN  Sell FLOOR
-        mHeadBinding.maxUsdt2.text = Pub.getPriceFormat(
-            priceDiv,
-            contractMaxMinPricePrecision,
-            if (isBuy) RoundingMode.DOWN else RoundingMode.UP
-        )
+        mHeadBinding.maxUsdt2.text = Pub.getPriceFormat(priceDiv, pricePrecision, if (isBuy) RoundingMode.DOWN else RoundingMode.UP)
     }
 
     private val price: Double
@@ -275,7 +265,6 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         mHeadBinding.rightContainer.setType(2, presenter.selectContact!!.getContractName())
         val futureContractBean = presenter.selectContact
 
-//        Log.i("nidongliang", "futureBean: $futureContractBean")
 //        if (futureContractBean.getContractType() == 3){
 //            mHeadBinding.futuresCurrency.text = "${futureContractBean.symbol} ${getString(R.string.perp)}"
 //        }else{
@@ -291,7 +280,7 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         Glide.with(context).load(presenter.selectParent!!.iconUrl)
             .into(mHeadBinding.futureIcon)
         if (Pub.isStringEmpty(mHeadBinding.amount2.text.toString())) {
-            mHeadBinding.amount2.setText(defaultAmount)
+            mHeadBinding.amount2.setText(BigDecimal(defaultAmount).setScale(amountPrecision).toPlainString())
         }
         mHeadBinding.fprogress.init(true)
     }
@@ -346,7 +335,7 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         if (spotList != null && spotList.size > 0) {
             val length = spotList.size
             val price = spotList[length - 1].close
-            spotPrice = price.toString() + ""
+//            spotPrice = price.toString() + ""
             var tempSpotPrice: String? = ""
             val entity = FotaApplication.getInstance().holdingEntity
             tempSpotPrice = Pub.getPriceStringForLengthRound(price, entity.decimal)
@@ -405,7 +394,6 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         }
         if (isAdd) { //add 直接重刷
             klineDataConvert(chartList)
-            //            mHeadBinding.kline.addData(klineData, spotData);
             mHeadBinding.kline.addData(klineData, null)
             if (time15Data != null && time15Data.size > 0) {
                 val hour24Close = time15Data[0].close
@@ -457,7 +445,7 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
 
     override fun notifyFromPresenter(action: Int) {
         when (action) {
-            ORDER_SUCCESS -> mHeadBinding.amount2.setText(defaultAmount)
+            ORDER_SUCCESS -> mHeadBinding.amount2.setText(BigDecimal(defaultAmount).setScale(amountPrecision).toPlainString())
             else -> super.event(action)
         }
     }
@@ -631,8 +619,8 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
     }
 
     override fun onRefreshDepth(
-        buys: List<EntrustBean>,
-        sells: List<EntrustBean>,
+        buys: List<EntrustBean>?,
+        sells: List<EntrustBean>?,
         precisions: List<String>?,
         dollarEvaluation: Float?
     ) {
@@ -823,25 +811,26 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
     }
 
     fun removeMoney(model: FuturesMoneyBean?) {
-        TradeUtils.getInstance()
-            .validPassword(context, mRequestCode, object : ExchangePasswordListener {
-                override fun noPassword() {
-                    presenter.removeMoney(model!!, UserLoginUtil.getCapital())
-                }
-
-                override fun showPasswordDialog() {
-                    if (holdingActivity.isFinishing) {
-                        return
-                    }
-                    val dialog = PasswordDialog(context)
-                    dialog.setListener { fundCode ->
-                        TradeUtils.getInstance().changePasswordToToken(
-                            context, fundCode
-                        ) { token -> presenter.removeMoney(model!!, token) }
-                    }
-                    dialog.show()
-                }
-            })
+        presenter.removeMoney(model!!)
+//        TradeUtils.getInstance()
+//            .validPassword(context, mRequestCode, object : ExchangePasswordListener {
+//                override fun noPassword() {
+//                    presenter.removeMoney(model!!, UserLoginUtil.getCapital())
+//                }
+//
+//                override fun showPasswordDialog() {
+//                    if (holdingActivity.isFinishing) {
+//                        return
+//                    }
+//                    val dialog = PasswordDialog(context)
+//                    dialog.setListener { fundCode ->
+//                        TradeUtils.getInstance().changePasswordToToken(
+//                            context, fundCode
+//                        ) { token ->  }
+//                    }
+//                    dialog.show()
+//                }
+//            })
     }
 
     override fun setContractDelivery(map: BtbMap) {}
@@ -877,6 +866,15 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
                 BigDecimal.ROUND_HALF_UP
             ).toPlainString()
         )
+    }
+
+    override fun onSelectView() {
+        val contractPrecision = presenter.selectParent!!.contractPrecision
+        mHeadBinding.rightContainer.setSmallLargePrecision(contractPrecision.split(','))
+    }
+
+    override fun onSpotUpdate(spotIndex: SpotIndex) {
+        spotPrice = spotIndex.averagePrice
     }
 
     override fun clearEditText() {

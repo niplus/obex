@@ -18,6 +18,7 @@ import com.fota.android.widget.myview.LevelView;
 import com.fota.android.widget.recyclerview.EasyAdapter;
 import com.fota.android.widget.recyclerview.ViewHolder;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,6 +123,8 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
                         for (FutureItemEntity each : applicationCache){
                             if (each.getEntityType() == 2 && model.getContractId().equals(each.getEntityId()+"")){
                                 price = each.getLastPrice();
+                                if (model.getAveragePrice().contains("."))
+                                    price = new BigDecimal(each.getLastPrice()).setScale(model.getAveragePrice().split("\\.")[1].length()).toPlainString();
                             }
                         }
 

@@ -46,6 +46,7 @@ import com.fota.android.utils.apputils.DiffTimeUtils;
 import com.fota.option.OptionConfig;
 import com.fota.option.OptionManager;
 import com.fota.option.websocket.data.AccountInfo;
+import com.ndl.lib_common.log.NLog;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.beta.upgrade.UpgradeStateListener;
@@ -132,6 +133,9 @@ public class FotaApplication extends BaseApplication {
         MMKV.initialize(this);
 //        switchLanguage();
         ErrorCodeUtil.getInstance().setOtherAppCodeUtils(FotaErrorUtils.getInstance());
+
+        NLog.INSTANCE.initLog(this);
+
 
     }
 

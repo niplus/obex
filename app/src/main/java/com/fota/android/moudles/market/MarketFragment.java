@@ -3,7 +3,6 @@ package com.fota.android.moudles.market;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -169,7 +168,6 @@ public class MarketFragment extends MvpFragment<MarketPresenter>
 
     @Override
     public void onRefresh() {
-        Log.i("nidongliang", "onrefresh");
         super.onRefresh();
         if (getPresenter().isInit()) {
             startProgressDialog();

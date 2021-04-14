@@ -66,7 +66,7 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
     public void getDepthFive(final int type, final int entityId, final String precision) {
         this.type = type;
         this.entityId = entityId;
-        client.removeChannel(SocketKey.TradeWeiTuoReqType, BaseTradePresenter.this, new SocketEntrustParam(type, entityId));
+//        client.removeChannel(SocketKey.TradeWeiTuoReqType, BaseTradePresenter.this, new SocketEntrustParam(type, entityId));
 
         //委托 http获取到实时委托之后开始订阅实时委托推送
         WebSocketEntity<SocketEntrustParam> socketEntity = new WebSocketEntity<>();
@@ -80,6 +80,7 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
 
         socketEntity.setParam(socketEntrustParam);
         socketEntity.setReqType(SocketKey.TradeWeiTuoReqType);
+        socketEntity.setHandleType(2);
         client.addChannel(socketEntity, BaseTradePresenter.this);
         //jiang 1130 发送立刻重置 -- 如果跟WebSocketClient一起使用，可能会过滤掉本应展示的页面
 //        if(getView() != null) {

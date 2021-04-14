@@ -260,6 +260,7 @@
          <string name="identity_front_msg_id">上傳證件正面照片</string>
          <string name="identity_front_msg_huzhao">上傳證件照</string>
          <string name="identity_back_msg_id">上傳證件背面照片</string>
+          <string name="identity_hold_msg_id">上傳證件手持照片</string>
          <string name="identity_idcard_error">請輸入正確的身分證號</string>
          <string name="identity_pic_id">上傳身份證</string>
          <string name="identity_pic_passport">上傳證件</string>

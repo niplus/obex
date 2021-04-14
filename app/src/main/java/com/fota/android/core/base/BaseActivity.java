@@ -31,7 +31,6 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -849,7 +848,6 @@ public class BaseActivity extends FragmentActivity
 
     @Override
     public void aotoLoginFromReq() {
-        Log.i("nidongliang", "aotoLoginFromReq");
         if (UserLoginUtil.havaUser()) {
             DialogUtils.showDialog(getContext(), new DialogModel()
                             //.setView(DialogUtils.getDefaultStyleMsgTV(getContext(), getString(R.string.mine_logout)))

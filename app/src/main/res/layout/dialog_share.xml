@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#99A4AD"
                 android:textSize="12sp"
-                android:text="标记价格"
+                android:text="最新价格"
                 android:id="@+id/tv_share_mark_price_label"
                 app:layout_constraintStart_toStartOf="@+id/tv_share_profit_loss"
                 app:layout_constraintTop_toBottomOf="@+id/tv_share_open_price_label"

@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 open class BaseViewModel: ViewModel() {
     private val error by lazy { MutableLiveData<Exception>() }

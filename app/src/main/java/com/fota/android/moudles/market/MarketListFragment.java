@@ -3,7 +3,6 @@ package com.fota.android.moudles.market;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -433,7 +432,6 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
                 showNoDataIfNeed(futureList);
             } else {
                 refreshDataByGroup();
-                Log.i("nidongliang", "size: " + groupListDatas.size());
                 adapter.putList(groupListDatas);
                 //showNoData
                 showNoDataIfNeed(groupListDatas);

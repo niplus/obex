@@ -1,9 +1,6 @@
 package com.fota.android.moudles.futures.viewmodel
 
-import android.text.TextUtils
-import android.util.Log
 import androidx.databinding.ObservableField
-import com.fota.android.commonlib.base.BaseView
 import com.fota.android.core.mvvmbase.BaseViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode

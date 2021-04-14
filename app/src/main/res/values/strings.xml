@@ -268,6 +268,7 @@
     <string name="identity_front_msg_id">上传证件正面照片</string>
     <string name="identity_front_msg_huzhao">上传证件照</string>
     <string name="identity_back_msg_id">上传证件背面照片</string>
+    <string name="identity_hold_msg_id">上传证件手持照片</string>
     <string name="identity_idcard_error">请输入正确的身份证号</string>
     <string name="identity_pic_id">上传身份证</string>
     <string name="identity_pic_passport">上传证件</string>

@@ -1,6 +1,7 @@
 package com.fota.android.moudles.futures
 
 import android.os.Bundle
+import android.util.Log
 import com.fota.android.R
 import com.fota.android.app.*
 import com.fota.android.common.bean.exchange.ExchangeBody
@@ -17,10 +18,15 @@ import com.fota.android.http.Http
 import com.fota.android.moudles.exchange.index.ExchangeFragment
 import com.fota.android.moudles.exchange.index.ExchangePresenter
 import com.fota.android.moudles.exchange.index.ExchangeTradeView
+import com.fota.android.moudles.futures.bean.SpotIndex
 import com.fota.android.moudles.futures.money.FuturesMoneyBean
+import com.fota.android.socket.IWebSocketObserver
 import com.fota.android.socket.SocketAdditionEntity
 import com.fota.android.socket.WebSocketEntity
+import com.fota.android.socket.params.SocketEntrustParam
+import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.ndl.lib_common.log.NLog
 
 open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) {
     /**
@@ -113,7 +119,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         view.showTopInfo(view.getXmlString(R.string.order_success))
     }
 
-    fun removeMoney(model: FuturesMoneyBean, fundCode: String?) {
+    fun removeMoney(model: FuturesMoneyBean) {
         val modelPost = ExchangeEntity()
         modelPost.priceType = 2
         modelPost.totalAmount = model.amount
@@ -239,6 +245,18 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         return null
     }
 
+    /**
+     * 指数的deal数据请求
+     */
+    open fun getAdditonalSpot(assetName: String) {
+        val socketEntity = WebSocketEntity<SocketEntrustParam>()
+        val param = SocketEntrustParam(assetName)
+//        param.id =
+        socketEntity.param = param
+        socketEntity.reqType = SocketKey.MARKET_SPOTINDEX
+        client.addChannel(socketEntity, this)
+    }
+
     fun setSelectContact(selectParent: ContractAssetBean?, selectContact: FutureContractBean?) {
         //jiang 切换基准币种，需要重置精度
         if (selectParent != this.selectParent) {
@@ -246,6 +264,12 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         }
         this.selectParent = selectParent
         this.selectContact = selectContact
+
+        client.removeChannel(SocketKey.MARKET_SPOTINDEX, this)
+
+        getAdditonalSpot(selectContact!!.assetName)
+
+        view.onSelectView()
         view.refreshCurrency()
         //jiang 0818
 //        getContractDelivery();
@@ -257,6 +281,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         if (view != null) {
             view.setOverShowLoading(0, true)
             view.setOverShowLoading(1, true)
+            Log.i("nidongliang", "get klineData : " + currentPeriodIndex)
             getKlineDatas(2, Pub.GetInt(selectContact.getContractId()), types[currentPeriodIndex])
         }
     }
@@ -372,6 +397,11 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                     FutureTopInfoBean::class.java
                 )
                 view.setContractAccount(map)
+            }
+            SocketKey.MARKET_SPOTINDEX->{
+
+                val spotIndex = Gson().fromJson<SpotIndex>(jsonString, SpotIndex::class.java)
+                view.onSpotUpdate(spotIndex)
             }
             else -> {
                 super.onUpdateImplSocket(reqType, jsonString, additionEntity)

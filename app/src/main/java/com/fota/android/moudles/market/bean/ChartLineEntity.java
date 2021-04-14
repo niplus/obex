@@ -94,6 +94,21 @@ public class ChartLineEntity implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "ChartLineEntity{" +
+                "time=" + time +
+                ", open=" + open +
+                ", close=" + close +
+                ", high=" + high +
+                ", low=" + low +
+                ", volume=" + volume +
+                ", type=" + type +
+                ", amount=" + amount +
+                ", index=" + index +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof ChartLineEntity)) {
             return false;

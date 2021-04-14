@@ -43,7 +43,16 @@ public class ContractAssetBean implements Serializable {
         this.contractMaxValuePrecision = contractMaxValuePrecision;
     }
 
+    String contractPrecision;
     private List<FutureContractBean> content;
+
+    public String getContractPrecision() {
+        return contractPrecision;
+    }
+
+    public void setContractPrecision(String contractPrecision) {
+        this.contractPrecision = contractPrecision;
+    }
 
     public String getName() {
         return name;
@@ -83,6 +92,20 @@ public class ContractAssetBean implements Serializable {
 
     public void setIconUrl(String iconUrl) {
         this.iconUrl = iconUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "ContractAssetBean{" +
+                "name='" + name + '\'' +
+                ", iconUrl='" + iconUrl + '\'' +
+                ", contractTradeAmountPrecision=" + contractTradeAmountPrecision +
+                ", contractTradePricePrecision=" + contractTradePricePrecision +
+                ", contractMaxMinPricePrecision=" + contractMaxMinPricePrecision +
+                ", contractMaxValuePrecision=" + contractMaxValuePrecision +
+                ", defaultAmount='" + defaultAmount + '\'' +
+                ", content=" + content +
+                '}';
     }
 
     //jiang

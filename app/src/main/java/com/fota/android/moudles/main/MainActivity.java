@@ -149,77 +149,77 @@ public class MainActivity extends BaseActivity {
     private void initBottomInfo() {
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new EasyAdapter<BottomMenuItem, ViewHolder>(getContext(), R.layout.item_activity_main_bottom) {
-            @Override
-            public void convert(ViewHolder holder, final BottomMenuItem model, final int position) {
+        @Override
+        public void convert(ViewHolder holder, final BottomMenuItem model, final int position) {
 //                holder.setText(R.id.tv_me, (AppConfigs.isChinaLanguage() ? model.getNameZh() : model.getNameEn()));
-                holder.setText(R.id.tv_me, tabName[position]);
-                holder.<TextView>getView(R.id.tv_me).setSelected(position == selected_tab);
-                holder.setVisible(R.id.image_me, position != selected_tab);
-                holder.setVisible(R.id.image_me_select, position == selected_tab);
-                if (Pub.isStringEmpty(MenuUtils.getImageString(model, position))) {
-                    holder.<ImageView>getView(R.id.image_me).setImageResource(MenuUtils.getImage(model, position));
-                } else {
-                    Glide.with(getContext()).load(MenuUtils.getImageString(model, position))
-                            .into(holder.<ImageView>getView(R.id.image_me));
-                }
-                if (Pub.isStringEmpty(MenuUtils.getCheckImageString(model, position))) {
-                    holder.<ImageView>getView(R.id.image_me_select).setImageResource(MenuUtils.getCheckImage(model, position));
-                } else {
-                    Glide.with(getContext()).load(MenuUtils.getCheckImageString(model, position))
-                            .into(holder.<ImageView>getView(R.id.image_me_select));
-                }
-                holder.getConvertView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //Attex 特殊处理
-                        if (Constants.BROKER_ID_ATTEX.equals(Constants.BROKER_ID) && String.valueOf(MenuUtils.MENU_OPTION).equals(model.getCode())) {
-                            UMShareAPI umShareAPI = UMShareAPI.get(getContext());
-                            List<ShareMenuItem> shareList = new ArrayList<>();
-                            if (umShareAPI.isInstall(getActivity(), SHARE_MEDIA.WEIXIN)) {
-                                shareList.add(new ShareMenuItem(R.mipmap.umeng_wechat, getXmlString(R.string.share_wechat)));
-                                shareList.add(new ShareMenuItem(R.mipmap.umeng_we_circle, getXmlString(R.string.share_circle)));
-                            }
-                            if (umShareAPI.isInstall(getActivity(), SHARE_MEDIA.SINA)) {
-                                shareList.add(new ShareMenuItem(R.mipmap.umeng_sina, getXmlString(R.string.share_sina)));
-                            }
-                            if (umShareAPI.isInstall(getActivity(), SHARE_MEDIA.QQ)) {
-                                shareList.add(new ShareMenuItem(R.mipmap.umeng_qq, getXmlString(R.string.share_qq)));
-                            }
-                            shareList.add(new ShareMenuItem(R.mipmap.umeng_twitter, getXmlString(R.string.share_twitter)));
-                            OptionManager.getConfig().setShareMenuList(shareList);
-                            OptionManager.getConfig().setShareMenuListener(new OptionConfig.OnClickShareMenuListener() {
-
-                                @Override
-                                public void onClickShareMenu(Activity activity, int position, Bitmap bitmap) {
-                                    SHARE_MEDIA share_media = null;
-                                    UMImage imageLocal = new UMImage(activity, bitmap);
-                                    ShareMenuItem item = OptionManager.getConfig().getShareMenuList().get(position);
-                                    if (getXmlString(R.string.share_wechat).equals(item.getMenuString())) {
-                                        share_media = SHARE_MEDIA.WEIXIN;
-                                    }
-                                    if (getXmlString(R.string.share_circle).equals(item.getMenuString())) {
-                                        share_media = SHARE_MEDIA.WEIXIN_CIRCLE;
-                                    }
-                                    if (getXmlString(R.string.share_sina).equals(item.getMenuString())) {
-                                        share_media = SHARE_MEDIA.SINA;
-                                    }
-                                    if (getXmlString(R.string.share_qq).equals(item.getMenuString())) {
-                                        share_media = SHARE_MEDIA.QQ;
-                                    }
-                                    if (getXmlString(R.string.share_twitter).equals(item.getMenuString())) {
-                                        share_media = SHARE_MEDIA.TWITTER;
-                                    }
-                                    new ShareAction(activity).withMedia(imageLocal).setPlatform(share_media).share();
-                                }
-                            });
-                            FtRounts.toNextActivity(getContext(), OptionActivity.class);
-                            return;
-                        }
-                        switchTabHost(model, position);
-                    }
-                });
+            holder.setText(R.id.tv_me, tabName[position]);
+            holder.<TextView>getView(R.id.tv_me).setSelected(position == selected_tab);
+            holder.setVisible(R.id.image_me, position != selected_tab);
+            holder.setVisible(R.id.image_me_select, position == selected_tab);
+            if (Pub.isStringEmpty(MenuUtils.getImageString(model, position))) {
+                holder.<ImageView>getView(R.id.image_me).setImageResource(MenuUtils.getImage(model, position));
+            } else {
+                Glide.with(getContext()).load(MenuUtils.getImageString(model, position))
+                    .into(holder.<ImageView>getView(R.id.image_me));
             }
-        };
+            if (Pub.isStringEmpty(MenuUtils.getCheckImageString(model, position))) {
+                holder.<ImageView>getView(R.id.image_me_select).setImageResource(MenuUtils.getCheckImage(model, position));
+            } else {
+                Glide.with(getContext()).load(MenuUtils.getCheckImageString(model, position))
+                    .into(holder.<ImageView>getView(R.id.image_me_select));
+            }
+            holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Attex 特殊处理
+                    if (Constants.BROKER_ID_ATTEX.equals(Constants.BROKER_ID) && String.valueOf(MenuUtils.MENU_OPTION).equals(model.getCode())) {
+                        UMShareAPI umShareAPI = UMShareAPI.get(getContext());
+                        List<ShareMenuItem> shareList = new ArrayList<>();
+                        if (umShareAPI.isInstall(getActivity(), SHARE_MEDIA.WEIXIN)) {
+                            shareList.add(new ShareMenuItem(R.mipmap.umeng_wechat, getXmlString(R.string.share_wechat)));
+                            shareList.add(new ShareMenuItem(R.mipmap.umeng_we_circle, getXmlString(R.string.share_circle)));
+                        }
+                        if (umShareAPI.isInstall(getActivity(), SHARE_MEDIA.SINA)) {
+                            shareList.add(new ShareMenuItem(R.mipmap.umeng_sina, getXmlString(R.string.share_sina)));
+                        }
+                        if (umShareAPI.isInstall(getActivity(), SHARE_MEDIA.QQ)) {
+                            shareList.add(new ShareMenuItem(R.mipmap.umeng_qq, getXmlString(R.string.share_qq)));
+                        }
+                        shareList.add(new ShareMenuItem(R.mipmap.umeng_twitter, getXmlString(R.string.share_twitter)));
+                        OptionManager.getConfig().setShareMenuList(shareList);
+                        OptionManager.getConfig().setShareMenuListener(new OptionConfig.OnClickShareMenuListener() {
+
+                            @Override
+                            public void onClickShareMenu(Activity activity, int position, Bitmap bitmap) {
+                                SHARE_MEDIA share_media = null;
+                                UMImage imageLocal = new UMImage(activity, bitmap);
+                                ShareMenuItem item = OptionManager.getConfig().getShareMenuList().get(position);
+                                if (getXmlString(R.string.share_wechat).equals(item.getMenuString())) {
+                                    share_media = SHARE_MEDIA.WEIXIN;
+                                }
+                                if (getXmlString(R.string.share_circle).equals(item.getMenuString())) {
+                                    share_media = SHARE_MEDIA.WEIXIN_CIRCLE;
+                                }
+                                if (getXmlString(R.string.share_sina).equals(item.getMenuString())) {
+                                    share_media = SHARE_MEDIA.SINA;
+                                }
+                                if (getXmlString(R.string.share_qq).equals(item.getMenuString())) {
+                                    share_media = SHARE_MEDIA.QQ;
+                                }
+                                if (getXmlString(R.string.share_twitter).equals(item.getMenuString())) {
+                                    share_media = SHARE_MEDIA.TWITTER;
+                                }
+                                new ShareAction(activity).withMedia(imageLocal).setPlatform(share_media).share();
+                            }
+                        });
+                        FtRounts.toNextActivity(getContext(), OptionActivity.class);
+                        return;
+                    }
+                    switchTabHost(model, position);
+                }
+            });
+        }
+    };
         recyclerView.setAdapter(adapter);
         String json = SharedPreferencesUtil.getInstance().get(UserLoginUtil.FTKey.HOME_MENU, "");
         if (Pub.isStringEmpty(json)) {
@@ -244,7 +244,7 @@ public class MainActivity extends BaseActivity {
         if (intent.hasExtra(BundleKeys.KEY_FRAGMENT_ARGUMENTS)) {
             Bundle bundle = intent.getBundleExtra(BundleKeys.KEY_FRAGMENT_ARGUMENTS);
             bundleForTrade = bundle == null ? null
-                    : (BundleForTradeEntity) bundle.getSerializable("trade");
+            : (BundleForTradeEntity) bundle.getSerializable("trade");
             boolean toLogin = bundle != null && bundle.getBoolean("toLogin", false);
             if (toLogin) {
                 FtRounts.toQuickLogin(getContext());
@@ -292,7 +292,7 @@ public class MainActivity extends BaseActivity {
 
     private String getMenuFromName(BottomMenuItem model, int position) {
         return Pub.isStringEmpty(ConstantsPage.PAGE_MAP.get(model.getPath())) ? ConstantsPage.WebPowerfulFragment
-                : ConstantsPage.PAGE_MAP.get(model.getPath());
+        : ConstantsPage.PAGE_MAP.get(model.getPath());
     }
 
     private void setSystemBar() {
@@ -306,7 +306,7 @@ public class MainActivity extends BaseActivity {
 
     private void updateFragment(BaseFragment mFragment) {
         if (mFragment instanceof IUpdateExchangeFragment && bundleForTrade != null
-                ) {
+        ) {
             FutureContractBean bundleForFuture = bundleForTrade.getBundleForFuture();
             ExchangeCurrency bundleForExchange = bundleForTrade.getBundleForExchange();
             String coin = bundleForTrade.getFutureCoinName();
@@ -334,8 +334,8 @@ public class MainActivity extends BaseActivity {
 
     private void newExchangeFragment(BaseFragment mFragment, BottomMenuItem model) {
         if (mFragment instanceof ExchangeFragment
-                && bundleForTrade != null
-                ) {
+            && bundleForTrade != null
+        ) {
             String coin = bundleForTrade.getFutureCoinName();
             boolean isBuy = bundleForTrade.isBuy();
             Bundle args = new Bundle();
@@ -351,7 +351,7 @@ public class MainActivity extends BaseActivity {
         }
 
         if (mFragment instanceof WebPowerfulFragment
-                ) {
+        ) {
             Bundle bundle = new Bundle();
             bundle.putString(IntentExtra.DATA, model.getUrl());
             bundle.putString(IntentExtra.TITLE, (AppConfigs.isChinaLanguage() ? model.getNameZh() : model.getNameEn()));
@@ -367,14 +367,14 @@ public class MainActivity extends BaseActivity {
 
     private void setElseFragmentHidden(int current) {
         for (int i = 0; i < mFragments.length; i++) {
-            BaseFragment tempFragment = mFragments[i];
-            if (tempFragment != null && i != current) {
-                tempFragment.setSelected(false);
-                tempFragment.onHide();
-            } else if (tempFragment != null && i == current) {
-                tempFragment.setSelected(true);
-            }
+        BaseFragment tempFragment = mFragments[i];
+        if (tempFragment != null && i != current) {
+            tempFragment.setSelected(false);
+            tempFragment.onHide();
+        } else if (tempFragment != null && i == current) {
+            tempFragment.setSelected(true);
         }
+    }
     }
 
     private void switchFragment(FragmentTransaction transaction, BaseFragment targetFragment) {
@@ -423,20 +423,20 @@ public class MainActivity extends BaseActivity {
         BtbMap map = new BtbMap();
         map.put("token", UserLoginUtil.getTokenUnlogin());
         Http.getHttpService().loginTokenCheck(map)
-                .compose(new CommonTransformer<Boolean>())
-                .subscribe(new CommonSubscriber<Boolean>() {
+            .compose(new CommonTransformer<Boolean>())
+            .subscribe(new CommonSubscriber<Boolean>() {
 
-                    @Override
-                    public void onNext(Boolean valied) {
-                        if (!valied) {//无效，清空token数据
-                            UserLoginUtil.delUser();
-                        }
+                @Override
+                public void onNext(Boolean valied) {
+                    if (!valied) {//无效，清空token数据
+                        UserLoginUtil.delUser();
                     }
+                }
 
-                    @Override
-                    protected void onError(ApiException e) {
-                    }
-                });
+                @Override
+                protected void onError(ApiException e) {
+                }
+            });
 
     }
 
@@ -457,21 +457,21 @@ public class MainActivity extends BaseActivity {
         SharedPreferencesUtil.getInstance().put(SharedPreferencesUtil.Key.NOTICE_TIMES, 1);
 
         DialogUtils.showDialog(this, new DialogModel()
-                .setMessage(getString(R.string.trade_notice_msg))
-                .setSureText(getString(R.string.sure))
-                .setCancelText(getString(R.string.cancel))
-                .setSureClickListen(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        toSetting();
-                        dialogInterface.dismiss();
-                    }
-                }).setCancelClickListen(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+            .setMessage(getString(R.string.trade_notice_msg))
+            .setSureText(getString(R.string.sure))
+            .setCancelText(getString(R.string.cancel))
+            .setSureClickListen(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    toSetting();
+                    dialogInterface.dismiss();
+                }
+            }).setCancelClickListen(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            })
         );
     }
 
@@ -501,20 +501,20 @@ public class MainActivity extends BaseActivity {
         String lang = MMKV.defaultMMKV().decodeString("language", "zh");
         jsonObject.addProperty("currentLanguage", lang);
         Http.getHttpService().changeLanguage(jsonObject)
-                .compose(new NothingTransformer<BaseHttpEntity>())
-                .subscribe(new CommonSubscriber<BaseHttpEntity>(FotaApplication.getInstance()) {
-                    @Override
-                    public void onNext(BaseHttpEntity object) {
-                        L.i("changeLanguage = " + object.toString());
-                    }
+            .compose(new NothingTransformer<BaseHttpEntity>())
+            .subscribe(new CommonSubscriber<BaseHttpEntity>(FotaApplication.getInstance()) {
+                @Override
+                public void onNext(BaseHttpEntity object) {
+                    L.i("changeLanguage = " + object.toString());
+                }
 
-                    @Override
-                    protected void onError(ApiException e) {
-                        super.onError(e);
-                        L.i("changeLanguage = " + e.toString());
+                @Override
+                protected void onError(ApiException e) {
+                    super.onError(e);
+                    L.i("changeLanguage = " + e.toString());
 
-                    }
-                });
+                }
+            });
     }
 
     @Override
@@ -527,29 +527,29 @@ public class MainActivity extends BaseActivity {
     public void onEventPosting(Event event) {
         switch (event._id) {
             case R.id.event_main_changelanguage:
-                changeLanguage();
-                break;
+            changeLanguage();
+            break;
             case R.id.update_downloaded://下载完成更新提示框状态
 //                getHoldingActivity().recreate();
-                //recreate();
-                if (updateDialog != null && updateDialog.isShowing() && updateVersionBean != null) {
-                    if (updateVersionBean.isCompulsory()) {//强更
-                    } else {
-                        updateDialog.findViewById(R.id.ll_cancel).setVisibility(View.VISIBLE);
-                    }
-                    updateDialog.findViewById(R.id.submit).setEnabled(true);
-                    ((com.fota.android.widget.btbwidget.FotaButton) updateDialog.findViewById(R.id.submit)).setText(R.string.update_sure);
+            //recreate();
+            if (updateDialog != null && updateDialog.isShowing() && updateVersionBean != null) {
+                if (updateVersionBean.isCompulsory()) {//强更
+                } else {
+                    updateDialog.findViewById(R.id.ll_cancel).setVisibility(View.VISIBLE);
                 }
-                break;
+                updateDialog.findViewById(R.id.submit).setEnabled(true);
+                ((com.fota.android.widget.btbwidget.FotaButton) updateDialog.findViewById(R.id.submit)).setText(R.string.update_sure);
+            }
+            break;
             case R.id.login_quicktoast:
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showQuickLoginDialog();
-                    }
-                }, 1000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showQuickLoginDialog();
+                }
+            }, 1000);
 
-                break;
+            break;
         }
     }
 
@@ -561,52 +561,52 @@ public class MainActivity extends BaseActivity {
         map.p("version", DeviceUtils.getVersonName(FotaApplication.getInstance()));
         map.p("platform", 2);
         Http.getHttpService().getVersionUpdate(map)
-                .compose(new CommonTransformer<VersionBean>())
-                .subscribe(new CommonSubscriber<VersionBean>(FotaApplication.getInstance()) {
-                    @Override
-                    public void onNext(VersionBean versionBean) {
+            .compose(new CommonTransformer<VersionBean>())
+            .subscribe(new CommonSubscriber<VersionBean>(FotaApplication.getInstance()) {
+                @Override
+                public void onNext(VersionBean versionBean) {
 //                        UserLoginUtil.delUser();
-                        L.a("version ===   suc " + versionBean.toString());
-                        updateVersionBean = versionBean;
-                        if (versionBean.isNewest()) {
+                    L.a("version ===   suc " + versionBean.toString());
+                    updateVersionBean = versionBean;
+                    if (versionBean.isNewest()) {
 //                            showToast("你已经是最新版本");
+                    } else {
+                        if (versionBean.isCompulsory()) {//强更
+                            showUpdateDialog(versionBean);
                         } else {
-                            if (versionBean.isCompulsory()) {//强更
+                            String version = SharedPreferencesUtil.getInstance().get(SharedPreferencesUtil.Key.UPDATE_VERSION, "");
+                            if (!TextUtils.isEmpty(version) && !version.equals(versionBean.getVersion())) {//没有获取过此版本信息，弹出并保存版本信息
                                 showUpdateDialog(versionBean);
-                            } else {
-                                String version = SharedPreferencesUtil.getInstance().get(SharedPreferencesUtil.Key.UPDATE_VERSION, "");
-                                if (!TextUtils.isEmpty(version) && !version.equals(versionBean.getVersion())) {//没有获取过此版本信息，弹出并保存版本信息
-                                    showUpdateDialog(versionBean);
-                                    if (!TextUtils.isEmpty(versionBean.getVersion())) {
-                                        SharedPreferencesUtil.getInstance().put(SharedPreferencesUtil.Key.UPDATE_VERSION, versionBean.getVersion());
-                                        SharedPreferencesUtil.getInstance().put(SharedPreferencesUtil.Key.UPDATE_TIME, System.currentTimeMillis());
-                                    }
-                                } else {//获取过此版本信息
-                                    long oldTime = SharedPreferencesUtil.getInstance().get(SharedPreferencesUtil.Key.UPDATE_TIME, Long.valueOf(0));
-
-                                    if (TimeUtils.aboveOneday(System.currentTimeMillis(), oldTime)) {//距离上次显示超过1天
-                                        showUpdateDialog(versionBean);
-                                        SharedPreferencesUtil.getInstance().put(SharedPreferencesUtil.Key.UPDATE_TIME, System.currentTimeMillis());//更新显示时间
-                                    } else {
-
-                                    }
+                                if (!TextUtils.isEmpty(versionBean.getVersion())) {
+                                    SharedPreferencesUtil.getInstance().put(SharedPreferencesUtil.Key.UPDATE_VERSION, versionBean.getVersion());
+                                    SharedPreferencesUtil.getInstance().put(SharedPreferencesUtil.Key.UPDATE_TIME, System.currentTimeMillis());
                                 }
+                            } else {//获取过此版本信息
+                                long oldTime = SharedPreferencesUtil.getInstance().get(SharedPreferencesUtil.Key.UPDATE_TIME, Long.valueOf(0));
 
+                                if (TimeUtils.aboveOneday(System.currentTimeMillis(), oldTime)) {//距离上次显示超过1天
+                                    showUpdateDialog(versionBean);
+                                    SharedPreferencesUtil.getInstance().put(SharedPreferencesUtil.Key.UPDATE_TIME, System.currentTimeMillis());//更新显示时间
+                                } else {
+
+                                }
                             }
 
                         }
 
-
                     }
 
-                    @Override
-                    protected void onError(ApiException e) {
-                        L.a("version ===   fail ");
+
+                }
+
+                @Override
+                protected void onError(ApiException e) {
+                    L.a("version ===   fail ");
 
 
-                    }
+                }
 
-                });
+            });
     }
 
     /**
@@ -616,30 +616,30 @@ public class MainActivity extends BaseActivity {
      */
     private void showUpdateDialog(final VersionBean versionBean) {
         DialogModel dialogModel = new DialogModel()
-                //.setView(DialogUtils.getDefaultStyleMsgTV(getContext(), getString(R.string.mine_logout)))
-                .setMessage(versionBean.getText())
-                .setSureText(getString(R.string.update_sure))
-                .setTitle(getString(R.string.update_title))
-                .setClickAutoDismiss(false)
-                .setCanCancelOnTouchOutside(false)
-                .setCancelClickListen(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+            //.setView(DialogUtils.getDefaultStyleMsgTV(getContext(), getString(R.string.mine_logout)))
+            .setMessage(versionBean.getText())
+            .setSureText(getString(R.string.update_sure))
+            .setTitle(getString(R.string.update_title))
+            .setClickAutoDismiss(false)
+            .setCanCancelOnTouchOutside(false)
+            .setCancelClickListen(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-                        dialogInterface.dismiss();
-                    }
-                }).setSureClickListen(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        updateDialog.findViewById(R.id.ll_cancel).setVisibility(View.GONE);
-                        updateDialog.findViewById(R.id.submit).setEnabled(false);
-                        ((com.fota.android.widget.btbwidget.FotaButton) updateDialog.findViewById(R.id.submit)).setText(R.string.update_downloading);
+                    dialogInterface.dismiss();
+                }
+            }).setSureClickListen(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    updateDialog.findViewById(R.id.ll_cancel).setVisibility(View.GONE);
+                    updateDialog.findViewById(R.id.submit).setEnabled(false);
+                    ((com.fota.android.widget.btbwidget.FotaButton) updateDialog.findViewById(R.id.submit)).setText(R.string.update_downloading);
 //                        beforeUpdateWork("http://172.16.50.201:8089/mapi/home/download");
-                        if (TextUtils.isEmpty(versionBean.getUrl()))
-                            return;
-                        beforeUpdateWork(versionBean.getUrl());
-                    }
-                });
+                    if (TextUtils.isEmpty(versionBean.getUrl()))
+                        return;
+                    beforeUpdateWork(versionBean.getUrl());
+                }
+            });
         if (versionBean.isCompulsory()) {
             dialogModel.setCancelable(false).setCanCancelOnTouchOutside(false);
         } else {
@@ -675,20 +675,20 @@ public class MainActivity extends BaseActivity {
     private void showQuickLoginDialog() {
         if (!UserLoginUtil.haveQuickLogin())
             DialogUtils.showDialog(MyActivityManager.getInstance().getCurrentActivity(), new DialogModel()
-                    //.setView(DialogUtils.getDefaultStyleMsgTV(getContext(), getString(R.string.mine_logout)))
-                    .setMessage(getString(R.string.quicklogin_guide_msg))
-                    .setTitle(getString(R.string.quicklogin_guide_title))
-                    .setSureText(getString(R.string.goto_set_quicklog))
-                    .setCancelText(getString(R.string.cancel))
-                    .setSureClickListen(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            SimpleFragmentActivity.gotoFragmentActivity(MyActivityManager.getInstance().getCurrentActivity(),
-                                    ConstantsPage.SafeSettingFragment
-                            );
-                            dialogInterface.dismiss();
-                        }
-                    }));
+                //.setView(DialogUtils.getDefaultStyleMsgTV(getContext(), getString(R.string.mine_logout)))
+                .setMessage(getString(R.string.quicklogin_guide_msg))
+                .setTitle(getString(R.string.quicklogin_guide_title))
+                .setSureText(getString(R.string.goto_set_quicklog))
+                .setCancelText(getString(R.string.cancel))
+                .setSureClickListen(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SimpleFragmentActivity.gotoFragmentActivity(MyActivityManager.getInstance().getCurrentActivity(),
+                            ConstantsPage.SafeSettingFragment
+                        );
+                        dialogInterface.dismiss();
+                    }
+                }));
     }
 
 }

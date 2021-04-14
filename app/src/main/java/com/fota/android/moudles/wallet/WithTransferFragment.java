@@ -25,11 +25,8 @@ import com.fota.android.databinding.FragmentUsdtTranferBinding;
 import com.fota.android.databinding.WalletFragmentHeadBinding;
 import com.fota.android.http.Http;
 import com.fota.android.utils.KeyBoardUtils;
-import com.fota.android.utils.UserLoginUtil;
-import com.fota.android.utils.apputils.TradeUtils;
 import com.fota.android.widget.btbwidget.ClearEdittext;
 import com.fota.android.widget.btbwidget.FotaButton;
-import com.fota.android.widget.popwin.PasswordDialog;
 
 /**
  * 带有划转功能模块的虚类Fragment
@@ -123,29 +120,30 @@ public abstract class WithTransferFragment<P extends BasePresenter> extends MvpL
 
     //1205 jiang 改为同交易下单逻辑，两小时内输过密码，可以不用继续输入
     public void onConfirm() {
-        Http.getWalletService().transferCheck()
-                .compose(new NothingTransformer<BaseHttpEntity>())
-                .subscribe(new CommonSubscriber<BaseHttpEntity>(FotaApplication.getInstance()) {
-
-                    @Override
-                    public void onNext(BaseHttpEntity baseHttpEntity) {
-                        if (getView() != null) {
-                            //验证密码是否
-                            TradeUtils.getInstance().validPassword(getContext(), mRequestCode, new TradeUtils.ExchangePasswordListener() {
-
-                                @Override
-                                public void noPassword() {
-                                    finalDo(UserLoginUtil.getCapital());
-                                }
-
-                                @Override
-                                public void showPasswordDialog() {
-                                    pwdDialogShow();
-                                }
-                            });
-                        }
-                    }
-                });
+        finalDo();
+//        Http.getWalletService().transferCheck()
+//                .compose(new NothingTransformer<BaseHttpEntity>())
+//                .subscribe(new CommonSubscriber<BaseHttpEntity>(FotaApplication.getInstance()) {
+//
+//                    @Override
+//                    public void onNext(BaseHttpEntity baseHttpEntity) {
+//                        if (getView() != null) {
+//                            //验证密码是否
+//                            TradeUtils.getInstance().validPassword(getContext(), mRequestCode, new TradeUtils.ExchangePasswordListener() {
+//
+//                                @Override
+//                                public void noPassword() {
+//
+//                                }
+//
+//                                @Override
+//                                public void showPasswordDialog() {
+//                                    pwdDialogShow();
+//                                }
+//                            });
+//                        }
+//                    }
+//                });
     }
 
     /**
@@ -155,34 +153,35 @@ public abstract class WithTransferFragment<P extends BasePresenter> extends MvpL
         if (getHoldingActivity().isFinishing()) {
             return;
         }
-        PasswordDialog dialog = new PasswordDialog(getContext());
-        dialog.setListener(new PasswordDialog.OnSureClickListener() {
-            @Override
-            public void onClick(String fundCode) {
-                TradeUtils.getInstance().changePasswordToToken(getContext(), fundCode,
-                        new TradeUtils.ChangePassWordListener() {
-                            @Override
-                            public void setPasswordToken(String token) {
-                                finalDo(token);
-                            }
-                        });
-            }
-        });
-        dialog.show();
+
+        finalDo();
+//        PasswordDialog dialog = new PasswordDialog(getContext());
+//        dialog.setListener(new PasswordDialog.OnSureClickListener() {
+//            @Override
+//            public void onClick(String fundCode) {
+//                TradeUtils.getInstance().changePasswordToToken(getContext(), fundCode,
+//                        new TradeUtils.ChangePassWordListener() {
+//                            @Override
+//                            public void setPasswordToken(String token) {
+//
+//                            }
+//                        });
+//            }
+//        });
+//        dialog.show();
     }
 
-    public void finalDo(final String fundCode) {
+    public void finalDo() {
         TransferBean body = new TransferBean();
         body.setFromType(isContractToMyAccount ? 2 : 1);
         body.setToType(isContractToMyAccount ? 1 : 2);
         body.setAmount(editTransfer.getText().toString());
-        body.setTradeToken(fundCode);
+//        body.setTradeToken(fundCode);
         Http.getWalletService().transfer(body).compose(new NothingTransformer<BaseHttpEntity>())
                 .subscribe(new CommonSubscriber<BaseHttpEntity>(FotaApplication.getInstance()) {
                     @Override
                     public void onNext(BaseHttpEntity baseHttpEntity) {
 //                        showToast(getString(R.string.wallet_exchange_ok));
-                        UserLoginUtil.saveCapital(fundCode);
                         reset();
                         afterTransferDialog();
                         KeyBoardUtils.closeKeybord(mContext);

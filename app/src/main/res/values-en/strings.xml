@@ -269,6 +269,7 @@
     <string name="identity_front_msg_id">Front Side</string>
     <string name="identity_front_msg_huzhao">Upload ID Photo</string>
     <string name="identity_back_msg_id">Back Side</string>
+    <string name="identity_hold_msg_id">Hand Held</string>
     <string name="identity_idcard_error">Please enter your ID number correctly</string>
     <string name="identity_pic_id">Upload ID photo</string>
     <string name="identity_pic_passport">Upload the first page of your passport</string>

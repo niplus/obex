@@ -16,7 +16,7 @@ public class FutureContractBean implements Serializable, FtKeyValue {
     String assetName;
     int status;
     String symbol;
-    String contractPrecision;
+
 
     ContractAssetBean parent;
 
@@ -103,14 +103,6 @@ public class FutureContractBean implements Serializable, FtKeyValue {
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
-    }
-
-    public String getContractPrecision() {
-        return contractPrecision;
-    }
-
-    public void setContractPrecision(String contractPrecision) {
-        this.contractPrecision = contractPrecision;
     }
 
     @Override

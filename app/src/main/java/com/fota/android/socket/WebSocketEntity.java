@@ -81,4 +81,16 @@ public class WebSocketEntity<T> implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
+
+    @Override
+    public String toString() {
+        return "WebSocketEntity{" +
+                "reqType=" + reqType +
+                ", handleType=" + handleType +
+                ", param=" + param +
+                ", token='" + token + '\'' +
+                ", brokerId='" + brokerId + '\'' +
+                ", language='" + language + '\'' +
+                '}';
+    }
 }

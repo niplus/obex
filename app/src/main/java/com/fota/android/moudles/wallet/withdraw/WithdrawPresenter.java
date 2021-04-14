@@ -51,7 +51,6 @@ public class WithdrawPresenter extends BasePresenter<WithdrawView> {
                 .subscribe(new CommonSubscriber<RateBean>() {
                     @Override
                     public void onNext(RateBean rateBean) {
-                        Log.i("nidongliang", "rateBean: " + rateBean);
 
                         getView().setRate(rateBean);
                     }

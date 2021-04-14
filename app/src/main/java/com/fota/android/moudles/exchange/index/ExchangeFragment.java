@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,10 +144,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
      */
     final protected List<HisData> time15Data = new ArrayList<>(100);
     //已选择的kline 周期参数
-    protected int currentPeriodIndex = 2;
-//    protected static final String[] types = {"1m", "15m", "1h", "1d"};
-//    protected static final String[] dateFormats = {"HH:mm", "HH:mm", "HH:mm", "MM-dd"};
-    static final String[] types = {"1m", "5m", "15m", "30m", "1h", "4h", "6h", "1d", "1w"};
+    protected int currentPeriodIndex = 1;
     static final String[] dateFormats = {"HH:mm", "HH:mm", "HH:mm", "HH:mm", "HH:mm", "HH:mm", "HH:mm", "MM-dd", "yyyy-MM-dd"};
     /**
      * 合约数据or usdt兑换
@@ -682,6 +680,8 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         klineDataConvert(chartList);
         mHeadBinding.kline.setNeedMoveToLast(true);
         mHeadBinding.kline.setmDigits(holdingEntity.getDecimal());
+
+        Log.i("nidongliang", "klineData: " + klineData);
         mHeadBinding.kline.initData(klineData);
 
         if (holdingEntity != null && holdingEntity.getHoldingPrice() != -1) {

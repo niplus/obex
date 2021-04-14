@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ndl.lib_common.log.NLog;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -293,7 +294,6 @@ public class WebSocketClient implements IWebSocketSubject {
             future.setLastPrice(each.getLastPrice());
             future.setTrend(each.getGain());
             future.setUscPrice(each.getUscPrice());
-//                        future.setFavorite(each.isCollect());
             future.setHot(each.isFire());
             future.setEntityId(each.getId());
             future.setEntityType(each.getType());
@@ -601,7 +601,6 @@ public class WebSocketClient implements IWebSocketSubject {
         try {
             String json = GsonSinglon.getInstance().toJson(entity);
             Log.i("wsocket_send", json);
-            Log.i("nidongliang", "send message: " + json);
             webSocket.send(json);
         } catch (Exception e) {
             e.printStackTrace();

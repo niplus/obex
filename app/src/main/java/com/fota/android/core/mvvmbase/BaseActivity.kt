@@ -12,11 +12,9 @@ import com.fota.android.LanguageContextWrapper.Companion.wrap
 import com.fota.android.R
 import com.fota.android.commonlib.base.AppConfigs
 import com.fota.android.commonlib.base.MyActivityManager
-import com.fota.android.core.base.BaseActivity
 import com.fota.android.utils.getLocale
 import com.gyf.barlibrary.ImmersionBar
 import com.umeng.analytics.MobclickAgent
-import java.util.*
 
 abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: FragmentActivity() {
 

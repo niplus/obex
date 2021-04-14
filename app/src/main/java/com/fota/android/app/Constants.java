@@ -39,7 +39,8 @@ public class Constants {
     public static final String BASE_IP_FT_REL_H5 = "https://cboex.com/";
 
 
-    public static final String BASE_WEBSOCKET = "wss://cboex.com/mapi/websocket";
+    public static final String BASE_WEBSOCKET = "http://bg-dev.yuchains.com/mapi/websocket";
+//    public static final String BASE_WEBSOCKET = "wss://cboex.com/mapi/websocket";
     public static final String BASE_WEBSOCKET_WSS = "wss://cboex.com/mapi/websocket";
 
     /**

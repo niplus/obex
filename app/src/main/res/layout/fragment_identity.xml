@@ -537,7 +537,7 @@
                                     android:layout_alignParentBottom="true"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginBottom="30dp"
-                                    android:text="@string/identity_back_msg_id"
+                                    android:text="@string/identity_hold_msg_id"
                                     android:textColor="?attr/font_color3"
                                     android:textSize="12sp" />
                             </RelativeLayout>

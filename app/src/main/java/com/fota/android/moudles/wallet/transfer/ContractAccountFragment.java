@@ -1,17 +1,15 @@
 package com.fota.android.moudles.wallet.transfer;
 
 import android.content.DialogInterface;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.fota.android.R;
-import com.fota.android.http.Http;
 import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.FotaApplication;
 import com.fota.android.common.bean.wallet.ContractAccountBean;
@@ -31,9 +29,9 @@ import com.fota.android.core.dialog.DialogModel;
 import com.fota.android.core.dialog.DialogUtils;
 import com.fota.android.core.event.Event;
 import com.fota.android.databinding.FragmentContractBinding;
+import com.fota.android.http.Http;
 import com.fota.android.moudles.wallet.WithTransferFragment;
 import com.fota.android.utils.KeyBoardUtils;
-import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.TitleLayout;
 import com.fota.android.widget.btbwidget.FotaTextWatch;
 
@@ -183,7 +181,7 @@ public class ContractAccountFragment extends WithTransferFragment implements Vie
                 if (!TextUtils.equals(mRequestCode, event.getParam(String.class))) {
                     return;
                 }
-                finalDo(UserLoginUtil.getCapital());
+                finalDo();
                 break;
             case R.id.event_capital_quickcheck_fail:
                 if (!TextUtils.equals(mRequestCode, event.getParam(String.class))) {

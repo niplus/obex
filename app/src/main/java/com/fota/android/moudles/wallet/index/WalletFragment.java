@@ -34,7 +34,6 @@ import com.fota.android.moudles.wallet.WithTransferFragment;
 import com.fota.android.moudles.wallet.history.WithDrawHistoryFragment;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.KeyBoardUtils;
-import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.TitleLayout;
 import com.fota.android.widget.btbwidget.ClearEdittext;
 import com.fota.android.widget.btbwidget.FotaButton;
@@ -333,7 +332,7 @@ public class WalletFragment extends WithTransferFragment<WalletPresenter> implem
                 if (!TextUtils.equals(mRequestCode, event.getParam(String.class))) {
                     return;
                 }
-                finalDo(UserLoginUtil.getCapital());
+                finalDo();
                 break;
             case R.id.event_capital_quickcheck_fail:
                 if (!TextUtils.equals(mRequestCode, event.getParam(String.class))) {
