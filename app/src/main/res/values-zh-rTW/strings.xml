@@ -501,6 +501,7 @@
          <string name="share_qq">QQ</string>
          <string name="share_twitter">推特</string>
 
+     <string name="main_tab5">首頁</string>
      <string name="main_tab1">行情</string>
      <string name="main_tab2">現貨</string>
      <string name="main_tab3">合約</string>
@@ -519,4 +520,13 @@
      <string name="insufficient_margin">保證金不足</string>
 
      <string name="perp">永續</string>
+     <string name="recharge_coin">充值幣種</string>
+     <string name="join_community">加入社群</string>
+     <string name="new_guide">新手指南</string>
+     <string name="grid_strategy">網格策略</string>
+     <string name="event_details">活動詳情</string>
+     <string name="more">更多</string>
+     <string name="quick_buy">快捷買賣數字貨幣</string>
+     <string name="contrace_list">合約列表</string>
+     <string name="spot_list">現貨列表</string>
    </resources>

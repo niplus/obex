@@ -40,6 +40,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -71,7 +72,7 @@ import com.fota.android.core.dialog.DialogUtils;
 import com.fota.android.core.event.Event;
 import com.fota.android.core.event.EventSubscriber;
 import com.fota.android.core.event.EventWrapper;
-import com.fota.android.moudles.main.MainActivity;
+import com.fota.android.moudles.main.Main3Activity;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.KeyBoardUtils;
 import com.fota.android.utils.LanguageKt;
@@ -438,7 +439,7 @@ public class BaseActivity extends FragmentActivity
      */
     public final void showToast(String s) {
         if (!TextUtils.isEmpty(s)) {
-            ToastUitl.showShort(s);
+            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -528,7 +529,7 @@ public class BaseActivity extends FragmentActivity
     //判断当前的主界面是否存在
     @SuppressWarnings("unused")
     boolean haveMain() {
-        return isActivityExists(MainActivity.class);
+        return isActivityExists(Main3Activity.class);
     }
 
     @SuppressWarnings("deprecation")

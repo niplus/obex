@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -11,8 +12,8 @@ android {
         applicationId "com.fota.android"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 4
-        versionName "1.0.4"
+        versionCode 5
+        versionName "1.0.6"
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
@@ -95,6 +96,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation project(path: ':lib_common')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 //    implementation project(path: ':easyPhotos')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -195,5 +197,11 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.3"
 
+    implementation 'com.sunfusheng:MarqueeView:1.4.1'
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
 
+    implementation 'me.jessyan:autosize:1.2.1'
+
+    // 基础依赖包，必须要依赖
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
 }

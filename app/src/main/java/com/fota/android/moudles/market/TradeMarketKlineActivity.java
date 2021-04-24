@@ -3,7 +3,6 @@ package com.fota.android.moudles.market;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -269,7 +268,7 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
             };
             listDealSpot.setAdapter(adapterSpot);
         } else if (entityType == 2) {
-            mBinding.txtVolume.setText(getString(R.string.market_amount_unit2));
+            mBinding.txtVolume.setText(getString(R.string.market_amount_unit1));
         }
         //init -- 占位
         adapter.putList(null);

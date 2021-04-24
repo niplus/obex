@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
@@ -15,8 +16,9 @@ import com.fota.android.commonlib.base.MyActivityManager
 import com.fota.android.utils.getLocale
 import com.gyf.barlibrary.ImmersionBar
 import com.umeng.analytics.MobclickAgent
+import me.jessyan.autosize.internal.CustomAdapt
 
-abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: FragmentActivity() {
+abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: AppCompatActivity(), CustomAdapt {
 
     val dataBinding: T by lazy {
         DataBindingUtil.setContentView<T>(this, getLayoutId())
@@ -24,10 +26,6 @@ abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: FragmentAct
 
     var viewModel: H? = null
 
-    /**
-     * 初始化控件
-     */
-    abstract var initComp: ((T) -> Unit)?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (AppConfigs.getTheme() == AppConfigs.THEME_WHITE) {
@@ -37,7 +35,6 @@ abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: FragmentAct
             //否则是晚上主題
             setTheme(R.style.AppTheme)
         }
-        setActionBar(null)
         super.onCreate(savedInstanceState)
 
         highApiEffects()
@@ -45,7 +42,7 @@ abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: FragmentAct
         initSystemBar()
 
         viewModel = createViewModel()
-        initComp?.invoke(dataBinding)
+        initComp()
         initData()
     }
 
@@ -70,6 +67,7 @@ abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: FragmentAct
      * 初始化数据
      */
     abstract fun initData()
+    abstract fun initComp()
 
     abstract fun createViewModel(): H?
 
@@ -92,14 +90,21 @@ abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: FragmentAct
     protected open fun initSystemBar() {
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar.keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        //        mImmersionBar.statusBarDarkFont(true, 0.2f);
-//        mImmersionBar.init();
+
         if (AppConfigs.getTheme() == 0) {
-//            mImmersionBar.statusfon(true, 0.2f);
             mImmersionBar.statusBarDarkFont(false, 0.2f)
         } else { //白色主题设置黑色状态栏字体
             mImmersionBar.statusBarDarkFont(true, 0.2f)
         }
+//        mImmersionBar.fitsSystemWindows(true)
         mImmersionBar.init()
+    }
+
+    override fun isBaseOnWidth(): Boolean {
+        return true
+    }
+
+    override fun getSizeInDp(): Float {
+        return 375f
     }
 }

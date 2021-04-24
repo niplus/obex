@@ -39,8 +39,8 @@ public class Constants {
     public static final String BASE_IP_FT_REL_H5 = "https://cboex.com/";
 
 
-    public static final String BASE_WEBSOCKET = "http://bg-dev.yuchains.com/mapi/websocket";
-//    public static final String BASE_WEBSOCKET = "wss://cboex.com/mapi/websocket";
+//    public static final String BASE_WEBSOCKET = "http://bg-dev.yuchains.com/mapi/websocket";
+    public static final String BASE_WEBSOCKET = "wss://cboex.com/mapi/websocket";
     public static final String BASE_WEBSOCKET_WSS = "wss://cboex.com/mapi/websocket";
 
     /**
@@ -92,6 +92,10 @@ public class Constants {
     public static String URL_FWTK_EN = "https://support.cboex.io/hc/zh-sg/articles/360003348916-%E6%9C%8D%E5%8A%A1%E6%9D%A1%E6%AC%BE";//服务条款
     public static String URL_MZSM_EN = "https://support.cboex.io/hc/zh-sg/articles/360003387115-%E9%A3%8E%E9%99%A9%E6%8A%AB%E9%9C%B2-%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E-";//免责声明
     public static String URL_YSBH_EN = "https://support.cboex.io/hc/zh-sg/articles/360003348956-%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96";//隐私保护
+
+    public static String URL_GUIDE = "https://support.cboex.io/hc/zh-sg/sections/360001132775";
+    public static String JOIN_COMMUNITY = "https://t.me/CBOEX";
+    public static String URL_ACTIVITY = "https://support.cboex.io/hc/zh-sg/sections/360001063076-%E6%B4%BB%E5%8A%A8";
 
     //Bugly
     public static final String BUGLY_KEY = "97c1baf0-a72e-40ef-890a-4d3419af31ec";

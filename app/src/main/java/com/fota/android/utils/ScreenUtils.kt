@@ -19,3 +19,7 @@ val Int.dp: Float
     get() {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), Resources.getSystem().displayMetrics)
     }
+
+fun Context.dp2px(dp: Int): Float{
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), resources.displayMetrics)
+}

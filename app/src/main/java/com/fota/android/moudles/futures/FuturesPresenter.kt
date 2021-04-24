@@ -85,7 +85,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                     override fun onNext(t: BaseHttpEntity?) {
                         if (view != null) {
                             showTopInfo(model)
-                            view.notifyFromPresenter(ExchangeFragment.ORDER_SUCCESS)
+                            view?.notifyFromPresenter(ExchangeFragment.ORDER_SUCCESS)
                         }
                     }
                 })
@@ -103,7 +103,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                 .compose(CommonTransformer())
                 .subscribe(object : CommonSubscriber<BtbMap?>() {
                     override fun onNext(map: BtbMap?) {
-                        view.setPreciseMargin(map)
+                        view?.setPreciseMargin(map)
                     }
 
                     override fun onError(e: ApiException) {
@@ -116,7 +116,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
      * 下单成功
      */
     protected fun showTopInfo(model: ExchangeEntity?) {
-        view.showTopInfo(view.getXmlString(R.string.order_success))
+        view?.showTopInfo(view?.getXmlString(R.string.order_success))
     }
 
     fun removeMoney(model: FuturesMoneyBean) {
@@ -127,7 +127,6 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         modelPost.contractId = model.contractId
         modelPost.contractName = model.contractName
         val body = ExchangeBody()
-        //        body.setTradeToken(fundCode);
         body.obj = modelPost
         Http.getExchangeService().makeContractOrder(body)
                 .compose(NothingTransformer())
@@ -161,7 +160,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                     .subscribe(object : CommonSubscriber<List<ContractAssetBean?>?>() {
                         override fun onNext(list: List<ContractAssetBean?>?) {
                             if (view != null) {
-                                view.refreshComplete()
+                                view?.refreshComplete()
                             }
                             allList = list
 
@@ -172,7 +171,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                                             contract.setContractName(
                                                 contract.getContractName().replace(
                                                     "永续", " ${
-                                                        view.context.getString(
+                                                        view?.context?.getString(
                                                             R.string.perp
                                                         )
                                                     }"
@@ -215,7 +214,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                         override fun onError(e: ApiException) {
                             super.onError(e)
                             if (view != null) {
-                                view.refreshComplete()
+                                view?.refreshComplete()
                             }
                         }
                     })
@@ -269,19 +268,18 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
 
         getAdditonalSpot(selectContact!!.assetName)
 
-        view.onSelectView()
-        view.refreshCurrency()
+        view?.onSelectView()
+        view?.refreshCurrency()
         //jiang 0818
 //        getContractDelivery();
-        getContractAccount(selectContact!!.getContractId())
+        getContractAccount(selectContact.getContractId())
         getDepthFive(type, Pub.GetInt(selectContact.getContractId()))
         getNowTicker(type, Pub.GetInt(selectContact.getContractId()))
         getTimeLineDatas(type, Pub.GetInt(selectContact.getContractId()), "1m")
         //jiang chart loading
         if (view != null) {
-            view.setOverShowLoading(0, true)
-            view.setOverShowLoading(1, true)
-            Log.i("nidongliang", "get klineData : " + currentPeriodIndex)
+            view!!.setOverShowLoading(0, true)
+            view!!.setOverShowLoading(1, true)
             getKlineDatas(2, Pub.GetInt(selectContact.getContractId()), types[currentPeriodIndex])
         }
     }
@@ -315,7 +313,8 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         client.addChannel(socketEntity, this)
     }
 
-    override fun getView(): FutureTradeView {
+    override fun getView(): FutureTradeView? {
+        if (super.getView() == null) return null
         return super.getView() as FutureTradeView
     }
     /**
@@ -387,7 +386,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
             }
             SocketKey.TradeSuccessNotiification -> {
             }
-            SocketKey.DELIVERY_TIME_CHANGED, SocketKey.POSITION_LINE -> view.onRefreshDeliveryOrHold()
+            SocketKey.DELIVERY_TIME_CHANGED, SocketKey.POSITION_LINE -> view?.onRefreshDeliveryOrHold()
             SocketKey.FUTURE_TOP -> {
                 if (jsonString == null || view == null) {
                     return
@@ -396,12 +395,12 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                     jsonString,
                     FutureTopInfoBean::class.java
                 )
-                view.setContractAccount(map)
+                view?.setContractAccount(map)
             }
             SocketKey.MARKET_SPOTINDEX->{
 
                 val spotIndex = Gson().fromJson<SpotIndex>(jsonString, SpotIndex::class.java)
-                view.onSpotUpdate(spotIndex)
+                view?.onSpotUpdate(spotIndex)
             }
             else -> {
                 super.onUpdateImplSocket(reqType, jsonString, additionEntity)
@@ -447,7 +446,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                             return
                         }
                         onRefresh()
-                        view.onLeverChange()
+                        view?.onLeverChange()
                     }
 
                     override fun onError(e: ApiException) {

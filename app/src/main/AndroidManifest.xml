@@ -42,9 +42,28 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme_White"
+        android:resizeableActivity="true"
+        android:maxAspectRatio="2.4"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon,android:theme">
-        <activity android:name=".moudles.futures.FuturesCalcActivity"></activity>
+
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="375"/>
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true"/>
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+        <activity android:name=".moudles.main.MainActivity"></activity>
+        <activity android:name=".moudles.futures.FuturesCalcActivity" />
         <activity
             android:name=".moudles.welcome.SplashActivity"
             android:screenOrientation="portrait"
@@ -56,11 +75,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".moudles.main.MainActivity"
+            android:name=".moudles.main.Main3Activity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".core.base.SimpleFragmentActivity"
             android:screenOrientation="portrait"

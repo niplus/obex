@@ -62,6 +62,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
+import me.jessyan.autosize.AutoSizeConfig;
 
 
 /**
@@ -135,8 +136,8 @@ public class FotaApplication extends BaseApplication {
         ErrorCodeUtil.getInstance().setOtherAppCodeUtils(FotaErrorUtils.getInstance());
 
         NLog.INSTANCE.initLog(this);
-
-
+        //fragment适配必须加上这行
+        AutoSizeConfig.getInstance().setCustomFragment(true);
     }
 
     private void initNetAndScreenReceiver() {
@@ -194,7 +195,6 @@ public class FotaApplication extends BaseApplication {
         long start = System.currentTimeMillis();
         Bugly.setUserId(this, UserLoginUtil.getTokenUnlogin());
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId,调试时将第三个参数设置为true
-        Bugly.init(this, Constants.BUGLY_ID, Constants.DEBUG);
         long end = System.currentTimeMillis();
         Log.e("init time--->", end - start + "ms");
     }

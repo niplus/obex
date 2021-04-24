@@ -12,8 +12,20 @@ class FuturesCalcActivity : BaseActivity<ActivityFuturesCalcBinding, FuturesCalc
 
     private var amountPercision = 0
 
-    override var initComp: ((ActivityFuturesCalcBinding) -> Unit)? = {
-        it.apply {
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_futures_calc
+    }
+
+    override fun createViewModel(): FuturesCalcViewModel? {
+        return ViewModelProvider(this).get(FuturesCalcViewModel::class.java)
+    }
+
+    override fun initData() {
+    }
+
+    override fun initComp() {
+        dataBinding.apply {
             model = viewModel
             pbLever.leverChangeListener = { level->
                 viewModel!!.lever = level
@@ -34,19 +46,6 @@ class FuturesCalcActivity : BaseActivity<ActivityFuturesCalcBinding, FuturesCalc
             edtOpen.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(2))
             edtClose.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(2))
             edtAmount.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(amountPercision))
-//            viewModel!!.currentPrice = intent.getStringExtra("currentPrice")!!
         }
-    }
-
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_futures_calc
-    }
-
-    override fun createViewModel(): FuturesCalcViewModel? {
-        return ViewModelProvider(this).get(FuturesCalcViewModel::class.java)
-    }
-
-    override fun initData() {
     }
 }

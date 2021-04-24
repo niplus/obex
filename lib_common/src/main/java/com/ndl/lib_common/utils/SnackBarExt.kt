@@ -14,5 +14,5 @@ fun Activity.showSnackMsg(msg: String){
 }
 
 fun View.showSnackMsg(msg: String){
-    Snackbar.make(this, msg, Snackbar.LENGTH_SHORT)
+    Snackbar.make(this, msg, Snackbar.LENGTH_SHORT).show()
 }

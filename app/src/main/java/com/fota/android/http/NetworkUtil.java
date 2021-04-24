@@ -205,46 +205,46 @@ public class NetworkUtil {
      * @param context
      * @return
      */
-    public static String getNetworkType(Context context) {
-        String strNetworkType = "UnKnown";
-        final NetworkInfo activeNetworkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-        if (activeNetworkInfo != null && activeNetworkInfo.getType() == 1) {
-            strNetworkType = "WIFI";
-        } else if (activeNetworkInfo != null && activeNetworkInfo.getType() == 0) {
-            String subtypeName = activeNetworkInfo.getSubtypeName();
-            switch (((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getNetworkType()) {
-                case TelephonyManager.NETWORK_TYPE_GPRS:
-                case TelephonyManager.NETWORK_TYPE_EDGE:
-                case TelephonyManager.NETWORK_TYPE_CDMA:
-                case TelephonyManager.NETWORK_TYPE_1xRTT:
-                case TelephonyManager.NETWORK_TYPE_IDEN: //api<8 : replace by 11
-                    strNetworkType = "2G";
-                    break;
-                case TelephonyManager.NETWORK_TYPE_UMTS:
-                case TelephonyManager.NETWORK_TYPE_EVDO_0:
-                case TelephonyManager.NETWORK_TYPE_EVDO_A:
-                case TelephonyManager.NETWORK_TYPE_HSDPA:
-                case TelephonyManager.NETWORK_TYPE_HSUPA:
-                case TelephonyManager.NETWORK_TYPE_HSPA:
-                case TelephonyManager.NETWORK_TYPE_EVDO_B: //api<9 : replace by 14
-                case TelephonyManager.NETWORK_TYPE_EHRPD: //api<11 : replace by 12
-                case TelephonyManager.NETWORK_TYPE_HSPAP: //api<13 : replace by 15
-                    strNetworkType = "3G";
-                    break;
-                case TelephonyManager.NETWORK_TYPE_LTE:
-                    strNetworkType = "4G";
-                    break;
-                default:
-                    if (subtypeName.equalsIgnoreCase("TD-SCDMA") || subtypeName.equalsIgnoreCase("WCDMA") || subtypeName.equalsIgnoreCase("CDMA2000")) {
-                        strNetworkType = "3G";
-                        break;
-                    }
-                    strNetworkType = subtypeName;
-                    break;
-            }
-        }
-        return strNetworkType;
-    }
+//    public static String getNetworkType(Context context) {
+//        String strNetworkType = "UnKnown";
+//        final NetworkInfo activeNetworkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+//        if (activeNetworkInfo != null && activeNetworkInfo.getType() == 1) {
+//            strNetworkType = "WIFI";
+//        } else if (activeNetworkInfo != null && activeNetworkInfo.getType() == 0) {
+//            String subtypeName = activeNetworkInfo.getSubtypeName();
+//            switch (((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDataNetworkType()) {
+//                case TelephonyManager.NETWORK_TYPE_GPRS:
+//                case TelephonyManager.NETWORK_TYPE_EDGE:
+//                case TelephonyManager.NETWORK_TYPE_CDMA:
+//                case TelephonyManager.NETWORK_TYPE_1xRTT:
+//                case TelephonyManager.NETWORK_TYPE_IDEN: //api<8 : replace by 11
+//                    strNetworkType = "2G";
+//                    break;
+//                case TelephonyManager.NETWORK_TYPE_UMTS:
+//                case TelephonyManager.NETWORK_TYPE_EVDO_0:
+//                case TelephonyManager.NETWORK_TYPE_EVDO_A:
+//                case TelephonyManager.NETWORK_TYPE_HSDPA:
+//                case TelephonyManager.NETWORK_TYPE_HSUPA:
+//                case TelephonyManager.NETWORK_TYPE_HSPA:
+//                case TelephonyManager.NETWORK_TYPE_EVDO_B: //api<9 : replace by 14
+//                case TelephonyManager.NETWORK_TYPE_EHRPD: //api<11 : replace by 12
+//                case TelephonyManager.NETWORK_TYPE_HSPAP: //api<13 : replace by 15
+//                    strNetworkType = "3G";
+//                    break;
+//                case TelephonyManager.NETWORK_TYPE_LTE:
+//                    strNetworkType = "4G";
+//                    break;
+//                default:
+//                    if (subtypeName.equalsIgnoreCase("TD-SCDMA") || subtypeName.equalsIgnoreCase("WCDMA") || subtypeName.equalsIgnoreCase("CDMA2000")) {
+//                        strNetworkType = "3G";
+//                        break;
+//                    }
+//                    strNetworkType = subtypeName;
+//                    break;
+//            }
+//        }
+//        return strNetworkType;
+//    }
 
     //jiang
     public static void getNetIp() {

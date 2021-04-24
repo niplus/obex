@@ -85,9 +85,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
-
-
+public class Main3Activity extends BaseActivity {
     RecyclerView recyclerView;
     /**
      * 被选中的tab标签
@@ -129,8 +127,6 @@ public class MainActivity extends BaseActivity {
         client.openWebSocket();
         checkToken();
         showNoticeDialog();
-
-
     }
 
     @Override
@@ -151,7 +147,6 @@ public class MainActivity extends BaseActivity {
         adapter = new EasyAdapter<BottomMenuItem, ViewHolder>(getContext(), R.layout.item_activity_main_bottom) {
         @Override
         public void convert(ViewHolder holder, final BottomMenuItem model, final int position) {
-//                holder.setText(R.id.tv_me, (AppConfigs.isChinaLanguage() ? model.getNameZh() : model.getNameEn()));
             holder.setText(R.id.tv_me, tabName[position]);
             holder.<TextView>getView(R.id.tv_me).setSelected(position == selected_tab);
             holder.setVisible(R.id.image_me, position != selected_tab);

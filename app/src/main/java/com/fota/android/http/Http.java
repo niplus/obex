@@ -132,7 +132,7 @@ public class Http {
         Interceptor headerInterceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                String netStatus = NetworkUtil.getNetworkType(FotaApplication.getInstance());
+                String netStatus = "WIFI";
 //                String language = AppConfigs.getLanguege().getLanguage();
                 String language = MMKV.defaultMMKV().decodeString("language", "zh");
                 Request originalRequest = chain.request();
@@ -434,8 +434,8 @@ public class Http {
 
 
     public static String getIpAddress() {
-        return "http://bg-dev.yuchains.com/mapi/";
-//        return Constants.getHttpUrl();
+//        return "http://bg-dev.yuchains.com/mapi/";
+        return Constants.getHttpUrl();
         //return Pub.isStringEmpty(AppConfigs.getIpAddress()) ? getDefaultAddress() : AppConfigs.getIpAddress();
     }
 

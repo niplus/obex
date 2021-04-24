@@ -34,8 +34,6 @@ public class UserLoginUtil {
         SharedPreferencesUtil.getInstance().put(FTKey.LOGIN_EMAIL + loginBean.getId(), loginBean.getEmail());
         SharedPreferencesUtil.getInstance().put(FTKey.LOGIN_REGISTTYPE + loginBean.getId(), loginBean.getRegisterType());
         SharedPreferencesUtil.getInstance().put(FTKey.LOGIN_PHONECOUNTRYCODE + loginBean.getId(), loginBean.getPhoneCountryCode());
-//        JPushInterface.setAlias(FotaApplication.getInstance(), StringFormatUtils.getIntId(loginBean.getId() + ""), loginBean.getId() + "");
-//        setJpushTag();
     }
 
     /**

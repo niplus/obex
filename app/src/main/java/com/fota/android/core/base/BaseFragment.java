@@ -55,7 +55,6 @@ import com.fota.android.utils.StatusBarUtil;
 import com.fota.android.widget.TitleLayout;
 import com.fota.android.widget.btbwidget.FotaButton;
 import com.fota.android.widget.btbwidget.FotaTextWatch;
-import com.gyf.barlibrary.ImmersionBar;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -87,7 +86,7 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     private static final Handler handler = new Handler();
 
     private String TAG;
-    protected BaseActivity mActivity;
+    protected Activity mActivity;
     protected Context mContext;
 
     private String mRefreshTag;
@@ -98,7 +97,7 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     private AppContextDelegate appContextDelegate;
     protected TitleLayout mTitleLayout;
     protected View emptyTopMargin;
-    private ImmersionBar mImmersionBar;
+//    private ImmersionBar mImmersionBar;
 
 
     @Override
@@ -106,7 +105,7 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
         super.onCreate(savedInstanceState);
         Log.v(getTAG(), "onCreate");
         dataStatue = AppConfigs.getAppFlag();
-        mContext = mActivity = (BaseActivity) getActivity();
+        mContext = mActivity = getActivity();
         String tag = getClass().getSimpleName();
         if (TextUtils.isEmpty(TAG)) {
             TAG = tag;
@@ -181,7 +180,7 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     protected void onInitView(View view) {
         findViewById();
         initHeadLayout();
-        mImmersionBar = ImmersionBar.with(this);
+//        mImmersionBar = ImmersionBar.with(this);
     }
 
     protected void findViewById() {
@@ -791,9 +790,9 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     @Override
     public void startProgressDialog() {
         //jiang nullException
-        if (mActivity != null) {
-            mActivity.startProgressDialog();
-        }
+//        if (mActivity != null) {
+//            mActivity.startProgressDialog();
+//        }
     }
 
     /**
@@ -802,10 +801,12 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     @Override
     public void stopProgressDialog() {
         //jiang
-        if (mActivity != null) {
-            mActivity.stopProgressDialog();
-        }
+//        if (mActivity != null) {
+//            mActivity.stopProgressDialog();
+//        }
     }
+
+
 
     /**
      * 选中输入框下划线加粗
@@ -874,11 +875,11 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
      * 设置状态栏只有白色字体
      */
     public void setJustWhiteBarTxt() {
-        if (mImmersionBar == null)
-            return;
-        mImmersionBar.statusBarDarkFont(false, 0.2f);
-        mImmersionBar.statusBarColor(android.R.color.transparent);
-        mImmersionBar.init();
+//        if (mImmersionBar == null)
+//            return;
+//        mImmersionBar.statusBarDarkFont(false, 0.2f);
+//        mImmersionBar.statusBarColor(android.R.color.transparent);
+//        mImmersionBar.init();
     }
 
     public int getDataStatue() {

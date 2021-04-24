@@ -6,11 +6,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
@@ -24,20 +21,14 @@ import com.fota.android.common.listener.ISystembar;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.http.exception.ApiException;
 import com.fota.android.commonlib.utils.Pub;
-import com.fota.android.commonlib.utils.UIUtil;
 import com.fota.android.commonlib.utils.URLUtils;
 import com.fota.android.core.base.MvpFragment;
 import com.fota.android.core.event.Event;
 import com.fota.android.databinding.FragmentMarketsBinding;
 import com.fota.android.moudles.market.adapter.MarketFragmentAdapter;
 import com.fota.android.moudles.market.bean.FutureItemEntity;
-import com.fota.android.utils.FtRounts;
-import com.fota.android.utils.StatusBarUtil;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.gyf.barlibrary.ImmersionBar;
-import com.zhouwei.mzbanner.MZBannerView;
-import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -47,7 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MarketFragment extends MvpFragment<MarketPresenter>
+public class MarketFragment extends MvpFragment<
+        MarketPresenter>
         implements MarketViewInterface, ISystembar {
     private FragmentMarketsBinding mBinding;
     private List<String> coinTitles = new ArrayList<>();
@@ -84,7 +76,7 @@ public class MarketFragment extends MvpFragment<MarketPresenter>
     @Override
     protected void onInitView(View view) {
         super.onInitView(view);
-        setBannerHeigh();
+//        setBannerHeigh();
 
         mBinding.llChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,64 +99,13 @@ public class MarketFragment extends MvpFragment<MarketPresenter>
         onRefresh();
         initTitleAndFragment();
         initAllChildFragment();
-        initCoordinateLayout();
+//        initCoordinateLayout();
 
         //获取缓存数据
         initDiskData();
         bannerClick();
     }
 
-    private void initCoordinateLayout() {
-        mBinding.toolbarFotaLogo.setNavigationIcon(null);
-        int paddingTop = StatusBarUtil.getStatusBarHeight(mContext);
-        mBinding.idTopview.setPadding(0, paddingTop, 0, 0);
-        FrameLayout.LayoutParams linearParams = (FrameLayout.LayoutParams) mBinding.toolbarFotaLogo.getLayoutParams(); // 取控件mGrid当前的布局参数
-        linearParams.height += mBinding.toolbarFotaLogo.getHeight() + paddingTop;// 当控件的高强制设成75象素
-        mBinding.toolbarFotaLogo.setLayoutParams(linearParams);
-        mBinding.appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                float offset = Math.abs(verticalOffset);
-                float dynamicMax = Math.abs(mBinding.toolbarFotaLogo.getHeight() - mBinding.idTopview.getHeight());
-                if (offset >= dynamicMax) {
-                    mBinding.toolbarFotaLogo.setVisibility(View.VISIBLE);
-                    mBinding.toolbarFotaLogo.setAlpha(1);
-                    if (AppConfigs.getTheme() == 0) {
-                        topBlueColor = Pub.getThemeResource(getContext(), R.attr.bg_color);
-                        mBinding.toolbarFotaLogo.setBackgroundColor(Pub.getColor(getContext(), R.attr.bg_color));
-                    } else {
-                        topBlueColor = Pub.getThemeResource(getContext(), R.attr.main_color);
-                        mBinding.toolbarFotaLogo.setBackgroundColor(Pub.getColor(getContext(), R.attr.main_color));
-                    }
-
-                    if (immerseStatus == STATUS_TRANS)
-                        return;
-                    immerseStatus = STATUS_TRANS;
-                    setSystemBar();
-                } else {
-                    if (offset == 0) {
-                        mBinding.toolbarFotaLogo.setVisibility(View.GONE);
-                        mBinding.toolbarFotaLogo.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
-                    }
-                    mBinding.toolbarFotaLogo.setAlpha(offset / dynamicMax);
-
-                    if (immerseStatus == STATUS_UNTRANS)
-                        return;
-                    immerseStatus = STATUS_UNTRANS;
-                    if (AppConfigs.getTheme() == 0) {//黑色
-                        mImmersionBar.statusBarDarkFont(false, 0.2f);
-                        topBlueColor = Pub.getThemeResource(getContext(), R.attr.bg_color);
-                        mImmersionBar.statusBarColor(topBlueColor);
-                    } else {//白色主题设置黑色状态栏字体
-                        mImmersionBar.statusBarDarkFont(true, 0.2f);
-                        mImmersionBar.statusBarColor(R.color.white);
-                    }
-                    mImmersionBar.statusBarAlpha(0f);
-                    mImmersionBar.init();
-                }
-            }
-        });
-    }
 
     @Override
     public void onRefresh() {
@@ -181,9 +122,6 @@ public class MarketFragment extends MvpFragment<MarketPresenter>
         if (adapter == null) {
             adapter = new MarketFragmentAdapter(getChildFragmentManager(), mFragments, coinTitles);
             mBinding.allViewPager.setAdapter(adapter);
-
-
-
 
             mBinding.tabCoinTitle.setupWithViewPager(mBinding.allViewPager);
             mBinding.allViewPager.setOffscreenPageLimit(Pub.getListSize(coinTitles) - 1 <= 0 ? 1 : Pub.getListSize
@@ -419,10 +357,10 @@ public class MarketFragment extends MvpFragment<MarketPresenter>
 
     @Override
     public void setNotice(List<NoticeBean> listBeans) {
-        UIUtil.setVisibility(mBinding.layoutHead, (listBeans != null && listBeans.size() > 0));
-        if (listBeans != null) {
-            mBinding.tvActivityContent.getResource(listBeans);
-        }
+//        UIUtil.setVisibility(mBinding.layoutHead, (listBeans != null && listBeans.size() > 0));
+//        if (listBeans != null) {
+//            mBinding.tvActivityContent.getResource(listBeans);
+//        }
     }
 
     /**
@@ -444,25 +382,25 @@ public class MarketFragment extends MvpFragment<MarketPresenter>
     /**
      * 设置banner高度
      */
-    private void setBannerHeigh() {
-        int mzbannerHeigh = (UIUtil.getScreenWidth(mContext) - UIUtil.dip2px(mContext, 30)) * 5 / 23;
-        LinearLayout.LayoutParams mzbannerParams = (LinearLayout.LayoutParams) mBinding.bannerLl.getLayoutParams();
-        mzbannerParams.height = mzbannerHeigh;
-        mBinding.bannerLl.setLayoutParams(mzbannerParams);
-    }
+//    private void setBannerHeigh() {
+//        int mzbannerHeigh = (UIUtil.getScreenWidth(mContext) - UIUtil.dip2px(mContext, 30)) * 5 / 23;
+//        LinearLayout.LayoutParams mzbannerParams = (LinearLayout.LayoutParams) mBinding.bannerLl.getLayoutParams();
+//        mzbannerParams.height = mzbannerHeigh;
+//        mBinding.bannerLl.setLayoutParams(mzbannerParams);
+//    }
 
     private void setMZBannerData(final List<BannerBean> bannerList) {
 
         // 代码中更改indicator 的位置
         //mMZBanner.setIndicatorAlign(MZBannerView.IndicatorAlign.LEFT);
         //mMZBanner.setIndicatorPadding(10,0,0,150);
-        mBinding.mzbanner.setPages(bannerList, new MZHolderCreator<BannerViewHolder>() {
-            @Override
-            public BannerViewHolder createViewHolder() {
-                return new BannerViewHolder();
-            }
-        });
-        mBinding.mzbanner.start();
+//        mBinding.mzbanner.setPages(bannerList, new MZHolderCreator<BannerViewHolder>() {
+//            @Override
+//            public BannerViewHolder createViewHolder() {
+//                return new BannerViewHolder();
+//            }
+//        });
+//        mBinding.mzbanner.start();
 
     }
 
@@ -499,40 +437,40 @@ public class MarketFragment extends MvpFragment<MarketPresenter>
     }
 
     private void bannerClick() {
-        mBinding.mzbanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
-            @Override
-            public void onPageClick(View view, Object object) {
-                BannerBean banner = (BannerBean) object;
-                if (banner != null) {
-                    FtRounts.toWebView(mContext, "", banner.getHyperlink());
-                }
-            }
-        });
+//        mBinding.mzbanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
+//            @Override
+//            public void onPageClick(View view, Object object) {
+//                BannerBean banner = (BannerBean) object;
+//                if (banner != null) {
+//                    FtRounts.toWebView(mContext, "", banner.getHyperlink());
+//                }
+//            }
+//        });
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mBinding.mzbanner.pause();
-        mBinding.tvActivityContent.pause();
+//        mBinding.mzbanner.pause();
+//        mBinding.tvActivityContent.pause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mBinding.mzbanner.start();
-        mBinding.tvActivityContent.start();
+//        mBinding.mzbanner.start();
+//        mBinding.tvActivityContent.start();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) {
-            mBinding.mzbanner.pause();
-            mBinding.tvActivityContent.pause();
+//            mBinding.mzbanner.pause();
+//            mBinding.tvActivityContent.pause();
         } else {
-            mBinding.mzbanner.start();
-            mBinding.tvActivityContent.start();
+//            mBinding.mzbanner.start();
+//            mBinding.tvActivityContent.start();
             setSystemBar();
         }
     }

@@ -30,7 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.ndl.lib_common.log.NLog;
+import com.ndl.lib_common.utils.LiveDataBus;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -322,6 +322,8 @@ public class WebSocketClient implements IWebSocketSubject {
                 }
             }
         }
+
+        LiveDataBus.INSTANCE.getBus("HangQing").postValue(getInstance().getMarketsCardsList());
     }
 
     private void setCacheItem(FutureItemEntity future, FutureItemEntity cacheItem) {

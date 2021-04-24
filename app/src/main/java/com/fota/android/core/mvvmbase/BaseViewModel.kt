@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 open class BaseViewModel: ViewModel() {
     private val error by lazy { MutableLiveData<Exception>() }
 
-    fun launchUI(block: CoroutineScope.() -> Unit) = viewModelScope.launch {
+    fun launchUI(block: suspend () -> Unit) = viewModelScope.launch {
         try {
             block()
         }catch (e: Exception){

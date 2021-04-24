@@ -128,7 +128,7 @@ public class WebPowerfulFragment extends BaseFragment {
 
         //更改userAgent，增加app的版本信息
         try {
-            version = mActivity.getPackageManager().getPackageInfo(mActivity.getPackageName(), 0).versionName;
+            version = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

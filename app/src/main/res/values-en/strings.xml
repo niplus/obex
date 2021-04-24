@@ -537,6 +537,7 @@
     <string name="adjust_leverage">Adjust leverage</string>
     <string name="lever_warning">The current leverage is high, please pay attention to the risks.</string>
 
+    <string name="main_tab5">Home</string>
     <string name="main_tab1">Market Info</string>
     <string name="main_tab2">Exchange</string>
     <string name="main_tab3">Trade</string>
@@ -544,4 +545,13 @@
     <string name="insufficient_margin">Insufficient margin</string>
 
     <string name="perp">PERP</string>
+    <string name="recharge_coin">Recharge Currency</string>
+    <string name="join_community">Community</string>
+    <string name="new_guide">Novice Guide</string>
+    <string name="grid_strategy">Grid Strategy </string>
+    <string name="event_details">Event Details</string>
+    <string name="more">More</string>
+    <string name="quick_buy">quick trading of digital currency </string>
+    <string name="contrace_list">Contract</string>
+    <string name="spot_list">Spot</string>
 </resources>

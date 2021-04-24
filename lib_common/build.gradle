@@ -50,4 +50,7 @@ dependencies {
 
     //腾讯日志库
     implementation 'com.tencent.mars:mars-xlog:1.2.5'
+
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 }

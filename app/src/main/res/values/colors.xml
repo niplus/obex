@@ -41,4 +41,7 @@
 
     <color name="main_buy_color">#FF33C891</color>
 
+    <color name="trend_up">#68DD98</color>
+    <color name="trend_down">#E5747C</color>
+
 </resources>

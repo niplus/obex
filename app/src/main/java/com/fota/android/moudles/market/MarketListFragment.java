@@ -209,7 +209,6 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
         notCardGroup.add("BTC");
         notCardGroup.add("ETH");
         notCardGroup.add("SPOT");
-//        symbol = bundle.getString("symbol");
     }
 
     @Override

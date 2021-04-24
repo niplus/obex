@@ -133,4 +133,11 @@
     <attr name="icon_sub" format="reference"/>
     <attr name="icon_calc" format="reference"/>
     <attr name="futures_calc_line" format="color"></attr>
+    <attr name="home_background" format="color"></attr>
+    <attr name="home_menu_bg" format="reference"/>
+    <attr name="home_tab_color" format="color"/>
+    <attr name="home_coin_list_name_color" format="color"/>
+    <attr name="color_666666_bbbbbb" format="color"/>
+    <attr name="color_666666_ffffff" format="color"/>
+    <attr name="fast_buy_bg" format="reference"/>
 </resources>

@@ -6,6 +6,7 @@ import android.text.InputFilter
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.fota.android.R
 import com.fota.android.app.BundleKeys
@@ -26,6 +27,7 @@ import com.fota.android.moudles.futures.money.FuturesMoneyListFragment
 import com.fota.android.moudles.futures.order.FuturesOrdersFragment
 import com.fota.android.moudles.market.FullScreenKlineActivity
 import com.fota.android.moudles.market.bean.ChartLineEntity
+import com.fota.android.moudles.market.bean.FutureItemEntity
 import com.fota.android.utils.*
 import com.fota.android.widget.btbwidget.FotaTextWatch
 import com.fota.android.widget.dialog.LeverDialog
@@ -34,7 +36,7 @@ import com.fota.android.widget.popwin.SpinerPopWindow3
 import com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView
 import com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView
 import com.guoziwei.fota.model.HisData
-import com.ndl.lib_common.log.NLog
+import com.ndl.lib_common.utils.LiveDataBus.getBus
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
@@ -88,7 +90,7 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
 //        mHeadBinding.tline.setChartType(FotaBigTimeLineBarChartView.ChartType.SPOT);
         val color =
             if (AppConfigs.isWhiteTheme()) getThemeColor(R.attr.font_color) else getThemeColor(
-                R.attr.font_color3
+                    R.attr.font_color3
             )
         mHeadBinding.futuresTvDate.setTextColor(color)
         UIUtil.setRectangleBorderBg(mHeadBinding.futuresTvLever, color)
@@ -115,13 +117,39 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
             }
             val amount = amountTotal.mul((rate / 100f).toString())
             mHeadBinding.amount2.setText(
-                BigDecimal(amount).setScale(
-                    amountPrecision,
-                    BigDecimal.ROUND_HALF_UP
-                ).toPlainString()
+                    BigDecimal(amount).setScale(
+                            amountPrecision,
+                            BigDecimal.ROUND_HALF_UP
+                    ).toPlainString()
             )
             null
         }
+
+        getBus<FutureItemEntity>("trade").observe(this,  Observer{entity->
+                    Log.i("nidongliang", "trade spot====" + entity.entityType)
+                    if (entity.entityType == 2) {
+                        Log.i("nidongliang", "trade spot")
+                        if (presenter.allList != null) {
+                            presenter.allList!!.forEach {
+                                it!!.content.forEach { model->
+                                    if (model.contractId == entity.entityId.toString()){
+                                        presenter.setSelectContact(it, model)
+                                        return@Observer
+                                    }
+
+                                    Log.i("nidongliang", "model: $model, pass；$entity")
+                                }
+                            }
+//                            for (exchangeCurrency in presenter.allList) {
+//                                if (exchangeCurrency.assetName == it.futureName) {
+//                                    Log.i("nidongliang", "change to " + it.futureName)
+//                                    presenter.setSelectItem(exchangeCurrency)
+//                                    break
+//                                }
+//                            }
+                        }
+                    }
+        })
         //GradientDrawableUtils.setBoardColor(mHeadBinding.futuresTvDate, color);
     }
 
@@ -137,8 +165,8 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         title.add(getXmlString(R.string.exchange_order))
         title.add(getXmlString(R.string.exchange_complete))
         val baseFragmentAdapter = BaseFragmentAdapter(
-            childFragmentManager,
-            fragments, title
+                childFragmentManager,
+                fragments, title
         )
         mHeadBinding.viewPager.adapter = baseFragmentAdapter
         mHeadBinding.viewPagerTitle.initTitles(title)
@@ -203,9 +231,9 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
     override fun changeWidth() {
         mHeadBinding.priceType2.post {
             val textWith = UIUtil.getTextWidth(
-                context,
-                getXmlString(R.string.exchange_his_price),
-                14
+                    context,
+                    getXmlString(R.string.exchange_his_price),
+                    14
             ).toInt()
             val width = UIUtil.dip2px(context, 12.0) + textWith
             val lpPrice = mHeadBinding.priceType2.layoutParams
@@ -226,7 +254,7 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         val priceDiv = if (isBuy) Pub.GetDouble(spotPrice) * 1.05 else Pub.GetDouble(spotPrice) * 0.95
         mHeadBinding.maxUsdt2Tip.text =
             if (isBuy) getXmlString(R.string.exchange_heigh_price) else getXmlString(
-                R.string.exchange_low_price
+                    R.string.exchange_low_price
             )
         // Buy DOWN  Sell FLOOR
         mHeadBinding.maxUsdt2.text = Pub.getPriceFormat(priceDiv, pricePrecision, if (isBuy) RoundingMode.DOWN else RoundingMode.UP)
@@ -253,9 +281,9 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         }
         mHeadBinding.money2Unit.text = presenter.selectContact!!.getAssetName()
         mHeadBinding.amount2.filters = arrayOf<InputFilter>(
-            DecimalDigitsInputFilter(
-                amountPrecision
-            )
+                DecimalDigitsInputFilter(
+                        amountPrecision
+                )
         )
         mHeadBinding.price2.filters =
             arrayOf<InputFilter>(DecimalDigitsInputFilter(pricePrecision))
@@ -333,21 +361,15 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         freshChartView(chartList, null)
         //当前现货指数
         if (spotList != null && spotList.size > 0) {
-            val length = spotList.size
-            val price = spotList[length - 1].close
-//            spotPrice = price.toString() + ""
-            var tempSpotPrice: String? = ""
-            val entity = FotaApplication.getInstance().holdingEntity
-            tempSpotPrice = Pub.getPriceStringForLengthRound(price, entity.decimal)
             //更新下文本的内容
-            UIUtil.setText(mHeadBinding.imbedTickerSpot, tempSpotPrice)
+//            UIUtil.setText(mHeadBinding.imbedTickerSpot, tempSpotPrice)
         }
         validMaxMinPrice()
     }
 
     private fun freshChartView(
-        chartList: List<ChartLineEntity>?,
-        spotList: List<ChartLineEntity>?
+            chartList: List<ChartLineEntity>?,
+            spotList: List<ChartLineEntity>?
     ) {
         if (chartList == null) {
             onNoDataCallBack(0)
@@ -388,8 +410,8 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         val holdingEntity = FotaApplication.getInstance().holdingEntity
         if (holdingEntity != null && holdingEntity.holdingPrice != -1.0) {
             mHeadBinding.kline.setLimitLine(
-                holdingEntity.holdingPrice,
-                holdingEntity.holdingDescription
+                    holdingEntity.holdingPrice,
+                    holdingEntity.holdingDescription
             )
         }
         if (isAdd) { //add 直接重刷
@@ -433,8 +455,8 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         mHeadBinding.kline.initData(klineData, null)
         if (holdingEntity != null && holdingEntity.holdingPrice != -1.0) {
             mHeadBinding.kline.setLimitLine(
-                holdingEntity.holdingPrice,
-                holdingEntity.holdingDescription
+                    holdingEntity.holdingPrice,
+                    holdingEntity.holdingDescription
             )
         }
         if (time15Data != null && time15Data.size > 0) {
@@ -467,7 +489,7 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         if (presenter == null || presenter.selectContact == null) {
             return
         }
-        val intent = Intent(mActivity, FullScreenKlineActivity::class.java)
+        val intent = Intent(activity, FullScreenKlineActivity::class.java)
         val args = Bundle()
         args.putString("symbol", presenter.selectContact!!.getContractName())
         val id = Pub.GetInt(presenter.selectContact!!.getContractId())
@@ -482,12 +504,12 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         val holdingEntity = FotaApplication.getInstance().holdingEntity
         if (holdingEntity != null && holdingEntity.holdingPrice != -1.0) {
             mHeadBinding.kline.setLimitLine(
-                holdingEntity.holdingPrice,
-                holdingEntity.holdingDescription
+                    holdingEntity.holdingPrice,
+                    holdingEntity.holdingDescription
             )
             mHeadBinding.tline.setLimitLine(
-                holdingEntity.holdingPrice,
-                holdingEntity.holdingDescription
+                    holdingEntity.holdingPrice,
+                    holdingEntity.holdingDescription
             )
         }
         setDelievery()
@@ -536,9 +558,9 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
                 leverDialog = LeverDialog(requireContext())
                 leverDialog!!.onClickListener = View.OnClickListener {
                     presenter.setLever(
-                        Integer.valueOf(assetId),
-                        assetName,
-                        leverDialog!!.getLever()
+                            Integer.valueOf(assetId),
+                            assetName,
+                            leverDialog!!.getLever()
                     )
                 }
                 leverDialog!!.show()
@@ -548,17 +570,17 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
                 isKline = !isKline
                 if (isKline) {
                     mHeadBinding.imgTypeChange2.setImageResource(
-                        Pub.getThemeResource(
-                            context,
-                            R.attr.chart_time_line
-                        )
+                            Pub.getThemeResource(
+                                    context,
+                                    R.attr.chart_time_line
+                            )
                     )
                 } else {
                     mHeadBinding.imgTypeChange2.setImageResource(
-                        Pub.getThemeResource(
-                            context,
-                            R.attr.chart_kline
-                        )
+                            Pub.getThemeResource(
+                                    context,
+                                    R.attr.chart_kline
+                            )
                     )
                 }
                 changeKtline()
@@ -614,15 +636,15 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         }
         popupTopWindow!!.setCloseListener { mHeadBinding.futuresTopInfoArrow.reset() }
         popupTopWindow!!.showAsDropDown(
-            mHeadBinding.futuresTopInfo, topInfo
+                mHeadBinding.futuresTopInfo, topInfo
         )
     }
 
     override fun onRefreshDepth(
-        buys: List<EntrustBean>?,
-        sells: List<EntrustBean>?,
-        precisions: List<String>?,
-        dollarEvaluation: Float?
+            buys: List<EntrustBean>?,
+            sells: List<EntrustBean>?,
+            precisions: List<String>?,
+            dollarEvaluation: Float?
     ) {
         super.onRefreshDepth(buys, sells, precisions, dollarEvaluation)
         //受市场价影响
@@ -644,10 +666,10 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         UIUtil.setVisibility(mHeadBinding.price2, isLimit)
         UIUtil.setVisibility(mHeadBinding.price2Unit, isLimit)
         UIUtil.setText(
-            mHeadBinding.priceTypeTv2,
-            if (isLimit) getString(R.string.exchange_limit_price) else getString(
-                R.string.exchange_his_price
-            )
+                mHeadBinding.priceTypeTv2,
+                if (isLimit) getString(R.string.exchange_limit_price) else getString(
+                        R.string.exchange_his_price
+                )
         )
         validMaxValue()
     }
@@ -672,24 +694,24 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         GradientDrawableUtils.setBgAlpha(mHeadBinding.selectBuy2, 30)
         GradientDrawableUtils.setBgAlpha(mHeadBinding.selectSell2, 30)
         GradientDrawableUtils.setBgColor(
-            mHeadBinding.selectBuy2, if (isBuy) AppConfigs.getUpColor() else Pub.getColor(
+                mHeadBinding.selectBuy2, if (isBuy) AppConfigs.getUpColor() else Pub.getColor(
                 context, R.attr.bg_color
-            )
+        )
         )
         mHeadBinding.selectBuy2.setTextColor(
-            if (isBuy) AppConfigs.getUpColor() else Pub.getColor(
-                context, R.attr.font_color4
-            )
+                if (isBuy) AppConfigs.getUpColor() else Pub.getColor(
+                        context, R.attr.font_color4
+                )
         )
         GradientDrawableUtils.setBgColor(
-            mHeadBinding.selectSell2, if (!isBuy) AppConfigs.getDownColor() else Pub.getColor(
+                mHeadBinding.selectSell2, if (!isBuy) AppConfigs.getDownColor() else Pub.getColor(
                 context, R.attr.bg_color
-            )
+        )
         )
         mHeadBinding.selectSell2.setTextColor(
-            if (!isBuy) AppConfigs.getDownColor() else Pub.getColor(
-                context, R.attr.font_color4
-            )
+                if (!isBuy) AppConfigs.getDownColor() else Pub.getColor(
+                        context, R.attr.font_color4
+                )
         )
         UIUtil.setRoundCornerBg(mHeadBinding.btnBuySell2, AppConfigs.getColor(isBuy))
         presenter.model.setIsBuy(isBuy)
@@ -697,7 +719,7 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
             if (isBuy) getXmlString(R.string.exchange_optimal) else getXmlString(R.string.exchange_optimal)
         mHeadBinding.btnBuySell2.text =
             if (isBuy) getXmlString(R.string.exchange_buy_wishheigh) else getXmlString(
-                R.string.exchange_sell_wishlow
+                    R.string.exchange_sell_wishlow
             )
         validMaxMinPrice()
 
@@ -772,10 +794,10 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         }
         popupWindow.setCloseListener { mHeadBinding.futuresChangeCurrencyArrow.reset() }
         popupWindow.showAsDropDown(
-            mHeadBinding.futuresTitle,
-            presenter.allList,
-            presenter.selectParent,
-            presenter.selectContact
+                mHeadBinding.futuresTitle,
+                presenter.allList,
+                presenter.selectParent,
+                presenter.selectContact
         )
     }
 
@@ -812,25 +834,6 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
 
     fun removeMoney(model: FuturesMoneyBean?) {
         presenter.removeMoney(model!!)
-//        TradeUtils.getInstance()
-//            .validPassword(context, mRequestCode, object : ExchangePasswordListener {
-//                override fun noPassword() {
-//                    presenter.removeMoney(model!!, UserLoginUtil.getCapital())
-//                }
-//
-//                override fun showPasswordDialog() {
-//                    if (holdingActivity.isFinishing) {
-//                        return
-//                    }
-//                    val dialog = PasswordDialog(context)
-//                    dialog.setListener { fundCode ->
-//                        TradeUtils.getInstance().changePasswordToToken(
-//                            context, fundCode
-//                        ) { token ->  }
-//                    }
-//                    dialog.show()
-//                }
-//            })
     }
 
     override fun setContractDelivery(map: BtbMap) {}
@@ -861,10 +864,10 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
 
 //        Log.i("nidongliang", "unit: " + moneyUnit + "aamount: " + amountTotal + "")
         mHeadBinding.amount2.setText(
-            BigDecimal(amount).setScale(
-                amountPrecision,
-                BigDecimal.ROUND_HALF_UP
-            ).toPlainString()
+                BigDecimal(amount).setScale(
+                        amountPrecision,
+                        BigDecimal.ROUND_HALF_UP
+                ).toPlainString()
         )
     }
 
@@ -875,14 +878,13 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
 
     override fun onSpotUpdate(spotIndex: SpotIndex) {
         spotPrice = spotIndex.averagePrice
+        UIUtil.setText(mHeadBinding.imbedTickerSpot, spotPrice)
     }
 
     override fun clearEditText() {
         mHeadBinding.price2.setText("")
         mHeadBinding.amount2.setText("")
         mHeadBinding.exchangeChangeCurrencyArrow.requestFocus()
-        //        KeyBoardUtils.closeKeybord(mHeadBinding.price2, getContext());
-//        KeyBoardUtils.closeKeybord(mHeadBinding.amount2, getContext());
     }
 
     override fun onClickItem(bean: EntrustBean) {
@@ -905,11 +907,7 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
         } else "10"
 
     companion object {
-        fun newInstance(
-            assetName: String?,
-            model: FutureContractBean?,
-            isBuy: Boolean
-        ): FuturesFragment {
+        fun newInstance(assetName: String?, model: FutureContractBean?, isBuy: Boolean): FuturesFragment {
             val args = Bundle()
             args.putString(BundleKeys.KEY, assetName)
             args.putSerializable(BundleKeys.MODEL, model)
