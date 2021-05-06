@@ -45,8 +45,6 @@ android {
         }
     }
 
-
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -61,11 +59,15 @@ android {
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
             signingConfig signingConfigs.config
             minifyEnabled false
             shrinkResources false
             multiDexEnabled true
+//            buildConfigField "String", "BASE_URL", '"http://bg-dev.yuchains.com/mapi/"'
+//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"http://bg-dev.yuchains.com/mapi/websocket"'
+            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
                     UMENG_APPKEY_VALUE: "5b7302acf29d984c40000527",
@@ -79,6 +81,8 @@ android {
             zipAlignEnabled false
             shrinkResources false
             multiDexEnabled true
+            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
                     UMENG_APPKEY_VALUE: "5b7302acf29d984c40000527",

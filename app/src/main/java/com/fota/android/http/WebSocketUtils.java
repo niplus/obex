@@ -1,10 +1,9 @@
 package com.fota.android.http;
 
+import com.fota.android.BuildConfig;
 import com.fota.android.app.Constants;
 import com.fota.android.app.FotaApplication;
-import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.http.HttpsUtils;
-import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.commonlib.utils.SharedPreferencesUtil;
 import com.fota.android.utils.DeviceUtils;
 import com.tencent.mmkv.MMKV;
@@ -87,13 +86,7 @@ public class WebSocketUtils {
     }
 
     public static String getWsAddress() {
-        //return "wss://www.fota.com/mapi/websocket";
-//        return "ws://172.16.50.180:8089/mapi/websocket";
-        if (Constants.DEBUG) {
-            return Pub.isStringEmpty(AppConfigs.getWsAddress()) ? Constants.BASE_WEBSOCKET : AppConfigs.getWsAddress();
-        } else {
-            return Constants.BASE_WEBSOCKET_WSS;
-        }
+        return BuildConfig.WEBSOCKET_BASE_URL;
     }
 
 }

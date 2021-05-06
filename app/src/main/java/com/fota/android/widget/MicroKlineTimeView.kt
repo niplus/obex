@@ -78,7 +78,6 @@ class MicroKlineTimeView: View {
             isColorChange = false
         }
 
-
         canvas.drawPath(strokePath, strokePaint)
         canvas.drawPath(colorPath, paint)
     }
@@ -89,7 +88,7 @@ class MicroKlineTimeView: View {
         if (heightUnit == 0.0)
             heightUnit = height / (maxValue - minValue)
 
-        return (value - minValue) * heightUnit
+        return height - (value - minValue) * heightUnit
     }
 
     private fun initPath(){

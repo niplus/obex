@@ -39,7 +39,7 @@ import com.fota.android.core.base.MvpFragment;
 import com.fota.android.core.base.SimpleFragmentActivity;
 import com.fota.android.core.base.ft.FtKeyValue;
 import com.fota.android.core.event.Event;
-import com.fota.android.databinding.FragmentExchangeTradeLayoutBinding;
+import com.fota.android.databinding.FragmentFuturesBinding;
 import com.fota.android.moudles.exchange.IExchangeFragment;
 import com.fota.android.moudles.exchange.complete.ExchangeCompleteFragment;
 import com.fota.android.moudles.exchange.money.ExchangeMoneyListFragment;
@@ -52,7 +52,6 @@ import com.fota.android.utils.KeyBoardUtils;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.utils.apputils.TradeUtils;
 import com.fota.android.widget.DepthRefreshView;
-import com.fota.android.widget.ViewPagerTitle;
 import com.fota.android.widget.btbwidget.FotaTextWatch;
 import com.fota.android.widget.popwin.PasswordDialog;
 import com.fota.android.widget.popwin.SpinerPopWindow;
@@ -80,7 +79,7 @@ import java.util.List;
  * https://juejin.im/entry/585a2c7f8d6d810065cacf77
  * 兑换usdt界面
  */
-public class ExchangeFragment extends MvpFragment<ExchangePresenter>
+public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         implements ExchangeTradeView, View.OnClickListener, BaseChartView.KlineScreenInterface,
         DepthRefreshView.DepthRefreshViewListener, IUpdateExchangeFragment, IExchangeFragment {
 
@@ -100,7 +99,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
 
     SpinerPopWindow popupWindow;
 
-    protected FragmentExchangeTradeLayoutBinding mHeadBinding;
+    protected FragmentFuturesBinding mHeadBinding;
     /**
      * 当前是否是购买行为
      */
@@ -117,11 +116,11 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
      * @param currency
      * @return
      */
-    public static ExchangeFragment newInstance(ExchangeCurrency currency, boolean isBuy) {
+    public static Exchange1Fragment newInstance(ExchangeCurrency currency, boolean isBuy) {
         Bundle args = new Bundle();
         args.putSerializable(BundleKeys.MODEL, currency);
         args.putBoolean("isBuy", isBuy);
-        ExchangeFragment fragment = new ExchangeFragment();
+        Exchange1Fragment fragment = new Exchange1Fragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -156,7 +155,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
 
     @Override
     protected View onCreateFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mHeadBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_exchange_trade_layout, container, false);
+        mHeadBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_futures, container, false);
         mHeadBinding.setView(this);
         onRefresh();
         return mHeadBinding.getRoot();
@@ -202,13 +201,13 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         refreshBuy();
         refreshPriceType();
         initViewPager();
-        initCoodingLayout();
+//        initCoodingLayout();
         initListenter();
         SmartRefreshLayoutUtils.initHeader(mHeadBinding.refreshLayout, getContext());
         mHeadBinding.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                ExchangeFragment.this.onRefresh();
+                Exchange1Fragment.this.onRefresh();
             }
         });
         mHeadBinding.rightContainer.setListener(this);
@@ -351,26 +350,26 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
     }
 
 
-    /**
-     * 设置拦截事件
-     */
-    private void initCoodingLayout() {
-        mHeadBinding.viewPagerTitle.setListener(new ViewPagerTitle.SelectItemListener() {
-            @Override
-            public void click(int position) {
-                if (Pub.isListExists(fragments)) {
-                    mHeadBinding.contentLayout.setHasData(
-                            ((BaseFragment) fragments.get(position)).hasData);
-
-                    boolean allHasData = false;
-                    for (Fragment fragment : fragments) {
-                        allHasData = allHasData | ((BaseFragment) fragment).hasData;
-                    }
-                    mHeadBinding.contentLayout.setHasDataAll(allHasData);
-                }
-            }
-        });
-    }
+//    /**
+//     * 设置拦截事件
+//     */
+//    private void initCoodingLayout() {
+//        mHeadBinding.viewPagerTitle.setListener(new ViewPagerTitle.SelectItemListener() {
+//            @Override
+//            public void click(int position) {
+//                if (Pub.isListExists(fragments)) {
+//                    mHeadBinding.contentLayout.setHasData(
+//                            ((BaseFragment) fragments.get(position)).hasData);
+//
+//                    boolean allHasData = false;
+//                    for (Fragment fragment : fragments) {
+//                        allHasData = allHasData | ((BaseFragment) fragment).hasData;
+//                    }
+//                    mHeadBinding.contentLayout.setHasDataAll(allHasData);
+//                }
+//            }
+//        });
+//    }
 
     private void setIsFutures() {
         UIUtil.setVisibility(mHeadBinding.exchangeTitle, !isFutures());
@@ -578,8 +577,6 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
                 fragments, title
         );
         mHeadBinding.viewPager.setAdapter(baseFragmentAdapter);
-        mHeadBinding.viewPagerTitle.initTitles(title);
-        mHeadBinding.viewPagerTitle.bindViewpager(mHeadBinding.viewPager);
         mHeadBinding.viewPager.setOffscreenPageLimit(2);
     }
 
@@ -1308,14 +1305,19 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         }
     }
 
-
     @Override
     public void setHasData(boolean hasData, Fragment fragment) {
-        if (Pub.isListExists(fragments)) {
-            int index = fragments.indexOf(fragment);
-            if (index == mHeadBinding.viewPagerTitle.getIndex()) {
-                mHeadBinding.contentLayout.setHasData(hasData);
-            }
-        }
+
     }
+
+
+//    @Override
+//    public void setHasData(boolean hasData, Fragment fragment) {
+//        if (Pub.isListExists(fragments)) {
+//            int index = fragments.indexOf(fragment);
+//            if (index == mHeadBinding.viewPagerTitle.getIndex()) {
+//                mHeadBinding.contentLayout.setHasData(hasData);
+//            }
+//        }
+//    }
 }

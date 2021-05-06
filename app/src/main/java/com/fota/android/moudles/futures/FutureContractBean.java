@@ -123,18 +123,4 @@ public class FutureContractBean implements Serializable, FtKeyValue {
         return super.equals(obj);
     }
 
-    @Override
-    public String toString() {
-        return "FutureContractBean{" +
-                "contractId='" + contractId + '\'' +
-                ", contractName='" + contractName + '\'' +
-                ", lastDays=" + lastDays +
-                ", lever='" + lever + '\'' +
-                ", contractType=" + contractType +
-                ", assetName='" + assetName + '\'' +
-                ", status=" + status +
-                ", symbol='" + symbol + '\'' +
-                ", parent=" + parent +
-                '}';
-    }
 }

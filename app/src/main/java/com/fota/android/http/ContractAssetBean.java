@@ -94,20 +94,6 @@ public class ContractAssetBean implements Serializable {
         this.iconUrl = iconUrl;
     }
 
-    @Override
-    public String toString() {
-        return "ContractAssetBean{" +
-                "name='" + name + '\'' +
-                ", iconUrl='" + iconUrl + '\'' +
-                ", contractTradeAmountPrecision=" + contractTradeAmountPrecision +
-                ", contractTradePricePrecision=" + contractTradePricePrecision +
-                ", contractMaxMinPricePrecision=" + contractMaxMinPricePrecision +
-                ", contractMaxValuePrecision=" + contractMaxValuePrecision +
-                ", defaultAmount='" + defaultAmount + '\'' +
-                ", content=" + content +
-                '}';
-    }
-
     //jiang
     @Override
     public boolean equals(Object obj) {

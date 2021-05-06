@@ -2,6 +2,7 @@ package com.fota.android.app;
 
 import android.text.TextUtils;
 
+import com.fota.android.BuildConfig;
 import com.fota.android.commonlib.base.AppConfigs;
 
 
@@ -39,8 +40,7 @@ public class Constants {
     public static final String BASE_IP_FT_REL_H5 = "https://cboex.com/";
 
 
-//    public static final String BASE_WEBSOCKET = "http://bg-dev.yuchains.com/mapi/websocket";
-    public static final String BASE_WEBSOCKET = "wss://cboex.com/mapi/websocket";
+    public static final String BASE_WEBSOCKET = "http://bg-dev.yuchains.com/mapi/websocket";
     public static final String BASE_WEBSOCKET_WSS = "wss://cboex.com/mapi/websocket";
 
     /**
@@ -102,12 +102,7 @@ public class Constants {
     public static final String BUGLY_ID = "019bd29b6d";
 
     public static String getHttpUrl() {
-        if (DEBUG) {
-            return (TextUtils.isEmpty(AppConfigs.getIpAddress()) ?
-                    BASE_IP_FT : AppConfigs.getIpAddress());
-        } else {
-            return BASE_IP_FT_REL;
-        }
+        return BuildConfig.BASE_URL;
     }
 
 

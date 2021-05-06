@@ -142,14 +142,6 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
     }
 
     override fun reqUsdtList() {}
-
-    //                        for (int i = 0;i < list.size();i++){
-//                            for (int j = 0;j < list.get(i).getContent().size();j++){
-//                                if (list.get(i).getContent().get(j).getContractType() == 3){
-//                                    list.get(i).getContent().get(j).
-//                                }
-//                            }
-//                        }
     //从传值过来的地方处理
     //选中上次选中的
     //都没有选中第一个

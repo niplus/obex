@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.TextUtils
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.fota.android.R
@@ -19,6 +21,7 @@ import com.fota.android.commonlib.base.AppConfigs
 import com.fota.android.commonlib.utils.*
 import com.fota.android.core.base.BaseFragmentAdapter
 import com.fota.android.core.base.BtbMap
+import com.fota.android.moudles.exchange.index.Exchange1Fragment
 import com.fota.android.moudles.exchange.index.ExchangeFragment
 import com.fota.android.moudles.futures.bean.SpotIndex
 import com.fota.android.moudles.futures.complete.FuturesCompleteFragment
@@ -42,7 +45,7 @@ import java.math.RoundingMode
 import java.util.*
 import kotlin.math.pow
 
-class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeView {
+class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTradeView {
     private var spotPrice: String = "0.0"
     private var topInfo: FutureTopInfoBean? = null
     private var popupTopWindow: FutureTopWindow? = null
@@ -60,7 +63,7 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
      * 现货指数数据
      * Spot--K
      */
-    val spotData: MutableList<HisData> = ArrayList(100)
+    private val spotData: MutableList<HisData> = ArrayList(100)
     override fun updateInstance(assetName: String, model: FutureContractBean, isBuy: Boolean) {
         this.isBuy = isBuy
         presenter.setBasePrecision("-1")
@@ -125,30 +128,19 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
             null
         }
 
-        getBus<FutureItemEntity>("trade").observe(this,  Observer{entity->
-                    Log.i("nidongliang", "trade spot====" + entity.entityType)
-                    if (entity.entityType == 2) {
-                        Log.i("nidongliang", "trade spot")
-                        if (presenter.allList != null) {
-                            presenter.allList!!.forEach {
-                                it!!.content.forEach { model->
-                                    if (model.contractId == entity.entityId.toString()){
-                                        presenter.setSelectContact(it, model)
-                                        return@Observer
-                                    }
-
-                                    Log.i("nidongliang", "model: $model, pass；$entity")
-                                }
+        getBus<FutureItemEntity>("trade").observe(this, Observer { entity ->
+            if (entity.entityType == 2) {
+                if (presenter.allList != null) {
+                    presenter.allList!!.forEach {
+                        it!!.content.forEach { model ->
+                            if (model.contractId == entity.entityId.toString()) {
+                                presenter.setSelectContact(it, model)
+                                return@Observer
                             }
-//                            for (exchangeCurrency in presenter.allList) {
-//                                if (exchangeCurrency.assetName == it.futureName) {
-//                                    Log.i("nidongliang", "change to " + it.futureName)
-//                                    presenter.setSelectItem(exchangeCurrency)
-//                                    break
-//                                }
-//                            }
                         }
                     }
+                }
+            }
         })
         //GradientDrawableUtils.setBoardColor(mHeadBinding.futuresTvDate, color);
     }
@@ -169,8 +161,9 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
                 fragments, title
         )
         mHeadBinding.viewPager.adapter = baseFragmentAdapter
-        mHeadBinding.viewPagerTitle.initTitles(title)
-        mHeadBinding.viewPagerTitle.bindViewpager(mHeadBinding.viewPager)
+        mHeadBinding.tbBottom.setupWithViewPager(mHeadBinding.viewPager)
+//        mHeadBinding.viewPagerTitle.initTitles(title)
+//        mHeadBinding.viewPagerTitle.bindViewpager(mHeadBinding.viewPager)
         mHeadBinding.viewPager.offscreenPageLimit = 2
     }
 
@@ -328,19 +321,6 @@ class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeV
 
     var currentPrice = "0.00"
         private set
-
-    fun getPriceByAsset(id: String?): String {
-
-//        for (ContractAssetBean bean : getPresenter().getAllList()) {
-//            for (FutureContractBean model : bean.getContent()) {
-//                if (id.equals(model.getContractId())){
-//                    return model.
-//                }
-//            }
-//        }
-//        getPresenter().getAllList();
-        return ""
-    }
 
     override fun getAssetId(): String {
         return if (presenter == null || presenter.selectContact == null) {

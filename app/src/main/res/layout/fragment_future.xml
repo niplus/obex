@@ -6,10 +6,10 @@
     <data>
 
         <import type="android.graphics.drawable.Drawable" />
-
         <variable
-            name="view"
-            type="android.view.View.OnClickListener" />
+            name="model"
+            type="com.fota.android.moudles.futures.viewmodel.FutureViewModel" />
+
     </data>
 
     <LinearLayout
@@ -18,71 +18,6 @@
         android:orientation="vertical">
 
         <FrameLayout style="@style/horizontal_fill">
-
-            <LinearLayout
-                android:id="@+id/exchange_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="bottom"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp">
-
-                <ImageView
-                    android:id="@+id/exchange_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:onClick="@{view.onClick}" />
-
-                <TextView
-                    android:id="@+id/exchange_currency"
-                    style="@style/wrap_style"
-                    android:layout_marginLeft="10dp"
-                    android:onClick="@{view.onClick}"
-                    android:textColor="?attr/font_color"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <FrameLayout
-                    android:id="@+id/exchange_change_currency"
-                    android:layout_width="19dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:onClick="@{view.onClick}">
-
-                    <com.fota.android.commonlib.view.DownTrigonView
-                        android:id="@+id/exchange_change_currency_arrow"
-                        android:layout_width="7.9dp"
-                        android:layout_height="4.6dp"
-                        android:layout_gravity="center" />
-
-                </FrameLayout>
-
-                <View
-                    style="@style/horizontal_weight1"
-                    android:layout_height="1dp" />
-
-                <ImageView
-                    android:id="@+id/transfer"
-                    android:layout_width="21dp"
-                    android:layout_height="11dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/big_dp"
-                    android:onClick="@{view.onClick}"
-                    android:src="?attr/common_change" />
-
-                       <ImageView
-                    android:id="@+id/img_type_change"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/big_dp"
-                    android:onClick="@{view.onClick}"
-                    android:src="?attr/chart_kline" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/futures_title"
@@ -97,25 +32,21 @@
                     android:id="@+id/future_icon"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:onClick="@{view.onClick}" />
+                    android:layout_gravity="center" />
 
-                <!--由于太大调回20-->
                 <TextView
                     android:id="@+id/futures_currency"
                     style="@style/wrap_style"
-                    android:onClick="@{view.onClick}"
                     android:textColor="?attr/font_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    tools:text="BTC0729" />
+                    android:text="@{model.selectContract.contractName}"/>
 
                 <FrameLayout
                     android:id="@+id/futures_change_currency"
                     android:layout_width="19dp"
                     android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:onClick="@{view.onClick}">
+                    android:layout_gravity="center">
 
                     <com.fota.android.commonlib.view.DownTrigonView
                         android:id="@+id/futures_change_currency_arrow"
@@ -142,15 +73,13 @@
                     android:layout_width="21dp"
                     android:layout_height="11dp"
                     android:layout_gravity="center"
-                    android:onClick="@{view.onClick}"
                     android:src="?attr/common_change" />
-                
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="?attr/icon_calc"
                     android:layout_marginBottom="3dp"
-                    android:onClick="@{view.onClick}"
                     android:id="@+id/iv_calc"
                     android:layout_marginLeft="15dp"/>
 
@@ -162,7 +91,6 @@
                     android:layout_marginLeft="15dp"
                     android:background="@drawable/ft_rectangle"
                     android:gravity="center"
-                    android:onClick="@{view.onClick}"
                     android:paddingBottom="2dp"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
@@ -177,7 +105,6 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:onClick="@{view.onClick}"
                     android:src="?attr/chart_kline" />
 
             </LinearLayout>
@@ -245,7 +172,6 @@
             android:id="@+id/futures_top_info"
             style="@style/horizontal_fill"
             android:gravity="center"
-            android:onClick="@{view.onClick}"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -370,246 +296,6 @@
                             android:clipChildren="false"
                             app:layout_scrollFlags="scroll">
 
-                            <LinearLayout
-                                android:id="@+id/exchange_layout"
-                                style="@style/horizontal_weight1"
-                                android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:id="@+id/exchange_layout_top"
-                                    style="@style/horizontal_fill"
-                                    android:layout_height="30dp"
-                                    android:layout_marginBottom="2dp"
-                                    android:background="@drawable/ft2_corner_font4"
-                                    android:padding="1dp">
-
-                                    <TextView
-                                        android:id="@+id/select_buy"
-                                        style="@style/horizontal_weight_fill"
-                                        android:background="@drawable/ft_left_corner"
-                                        android:gravity="center"
-                                        android:onClick="@{view.onClick}"
-                                        android:text="@string/common_buy"
-                                        android:textSize="14sp" />
-
-                                    <TextView
-                                        android:id="@+id/select_sell"
-                                        style="@style/horizontal_weight_fill"
-                                        android:background="@drawable/ft_right_corner"
-                                        android:gravity="center"
-                                        android:onClick="@{view.onClick}"
-                                        android:text="@string/common_sell"
-                                        android:textSize="14sp" />
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    style="@style/horizontal_fill"
-                                    android:gravity="center_vertical">
-
-
-                                    <LinearLayout
-                                        android:id="@+id/price_type"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="38dp"
-                                        android:gravity="center_vertical"
-                                        android:onClick="@{view.onClick}">
-
-                                        <TextView
-                                            android:id="@+id/price_type_tv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="20dp"
-                                            android:text="@string/exchange_limit_price"
-                                            android:textColor="?attr/font_color4"
-                                            android:textSize="14sp" />
-
-                                        <com.fota.android.commonlib.view.DownTrigonView
-                                            android:layout_width="7.9dp"
-                                            android:layout_height="4.6dp"
-                                            android:layout_marginLeft="3dp"
-                                            app:view_color="?attr/font_color4" />
-
-                                    </LinearLayout>
-
-
-                                    <com.fota.android.widget.btbwidget.ClearEdittext
-                                        android:id="@+id/price"
-                                        style="@style/horizontal_weight1"
-                                        android:layout_height="38dp"
-                                        android:layout_marginLeft="10dp"
-                                        android:drawableRight="?attr/ident_del"
-                                        android:gravity="center_vertical"
-                                        android:inputType="number|numberDecimal"
-                                        android:maxLength="13"
-                                        android:textColor="#FF9CA5B7"
-                                        android:textSize="14sp"
-                                        tools:text="10" />
-
-                                    <TextView
-                                        android:id="@+id/price_other"
-                                        style="@style/horizontal_weight1"
-                                        android:layout_height="38dp"
-                                        android:layout_marginLeft="10dp"
-                                        android:gravity="center_vertical"
-                                        android:inputType="number|numberDecimal"
-                                        android:onClick="@{view.onClick}"
-                                        android:textColor="?attr/font_color4"
-                                        android:textSize="14sp" />
-
-                                </LinearLayout>
-
-                                <View style="@style/horizontal_line" />
-
-                                <LinearLayout
-                                    style="@style/horizontal_fill"
-                                    android:gravity="center_vertical">
-
-                                    <TextView
-                                        android:id="@+id/amount_tip"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="20dp"
-                                        android:onClick="@{view.onClick}"
-                                        android:text="@string/short_amount"
-                                        android:textColor="?attr/font_color4"
-                                        android:textSize="14sp" />
-
-                                    <com.fota.android.widget.btbwidget.ClearEdittext
-                                        android:id="@+id/amount"
-                                        style="@style/horizontal_weight1"
-                                        android:layout_height="38dp"
-                                        android:layout_marginLeft="10dp"
-                                        android:drawableRight="?attr/ident_del"
-                                        android:gravity="center_vertical"
-                                        android:inputType="number|numberDecimal"
-                                        android:maxLength="13"
-                                        android:textSize="14sp"
-                                        tools:text="10" />
-
-                                    <TextView
-                                        android:id="@+id/amount_unit"
-                                        style="@style/wrap_style"
-                                        android:onClick="@{view.onClick}"
-                                        android:text="ETH"
-                                        android:textColor="?attr/font_color4"
-                                        android:textSize="14sp" />
-
-
-                                </LinearLayout>
-
-                                <View style="@style/horizontal_line" />
-
-                                <LinearLayout
-                                    style="@style/horizontal_fill"
-                                    android:gravity="center_vertical">
-
-                                    <TextView
-                                        android:id="@+id/money_tip"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="20dp"
-                                        android:onClick="@{view.onClick}"
-                                        android:text="@string/common_money"
-                                        android:textColor="?attr/font_color4"
-                                        android:textSize="14sp" />
-
-                                    <com.fota.android.widget.btbwidget.ClearEdittext
-                                        android:id="@+id/money"
-                                        style="@style/horizontal_weight1"
-                                        android:layout_height="46dp"
-                                        android:layout_marginLeft="10dp"
-                                        android:drawableRight="?attr/ident_del"
-                                        android:gravity="center_vertical"
-                                        android:inputType="number|numberDecimal"
-                                        android:maxLength="13"
-                                        android:textSize="14sp"
-                                        tools:text="21436.23" />
-
-                                    <TextView
-                                        android:id="@+id/money_other"
-                                        style="@style/horizontal_weight1"
-                                        android:layout_height="46dp"
-                                        android:layout_marginLeft="10dp"
-                                        android:gravity="center_vertical"
-                                        android:maxLength="13"
-                                        android:text="@string/money_buy_market"
-                                        android:textColor="?attr/font_color4"
-                                        android:textSize="14sp" />
-
-                                    <TextView
-                                        android:id="@+id/money_unit"
-                                        style="@style/wrap_style"
-                                        android:onClick="@{view.onClick}"
-                                        android:text="BTC"
-                                        android:textColor="?attr/font_color4"
-                                        android:textSize="14sp" />
-
-                                </LinearLayout>
-
-                                <View style="@style/horizontal_line" />
-
-                                <TextView
-                                    android:id="@+id/max_balance"
-                                    style="@style/horizontal_fill"
-                                    android:layout_marginTop="4dp"
-                                    android:textColor="?attr/font_color4"
-                                    android:textSize="11.52sp"
-                                    android:visibility="gone"
-                                    tools:text="max usdt" />
-
-                                <LinearLayout
-                                    android:id="@+id/percent_container"
-                                    style="@style/horizontal_fill"
-                                    android:layout_height="25dp"
-                                    android:layout_marginTop="8dp"
-                                    android:orientation="horizontal"
-                                    android:padding="1px">
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_marginTop="6dp"
-                                    style="@style/horizontal_fill"
-                                    android:layout_height="21dp"
-                                    android:gravity="center_vertical">
-
-                                    <TextView
-                                        android:id="@+id/max_amount"
-                                        style="@style/horizontal_weight1"
-                                        android:layout_height="21dp"
-                                        android:gravity="center_vertical"
-                                        android:maxLines="1"
-                                        android:text="@string/exchange_max_amount"
-                                        android:textColor="?attr/font_color4"
-                                        android:textSize="11.52sp" />
-
-                                    <TextView
-                                        android:id="@+id/max_amount_value"
-                                        style="@style/wrap_style"
-                                        android:layout_height="42dp"
-                                        android:layout_marginTop="4dp"
-                                        android:gravity="center_vertical"
-                                        android:text="34773450"
-                                        android:textColor="?attr/font_color"
-                                        android:textSize="11.52sp" />
-
-                                </LinearLayout>
-
-
-
-                                <TextView
-                                    android:id="@+id/btn_buy_sell"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:layout_marginTop="4dp"
-                                    android:background="@drawable/ft_rounds"
-                                    android:gravity="center"
-                                    android:onClick="@{view.onClick}"
-                                    android:textColor="#FFFFFFFF"
-                                    android:textSize="17sp"
-                                    tools:text="buy button" />
-
-                            </LinearLayout>
-
                             <com.fota.android.widget.FuturesLinearLayout
                                 android:id="@+id/future_layout"
                                 style="@style/horizontal_weight1"
@@ -630,7 +316,6 @@
                                         style="@style/horizontal_weight_fill"
                                         android:background="@drawable/ft_left_corner"
                                         android:gravity="center"
-                                        android:onClick="@{view.onClick}"
                                         android:text="@string/exchange_buy_wishheigh"
                                         android:textSize="14sp" />
 
@@ -640,7 +325,6 @@
                                         android:background="@drawable/ft_right_corner"
                                         android:gravity="center"
                                         android:maxLength="13"
-                                        android:onClick="@{view.onClick}"
                                         android:text="@string/exchange_sell_wishlow"
                                         android:textSize="14sp" />
 
@@ -656,8 +340,7 @@
                                         android:id="@+id/price_type2"
                                         android:layout_width="85dp"
                                         android:layout_height="40dp"
-                                        android:gravity="center_vertical"
-                                        android:onClick="@{view.onClick}">
+                                        android:gravity="center_vertical">
 
                                         <TextView
                                             android:id="@+id/price_type_tv2"
@@ -693,14 +376,12 @@
                                         android:layout_height="40dp"
                                         android:layout_marginLeft="10dp"
                                         android:gravity="center_vertical"
-                                        android:onClick="@{view.onClick}"
                                         android:textColor="?attr/font_color4"
                                         android:textSize="14sp" />
 
                                     <TextView
                                         android:id="@+id/price2_unit"
                                         style="@style/wrap_style"
-                                        android:onClick="@{view.onClick}"
                                         android:text="USDT"
                                         android:textColor="?attr/font_color4"
                                         android:textSize="14sp" />
@@ -720,7 +401,6 @@
                                         android:layout_width="85dp"
                                         android:layout_height="40dp"
                                         android:gravity="center_vertical"
-                                        android:onClick="@{view.onClick}"
                                         android:text="@string/future_value"
                                         android:textColor="?attr/font_color4"
                                         android:textSize="14sp" />
@@ -740,7 +420,6 @@
                                     <TextView
                                         android:id="@+id/money2_unit"
                                         style="@style/wrap_style"
-                                        android:onClick="@{view.onClick}"
                                         android:text="BTC"
                                         android:textColor="?attr/font_color4"
                                         android:textSize="14sp" />
@@ -834,7 +513,6 @@
                                     android:layout_marginTop="10dp"
                                     android:background="@drawable/ft_rounds"
                                     android:gravity="center"
-                                    android:onClick="@{view.onClick}"
                                     android:textColor="#FFFFFFFF"
                                     android:textSize="17sp"
                                     tools:text="@string/common_buy" />

@@ -73,7 +73,7 @@
                     android:onClick="@{view.onClick}"
                     android:src="?attr/common_change" />
 
-                       <ImageView
+                <ImageView
                     android:id="@+id/img_type_change"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -144,7 +144,7 @@
                     android:layout_gravity="center"
                     android:onClick="@{view.onClick}"
                     android:src="?attr/common_change" />
-                
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -866,19 +866,16 @@
                     app:behavior_overlapTop="40dp"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-                <com.fota.android.widget.ViewPagerTitle
-                    android:id="@+id/view_pager_title"
-                    style="@style/horizontal_fill"
-                    contentPaddingRight="10dp"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tb_bottom"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_gravity="top"
                     android:background="?attr/bg_color"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    app:tabMode="fixed"
                     app:layout_behavior="@string/behavior_excharge2">
 
-                </com.fota.android.widget.ViewPagerTitle>
+                </com.google.android.material.tabs.TabLayout>
 
                 <LinearLayout
                     android:id="@+id/narrow_chart_container"

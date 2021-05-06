@@ -39,7 +39,6 @@ class HomeViewModel: BaseViewModel() {
             val list = result.data
 
             futureListLiveData.value = dealFutureItemEntities(list)
-            Log.i("nidongliang", "futureList: ${futureListLiveData.value}")
         }
     }
 

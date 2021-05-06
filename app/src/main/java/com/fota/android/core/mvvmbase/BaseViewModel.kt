@@ -7,13 +7,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 open class BaseViewModel: ViewModel() {
-    private val error by lazy { MutableLiveData<Exception>() }
+    val error by lazy { MutableLiveData<String>() }
 
     fun launchUI(block: suspend () -> Unit) = viewModelScope.launch {
         try {
             block()
         }catch (e: Exception){
-            error.value = e
+            error.value = e.message
         }
     }
 }

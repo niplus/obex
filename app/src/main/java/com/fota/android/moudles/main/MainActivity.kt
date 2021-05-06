@@ -38,6 +38,7 @@ import com.fota.android.databinding.ActivityMain2Binding
 import com.fota.android.http.Http
 import com.fota.android.moudles.exchange.index.ExchangeFragment
 import com.fota.android.moudles.futures.FuturesFragment
+import com.fota.android.moudles.futures.view.FutureFragment
 import com.fota.android.moudles.home.HomeFragment
 import com.fota.android.moudles.main.viewmodel.MainViewModel
 import com.fota.android.moudles.market.MarketFragment
@@ -72,6 +73,7 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
             MarketFragment(),
             ExchangeFragment(),
             FuturesFragment(),
+//            FutureFragment(),
             MineFragment()
     )
 
@@ -128,10 +130,7 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
 
             bnvNavigation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
-                    Log.i("nidongliang", "position: ${tab.position}")
                     vpPage.setCurrentItem(tab.position, false)
-
-                    Log.i("nidongliang", "vp size: ${vpPage.size}")
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {

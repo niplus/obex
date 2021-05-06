@@ -66,8 +66,6 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
     public void getDepthFive(final int type, final int entityId, final String precision) {
         this.type = type;
         this.entityId = entityId;
-//        client.removeChannel(SocketKey.TradeWeiTuoReqType, BaseTradePresenter.this, new SocketEntrustParam(type, entityId));
-
         //委托 http获取到实时委托之后开始订阅实时委托推送
         WebSocketEntity<SocketEntrustParam> socketEntity = new WebSocketEntity<>();
         SocketEntrustParam socketEntrustParam = null;
@@ -82,10 +80,6 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
         socketEntity.setReqType(SocketKey.TradeWeiTuoReqType);
         socketEntity.setHandleType(2);
         client.addChannel(socketEntity, BaseTradePresenter.this);
-        //jiang 1130 发送立刻重置 -- 如果跟WebSocketClient一起使用，可能会过滤掉本应展示的页面
-//        if(getView() != null) {
-//            getView().onRefreshDepth(null, null, null);
-//        }
     }
 
     protected void onNextDepth(DepthBean bean) {
@@ -237,23 +231,6 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
             socketEntity2.setReqType(SocketKey.POSITION_LINE);
             client.addChannel(socketEntity2, BaseTradePresenter.this);
         }
-    }
-
-    private String getKey(int type) {
-//        String result = "future";
-//
-//        switch (type) {
-//            case 1://
-//                result = "spot";
-//                break;
-//            case 2://
-//                result = "future";
-//                break;
-//            case 3://
-//                result = "usdt";
-//                break;
-//        }
-        return type + "";
     }
 
     public void getKlineDatas(final int type, final int id, final String period) {

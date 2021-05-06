@@ -436,7 +436,7 @@ public class Http {
     public static String getIpAddress() {
 //        return "http://bg-dev.yuchains.com/mapi/";
         return Constants.getHttpUrl();
-        //return Pub.isStringEmpty(AppConfigs.getIpAddress()) ? getDefaultAddress() : AppConfigs.getIpAddress();
+//        return Pub.isStringEmpty(AppConfigs.getIpAddress()) ? getDefaultAddress() : AppConfigs.getIpAddress();
     }
 
 

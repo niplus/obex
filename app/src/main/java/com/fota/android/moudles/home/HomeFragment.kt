@@ -128,7 +128,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 it.forEach { entity ->
                     if (entity.entityType == 3) {
                         spotCoinList.add(entity)
-                        Log.i("nidongliang", "entity: $entity")
                     } else {
                         if (mainCoinList.size != 3)
                             mainCoinList.add(entity)
@@ -151,7 +150,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                                 //合约列表
                                 spotCoinList.add(entity)
 //                        //主币种
-                                Log.i("nidongliang", "entity: $entity")
                             } else {
                                 if (mainCoinList.size != 3)
                                     mainCoinList.add(entity)
@@ -379,7 +377,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
             MainScope().launch {
                 while (true) {
-                    Log.i("nidongliang", "currentpage: ${banner.viewpager2.currentItem}")
                     delay(3000)
                     if (banner.viewpager2.currentItem == banner.viewpager2.adapter?.itemCount?.minus(1) ?: 0) {
                         banner.viewpager2.currentItem = 0

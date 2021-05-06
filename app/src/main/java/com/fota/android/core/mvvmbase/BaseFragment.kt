@@ -13,7 +13,7 @@ abstract class BaseFragment<T : ViewDataBinding, H : BaseViewModel> : Fragment()
 
     lateinit var dataBinding: T
 
-    var viewModel: H? = null
+    lateinit var viewModel: H
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +35,7 @@ abstract class BaseFragment<T : ViewDataBinding, H : BaseViewModel> : Fragment()
     abstract fun initData()
     abstract fun initComp()
 
-    abstract fun createViewModel(): H?
+    abstract fun createViewModel(): H
 
     override fun isBaseOnWidth(): Boolean {
         return true
