@@ -2,6 +2,7 @@ package com.ndl.lib_common.widget.banner
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.viewpager2.widget.ViewPager2
@@ -28,10 +29,11 @@ class Banner : FrameLayout {
         override fun onBindViewHolder(holder: MyViewHolder<ItemBannerBinding>, position: Int) {
             imageEngine?.loadImage(holder.dataBinding.image, paths[position])
             holder.dataBinding.root.setOnClickListener {
+                Log.i("nidongliang", "position: $position, itemCount: $itemCount")
                 val clickPosition = when(position){
                     itemCount - 1 -> 0
-                    0 -> {itemCount - 2}
-                    else -> position
+                    0 -> {itemCount - 3}
+                    else -> position - 1
                 }
                 onBannerClick?.invoke(clickPosition)
             }

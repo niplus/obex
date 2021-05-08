@@ -45,7 +45,7 @@ import java.math.RoundingMode
 import java.util.*
 import kotlin.math.pow
 
-class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTradeView {
+class FuturesFragment : ExchangeFragment(), IFuturesUpdateFragment, FutureTradeView {
     private var spotPrice: String = "0.0"
     private var topInfo: FutureTopInfoBean? = null
     private var popupTopWindow: FutureTopWindow? = null
@@ -161,9 +161,9 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                 fragments, title
         )
         mHeadBinding.viewPager.adapter = baseFragmentAdapter
-        mHeadBinding.tbBottom.setupWithViewPager(mHeadBinding.viewPager)
-//        mHeadBinding.viewPagerTitle.initTitles(title)
-//        mHeadBinding.viewPagerTitle.bindViewpager(mHeadBinding.viewPager)
+//        mHeadBinding.tbBottom.setupWithViewPager(mHeadBinding.viewPager)
+        mHeadBinding.viewPagerTitle.initTitles(title)
+        mHeadBinding.viewPagerTitle.bindViewpager(mHeadBinding.viewPager)
         mHeadBinding.viewPager.offscreenPageLimit = 2
     }
 

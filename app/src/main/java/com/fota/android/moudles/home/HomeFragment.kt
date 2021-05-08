@@ -362,7 +362,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             }
 
             banner.onBannerClick = {
-                FtRounts.toWebView(requireContext(), "", viewModel!!.bannerLiveData.value!![it].hyperlink)
+                FtRounts.toWebView(requireContext(), "", viewModel.bannerLiveData.value!![it].hyperlink)
             }
 
             ivMessage.setOnClickListener {
@@ -371,8 +371,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
             SmartRefreshLayoutUtils.initHeader(refreshLayout, context)
             refreshLayout.setOnRefreshListener(OnRefreshListener {
-                viewModel!!.getBanner()
-                viewModel!!.getCoinData()
+                viewModel.getBanner()
+                viewModel.getCoinData()
             })
 
             MainScope().launch {
