@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">klinelib</string>
+    <string name="change_rate">Change</string>
+    <string name="close_price">Close</string>
+    <string name="high_price">High</string>
+    <string name="hold_total">Hold</string>
+    <string name="legend_future_price">Price</string>
+    <string name="legend_price">Spot Index</string>
+    <string name="loading">""</string>
+    <string name="low_price">Low</string>
+    <string name="open_price">Open</string>
+    <string name="price">Price</string>
+    <string name="spot_index">Spot Index</string>
+    <string name="usdt_price">Spot</string>
+    <string name="volume">Volume</string>
+</resources>

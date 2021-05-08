@@ -1,0 +1,17 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.takwolf.android.lock9"
+4    android:versionCode="20210429"
+5    android:versionName="0.1.3" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="14"
+8-->C:\Users\84127\Documents\android_workspace\obex_android\lock9view\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="27" />
+9-->C:\Users\84127\Documents\android_workspace\obex_android\lock9view\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.VIBRATE" />
+11-->C:\Users\84127\Documents\android_workspace\obex_android\lock9view\src\main\AndroidManifest.xml:6:5-66
+11-->C:\Users\84127\Documents\android_workspace\obex_android\lock9view\src\main\AndroidManifest.xml:6:22-63
+12
+13</manifest>

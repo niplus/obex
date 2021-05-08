@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/legend"
+            android:visibility="gone"
+            layout="@layout/content_kline_header_legend"/>
+
+        <com.guoziwei.fota.chart.FotaCombinedChart
+            android:id="@+id/price_chart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8" />
+
+        <com.guoziwei.fota.chart.FotaCombinedBarChart
+            android:id="@+id/vol_chart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="2"
+            android:visibility="visible" />
+        <com.guoziwei.fota.chart.FotaTimeBaseRenderChart
+            android:id="@+id/time_chart"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <com.guoziwei.fota.chart.view.fota.ComplexChartInfoView
+        android:id="@+id/k_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/ll_progress"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <ProgressBar
+            android:id="@+id/progress_view"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:indeterminateDrawable="@drawable/loading_simple_progress"
+            android:layout_marginLeft="50dip"
+            android:layout_marginRight="50dip"
+            android:background="@android:color/transparent"
+            android:backgroundTint="?attr/bg_color2"/>
+
+    </LinearLayout>
+</FrameLayout>
