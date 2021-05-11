@@ -14,7 +14,7 @@ f
         android:fitsSystemWindows="true"
         tools:context=".moudles.main.MainActivity">
         
-        <androidx.viewpager.widget.ViewPager
+        <com.fota.android.widget.IndexViewPager
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/vp_page"

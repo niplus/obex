@@ -16,6 +16,7 @@ import com.fota.android.commonlib.http.BaseHttpResult;
 import com.fota.android.commonlib.utils.L;
 import com.fota.android.core.base.BasePresenter;
 import com.fota.android.http.WebSocketUtils;
+import com.fota.android.moudles.futures.bean.ConditionOrdersBean;
 import com.fota.android.moudles.market.bean.ChartLineEntity;
 import com.fota.android.moudles.market.bean.FutureItemEntity;
 import com.fota.android.moudles.market.bean.HoldingEntity;
@@ -158,6 +159,7 @@ public class WebSocketClient implements IWebSocketSubject {
                             entity = new SocketAdditionEntity<SocketEntrustParam>(handleType, code, "");
                             entity.setParam(param);
                             break;
+
                         default:
                             entity = new SocketAdditionEntity<SocketEntrustParam>(handleType, code, "");
                     }
@@ -244,6 +246,10 @@ public class WebSocketClient implements IWebSocketSubject {
                     HoldingEntity holdingEntity = getInstance().getHoldingEntity();
                     tempBean.setDecimal(holdingEntity == null ? 0 : holdingEntity.getDecimal());
                     getInstance().updateAppHoldingInfo(tempBean, reqType);
+                    break;
+                case SocketKey.CONDITION_ORDER:
+                    ConditionOrdersBean orders = new Gson().fromJson(jsonString, ConditionOrdersBean.class);
+                    LiveDataBus.INSTANCE.getBus("conditionOrder").postValue(orders);
                     break;
                 default://7最新成交价 8成交列表 15热门合约 1权益可用保证金率 等各页面自己处理
                     break;
@@ -546,6 +552,7 @@ public class WebSocketClient implements IWebSocketSubject {
         WebSocketListener webSocketListener = new WebSocketListener() {
             @Override
             public void onOpen(final WebSocket webSocket, Response response) {
+                Log.i("nidongliang", "start webSocket: ");
                 //保存引用，用于后续操作
                 WebSocketClient.this.webSocket = webSocket;
                 setConnected(true);
@@ -602,7 +609,7 @@ public class WebSocketClient implements IWebSocketSubject {
     private void send(final WebSocketEntity entity, IWebSocketObserver observer) {
         try {
             String json = GsonSinglon.getInstance().toJson(entity);
-            Log.i("wsocket_send", json);
+            Log.i("nidongliang", json);
             webSocket.send(json);
         } catch (Exception e) {
             e.printStackTrace();
@@ -646,7 +653,7 @@ public class WebSocketClient implements IWebSocketSubject {
         int requestType = webSocketEntity.reqType;
         webSocketEntity.setIsSubscribe(1);
         //添加 2 和 4之后，如果2和4的情况，不需要拦截
-        if (!registerObserver(requestType + "", observer) && webSocketEntity.handleType == 1) {
+        if (!registerObserver(requestType + "", observer) && webSocketEntity.handleType == 1 && webSocketEntity.reqType != SocketKey.CONDITION_ORDER) {
             return;
         }
         if (UserLoginUtil.getToken() != null) {

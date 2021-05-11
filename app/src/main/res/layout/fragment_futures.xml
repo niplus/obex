@@ -617,46 +617,79 @@
                                 android:orientation="vertical"
                                 android:clipChildren="true">
 
-                                <LinearLayout
+                                <RadioGroup
                                     android:id="@+id/future_layout_top"
                                     style="@style/horizontal_fill"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="2dp"
+                                    android:orientation="horizontal"
                                     android:background="@drawable/ft2_corner_font4"
                                     android:padding="1dp">
 
-                                    <TextView
+                                    <RadioButton
                                         android:id="@+id/select_buy2"
                                         style="@style/horizontal_weight_fill"
-                                        android:background="@drawable/ft_left_corner"
+                                        android:background="@drawable/select_futures_buy_bg"
                                         android:gravity="center"
                                         android:onClick="@{view.onClick}"
                                         android:text="@string/exchange_buy_wishheigh"
+                                        android:button="@null"
+                                        android:checked="true"
                                         android:textSize="14sp" />
 
-                                    <TextView
+                                    <RadioButton
                                         android:id="@+id/select_sell2"
                                         style="@style/horizontal_weight_fill"
-                                        android:background="@drawable/ft_right_corner"
+                                        android:background="@drawable/select_futures_sell_bg"
                                         android:gravity="center"
                                         android:maxLength="13"
                                         android:onClick="@{view.onClick}"
                                         android:text="@string/exchange_sell_wishlow"
+                                        android:button="@null"
                                         android:textSize="14sp" />
 
-                                </LinearLayout>
+                                </RadioGroup>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:text="条件委托"
+                                    android:textColor="#ff333333"
+                                    android:textSize="10sp"
+                                    android:layout_marginTop="5dp"
+                                    android:id="@+id/tv_type"
+                                    android:background="@drawable/shape_3r_stroke_cacaca"
+                                    />
+
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="39dp"
+                                    android:background="@drawable/shape_3r_stroke_cacaca"
+                                    android:hint="请输入触发价格"
+                                    android:textSize="13dp"
+                                    android:id="@+id/edt_trigger_price"
+                                    android:paddingStart="5dp"
+                                    android:paddingEnd="5dp"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginTop="10dp"/>
+
+
 
 
                                 <LinearLayout
                                     style="@style/horizontal_fill"
-                                    android:layout_marginTop="15dp"
-                                    android:gravity="center_vertical">
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center_vertical"
+                                    android:background="@drawable/shape_3r_stroke_cacaca">
 
                                     <LinearLayout
                                         android:id="@+id/price_type2"
                                         android:layout_width="85dp"
                                         android:layout_height="40dp"
                                         android:gravity="center_vertical"
+                                        android:paddingStart="5dp"
+                                        android:paddingEnd="5dp"
                                         android:onClick="@{view.onClick}">
 
                                         <TextView
@@ -664,7 +697,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="20dp"
                                             android:text="@string/exchange_limit_price"
-                                            android:textColor="?attr/font_color4"
+                                            android:textColor="#333333"
                                             android:textSize="14sp" />
 
                                         <com.fota.android.commonlib.view.DownTrigonView
@@ -713,6 +746,9 @@
                                     style="@style/horizontal_fill"
                                     android:layout_marginTop="10dp"
                                     android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingEnd="5dp"
+                                    android:background="@drawable/shape_3r_stroke_cacaca"
                                     android:elevation="1dp">
 
                                     <TextView
@@ -722,7 +758,7 @@
                                         android:gravity="center_vertical"
                                         android:onClick="@{view.onClick}"
                                         android:text="@string/future_value"
-                                        android:textColor="?attr/font_color4"
+                                        android:textColor="#333333"
                                         android:textSize="14sp" />
 
                                     <com.fota.android.widget.btbwidget.ClearEdittext
@@ -866,16 +902,30 @@
                     app:behavior_overlapTop="40dp"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tb_bottom"
-                    android:layout_width="match_parent"
+<!--                <com.google.android.material.tabs.TabLayout-->
+<!--                    android:id="@+id/tb_bottom"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:background="?attr/bg_color"-->
+<!--                    android:gravity="center"-->
+<!--                    app:tabMode="fixed"-->
+<!--                    app:layout_behavior="@string/behavior_excharge2">-->
+
+<!--                </com.google.android.material.tabs.TabLayout>-->
+
+                <com.fota.android.widget.ViewPagerTitle
+                    android:id="@+id/view_pager_title"
+                    style="@style/horizontal_fill"
+                    contentPaddingRight="10dp"
                     android:layout_height="40dp"
+                    android:layout_gravity="top"
                     android:background="?attr/bg_color"
                     android:gravity="center"
-                    app:tabMode="fixed"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     app:layout_behavior="@string/behavior_excharge2">
 
-                </com.google.android.material.tabs.TabLayout>
+                </com.fota.android.widget.ViewPagerTitle>
 
                 <LinearLayout
                     android:id="@+id/narrow_chart_container"

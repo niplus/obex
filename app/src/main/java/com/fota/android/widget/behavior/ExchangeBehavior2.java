@@ -2,6 +2,7 @@ package com.fota.android.widget.behavior;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -37,13 +38,11 @@ public class ExchangeBehavior2 extends CoordinatorLayout.Behavior<View> {
         float dp40 = UIUtil.dip2px(child.getContext(), 40);
 
         float dependency_40 = dependency.getY() - dp40;
-
         if (dependency_40 < dp40) {
             child.setTranslationY(dp40);
         } else {
             child.setTranslationY(dependency_40);
         }
-
 
         return true;
     }

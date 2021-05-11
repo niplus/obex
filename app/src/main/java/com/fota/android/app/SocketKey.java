@@ -47,4 +47,6 @@ public class SocketKey {
     public final static int FUTURE_TOP = 1100;//合约顶部的概要信息
 
     public final static int MARKET_SPOTINDEX = 1408;//现货指数信息
+
+    public final static int CONDITION_ORDER = 1111;
 }

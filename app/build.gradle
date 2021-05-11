@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id "ua.eshepelyuk.ManifestClasspath"
 }
 
 android {
@@ -63,10 +64,10 @@ android {
             minifyEnabled false
             shrinkResources false
             multiDexEnabled true
-//            buildConfigField "String", "BASE_URL", '"http://bg-dev.yuchains.com/mapi/"'
-//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"http://bg-dev.yuchains.com/mapi/websocket"'
-            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
-            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
+            buildConfigField "String", "BASE_URL", '"http://exbgdev.yuchains.com/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"ws://exbgdev.yuchains.com/mapi/websocket"'
+//            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
+//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
@@ -208,4 +209,6 @@ dependencies {
 
     // 基础依赖包，必须要依赖
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }

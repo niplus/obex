@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
 
-    <com.fota.android.widget.myview.ViewPagerBackView
-        android:id="@+id/item_viewpager_title_tab"
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+<!--    <com.fota.android.widget.myview.ViewPagerBackView-->
+<!--        android:id="@+id/item_viewpager_title_tab"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="30dp" />-->
 
     <TextView
         android:id="@+id/item_viewpager_title_title"
@@ -19,5 +19,13 @@
         android:text="--"
         android:textColor="?attr/font_color"
         android:textSize="13.44sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#3C78D7"
+        android:id="@+id/v_line"
+        android:layout_below="@+id/item_viewpager_title_title"
+        android:layout_marginTop="5dp"/>
 
 </RelativeLayout>

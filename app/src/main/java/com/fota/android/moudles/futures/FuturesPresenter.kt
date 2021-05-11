@@ -18,15 +18,14 @@ import com.fota.android.http.Http
 import com.fota.android.moudles.exchange.index.ExchangeFragment
 import com.fota.android.moudles.exchange.index.ExchangePresenter
 import com.fota.android.moudles.exchange.index.ExchangeTradeView
+import com.fota.android.moudles.futures.bean.ConditionSocketParam
 import com.fota.android.moudles.futures.bean.SpotIndex
 import com.fota.android.moudles.futures.money.FuturesMoneyBean
-import com.fota.android.socket.IWebSocketObserver
 import com.fota.android.socket.SocketAdditionEntity
 import com.fota.android.socket.WebSocketEntity
 import com.fota.android.socket.params.SocketEntrustParam
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.ndl.lib_common.log.NLog
 
 open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) {
     /**
@@ -268,12 +267,25 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         getDepthFive(type, Pub.GetInt(selectContact.getContractId()))
         getNowTicker(type, Pub.GetInt(selectContact.getContractId()))
         getTimeLineDatas(type, Pub.GetInt(selectContact.getContractId()), "1m")
+        addConditionChannel()
         //jiang chart loading
         if (view != null) {
             view!!.setOverShowLoading(0, true)
             view!!.setOverShowLoading(1, true)
             getKlineDatas(2, Pub.GetInt(selectContact.getContractId()), types[currentPeriodIndex])
         }
+    }
+
+     fun addConditionChannel(){
+         if (selectContact == null) return
+        //委托 http获取到实时委托之后开始订阅实时委托推送
+        val socketEntity = WebSocketEntity<ConditionSocketParam>()
+        val param = ConditionSocketParam(null, 1, 10, selectContact!!.contractId.toInt(), null)
+        socketEntity.param = param
+        socketEntity.reqType = SocketKey.CONDITION_ORDER
+        socketEntity.setHandleType(1)
+        socketEntity.type = 2
+        client.addChannel(socketEntity, this)
     }
 
     override fun getType(): Int {

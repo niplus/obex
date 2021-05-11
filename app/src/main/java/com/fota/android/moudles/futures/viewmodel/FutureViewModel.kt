@@ -155,7 +155,6 @@ class FutureViewModel : BaseViewModel() {
     }
 
     fun getContactList(){
-        Log.i("nidongliang", "getContract List")
         Http.getExchangeService().contractTree
             .compose(CommonTransformer())
             .subscribe(object : CommonSubscriber<List<ContractAssetBean>>() {
@@ -184,7 +183,6 @@ class FutureViewModel : BaseViewModel() {
                             }
                         }
                     }
-                    Log.i("nidongliang", "=================")
 
                 }
 

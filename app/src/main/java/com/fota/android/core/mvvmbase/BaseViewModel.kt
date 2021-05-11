@@ -13,6 +13,7 @@ open class BaseViewModel: ViewModel() {
         try {
             block()
         }catch (e: Exception){
+            e.printStackTrace()
             error.value = e.message
         }
     }

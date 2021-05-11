@@ -1,6 +1,5 @@
 package com.fota.android.moudles.futures.money;
 
-import android.content.DialogInterface;
 import android.view.View;
 
 import com.fota.android.R;
@@ -8,11 +7,10 @@ import com.fota.android.app.FotaApplication;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.utils.GradientDrawableUtils;
 import com.fota.android.commonlib.utils.Pub;
-import com.fota.android.core.dialog.DialogModel;
-import com.fota.android.core.dialog.DialogUtils;
 import com.fota.android.moudles.exchange.BaseExchageChlidFragment;
 import com.fota.android.moudles.futures.FuturesFragment;
 import com.fota.android.moudles.market.bean.FutureItemEntity;
+import com.fota.android.widget.dialog.MessageDialog;
 import com.fota.android.widget.dialog.ShareDialog;
 import com.fota.android.widget.myview.LevelView;
 import com.fota.android.widget.recyclerview.EasyAdapter;
@@ -21,6 +19,9 @@ import com.fota.android.widget.recyclerview.ViewHolder;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 /**
  * 合约资产
@@ -87,24 +88,47 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
 
                 holder.<LevelView>getView(R.id.futures_level).setLevel(model.getQuantile());
 
-                holder.getConvertView().setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        if (model.isCanceled()) {
-                            return false;
-                        }
-                        DialogUtils.showDialog(getContext(), new DialogModel(getXmlString(R.string.sure_liquidation))
-                                .setSureText(getXmlString(R.string.sure))
-                                .setSureClickListen(new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+//                holder.getConvertView().setOnLongClickListener(new View.OnLongClickListener() {
+//                    @Override
+//                    public boolean onLongClick(View v) {
+//                        if (model.isCanceled()) {
+//                            return false;
+//                        }
+//                        DialogUtils.showDialog(getContext(), new DialogModel(getXmlString(R.string.sure_liquidation))
+//                                .setSureText(getXmlString(R.string.sure))
+//                                .setSureClickListen(new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//
+//
+//                                    }
+//                                })
+//                                .setCancelText(getXmlString(R.string.cancel))
+//                        );
+//                        return false;
+//                    }
+//                });
 
-                                        deleteOrder(model);
-                                    }
-                                })
-                                .setCancelText(getXmlString(R.string.cancel))
-                        );
-                        return false;
+                holder.getView(R.id.tv_stop).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showStopDialog(model);
+                    }
+                });
+
+                holder.getView(R.id.tv_close_order).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        new MessageDialog(getContext(), "确定平仓？", new Function0<Unit>() {
+                            @Override
+                            public Unit invoke() {
+                                deleteOrder(model);
+                                return null;
+                            }
+                        }).show();
+
+//                        closeOrder(model);
                     }
                 });
 
@@ -152,6 +176,14 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
 
     private void deleteOrder(FuturesMoneyBean model) {
         ((FuturesFragment) getParentFragment()).removeMoney(model);
+    }
+
+    private void showStopDialog(FuturesMoneyBean model){
+        ((FuturesFragment) getParentFragment()).showStopDialog(model);
+    }
+
+    private void closeOrder(FuturesMoneyBean model){
+        ((FuturesFragment) getParentFragment()).closeOrder(model);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.fota.android.http;
 
+import android.util.Log;
+
 import com.fota.android.BuildConfig;
 import com.fota.android.app.Constants;
 import com.fota.android.app.FotaApplication;

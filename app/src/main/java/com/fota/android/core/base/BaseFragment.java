@@ -3,6 +3,7 @@ package com.fota.android.core.base;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -104,6 +106,7 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v(getTAG(), "onCreate");
+        initLoadingDialog();
         dataStatue = AppConfigs.getAppFlag();
         mContext = mActivity = getActivity();
         String tag = getClass().getSimpleName();
@@ -784,6 +787,8 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
         return ContextCompat.getColor(getContext(), id);
     }
 
+
+    private Dialog mLoadingDialog;
     /**
      * 开启浮动加载进度条
      */
@@ -793,6 +798,18 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
 //        if (mActivity != null) {
 //            mActivity.startProgressDialog();
 //        }
+
+        mLoadingDialog.show();
+    }
+
+    private void initLoadingDialog() {
+        View view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_loading, null);
+//        TextView loadingText = (TextView) view.findViewById(R.id.id_tv_loading_dialog_text);
+//        loadingText.setText("加载中...");
+        mLoadingDialog = new Dialog(requireContext(), R.style.CustomProgressDialog);
+        mLoadingDialog.setCancelable(true);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
+        mLoadingDialog.setContentView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
     /**
@@ -804,6 +821,8 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
 //        if (mActivity != null) {
 //            mActivity.stopProgressDialog();
 //        }
+
+        mLoadingDialog.dismiss();
     }
 
 
