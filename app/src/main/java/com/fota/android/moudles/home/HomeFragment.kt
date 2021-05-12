@@ -28,6 +28,7 @@ import com.fota.android.databinding.FragmentHomeBinding
 import com.fota.android.databinding.ItemHomeCoinBinding
 import com.fota.android.databinding.ItemHomeMenuBinding
 import com.fota.android.databinding.ItemMainCoinBinding
+import com.fota.android.moudles.futures.bean.ToTradeEvent
 import com.fota.android.moudles.market.TradeMarketKlineActivity
 import com.fota.android.moudles.market.bean.FutureItemEntity
 import com.fota.android.utils.FtRounts
@@ -101,7 +102,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 }
 
                 root.setOnClickListener {
-                    LiveDataBus.getBus<FutureItemEntity>("trade").value = data[position]
+                    LiveDataBus.getBus<ToTradeEvent>("trade").value = ToTradeEvent(data[position], true)
                 }
             }
 

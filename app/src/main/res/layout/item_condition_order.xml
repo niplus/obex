@@ -45,6 +45,7 @@
 
                     <LinearLayout
                         style="@style/horizontal_weight1"
+                        android:orientation="horizontal"
                         android:gravity="center_vertical">
 
                         <TextView
@@ -52,8 +53,7 @@
                             style="@style/wrap_style"
                             android:layout_height="25dp"
                             android:textColor="#FF4DB871"
-                            android:textSize="16.32sp"
-                            tools:text="@{order.contractName}" />
+                            android:textSize="16.32sp" />
 
                         <TextView
                             android:id="@+id/buy_or_sell"
@@ -67,19 +67,6 @@
                             android:textColor="#FF4DB871"
                             android:textSize="10sp"
                             tools:text="——" />
-
-                        <!--                            <TextView-->
-                        <!--                                android:id="@+id/futures_tv_lever"-->
-                        <!--                                android:layout_width="wrap_content"-->
-                        <!--                                android:layout_height="16dp"-->
-                        <!--                                android:layout_marginLeft="3dp"-->
-                        <!--                                android:background="@drawable/ft_rectangle"-->
-                        <!--                                android:gravity="center"-->
-                        <!--                                android:paddingLeft="4dp"-->
-                        <!--                                android:paddingRight="4dp"-->
-                        <!--                                android:textColor="#FF4DB871"-->
-                        <!--                                android:textSize="10sp"-->
-                        <!--                                tools:text="x10" />-->
 
                         <View
                             android:layout_width="0dp"
@@ -119,6 +106,7 @@
                         android:layout_height="wrap_content"
                         android:text="   2022.04.16 12:23:46 \n- 2022.04.19 12:23:46"
                         android:textColor="#ff999999"
+                        android:id="@+id/tv_time"
                         android:textSize="10sp" />
                 </LinearLayout>
 

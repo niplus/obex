@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_code_130001">数据加载中</string>
+    <string name="error_code_130002">操作失败</string>
+    <string name="error_code_120044">订单不存在</string>
+    <string name="error_code_120045">条件单已撤销或已触发</string>
+    <string name="error_code_120046">委托价格不能为空</string>
+    <string name="error_code_120047">无效的触发价格</string>
+    <string name="error_code_120048">订单已撤销</string>
+</resources>

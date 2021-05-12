@@ -18,7 +18,6 @@ import com.fota.android.socket.params.SocketEntrustParam;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.ndl.lib_common.log.NLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +47,10 @@ public class TradeMarketKlinePresenter extends BaseTradePresenter<TradeMarketKli
 
     public void setBean(FutureItemEntity bean) {
         this.futureBean = bean;
+    }
+
+    public FutureItemEntity getFutureBean() {
+        return futureBean;
     }
 
     public TradeMarketKlinePresenter(TradeMarketKlineViewInterface view) {

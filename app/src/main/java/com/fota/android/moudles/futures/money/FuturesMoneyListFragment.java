@@ -3,20 +3,17 @@ package com.fota.android.moudles.futures.money;
 import android.view.View;
 
 import com.fota.android.R;
-import com.fota.android.app.FotaApplication;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.utils.GradientDrawableUtils;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.moudles.exchange.BaseExchageChlidFragment;
 import com.fota.android.moudles.futures.FuturesFragment;
-import com.fota.android.moudles.market.bean.FutureItemEntity;
 import com.fota.android.widget.dialog.MessageDialog;
 import com.fota.android.widget.dialog.ShareDialog;
 import com.fota.android.widget.myview.LevelView;
 import com.fota.android.widget.recyclerview.EasyAdapter;
 import com.fota.android.widget.recyclerview.ViewHolder;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +67,7 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
 
                 holder.setText(R.id.buy_or_sell, model.getFormatBuyOrSell(getContext()));
 
-                holder.setText(R.id.asset_name, model.getContractName());
+                holder.setText(R.id.asset_name, model.getContractName().replace("永续", " " + getString(R.string.perp)));
 
                 holder.setText(R.id.average_price, model.getAveragePrice());
 
@@ -142,15 +139,15 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
                     @Override
                     public void onClick(View v) {
 
-                        List<FutureItemEntity> applicationCache = FotaApplication.getInstance().getMarketsCardsList();
-                        String price = "";
-                        for (FutureItemEntity each : applicationCache){
-                            if (each.getEntityType() == 2 && model.getContractId().equals(each.getEntityId()+"")){
-                                price = each.getLastPrice();
-                                if (model.getAveragePrice().contains("."))
-                                    price = new BigDecimal(each.getLastPrice()).setScale(model.getAveragePrice().split("\\.")[1].length()).toPlainString();
-                            }
-                        }
+//                        List<FutureItemEntity> applicationCache = FotaApplication.getInstance().getMarketsCardsList();
+//                        String price = "";
+//                        for (FutureItemEntity each : applicationCache){
+//                            if (each.getEntityType() == 2 && model.getContractId().equals(each.getEntityId()+"")){
+//                                price = each.getLastPrice();
+//                                if (model.getAveragePrice().contains("."))
+//                                    price = new BigDecimal(each.getLastPrice()).setScale(model.getAveragePrice().split("\\.")[1].length()).toPlainString();
+//                            }
+//                        }
 
                         new ShareDialog(getActivity(),
                                 model.isBuy(),
@@ -158,7 +155,7 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
                                 model.getContractName(),
                                 model.getEarningRate(),
                                 model.getAveragePrice(),
-                                price,
+                                model.getLastMatchPrice(),
                                 getActivity()).show();
                     }
                 });

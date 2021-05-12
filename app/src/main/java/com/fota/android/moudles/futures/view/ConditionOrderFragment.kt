@@ -21,6 +21,8 @@ import com.fota.android.widget.dialog.MessageDialog
 import com.ndl.lib_common.base.BaseAdapter
 import com.ndl.lib_common.base.MyViewHolder
 import com.ndl.lib_common.utils.LiveDataBus
+import com.ndl.lib_common.utils.showSnackMsg
+import java.text.SimpleDateFormat
 
 class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, ConditionOrderViewModel>() {
 
@@ -38,9 +40,9 @@ class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, Condi
         })
 
         LiveDataBus.getBus<ConditionOrdersBean>("conditionOrder").observe(this, Observer {
-            if (it.item.isNullOrEmpty()) return@Observer
+            if (it.items.isNullOrEmpty()) return@Observer
             orders.clear()
-            orders.addAll(it.item)
+            orders.addAll(it.items)
             dataBinding.rvConditionOrder.adapter?.notifyDataSetChanged()
         })
 
@@ -48,10 +50,12 @@ class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, Condi
             if (it.code == 0) messageDialog?.dismiss()
             hideLoadDialog()
         })
+
     }
 
 
     private var messageDialog: MessageDialog? = null
+    private val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
     override fun initComp() {
         dataBinding.apply {
             rvConditionOrder.layoutManager = LinearLayoutManager(requireContext())
@@ -68,15 +72,17 @@ class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, Condi
                     holder.dataBinding.apply {
                         val itemData = data[position]
                         averagePrice.text = itemData.triggerPrice
-                        openPositionPrice.text = if (itemData.triggerType == 1) "限价" else "市价"
+                        openPositionPrice.text = if (itemData.triggerType == 1) getString(R.string.contractweituo_type_limit) else getString(R.string.contractweituo_type_market)
                         margin.text = itemData.algoPrice
                         applies.text = itemData.quantity
 
+                        assetName.text = itemData.contractName.replace("永续"," ${getString(R.string.perp)}")
+
                         buyOrSell.text = when(itemData.orderType){
-                            2 -> "止盈"
-                            3 -> "止损"
+                            2 -> getString(R.string.take_profit)
+                            3 -> getString(R.string.stop_loss)
                             else -> {
-                                "计划委托"
+                                getString(if(itemData.orderDirection == 1) R.string.tradehis_kong_short else R.string.tradehis_duo_short)
                             }
                         }
 
@@ -89,8 +95,10 @@ class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, Condi
                             AppConfigs.getColor(itemData.orderDirection == 2)
                         )
 
+                        tvTime.text = "${simpleDateFormat.format(itemData.gmtCreate)}"
+
                         root.setOnLongClickListener {
-                            messageDialog = MessageDialog(requireContext(), "确定撤销？"){
+                            messageDialog = MessageDialog(requireContext(), getString(R.string.sure_cancel_order)){
                                 showLoadDialog()
                                 viewModel.cancelConditionOrder(data[position].id)
                             }

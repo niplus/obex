@@ -44,9 +44,9 @@ import com.fota.android.moudles.exchange.IExchangeFragment;
 import com.fota.android.moudles.exchange.complete.ExchangeCompleteFragment;
 import com.fota.android.moudles.exchange.money.ExchangeMoneyListFragment;
 import com.fota.android.moudles.exchange.orders.ExchangeOrdersFragment;
+import com.fota.android.moudles.futures.bean.ToTradeEvent;
 import com.fota.android.moudles.market.FullScreenKlineActivity;
 import com.fota.android.moudles.market.bean.ChartLineEntity;
-import com.fota.android.moudles.market.bean.FutureItemEntity;
 import com.fota.android.moudles.market.bean.HoldingEntity;
 import com.fota.android.utils.KeyBoardUtils;
 import com.fota.android.utils.UserLoginUtil;
@@ -177,19 +177,20 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         LiveDataBus.INSTANCE.getBus("trade").observe(this, new Observer<Object>() {
             @Override
             public void onChanged(Object o) {
-                if (o instanceof FutureItemEntity){
-                    FutureItemEntity entity = (FutureItemEntity) o;
-                    if (entity.getEntityType() == 3){
-                        if (getPresenter().getUsdtList() != null){
-                            for (ExchangeCurrency exchangeCurrency: getPresenter().getUsdtList()){
-                                if (exchangeCurrency.getAssetName().equals(entity.getFutureName())){
-                                    getPresenter().setSelectItem(exchangeCurrency);
-                                    break;
-                                }
+                ToTradeEvent entity = (ToTradeEvent) o;
+                if (entity.getFutureItemEntity().getEntityType() == 3){
+                    if (getPresenter().getUsdtList() != null){
+                        for (ExchangeCurrency exchangeCurrency: getPresenter().getUsdtList()){
+                            if (exchangeCurrency.getAssetName().equals(entity.getFutureItemEntity().getFutureName())){
+                                getPresenter().setSelectItem(exchangeCurrency);
+                                break;
                             }
                         }
                     }
                 }
+
+                isBuy = entity.isBuy();
+                refreshBuy();
             }
         });
     }

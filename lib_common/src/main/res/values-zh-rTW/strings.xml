@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_code_130001">數據加載中</string>
+    <string name="error_code_130002">操作失敗</string>
+    <string name="error_code_120044">訂單不存在</string>
+    <string name="error_code_120045">條件單已撤銷或已觸發</string>
+    <string name="error_code_120046">委託價格不能為空</string>
+    <string name="error_code_120047">無效的觸發價格</string>
+    <string name="error_code_120048">訂單已撤銷</string>
+</resources>

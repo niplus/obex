@@ -34,6 +34,7 @@ import com.fota.android.core.base.SimpleFragmentActivity;
 import com.fota.android.databinding.ActivityMarketsChartsBinding;
 import com.fota.android.moudles.common.DealCanNullAdapter;
 import com.fota.android.moudles.futures.FutureContractBean;
+import com.fota.android.moudles.futures.bean.ToTradeEvent;
 import com.fota.android.moudles.main.MainActivity;
 import com.fota.android.moudles.main.bean.BundleForTradeEntity;
 import com.fota.android.moudles.market.bean.ChartLineEntity;
@@ -53,6 +54,7 @@ import com.guoziwei.fota.chart.view.BaseChartView;
 import com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView;
 import com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView;
 import com.guoziwei.fota.model.HisData;
+import com.ndl.lib_common.utils.LiveDataBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -341,7 +343,10 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
             @Override
             protected void onNoDoubleClick(View v) {
                 //entityType 正好跟index相同
-                toMain(entityType, true);
+//                toMain(entityType, true);
+
+                LiveDataBus.INSTANCE.getBus("trade").setValue(new ToTradeEvent(getPresenter().getFutureBean(), true));
+                finish();
             }
         });
 
@@ -349,7 +354,10 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
             @Override
             protected void onNoDoubleClick(View v) {
                 //entityType 正好跟index相同
-                toMain(entityType, false);
+//                toMain(entityType, false);
+
+                LiveDataBus.INSTANCE.getBus("trade").setValue(new ToTradeEvent(getPresenter().getFutureBean(), false));
+                finish();
             }
         });
     }

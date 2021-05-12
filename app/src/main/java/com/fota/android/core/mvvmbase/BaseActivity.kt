@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import com.fota.android.LanguageContextWrapper.Companion.wrap
 import com.fota.android.R
 import com.fota.android.commonlib.base.AppConfigs
 import com.fota.android.commonlib.base.MyActivityManager
 import com.fota.android.utils.getLocale
 import com.gyf.barlibrary.ImmersionBar
+import com.ndl.lib_common.utils.showSnackMsg
 import com.umeng.analytics.MobclickAgent
 import me.jessyan.autosize.internal.CustomAdapt
 
@@ -42,6 +44,16 @@ abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: AppCompatAc
         initSystemBar()
 
         viewModel = createViewModel()
+//        viewModel?.error?.observe(this, Observer {
+//
+//            if (it != null) {
+//                if (it.isString){
+//                    showSnackMsg(it.msg!!)
+//                }else{
+//                    showSnackMsg(getString(it.resId!!))
+//                }
+//            }
+//        })
         initComp()
         initData()
     }

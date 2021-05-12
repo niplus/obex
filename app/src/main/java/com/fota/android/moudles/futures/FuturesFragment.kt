@@ -31,6 +31,7 @@ import com.fota.android.databinding.DialogSetStopPriceBinding
 import com.fota.android.databinding.ItemOrderTypeBinding
 import com.fota.android.moudles.exchange.index.Exchange1Fragment
 import com.fota.android.moudles.futures.bean.SpotIndex
+import com.fota.android.moudles.futures.bean.ToTradeEvent
 import com.fota.android.moudles.futures.complete.FuturesCompleteFragment
 import com.fota.android.moudles.futures.money.FuturesMoneyBean
 import com.fota.android.moudles.futures.money.FuturesMoneyListFragment
@@ -112,8 +113,14 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         super.onInitView(view)
         viewModel = ViewModelProvider(this).get(FuturesViewModel::class.java)
         viewModel.error.observe(this, Observer {
-            if (it != null)
-                showSnackMsg(it)
+            stopProgressDialog()
+            if (it != null) {
+                if (it.isString){
+                    showSnackMsg(it.msg!!)
+                }else{
+                    showSnackMsg(getString(it.resId!!))
+                }
+            }
         })
         viewModel.stopOrderLiveData.observe(this, Observer {
             stopProgressDialog()
@@ -168,12 +175,21 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             showOrderTypeWindow()
         }
 
-        getBus<FutureItemEntity>("trade").observe(this, Observer { entity ->
-            if (entity.entityType == 2) {
+        getBus<ToTradeEvent>("trade").observe(this, Observer { event ->
+
+            isBuy = event.isBuy
+            if (event.isBuy){
+                mHeadBinding.selectBuy2.isChecked = true
+            }else{
+                mHeadBinding.selectSell2.isChecked = true
+            }
+
+            refreshBuy()
+            if (event.futureItemEntity.entityType == 2) {
                 if (presenter.allList != null) {
                     presenter.allList!!.forEach {
                         it!!.content.forEach { model ->
-                            if (model.contractId == entity.entityId.toString()) {
+                            if (model.contractId == event.futureItemEntity.entityId.toString()) {
                                 presenter.setSelectContact(it, model)
                                 return@Observer
                             }
@@ -181,6 +197,8 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                     }
                 }
             }
+
+
         })
         //GradientDrawableUtils.setBoardColor(mHeadBinding.futuresTvDate, color);
     }
@@ -236,7 +254,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         val title: MutableList<String> = ArrayList()
         title.add(getXmlString(R.string.exchange_money))
         title.add(getXmlString(R.string.exchange_order))
-        title.add("计划委托")
+        title.add(getXmlString(R.string.planing))
         title.add(getXmlString(R.string.exchange_complete))
         val baseFragmentAdapter = BaseFragmentAdapter(
             childFragmentManager,
@@ -1008,19 +1026,19 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             textView12.setOnClickListener {
                 if (tgBuy.isChecked){
                     if (TextUtils.isEmpty(edtBuyTriggerPrice.text)){
-                      showSnackMsg("请输入止盈触发价格")
+                      showSnackMsg(getString(R.string.stop_order_hint1))
                         return@setOnClickListener
                     }
 
-                    if (textView4.text.toString() != "市价"){
+                    if (textView4.text.toString() != getString(R.string.contractweituo_type_market)){
                         if (TextUtils.isEmpty(edtBuyPrice.text)){
-                            showSnackMsg("请输入止盈价格")
+                            showSnackMsg(getString(R.string.stop_order_hint2))
                             return@setOnClickListener
                         }
                     }
 
                     if (TextUtils.isEmpty(edtBuyQuantity.text)){
-                        showSnackMsg("请输入止盈数量")
+                        showSnackMsg(getString(R.string.stop_order_hint3))
                         return@setOnClickListener
                     }
 
@@ -1028,33 +1046,40 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
 
                 if (tgSell.isChecked){
                     if (TextUtils.isEmpty(edtSellTriggerPrice.text)){
-                        showSnackMsg("请输入止损触发价格")
+                        showSnackMsg(getString(R.string.stop_order_hint4))
                         return@setOnClickListener
                     }
 
-                    if (textView9.text.toString() != "市价"){
+                    if (textView9.text.toString() != getString(R.string.contractweituo_type_market)){
                         if (TextUtils.isEmpty(edtSellPrice.text)){
-                            showSnackMsg("请输入止损价格")
+                            showSnackMsg(getString(R.string.stop_order_hint5))
                             return@setOnClickListener
                         }
                     }
 
                     if (TextUtils.isEmpty(edtSellQuantity.text)){
-                        showSnackMsg("请输入止损数量")
+                        showSnackMsg(getString(R.string.stop_order_hint6))
                         return@setOnClickListener
                     }
                 }
 
+                tgSell.setOnCheckedChangeListener { buttonView, isChecked ->
+                    textView7.text = getString(if (isChecked) R.string.enable_take_profit else R.string.disable_take_profit)
+                }
+
+                tgBuy.setOnCheckedChangeListener { buttonView, isChecked ->
+                    textView2.text = getString(if (isChecked) R.string.enable_stop_loss else R.string.disable_stop_loss)
+                }
                 startProgressDialog()
                 if (tgSell.isChecked && tgBuy.isChecked){
                     viewModel.stopOrder(model.contractId.toInt(),
-                        if (textView4.text.toString() != "市价") edtBuyPrice.text.toString() else null,
+                        if (textView4.text.toString() != getString(R.string.contractweituo_type_market)) edtBuyPrice.text.toString() else null,
                         edtBuyQuantity.text.toString(),
-                        if (textView4.text.toString() != "市价") 1 else 2,
+                        if (textView4.text.toString() != getString(R.string.contractweituo_type_market)) 1 else 2,
                         edtBuyTriggerPrice.text.toString(),
-                        if (textView9.text.toString() != "市价") edtSellPrice.text.toString() else null,
+                        if (textView9.text.toString() != getString(R.string.contractweituo_type_market)) edtSellPrice.text.toString() else null,
                         edtSellQuantity.text.toString(),
-                        if (textView9.text.toString() != "市价") 1 else 2,
+                        if (textView9.text.toString() != getString(R.string.contractweituo_type_market)) 1 else 2,
                         edtSellTriggerPrice.text.toString()
                     )
                 }else if(!tgBuy.isChecked && tgSell.isChecked){
@@ -1063,16 +1088,16 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                       null,
                       null,
                         null,
-                        if (textView9.text.toString() != "市价") edtSellPrice.text.toString() else null,
+                        if (textView9.text.toString() != getString(R.string.contractweituo_type_market)) edtSellPrice.text.toString() else null,
                         edtSellQuantity.text.toString(),
-                        if (textView9.text.toString() != "市价") 1 else 2,
+                        if (textView9.text.toString() != getString(R.string.contractweituo_type_market)) 1 else 2,
                         edtSellTriggerPrice.text.toString()
                     )
                 }else if (!tgSell.isChecked && tgBuy.isChecked){
                     viewModel.stopOrder(model.contractId.toInt(),
-                        if (textView4.text.toString() != "市价") edtBuyPrice.text.toString() else null,
+                        if (textView4.text.toString() != getString(R.string.contractweituo_type_market)) edtBuyPrice.text.toString() else null,
                         edtBuyQuantity.text.toString(),
-                        if (textView4.text.toString() != "市价") 1 else 2,
+                        if (textView4.text.toString() != getString(R.string.contractweituo_type_market)) 1 else 2,
                         edtBuyTriggerPrice.text.toString(),
                         null,
                         null,
@@ -1085,25 +1110,25 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             }
 
             ivBuyChange.setOnClickListener {
-                if (textView4.text.toString() == "市价"){
+                if (textView4.text.toString() == getString(R.string.contractweituo_type_market)){
                     edtBuyPrice.setText("")
-                    textView4.text = "限价"
+                    textView4.text = getString(R.string.contractweituo_type_limit)
                     edtBuyPrice.isEnabled = true
                 }else{
-                    edtBuyPrice.setText("市场最优价")
-                    textView4.text = "市价"
+                    edtBuyPrice.setText( getString(R.string.exchange_optimal))
+                    textView4.text = getString(R.string.contractweituo_type_market)
                     edtBuyPrice.isEnabled = false
                 }
             }
 
             ivSellChange.setOnClickListener {
-                if (textView9.text.toString() == "市价"){
+                if (textView9.text.toString() == getString(R.string.contractweituo_type_market)){
                     edtSellPrice.setText("")
-                    textView9.text = "限价"
+                    textView9.text =  getString(R.string.contractweituo_type_limit)
                     edtSellPrice.isEnabled = true
                 }else{
-                    edtSellPrice.setText("市场最优价")
-                    textView9.text = "市价"
+                    edtSellPrice.setText(getString(R.string.exchange_optimal))
+                    textView9.text = getString(R.string.contractweituo_type_market)
                     edtSellPrice.isEnabled = false
                 }
             }
@@ -1152,7 +1177,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     }
 
     fun closeOrder(model: FuturesMoneyBean) {
-        MessageDialog(requireContext(), "确定平仓?"){
+        MessageDialog(requireContext(), getString(R.string.sure_close_position)){
 
         }.show()
     }

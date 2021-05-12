@@ -38,6 +38,7 @@ import com.fota.android.databinding.ActivityMain2Binding
 import com.fota.android.http.Http
 import com.fota.android.moudles.exchange.index.ExchangeFragment
 import com.fota.android.moudles.futures.FuturesFragment
+import com.fota.android.moudles.futures.bean.ToTradeEvent
 import com.fota.android.moudles.futures.view.FutureFragment
 import com.fota.android.moudles.home.HomeFragment
 import com.fota.android.moudles.main.viewmodel.MainViewModel
@@ -83,8 +84,8 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
     }
 
     override fun initData() {
-        LiveDataBus.getBus<FutureItemEntity>("trade").observe(this, Observer {
-            if (it.entityType == 3) {
+        LiveDataBus.getBus<ToTradeEvent>("trade").observe(this, Observer {
+            if (it.futureItemEntity.entityType == 3) {
                 dataBinding.vpPage.setCurrentItem(2, false)
             } else {
                 dataBinding.vpPage.setCurrentItem(3, false)

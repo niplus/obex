@@ -654,7 +654,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:padding="5dp"
-                                    android:text="条件委托"
+                                    android:text="@string/planing"
                                     android:textColor="?attr/font_color"
                                     android:textSize="10sp"
                                     android:layout_marginTop="5dp"

@@ -72,7 +72,6 @@ import com.fota.android.core.dialog.DialogUtils;
 import com.fota.android.core.event.Event;
 import com.fota.android.core.event.EventSubscriber;
 import com.fota.android.core.event.EventWrapper;
-import com.fota.android.moudles.main.Main3Activity;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.KeyBoardUtils;
 import com.fota.android.utils.LanguageKt;
@@ -526,11 +525,7 @@ public class BaseActivity extends FragmentActivity
         super.finish();
     }
 
-    //判断当前的主界面是否存在
-    @SuppressWarnings("unused")
-    boolean haveMain() {
-        return isActivityExists(Main3Activity.class);
-    }
+
 
     @SuppressWarnings("deprecation")
     boolean isActivityExists(Class<?> clazz) {

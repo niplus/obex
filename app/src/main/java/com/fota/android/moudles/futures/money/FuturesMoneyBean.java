@@ -35,6 +35,16 @@ public class FuturesMoneyBean implements Serializable {
     private String avaQty;
     private String positionQty;
 
+    private String lastMatchPrice;
+
+    public String getLastMatchPrice() {
+        return lastMatchPrice;
+    }
+
+    public void setLastMatchPrice(String lastMatchPrice) {
+        this.lastMatchPrice = lastMatchPrice;
+    }
+
     public String getAvaQty() {
         return avaQty;
     }

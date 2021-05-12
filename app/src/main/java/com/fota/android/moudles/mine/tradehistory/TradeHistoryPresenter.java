@@ -22,8 +22,8 @@ public class TradeHistoryPresenter extends BasePresenter {
     public void initList() {
         typeList = new ArrayList<>();
         typeList.add(new KeyValue(getView().getXmlString(R.string.exchange_order), "1"));
-        typeList.add(new KeyValue("条件委托", "3"));
-        typeList.add(new KeyValue("历史条件委托", "4"));
+        typeList.add(new KeyValue(getView().getXmlString(R.string.planing), "3"));
+        typeList.add(new KeyValue(getView().getXmlString(R.string.history_planning), "4"));
         typeList.add(new KeyValue(getView().getXmlString(R.string.exchange_complete), "2"));
 
         typeList1 = new ArrayList<>();

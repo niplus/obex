@@ -9,7 +9,9 @@ import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.fota.android.R
+import com.ndl.lib_common.utils.showSnackMsg
 import me.jessyan.autosize.internal.CustomAdapt
 
 abstract class BaseFragment<T : ViewDataBinding, H : BaseViewModel> : Fragment(), CustomAdapt {
@@ -41,6 +43,19 @@ abstract class BaseFragment<T : ViewDataBinding, H : BaseViewModel> : Fragment()
             )
         )
         viewModel = createViewModel()
+        viewModel.error.observe(this, Observer {
+            hideLoadDialog()
+            if (it != null) {
+                if (it.isString){
+                    showSnackMsg(it.msg!!)
+                }else{
+                    showSnackMsg(getString(it.resId!!))
+                }
+            }
+        })
+//        viewModel.error.observe(this, Observer {
+//
+//        })
         initComp()
         initData()
         return dataBinding.root

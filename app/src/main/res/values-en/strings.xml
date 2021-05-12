@@ -554,4 +554,26 @@
     <string name="quick_buy">quick trading of digital currency </string>
     <string name="contrace_list">Contract</string>
     <string name="spot_list">Spot</string>
+
+    <string name="planing"> Planning </string>
+    <string name="history_planning"> Historical planing </string>
+    <string name="stop_order_hint1"> Please enter the take profit trigger price</string>
+    <string name="stop_order_hint2"> Please enter the profit price </string>
+    <string name="stop_order_hint3"> Please enter the amount of take profit</string>
+    <string name="stop_order_hint4"> Please enter the stop loss trigger price </string>
+    <string name="stop_order_hint5"> Please enter the stop loss price </string>
+    <string name="stop_order_hint6"> Please enter the number of stop loss </string>
+    <string name="take_profit_stop_loss"> Take profit stop loss </string>
+    <string name="take_profit"> Take profit</string>
+    <string name="stop_loss"> Stop loss</string>
+    <string name="enable_take_profit"> Open take profit </string>
+    <string name="disable_take_profit"> Close take profit </string>
+    <string name="enable_stop_loss"> Open stop loss</string>
+    <string name="disable_stop_loss"> Close stop loss</string>
+    <string name="enter_trigger_price"> Please enter the trigger price</string>
+    <string name="enter_limit_price"> Please enter the limit price</string>
+    <string name="current"> Current commission</string>
+    <string name="sure_close_position"> Are you sure to close the position? </string>
+    <string name="trigger_price"> Trigger price</string>
+    <string name="sure_cancel_order"> Are you sure to cancel the order? </string>
 </resources>
