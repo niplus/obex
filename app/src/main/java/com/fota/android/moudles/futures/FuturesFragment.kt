@@ -119,6 +119,10 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             stopProgressDialog()
             stopDialog?.dismiss()
         })
+        viewModel.conditionOrderLiveData.observe(this, Observer {
+            if (it.code == 0) showSnackMsg("下单成功")
+            stopProgressDialog()
+        })
         mHeadBinding.kline.setChartType(FotaBigKLineBarChartView.ChartType.FUTURE)
         mHeadBinding.tline.setChartType(ImBeddedTimeLineBarChartView.ChartType.FUTURE)
         //        mHeadBinding.tline.setChartType(ImBeddedTimeLineBarChartView.ChartType.USDT);
@@ -689,6 +693,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                         return
                     }
 
+                    startProgressDialog()
                     viewModel.conditionOrder(
                         presenter.selectContact!!.contractId.toInt(),
                         if (isLimit) 1 else 2,
@@ -1107,11 +1112,41 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                 stopDialog!!.dismiss()
             }
 
-//            edtBuyTriggerPrice.filters = arrayOf<InputFilter>(
-//                DecimalDigitsInputFilter(
-//                    amountPrecision
-//                )
-//            )
+            tvShowNum.text = "${model.avaQty} / ${model.positionQty}"
+
+            edtBuyTriggerPrice.filters = arrayOf<InputFilter>(
+                DecimalDigitsInputFilter(
+                    model.closePricePrecision
+                )
+            )
+            edtBuyPrice.filters = arrayOf<InputFilter>(
+                DecimalDigitsInputFilter(
+                    model.closePricePrecision
+                )
+            )
+            edtBuyQuantity.filters = arrayOf<InputFilter>(
+                DecimalDigitsInputFilter(
+                    model.closePrecision
+                ),
+                DecimalInputFilter(model.avaQty.toDouble())
+            )
+
+            edtSellTriggerPrice.filters = arrayOf<InputFilter>(
+                DecimalDigitsInputFilter(
+                    model.closePricePrecision
+                )
+            )
+            edtSellPrice.filters = arrayOf<InputFilter>(
+                DecimalDigitsInputFilter(
+                    model.closePricePrecision
+                )
+            )
+            edtSellQuantity.filters = arrayOf<InputFilter>(
+                DecimalDigitsInputFilter(
+                    model.closePrecision
+                ),
+                DecimalInputFilter(model.avaQty.toDouble())
+            )
         }
         stopDialog!!.show()
     }

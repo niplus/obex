@@ -21,13 +21,14 @@ class FuturesViewModel: BaseViewModel() {
 
     private val respository = FuturesRepository()
      val stopOrderLiveData = MutableLiveData<Response<String>>()
+    val conditionOrderLiveData = MutableLiveData<Response<String>>()
 
     /**
      * 条件单下单
      */
     fun conditionOrder(contractId: Int, orderType: Int, triggerPrice: String, algoPrice: String?, quantity: String, orderDirection: Int){
         launchUI {
-            respository.conditionOrder(contractId, orderType, triggerPrice, algoPrice, quantity, orderDirection)
+            conditionOrderLiveData.value = respository.conditionOrder(contractId, orderType, triggerPrice, algoPrice, quantity, orderDirection)
         }
     }
 

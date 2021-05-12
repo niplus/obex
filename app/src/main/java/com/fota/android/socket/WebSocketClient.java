@@ -137,14 +137,16 @@ public class WebSocketClient implements IWebSocketSubject {
         try {
             Gson gson = GsonSinglon.getInstance();
             final JSONObject resultJsonObj = new JSONObject(message);
-            if (resultJsonObj.getInt("code") == 0 && resultJsonObj.get("reqType") != null && resultJsonObj.get("handleType") != null) {
+            if (resultJsonObj.getInt("code") == 0) {
+                resultJsonObj.get("reqType");
+                resultJsonObj.get("handleType");
                 final BaseHttpResult result = gson.fromJson(message, BaseHttpResult.class);
                 String jsonString = gson.toJson(result.getData());
                 int handleType = resultJsonObj.getInt("handleType");
                 int reqType = resultJsonObj.getInt("reqType");
-//                String messageInJson = resultJsonObj.getString("message");
+                //                String messageInJson = resultJsonObj.getString("message");
                 int code = resultJsonObj.getInt("code");
-//                L.e("ws notify", reqType + "");
+                //                L.e("ws notify", reqType + "");
 
                 Object dataJson = new JSONTokener(jsonString).nextValue();
                 SocketAdditionEntity entity;
@@ -169,7 +171,7 @@ public class WebSocketClient implements IWebSocketSubject {
                     final JSONArray dataJsonArr = (JSONArray) dataJson;
                     if (dataJsonArr.length() > 0) {
                         entity = new SocketAdditionEntity(handleType, code, "");
-                        if(reqType == SocketKey.HangQingTradeDetailReqType) {
+                        if (reqType == SocketKey.HangQingTradeDetailReqType) {
                             String paramString = resultJsonObj.getString("param");
                             SocketBaseParam param = (SocketBaseParam) gson.fromJson(paramString, SocketBaseParam.class);
                             entity = new SocketAdditionEntity<SocketBaseParam>(handleType, code, "");

@@ -64,10 +64,10 @@ android {
             minifyEnabled false
             shrinkResources false
             multiDexEnabled true
-            buildConfigField "String", "BASE_URL", '"http://exbgdev.yuchains.com/mapi/"'
-            buildConfigField "String", "WEBSOCKET_BASE_URL", '"ws://exbgdev.yuchains.com/mapi/websocket"'
-//            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
-//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
+//            buildConfigField "String", "BASE_URL", '"http://exbgdev.yuchains.com/mapi/"'
+//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"ws://exbgdev.yuchains.com/mapi/websocket"'
+            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [

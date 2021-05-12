@@ -38,7 +38,7 @@
                     android:drawableRight="@mipmap/icon_down"
                     android:drawablePadding="3dp"
                     android:gravity="center"
-                    android:text="@string/tradehis_spot"
+                    android:text="@string/tradehis_contract"
                     android:textColor="?attr/font_color2"
                     android:textSize="16sp" />
 

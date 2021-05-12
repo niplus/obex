@@ -22,11 +22,6 @@ import com.ndl.lib_common.base.BaseAdapter
 import com.ndl.lib_common.base.MyViewHolder
 import com.ndl.lib_common.utils.LiveDataBus
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ConditionOrderFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, ConditionOrderViewModel>() {
 
 
@@ -51,9 +46,8 @@ class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, Condi
 
         viewModel.cancelOrderLiveData.observe(this, Observer {
             if (it.code == 0) messageDialog?.dismiss()
+            hideLoadDialog()
         })
-
-//        viewModel.getConditionOrder()
     }
 
 
@@ -97,6 +91,7 @@ class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, Condi
 
                         root.setOnLongClickListener {
                             messageDialog = MessageDialog(requireContext(), "确定撤销？"){
+                                showLoadDialog()
                                 viewModel.cancelConditionOrder(data[position].id)
                             }
                             messageDialog!!.show()

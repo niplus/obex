@@ -1,5 +1,14 @@
 package com.fota.android.moudles.futures.bean
 
+/**
+ * 条件单
+ * @property items List<Order>
+ * @property item List<Order>  用于存放socket推送的数据
+ * @property pageNo Int
+ * @property pageSize Int
+ * @property total Int
+ * @constructor
+ */
 data class ConditionOrdersBean(
     val items: List<Order>,
     val item: List<Order>,

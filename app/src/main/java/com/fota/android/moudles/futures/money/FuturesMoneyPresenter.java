@@ -1,5 +1,7 @@
 package com.fota.android.moudles.futures.money;
 
+import android.util.Log;
+
 import com.fota.android.app.GsonSinglon;
 import com.fota.android.app.SocketKey;
 import com.fota.android.commonlib.http.BaseHttpPage;
@@ -77,6 +79,7 @@ public class FuturesMoneyPresenter extends BaseListPresenter<FuturesMoneyView> {
 
     @Override
     public void onUpdateImplSocket(int reqType, String jsonString, SocketAdditionEntity additionEntity) {
+        Log.i("niddongliang", "socket: " + jsonString);
         super.onUpdateImplSocket(reqType, jsonString, additionEntity);
         if (getView() == null) {
             return;

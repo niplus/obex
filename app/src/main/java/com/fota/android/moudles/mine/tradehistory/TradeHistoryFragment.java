@@ -47,7 +47,7 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
     public static int TYPE_CHENGJIAO = 2;
     public static int TYPE_CONDITION = 3;
     int TYPE = TYPE_CHENGJIAO;
-    int TYPE_NAME = TYPE_USDT;
+    int TYPE_NAME = TYPE_HEYUE;
 
     @Override
     protected void setTitle(String title) {
@@ -190,10 +190,8 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
                 }
             });
 
-
-
 //            popupTypeWindow.getAdapter().putList(getPresenter().gettypeList());
-            popupTypeWindow.setValue(getPresenter().gettypeList().get(1).getValue());
+            popupTypeWindow.setValue(getPresenter().gettypeList().get(3).getValue());
         }
 
         if (TYPE_NAME == TYPE_HEYUE){

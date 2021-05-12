@@ -79,6 +79,7 @@
                     android:id="@+id/tv_tradelever"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:visibility="gone"
                     android:clickable="true"
                     android:drawableRight="?attr/icon_right"
                     android:gravity="center_vertical"

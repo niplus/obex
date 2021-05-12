@@ -655,7 +655,7 @@
                                     android:layout_height="wrap_content"
                                     android:padding="5dp"
                                     android:text="条件委托"
-                                    android:textColor="#ff333333"
+                                    android:textColor="?attr/font_color"
                                     android:textSize="10sp"
                                     android:layout_marginTop="5dp"
                                     android:id="@+id/tv_type"
@@ -671,6 +671,8 @@
                                     android:id="@+id/edt_trigger_price"
                                     android:paddingStart="5dp"
                                     android:paddingEnd="5dp"
+                                    android:textColorHint="?attr/font_color4"
+                                    android:textColor="?attr/font_color"
                                     android:gravity="center_vertical"
                                     android:layout_marginTop="10dp"/>
 
@@ -697,7 +699,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="20dp"
                                             android:text="@string/exchange_limit_price"
-                                            android:textColor="#333333"
+                                            android:textColor="?attr/font_color"
                                             android:textSize="14sp" />
 
                                         <com.fota.android.commonlib.view.DownTrigonView
@@ -758,7 +760,7 @@
                                         android:gravity="center_vertical"
                                         android:onClick="@{view.onClick}"
                                         android:text="@string/future_value"
-                                        android:textColor="#333333"
+                                        android:textColor="?attr/font_color"
                                         android:textSize="14sp" />
 
                                     <com.fota.android.widget.btbwidget.ClearEdittext

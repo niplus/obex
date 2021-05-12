@@ -30,6 +30,42 @@ public class FuturesMoneyBean implements Serializable {
 
     private boolean isCanceled;
 
+    private int closePrecision;
+    private int closePricePrecision;
+    private String avaQty;
+    private String positionQty;
+
+    public String getAvaQty() {
+        return avaQty;
+    }
+
+    public void setAvaQty(String avaQty) {
+        this.avaQty = avaQty;
+    }
+
+    public String getPositionQty() {
+        return positionQty;
+    }
+
+    public void setPositionQty(String positionQty) {
+        this.positionQty = positionQty;
+    }
+
+    public int getClosePrecision() {
+        return closePrecision;
+    }
+
+    public void setClosePrecision(int closePrecision) {
+        this.closePrecision = closePrecision;
+    }
+
+    public int getClosePricePrecision() {
+        return closePricePrecision;
+    }
+
+    public void setClosePricePrecision(int closePricePrecision) {
+        this.closePricePrecision = closePricePrecision;
+    }
 
     public void setId(String id) {
         this.id = id;
