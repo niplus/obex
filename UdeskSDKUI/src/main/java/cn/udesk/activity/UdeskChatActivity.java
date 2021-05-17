@@ -55,10 +55,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import cn.udesk.model.UdeskQueueItem;
-import cn.udesk.presenter.MessageCache;
-import udesk.core.JsonObjectUtils;
-import udesk.core.LocalManageUtil;
 import cn.udesk.PreferenceHelper;
 import cn.udesk.R;
 import cn.udesk.UdeskSDKManager;
@@ -79,12 +75,14 @@ import cn.udesk.model.FunctionMode;
 import cn.udesk.model.SDKIMSetting;
 import cn.udesk.model.SurveyOptionsModel;
 import cn.udesk.model.UdeskCommodityItem;
+import cn.udesk.model.UdeskQueueItem;
 import cn.udesk.permission.RequestCode;
 import cn.udesk.permission.XPermissionUtils;
 import cn.udesk.photoselect.PhotoSelectorActivity;
 import cn.udesk.photoselect.entity.LocalMedia;
 import cn.udesk.presenter.ChatActivityPresenter;
 import cn.udesk.presenter.IChatActivityView;
+import cn.udesk.presenter.MessageCache;
 import cn.udesk.voice.AudioRecordButton;
 import cn.udesk.voice.RecordFilePlay;
 import cn.udesk.voice.RecordPlay;
@@ -97,6 +95,7 @@ import cn.udesk.widget.UdeskMultiMenuHorizontalWindow;
 import cn.udesk.widget.UdeskMultiMenuHorizontalWindow.OnPopMultiMenuClick;
 import cn.udesk.widget.UdeskSurvyPopwindow;
 import cn.udesk.widget.UdeskTitleBar;
+import udesk.core.JsonObjectUtils;
 import udesk.core.UdeskConst;
 import udesk.core.UdeskHttpFacade;
 import udesk.core.event.InvokeEventContainer;
@@ -570,7 +569,7 @@ public class UdeskChatActivity extends UdeskBaseActivity implements IChatActivit
         super.onCreate(savedInstanceState);
         try {
             UdeskUtils.resetTime();
-            LocalManageUtil.getSetLanguageLocale();
+//            LocalManageUtil.getSetLanguageLocale();
             UdeskUtil.setOrientation(this);
             if (!Fresco.hasBeenInitialized()) {
                 UdeskUtil.frescoInit(this);

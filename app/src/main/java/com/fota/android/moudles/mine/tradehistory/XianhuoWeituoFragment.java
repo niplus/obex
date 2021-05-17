@@ -70,7 +70,7 @@ public class XianhuoWeituoFragment extends MvpListFragment<XianhuoWeituoPresente
 
                 holder.setText(R.id.buy_or_sell, model.getFormatBuyOrSell(getContext()));
 
-                holder.setText(R.id.asset_name, model.getFormatAssetName());
+                holder.setText(R.id.asset_name, model.getFormatAssetName().replace("永续", " " + getString(R.string.perp)));
 
                 holder.setText(R.id.type, model.getFormatType(getContext()));
 

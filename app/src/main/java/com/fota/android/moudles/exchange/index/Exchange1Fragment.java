@@ -1062,6 +1062,11 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         mHeadBinding.refreshLayout.finishRefresh();
     }
 
+    @Override
+    public void cancelSuccess() {
+
+    }
+
     private Runnable closeInfo = new Runnable() {
 
         @Override

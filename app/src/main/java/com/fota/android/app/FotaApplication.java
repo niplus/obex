@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.LocaleList;
 import android.os.StrictMode;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -20,10 +23,8 @@ import com.blankj.utilcode.util.Utils;
 import com.fota.android.R;
 import com.fota.android.common.bean.home.DepthBean;
 import com.fota.android.commonlib.app.AppVariables;
-import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.base.BaseApplication;
 import com.fota.android.commonlib.utils.ErrorCodeUtil;
-import com.fota.android.commonlib.utils.L;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.commonlib.utils.SharedPreferencesUtil;
 import com.fota.android.core.base.SimpleFragmentActivity;
@@ -40,6 +41,7 @@ import com.fota.android.socket.IWebSocketSubject;
 import com.fota.android.socket.WebSocketClient;
 import com.fota.android.socket.WebSocketEntity;
 import com.fota.android.utils.FtRounts;
+import com.fota.android.utils.LanguageKt;
 import com.fota.android.utils.StringFormatUtils;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.utils.apputils.DiffTimeUtils;
@@ -244,6 +246,11 @@ public class FotaApplication extends BaseApplication {
     }
 
     public static boolean getLoginSrtatus() {
+        MMKV.initialize(FotaApplication.getContext());
+        if (MMKV.defaultMMKV().decodeBool("isLogin")) {
+            islogin = true;
+            MMKV.defaultMMKV().encode("isLogin", false);
+        }
         return islogin;
     }
 
@@ -465,31 +472,31 @@ public class FotaApplication extends BaseApplication {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-//        switchLanguage();//
+        switchLanguage();//
     }
 
-//    public void switchLanguage() {
+    public void switchLanguage() {
 //        if (AppConfigs.getLanguegeInt() == -1) {
 //            setLanguage();
 //        }
-//
-//        Locale lacale = AppConfigs.getLanguege();
-//        Resources resources = getResources();
-//        DisplayMetrics dm = resources.getDisplayMetrics();
-//        Configuration config = resources.getConfiguration();
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//            config.setLocale(lacale);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                LocaleList localeList = new LocaleList(lacale);
-//                LocaleList.setDefault(localeList);
-//                config.setLocales(localeList);
-//                getApplicationContext().createConfigurationContext(config);
-//            }
-//        } else {
-//            config.locale = lacale;
-//        }
-//        resources.updateConfiguration(config, dm);
-//    }
+        Locale lacale = LanguageKt.getLocale();
+        Resources resources = getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        Configuration config = resources.getConfiguration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLocale(lacale);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                LocaleList localeList = new LocaleList(lacale);
+                config.setLocales(localeList);
+                getApplicationContext().createConfigurationContext(config);
+            }
+        } else {
+            config.locale = lacale;
+        }
+        resources.updateConfiguration(config, dm);
+    }
+
+
 
     public static int containerToobar(String className) {
         if (Pub.isListExists(tabbar)) {
@@ -517,26 +524,6 @@ public class FotaApplication extends BaseApplication {
         //PlatformConfig.setTwitter("3aIN7fuF685MuZ7jtXkQxalyi", "MK6FEYG63eWcpDFgRYw4w9puJhzDl0tyuqWjZ3M7XJuuG7mMbO");
         PlatformConfig.setTwitter("zCVjLl5rrTG3kldP2ZHVLOJGk", "jh3OfXdMujBdncQa6CCMEqVUEuC1LRybssGatd9kJCIB76prll");
 
-    }
-
-    /**
-     * 设置默认语言
-     */
-    private void setLanguage() {
-        Locale locale;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            locale = getResources().getConfiguration().getLocales().get(0);
-        } else {
-            locale = getResources().getConfiguration().locale;
-        }
-        //获取语言的正确姿势:
-        String lang = locale.getLanguage();// + "-" + locale.getCountry();
-        L.a("language = " + lang);
-        if ("zh".equals(lang)) {
-            AppConfigs.setLanguege(AppConfigs.LANGAUGE_SIMPLE_CHINESE);
-        } else {
-            AppConfigs.setLanguege(AppConfigs.LANGAUGE_ENGLISH);
-        }
     }
 
     @NonNull

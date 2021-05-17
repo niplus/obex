@@ -447,7 +447,7 @@
     <string name="future_complete_decrease_leverage">Deleverage</string>
     <string name="common_type">Type</string>
     <string name="future_empty_value">Please enter order value.</string>
-    <string name="future_value">Amount</string>
+    <string name="future_value">Amt</string>
 
     <string name="tradelever_title">Leverage</string>
     <string name="setting_language">Language</string>
@@ -479,7 +479,8 @@
     <string name="no_more_data">—— Already shown all contents ——</string>
     <string name="money_buy_market">By Market</string>
     <string name="common_full_point">.</string>
-    <string name="login_suc">Login Successfully</string>
+    <string name="login_success">Login Successfully</string>
+    <string name="login_success1">Login Successfully</string>
 
     <string name="commission_page_title">Referral</string>
     <string name="commission_save_suc">Saved</string>
@@ -538,9 +539,9 @@
     <string name="lever_warning">The current leverage is high, please pay attention to the risks.</string>
 
     <string name="main_tab5">Home</string>
-    <string name="main_tab1">Market Info</string>
-    <string name="main_tab2">Exchange</string>
-    <string name="main_tab3">Trade</string>
+    <string name="main_tab1">Market</string>
+    <string name="main_tab2">Spot</string>
+    <string name="main_tab3">Futures</string>
     <string name="main_tab4">Me</string>
     <string name="insufficient_margin">Insufficient margin</string>
 
@@ -555,7 +556,8 @@
     <string name="contrace_list">Contract</string>
     <string name="spot_list">Spot</string>
 
-    <string name="planing"> Planning </string>
+    <string name="planing">Planning</string>
+    <string name="limit">Limiting</string>
     <string name="history_planning"> Historical planing </string>
     <string name="stop_order_hint1"> Please enter the take profit trigger price</string>
     <string name="stop_order_hint2"> Please enter the profit price </string>
@@ -576,4 +578,5 @@
     <string name="sure_close_position"> Are you sure to close the position? </string>
     <string name="trigger_price"> Trigger price</string>
     <string name="sure_cancel_order"> Are you sure to cancel the order? </string>
+    <string name="close_position">Close Position</string>
 </resources>

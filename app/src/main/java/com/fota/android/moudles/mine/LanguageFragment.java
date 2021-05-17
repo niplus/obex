@@ -2,6 +2,7 @@ package com.fota.android.moudles.mine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,16 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 
 import com.fota.android.R;
+import com.fota.android.app.FotaApplication;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.utils.SharedPreferencesUtil;
 import com.fota.android.core.base.BaseFragment;
 import com.fota.android.core.event.Event;
 import com.fota.android.core.event.EventWrapper;
 import com.fota.android.databinding.FragmentSettingLanguageBinding;
-import com.fota.android.moudles.main.MainActivity;
+import com.fota.android.moudles.welcome.SplashActivity;
 import com.fota.android.utils.UserLoginUtil;
+import com.ndl.lib_common.utils.LiveDataBus;
 import com.tencent.mmkv.MMKV;
 
 import java.util.Locale;
@@ -42,6 +45,8 @@ public class LanguageFragment extends BaseFragment implements View.OnClickListen
         mBinding.setView(this);
 
         String language = MMKV.defaultMMKV().decodeString("language", "");
+
+        Log.i("+++++++++++++++++", "laguage: " + language);
         if (language.equals("")) {
             //第一次安装
             if ((Integer)SharedPreferencesUtil.getInstance().get("Languege", -1) == -1){
@@ -114,7 +119,6 @@ public class LanguageFragment extends BaseFragment implements View.OnClickListen
                 UserLoginUtil.setJpushTag();
                 break;
             case R.id.rl_english:
-//                switchLanguage(1);
                 mBinding.imgChinese.setVisibility(View.GONE);
                 mBinding.imgEnglish.setVisibility(View.VISIBLE);
                 mBinding.imgTraditionalChinese.setVisibility(View.GONE);
@@ -151,8 +155,25 @@ public class LanguageFragment extends BaseFragment implements View.OnClickListen
 //        notify(R.id.event_language_changed);
 //        getHoldingActivity().recreate();
 //        EventWrapper.post(Event.create(R.id.event_main_changelanguage));
-        Intent intent = new Intent(requireContext(), MainActivity.class);
+//
+//        MMKV.defaultMMKV().encode("login", true);
+//        finish();
+//        System.exit(0);
+//        android.os.Process.killProcess(android.os.Process.myPid());
+        if (FotaApplication.getLoginSrtatus())
+            MMKV.defaultMMKV().encode("isLogin", true);
+        Intent intent = new Intent(requireContext(), SplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        LiveDataBus.INSTANCE.getBus("recreate").setValue("true");
+        finish();
+
+//        ActivityManager am = (ActivityManager)getActivity().getSystemService(ACTIVITY_SERVICE);
+//        am.restartPackage("com.android.nfc");
+
+//
+//
+//        ActivityManager  manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+//        manager.restartPackage("com.fota.android");
     }
 }

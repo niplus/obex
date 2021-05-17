@@ -1,26 +1,23 @@
 package com.fota.android.utils
 
+import android.util.Log
 import com.tencent.mmkv.MMKV
 import java.util.*
 
 fun getLocale(): Locale {
+    Log.i("================", "language: " + MMKV.defaultMMKV()?.getString("language", ""))
     return when(MMKV.defaultMMKV()?.getString("language", "")){
         "zh" -> Locale.CHINA
-        "tw" -> Locale.TAIWAN
-        "en" -> Locale.ENGLISH
+        "tw" -> Locale.TRADITIONAL_CHINESE
+        "en" -> Locale.US
         else -> Locale.getDefault()
     }
 }
 
 fun getLanguageString(): String{
-    return if (Locale.getDefault().language.equals("en")){
-        "English"
-    }else{
-        val s = if (Locale.getDefault().country.equals("CN")) {
-            "简体中文"
-        } else {
-            "繁體中文"
-        }
-        s
+    return when(MMKV.defaultMMKV()?.getString("language", "")){
+        "en" ->  "English"
+        "tw" ->  "繁體中文"
+        else -> "简体中文"
     }
 }

@@ -52,6 +52,7 @@ public abstract class BaseExchageChlidFragment<P extends BasePresenter> extends 
 
     @Override
     public void onRefresh() {
+        if (getActivity() == null) return;
         if (UserLoginUtil.havaUser()) {
             super.onRefresh();
         } else {

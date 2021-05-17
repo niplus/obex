@@ -8,7 +8,6 @@ import com.fota.android.commonlib.utils.GradientDrawableUtils;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.moudles.exchange.BaseExchageChlidFragment;
 import com.fota.android.moudles.futures.FuturesFragment;
-import com.fota.android.widget.dialog.MessageDialog;
 import com.fota.android.widget.dialog.ShareDialog;
 import com.fota.android.widget.myview.LevelView;
 import com.fota.android.widget.recyclerview.EasyAdapter;
@@ -16,9 +15,6 @@ import com.fota.android.widget.recyclerview.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 /**
  * 合约资产
@@ -116,16 +112,7 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
                 holder.getView(R.id.tv_close_order).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        new MessageDialog(getContext(), "确定平仓？", new Function0<Unit>() {
-                            @Override
-                            public Unit invoke() {
-                                deleteOrder(model);
-                                return null;
-                            }
-                        }).show();
-
-//                        closeOrder(model);
+                        deleteOrder(model);
                     }
                 });
 

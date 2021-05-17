@@ -6,6 +6,8 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import android.os.LocaleList
+import android.util.Log
+import com.fota.android.utils.getLocale
 import com.umeng.socialize.utils.DeviceConfig
 import java.util.*
 

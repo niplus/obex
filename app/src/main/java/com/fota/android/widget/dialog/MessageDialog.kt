@@ -21,6 +21,9 @@ class MessageDialog(context: Context, content: String, confirm: ()->Unit): Dialo
         val tvContent = findViewById<TextView>(R.id.tv_content)
         val tvConfirm = findViewById<TextView>(R.id.tv_confirm)
 
+        tvCancel.text = context.getString(R.string.cancel)
+        tvConfirm.text = context.getString(R.string.sure)
+
         tvContent.text = content
         tvCancel.setOnClickListener {
             dismiss()

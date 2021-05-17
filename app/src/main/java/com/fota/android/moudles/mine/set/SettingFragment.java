@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 
 import com.fota.android.R;
 import com.fota.android.app.ConstantsPage;
@@ -43,6 +44,7 @@ import com.fota.android.utils.LanguageKt;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.dialog.ShareDialog;
 import com.fota.android.widget.popwin.CommomDialog;
+import com.ndl.lib_common.utils.LiveDataBus;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -132,6 +134,14 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     protected void onInitData(Bundle bundle) {
         super.onInitData(bundle);
         userSecurity = (MineBean.UserSecurity) bundle.getSerializable("security");
+
+        LiveDataBus.INSTANCE.getBus("recreate").observe(this, new Observer<Object>() {
+            @Override
+            public void onChanged(Object o) {
+                if (o.equals("true"))
+                    finish();
+            }
+        });
     }
 
     @Override
@@ -484,4 +494,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
                 });
     }
+
+
 }

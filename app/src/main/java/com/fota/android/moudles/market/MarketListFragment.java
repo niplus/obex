@@ -3,6 +3,7 @@ package com.fota.android.moudles.market;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -85,6 +86,7 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
     protected boolean noDataError = false;
 
     public void setCard(boolean card) {
+        if (getView() == null) return;
         isCard = card;
 
         if (!isCard) {
@@ -98,7 +100,7 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
                         add = mContext.getResources().getString(R.string.market_index);
                     }
                     holder.setBackgroundColor(R.id.item_future, Pub.getColor(getContext(), R.attr.reverse_bg));
-                    holder.setText(R.id.txt_future_name, model.getFutureName() + add);
+                    holder.setText(R.id.txt_future_name, model.getFutureName().replace("永续", " " + getString(R.string.perp)) + add);
                     holder.setVisible(R.id.market_list_divide_line, !model.isShowTopMargin());
                     if (model.isShowTopMargin()) {
 //                        holder.setBackgroundRes(R.id.future_corner, R.drawable.ft_corner_bg_top);
@@ -209,6 +211,8 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
         notCardGroup.add("BTC");
         notCardGroup.add("ETH");
         notCardGroup.add("SPOT");
+
+        Log.i("nidongliang", "onInitData");
     }
 
     @Override
@@ -257,7 +261,7 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
                 }
                 View root = holder.getConvertView();
                 holder.setBackgroundColor(R.id.item_future_chart, Pub.getColor(getContext(), R.attr.reverse_bg));
-                holder.setText(R.id.txt_future_name, model.getFutureName() + add);
+                holder.setText(R.id.txt_future_name, model.getFutureName().replace("永续", " " + getString(R.string.perp)) + add);
                 holder.setText(R.id.txt_last_price, model.getLastPrice());
                 holder.setText(R.id.txt_up_down, model.getTrend());
                 holder.setTextColor(R.id.txt_last_price, AppConfigs.getColor(!model.getTrend().contains("-")));

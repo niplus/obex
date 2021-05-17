@@ -40,9 +40,10 @@ class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, Condi
         })
 
         LiveDataBus.getBus<ConditionOrdersBean>("conditionOrder").observe(this, Observer {
-            if (it.items.isNullOrEmpty()) return@Observer
             orders.clear()
-            orders.addAll(it.items)
+            if (!it.item.isNullOrEmpty()) {
+                orders.addAll(it.item)
+            }
             dataBinding.rvConditionOrder.adapter?.notifyDataSetChanged()
         })
 

@@ -448,7 +448,8 @@
     <string name="no_more_data">—— 已顯示全部內容 ——</string>
     <string name="money_buy_market">由市場價決定</string>
     <string name="common_full_point">。</string>
-    <string name="login_suc">登入成功</string>
+    <string name="login_success">登入成功</string>
+    <string name="login_success1">登入成功</string>
     <!--返佣-->
     <string name="commission_page_title">邀請返佣</string>
     <string name="commission_save_suc">圖片已保存</string>
@@ -524,6 +525,7 @@
     <string name="spot_list">現貨列表</string>
 
     <string name="planing">計劃委託</string>
+    <string name="limit">限價委託</string>
     <string name="history_planning">歷史計劃委託</string>
     <string name="stop_order_hint1">請輸入止盈觸發價格</string>
     <string name="stop_order_hint2">請輸入止盈價格</string>
@@ -544,4 +546,5 @@
     <string name="sure_close_position">確定平倉？ </string>
     <string name="trigger_price">觸發價格</string>
     <string name="sure_cancel_order">確定撤單？ </string>
+    <string name="close_position">平倉</string>
 </resources>

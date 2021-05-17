@@ -111,7 +111,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun initData() {
-        viewModel!!.apply {
+        viewModel.apply {
             bannerLiveData.observe(this@HomeFragment, Observer { bannerList ->
                 if (bannerList.isNotEmpty()) {
                     dataBinding.banner.paths = bannerList.map {
@@ -198,15 +198,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     super.onBindViewHolder(holder, position)
                     holder.dataBinding.root.setOnClickListener {
                         when(menuList[position].name){
-
-//                            MenuBean(R.mipmap.icon_home_recharge, getString(R.string.recharge_coin)),
-//                            MenuBean(R.mipmap.icon_home_community, getString(R.string.join_community)),
-//                            MenuBean(R.mipmap.icon_home_invite, getString(R.string.commission_page_title)),
-//                            MenuBean(R.mipmap.icon_home_guide, getString(R.string.new_guide)),
-//                            MenuBean(R.mipmap.icon_home_grid, getString(R.string.grid_strategy)),
-//                            MenuBean(R.mipmap.icon_home_activity, getString(R.string.event_details)),
-//                            MenuBean(R.mipmap.icon_home_helper, getString(R.string.mine_help)),
-//                            MenuBean(R.mipmap.icon_home_more, getString(R.string.more))
                             getString(R.string.recharge_coin) -> {
                                 if (!UserLoginUtil.havaUser()) {
                                     FtRounts.toQuickLogin(requireContext())
@@ -300,6 +291,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     super.onBindViewHolder(holder, position)
                     holder.dataBinding.apply {
                         timeLine.closePriceList = data[position].datas.map { it.close }.toMutableList()
+
+                        tvCoinName.text = data[position].futureName.replace("永续", " ${getString(R.string.perp)}")
 
                         if (data[position].trend.contains("+")){
                             val colorValue = ContextCompat.getColor(

@@ -799,6 +799,13 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
 //            mActivity.startProgressDialog();
 //        }
 
+        if (mLoadingDialog == null){
+            View view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_loading, null);
+            mLoadingDialog = new Dialog(requireContext(), R.style.CustomProgressDialog);
+            mLoadingDialog.setCancelable(true);
+            mLoadingDialog.setCanceledOnTouchOutside(false);
+            mLoadingDialog.setContentView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        }
         mLoadingDialog.show();
     }
 

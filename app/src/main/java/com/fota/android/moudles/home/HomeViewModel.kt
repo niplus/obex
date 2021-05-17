@@ -3,12 +3,15 @@ package com.fota.android.moudles.home
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.StringUtils
+import com.fota.android.app.FotaApplication
 import com.fota.android.app.SocketKey
 import com.fota.android.common.bean.home.BannerBean
 import com.fota.android.core.mvvmbase.BaseViewModel
 import com.fota.android.moudles.market.bean.ChartLineEntity
 import com.fota.android.moudles.market.bean.FutureItemEntity
 import com.fota.android.moudles.market.bean.MarketCardItemBean
+import com.fota.android.socket.IWebSocketObserver
+import com.fota.android.socket.WebSocketClient
 import com.fota.android.socket.WebSocketEntity
 import com.fota.android.socket.params.SocketCardParam
 import java.util.*
@@ -18,6 +21,9 @@ class HomeViewModel: BaseViewModel() {
     val bannerLiveData = MutableLiveData<List<BannerBean>>()
 
     val futureListLiveData = MutableLiveData<List<FutureItemEntity>>()
+
+    private val client =
+        FotaApplication.getInstance().client
 
     private val repository = HomeRepository()
     fun getBanner(){
@@ -53,7 +59,7 @@ class HomeViewModel: BaseViewModel() {
         socketEntity.setParam(SocketCardParam(1, "2"))
         socketEntity.reqType = SocketKey.HangQingKaPianReqType
         //订阅socket
-//        client.addChannel(socketEntity, this@MarketPresenter)
+        client.addChannel(socketEntity, IWebSocketObserver { reqType, jsonString, additionEntity ->  })
         val result: MutableList<FutureItemEntity> = ArrayList()
         for (each in list) {
             val future = FutureItemEntity(each.name)

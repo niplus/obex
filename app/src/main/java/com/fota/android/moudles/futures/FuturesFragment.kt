@@ -26,7 +26,6 @@ import com.fota.android.commonlib.base.AppConfigs
 import com.fota.android.commonlib.utils.*
 import com.fota.android.core.base.BaseFragmentAdapter
 import com.fota.android.core.base.BtbMap
-import com.fota.android.core.mvvmbase.BaseActivity
 import com.fota.android.databinding.DialogSetStopPriceBinding
 import com.fota.android.databinding.ItemOrderTypeBinding
 import com.fota.android.moudles.exchange.index.Exchange1Fragment
@@ -41,7 +40,6 @@ import com.fota.android.moudles.futures.viewmodel.FuturesViewModel
 import com.fota.android.moudles.futures.viewmodel.FuturesViewModel.Companion.CONDITION
 import com.fota.android.moudles.market.FullScreenKlineActivity
 import com.fota.android.moudles.market.bean.ChartLineEntity
-import com.fota.android.moudles.market.bean.FutureItemEntity
 import com.fota.android.utils.*
 import com.fota.android.widget.btbwidget.FotaTextWatch
 import com.fota.android.widget.dialog.LeverDialog
@@ -74,7 +72,9 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     private var onRefreshDepthReqed = false
     //chart relative
 
-    private var orderTypes = mutableListOf("计划委托", "限价委托")
+    private val  orderTypes by lazy {
+        mutableListOf(getString(R.string.planing), getString(R.string.limit))
+    }
 
     /**
      * 现货指数数据
@@ -115,9 +115,9 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         viewModel.error.observe(this, Observer {
             stopProgressDialog()
             if (it != null) {
-                if (it.isString){
+                if (it.isString) {
                     showSnackMsg(it.msg!!)
-                }else{
+                } else {
                     showSnackMsg(getString(it.resId!!))
                 }
             }
@@ -178,9 +178,9 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         getBus<ToTradeEvent>("trade").observe(this, Observer { event ->
 
             isBuy = event.isBuy
-            if (event.isBuy){
+            if (event.isBuy) {
                 mHeadBinding.selectBuy2.isChecked = true
-            }else{
+            } else {
                 mHeadBinding.selectSell2.isChecked = true
             }
 
@@ -204,7 +204,10 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     }
 
     private fun showOrderTypeWindow(){
-        val popView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_futures_order_type, null)
+        val popView = LayoutInflater.from(requireContext()).inflate(
+            R.layout.dialog_futures_order_type,
+            null
+        )
 
         val popWindow = PopupWindow(popView)
         popWindow.setOnDismissListener {
@@ -220,7 +223,11 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         requireActivity().window.attributes = attr
         val recyclerView = popView.findViewById<RecyclerView>(R.id.rv_types)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = object : BaseAdapter<ItemOrderTypeBinding, String>(orderTypes, R.layout.item_order_type, BR.name){
+        recyclerView.adapter = object : BaseAdapter<ItemOrderTypeBinding, String>(
+            orderTypes,
+            R.layout.item_order_type,
+            BR.name
+        ){
             override fun onBindViewHolder(
                 holder: MyViewHolder<ItemOrderTypeBinding>,
                 position: Int
@@ -405,10 +412,16 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             .into(mHeadBinding.futureIcon)
         if (Pub.isStringEmpty(mHeadBinding.amount2.text.toString())) {
             mHeadBinding.amount2.setText(
-                BigDecimal(defaultAmount).setScale(amountPrecision).toPlainString()
+//                BigDecimal(defaultAmount).setScale(amountPrecision).toPlainString(
+            //                )
+            ""
             )
         }
         mHeadBinding.fprogress.init(true)
+    }
+
+    override fun cancelSuccess() {
+        messageDialog?.dismiss()
     }
 
     override fun onRefreshTicker(price: CurrentPriceBean) {
@@ -553,9 +566,10 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     override fun notifyFromPresenter(action: Int) {
         when (action) {
             ORDER_SUCCESS -> mHeadBinding.amount2.setText(
-                BigDecimal(defaultAmount).setScale(
-                    amountPrecision
-                ).toPlainString()
+//                BigDecimal(defaultAmount).setScale(
+//                    amountPrecision
+//                ).toPlainString()
+            ""
             )
             else -> super.event(action)
         }
@@ -718,7 +732,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                         mHeadBinding.edtTriggerPrice.text.toString(),
                         if (isLimit) mHeadBinding.price2.text.toString() else null,
                         mHeadBinding.amount2.text.toString(),
-                        2
+                        if (isBuy) 2 else 1
                     )
                     return
                 }
@@ -912,6 +926,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
 
     override fun onRefresh() {
         super.onRefresh()
+        if (view ==null) return;
         onRefreshDepthReqed = false
         if (!UserLoginUtil.havaUser()) {
             topInfo = null
@@ -941,8 +956,12 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         mHeadBinding.futuresFdYk.text = topInfo!!.floatProfit
     }
 
+    private var messageDialog: MessageDialog? = null
     fun removeMoney(model: FuturesMoneyBean?) {
-        presenter.removeMoney(model!!)
+        messageDialog = MessageDialog(requireContext(), getString(R.string.sure_close_position)) {
+            presenter.removeMoney(model!!)
+        }
+        messageDialog!!.show()
     }
 
     override fun setContractDelivery(map: BtbMap) {}
@@ -1013,7 +1032,11 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     private var stopDialog: Dialog? = null
     fun showStopDialog(model: FuturesMoneyBean) {
 
-        val dialogBinding = DataBindingUtil.inflate<DialogSetStopPriceBinding>(LayoutInflater.from(requireContext()), R.layout.dialog_set_stop_price, null, false)
+        val dialogBinding = DataBindingUtil.inflate<DialogSetStopPriceBinding>(
+            LayoutInflater.from(
+                requireContext()
+            ), R.layout.dialog_set_stop_price, null, false
+        )
         stopDialog = Dialog(requireContext())
         stopDialog!!.setContentView(dialogBinding.root)
         stopDialog!!.window!!.setBackgroundDrawable(ColorDrawable(0x00000000))
@@ -1072,7 +1095,8 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                 }
                 startProgressDialog()
                 if (tgSell.isChecked && tgBuy.isChecked){
-                    viewModel.stopOrder(model.contractId.toInt(),
+                    viewModel.stopOrder(
+                        model.contractId.toInt(),
                         if (textView4.text.toString() != getString(R.string.contractweituo_type_market)) edtBuyPrice.text.toString() else null,
                         edtBuyQuantity.text.toString(),
                         if (textView4.text.toString() != getString(R.string.contractweituo_type_market)) 1 else 2,
@@ -1083,10 +1107,11 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                         edtSellTriggerPrice.text.toString()
                     )
                 }else if(!tgBuy.isChecked && tgSell.isChecked){
-                    viewModel.stopOrder(model.contractId.toInt(),
-                      null,
-                      null,
-                      null,
+                    viewModel.stopOrder(
+                        model.contractId.toInt(),
+                        null,
+                        null,
+                        null,
                         null,
                         if (textView9.text.toString() != getString(R.string.contractweituo_type_market)) edtSellPrice.text.toString() else null,
                         edtSellQuantity.text.toString(),
@@ -1094,7 +1119,8 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                         edtSellTriggerPrice.text.toString()
                     )
                 }else if (!tgSell.isChecked && tgBuy.isChecked){
-                    viewModel.stopOrder(model.contractId.toInt(),
+                    viewModel.stopOrder(
+                        model.contractId.toInt(),
                         if (textView4.text.toString() != getString(R.string.contractweituo_type_market)) edtBuyPrice.text.toString() else null,
                         edtBuyQuantity.text.toString(),
                         if (textView4.text.toString() != getString(R.string.contractweituo_type_market)) 1 else 2,
@@ -1115,7 +1141,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                     textView4.text = getString(R.string.contractweituo_type_limit)
                     edtBuyPrice.isEnabled = true
                 }else{
-                    edtBuyPrice.setText( getString(R.string.exchange_optimal))
+                    edtBuyPrice.setText(getString(R.string.exchange_optimal))
                     textView4.text = getString(R.string.contractweituo_type_market)
                     edtBuyPrice.isEnabled = false
                 }

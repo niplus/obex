@@ -3,6 +3,7 @@ package com.fota.android.moudles.main
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
@@ -59,6 +60,8 @@ import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
 
+
+
     private val tabString by lazy {
         mutableListOf(getString(R.string.main_tab5), getString(R.string.main_tab1), getString(R.string.main_tab2), getString(R.string.main_tab3), getString(R.string.main_tab4))
     }
@@ -69,21 +72,61 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
             R.drawable.selector_future_tab,
             R.drawable.selector_mine_tab
     )
-    private val fragments = mutableListOf(
-            HomeFragment(),
-            MarketFragment(),
-            ExchangeFragment(),
-            FuturesFragment(),
-//            FutureFragment(),
-            MineFragment()
-    )
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        fragments.clear()
+//        fragments.add(HomeFragment())
+//        fragments.add(MarketFragment())
+//        fragments.add(ExchangeFragment())
+//        fragments.add(FuturesFragment())
+//        fragments.add(MineFragment())
+
+        Log.i("===============", "oncreate")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("===============", "onResume")
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        Log.i("===============", "onNewIntent")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.i("===============", "onSaveInstanceState")
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main2
     }
 
+
     override fun initData() {
+        LiveDataBus.getBus<String>("recreate").observe(this, Observer {
+            if (it == "true") {
+//                fragments.clear()
+//                dataBinding.vpPage.adapter?.notifyDataSetChanged()
+//                finish()
+//                recreate()
+                LiveDataBus.getBus<String>("recreate").value = "recreate"
+            }else if (it == "recreate"){
+//                clearFragmentsBeforeCreate()
+//                viewModel!!.fragments.clear()
+//                viewModel!!.fragments.add( HomeFragment())
+//                viewModel!!.fragments.add( MarketFragment())
+//                viewModel!!.fragments.add( ExchangeFragment())
+//                viewModel!!.fragments.add( FuturesFragment())
+//                viewModel!!.fragments.add( MineFragment())
+//                dataBinding.vpPage.adapter?.notifyDataSetChanged()
+                LiveDataBus.getBus<String>("recreate").value = "false"
+            }
+        })
         LiveDataBus.getBus<ToTradeEvent>("trade").observe(this, Observer {
             if (it.futureItemEntity.entityType == 3) {
                 dataBinding.vpPage.setCurrentItem(2, false)
@@ -92,27 +135,14 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
             }
         })
 
-        checkUpdate()
-    }
-
-    override fun createViewModel(): MainViewModel {
-        return ViewModelProvider(this).get(MainViewModel::class.java)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
-    override fun initComp() {
-        EventBus.getDefault().register(this)
         dataBinding.apply {
             val adapter = object : FragmentStatePagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
                 override fun getCount(): Int {
-                    return fragments.size
+                    return viewModel!!.fragments.size
                 }
 
                 override fun getItem(position: Int): Fragment {
-                    return fragments[position]
+                    return viewModel!!.fragments[position]
                 }
 
             }
@@ -120,8 +150,8 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
 
             tabString.forEachIndexed { index, s ->
                 val tabView = LayoutInflater.from(this@MainActivity).inflate(
-                        R.layout.item_main_tab,
-                        null
+                    R.layout.item_main_tab,
+                    null
                 )
                 tabView.findViewById<TextView>(R.id.tv_tab).text = s
                 tabView.findViewById<ImageView>(R.id.iv_tab).setImageResource(tabIcon[index])
@@ -132,6 +162,18 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
             bnvNavigation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     vpPage.setCurrentItem(tab.position, false)
+
+                    when (tab.position) {
+                        2 -> {
+                            (viewModel!!.fragments[tab.position] as ExchangeFragment).onRefresh()
+                        }
+                        3 -> {
+                            (viewModel!!.fragments[tab.position] as FuturesFragment).onRefresh()
+                        }
+                        1 -> {
+                            (viewModel!!.fragments[tab.position] as MarketFragment).onRefresh()
+                        }
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -157,6 +199,21 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
         }
 
         showNoticeDialog()
+
+        checkUpdate()
+    }
+
+    override fun createViewModel(): MainViewModel {
+        return ViewModelProvider(this).get(MainViewModel::class.java)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+    override fun initComp() {
+        EventBus.getDefault().register(this)
+
     }
 
     /**

@@ -2,12 +2,8 @@ package com.lzy.imagepicker.ui;
 
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.LocaleList;
-import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -16,12 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.fota.android.commonlib.base.AppConfigs;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.R;
 import com.lzy.imagepicker.view.SystemBarTintManager;
-
-import java.util.Locale;
 
 /**
  * ================================================
@@ -85,21 +78,23 @@ public class ImageBaseActivity extends FragmentActivity {
      * 切换语言
      */
     private void switchLanguage() {
-        Locale lacale = AppConfigs.getLanguege();
-        Resources resources = getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        Configuration config = resources.getConfiguration();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            config.setLocale(lacale);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                LocaleList localeList = new LocaleList(lacale);
-                LocaleList.setDefault(localeList);
-                config.setLocales(localeList);
-                getApplicationContext().createConfigurationContext(config);
-            }
-        } else {
-            config.locale = lacale;
-        }
-        resources.updateConfiguration(config, dm);
+//        Locale lacale = l;
+//        Resources resources = getResources();
+//        DisplayMetrics dm = resources.getDisplayMetrics();
+//        Configuration config = resources.getConfiguration();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//            config.setLocale(lacale);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                LocaleList localeList = new LocaleList(lacale);
+//                LocaleList.setDefault(localeList);
+//                config.setLocales(localeList);
+//                getApplicationContext().createConfigurationContext(config);
+//            }
+//        } else {
+//            config.locale = lacale;
+//        }
+//        resources.updateConfiguration(config, dm);
     }
+
+
 }

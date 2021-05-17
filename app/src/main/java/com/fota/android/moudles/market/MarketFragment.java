@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.fota.android.FragmentViewModel;
 import com.fota.android.R;
 import com.fota.android.app.FotaApplication;
 import com.fota.android.common.bean.home.BannerBean;
@@ -56,7 +58,6 @@ public class MarketFragment extends MvpFragment<
     private int topBlueColor;
 
     //Fragments
-    private List<MarketListFragment> mFragments = new ArrayList<>();
     private MarketFragmentAdapter adapter;
 
     public static MarketFragment newInstance() {
@@ -73,11 +74,13 @@ public class MarketFragment extends MvpFragment<
         return mBinding.getRoot();
     }
 
+    private FragmentViewModel fragmentViewModel;
     @Override
     protected void onInitView(View view) {
         super.onInitView(view);
 //        setBannerHeigh();
 
+        fragmentViewModel= new ViewModelProvider(this).get(FragmentViewModel.class);
         mBinding.llChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +89,7 @@ public class MarketFragment extends MvpFragment<
                     mBinding.imgChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.markets_home_list));
                 else
                     mBinding.imgChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.markets_home_card));
-                for (MarketListFragment each : mFragments) {
+                for (MarketListFragment each : fragmentViewModel.getMFragments()) {
                     each.setCard(isCard);
                 }
 
@@ -114,13 +117,13 @@ public class MarketFragment extends MvpFragment<
             startProgressDialog();
         }
         getPresenter().getMarketCard();
-        getPresenter().getBanner();
-        getPresenter().getNotice();
+//        getPresenter().getBanner();
+//        getPresenter().getNotice();
     }
 
     private void initHeaderViewPager() {
         if (adapter == null) {
-            adapter = new MarketFragmentAdapter(getChildFragmentManager(), mFragments, coinTitles);
+            adapter = new MarketFragmentAdapter(getChildFragmentManager(), fragmentViewModel.getMFragments(), coinTitles);
             mBinding.allViewPager.setAdapter(adapter);
 
             mBinding.tabCoinTitle.setupWithViewPager(mBinding.allViewPager);
@@ -148,7 +151,7 @@ public class MarketFragment extends MvpFragment<
 
             @Override
             public void onPageSelected(int position) {
-                MarketListFragment fragment = mFragments.get(position);
+                MarketListFragment fragment = fragmentViewModel.getMFragments().get(position);
                 if (fragment != null) {
                     adapter.setCurrent(position);
                     String symbol = "";
@@ -182,7 +185,6 @@ public class MarketFragment extends MvpFragment<
 
     private void initTitleAndFragment() {
         coinTitles = new ArrayList<>();
-        mFragments = new ArrayList<>();
 
         coinTitles.add(getString(R.string.market_card_self));
         coinTitles.add(getString(R.string.common_all));
@@ -199,11 +201,11 @@ public class MarketFragment extends MvpFragment<
 //        mFragments.add(MarketListFragment.newInstance("ALL"));
         for (int i = 0; i < coinTitles.size(); i++) {
             if (i == 0) {
-                mFragments.add(MarketFavorListFragment.newInstance());
+                fragmentViewModel.getMFragments().add(MarketFavorListFragment.newInstance());
             } else if (i == 2 || i == 4) {
-                mFragments.add(MarketIndexSpotListFragment.newInstance());
+                fragmentViewModel.getMFragments().add(MarketIndexSpotListFragment.newInstance());
             } else
-                mFragments.add(MarketListFragment.newInstance());
+                fragmentViewModel.getMFragments().add(MarketListFragment.newInstance());
         }
     }
 
@@ -227,15 +229,15 @@ public class MarketFragment extends MvpFragment<
             }
         }
 
-        for (MarketListFragment each : mFragments) {
+        for (MarketListFragment each : fragmentViewModel.getMFragments()) {
             each.setNoDataError(false);
         }
         changeErrorBack(false);
 
         if (haveFavor) {
-            mFragments.get(0).refreshData("FAVOR");
+            fragmentViewModel.getMFragments().get(0).refreshData("FAVOR");
         } else {
-            MarketListFragment fragment = mFragments.get(1);
+            MarketListFragment fragment = fragmentViewModel.getMFragments().get(1);
             fragment.refreshData("ALL");
 
             adapter.setCurrent(1);
@@ -259,7 +261,7 @@ public class MarketFragment extends MvpFragment<
     @Override
     public void marketRefresh(boolean isSocket) {
         if (adapter != null) {
-            for (MarketListFragment each : mFragments) {
+            for (MarketListFragment each : fragmentViewModel.getMFragments()) {
                 each.setNoDataError(false);
             }
             changeErrorBack(false);
@@ -274,7 +276,7 @@ public class MarketFragment extends MvpFragment<
             }
             int index = adapter.getCurrent();
             if (index == 0) {
-                mFragments.get(adapter.getCurrent()).refreshData("FAVOR");
+                fragmentViewModel.getMFragments().get(adapter.getCurrent()).refreshData("FAVOR");
             } else {
                 int position = index;
                 String symbol = "";
@@ -286,7 +288,7 @@ public class MarketFragment extends MvpFragment<
                     symbol = "INDEX";
                 else
                     symbol = coinTitles.get(position);
-                mFragments.get(position).refreshData(symbol);
+                fragmentViewModel.getMFragments().get(position).refreshData(symbol);
             }
         }
     }
@@ -299,7 +301,7 @@ public class MarketFragment extends MvpFragment<
     @Override
     public void onErrorDeal(ApiException e) {
         changeErrorBack(true);
-        for (MarketListFragment each : mFragments) {
+        for (MarketListFragment each : fragmentViewModel.getMFragments()) {
             each.showFailer(e.message, e);
         }
     }

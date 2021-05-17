@@ -789,6 +789,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
     public void onRefresh() {
         super.onRefresh();
 
+        if (getView() == null) return;
         if (!UserLoginUtil.havaUser()) {
 
         }
@@ -1055,6 +1056,11 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         mHeadBinding.refreshLayout.finishRefresh();
     }
 
+    @Override
+    public void cancelSuccess() {
+
+    }
+
     private Runnable closeInfo = new Runnable() {
 
         @Override
@@ -1072,6 +1078,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
     public void refreshCurrency() {
         refreshAssetView();
     }
+
 
     /**
      * 铲ge

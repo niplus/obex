@@ -13,6 +13,7 @@
         android:textColor="@color/selector_market_tab"
         android:textSize="15sp"
         android:text="123123"
+        android:maxLines="1"
         android:layout_marginTop="10dp"
         android:id="@+id/tv_tab"/>
 

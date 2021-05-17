@@ -152,6 +152,7 @@
                             android:layout_width="22dip"
                             android:layout_height="22dip"
                             android:layout_marginLeft="6dp"
+                            android:visibility="gone"
                             android:onClick="@{view.onClick}"
                             android:src="@mipmap/add" />
 

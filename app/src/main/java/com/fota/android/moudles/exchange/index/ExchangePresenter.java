@@ -85,14 +85,14 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
     }
 
     protected void removeChannel() {
-        //委托
-        client.removeChannel(SocketKey.TradeWeiTuoReqType, this);
-        //time线
-        client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, this);
-        //ticker
-        client.removeChannel(SocketKey.HangQingNewlyPriceReqType, this);
-        client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
-        removeChildren();
+//        //委托
+//        client.removeChannel(SocketKey.TradeWeiTuoReqType, this);
+//        //time线
+//        client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, this);
+//        //ticker
+//        client.removeChannel(SocketKey.HangQingNewlyPriceReqType, this);
+//        client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
+//        removeChildren();
     }
 
     protected void removeChildren() {

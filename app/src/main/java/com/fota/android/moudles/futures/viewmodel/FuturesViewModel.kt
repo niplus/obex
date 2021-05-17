@@ -17,7 +17,7 @@ class FuturesViewModel: BaseViewModel() {
         const val MARKET = 2
     }
 
-    var type = CONDITION
+    var type = LIMIT
 
     private val respository = FuturesRepository()
      val stopOrderLiveData = MutableLiveData<Response<String>>()

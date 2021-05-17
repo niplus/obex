@@ -8,15 +8,12 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
-import com.fota.android.LanguageContextWrapper.Companion.wrap
+import com.fota.android.LanguageContextWrapper
 import com.fota.android.R
 import com.fota.android.commonlib.base.AppConfigs
 import com.fota.android.commonlib.base.MyActivityManager
 import com.fota.android.utils.getLocale
 import com.gyf.barlibrary.ImmersionBar
-import com.ndl.lib_common.utils.showSnackMsg
 import com.umeng.analytics.MobclickAgent
 import me.jessyan.autosize.internal.CustomAdapt
 
@@ -84,8 +81,7 @@ abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: AppCompatAc
     abstract fun createViewModel(): H?
 
     override fun attachBaseContext(newBase: Context?) {
-        val context: Context = wrap(newBase!!, getLocale())
-        super.attachBaseContext(context)
+        super.attachBaseContext(LanguageContextWrapper.wrap(newBase!!, getLocale()))
     }
 
 
@@ -119,4 +115,17 @@ abstract class BaseActivity<T : ViewDataBinding, H : BaseViewModel>: AppCompatAc
     override fun getSizeInDp(): Float {
         return 375f
     }
+
+    fun clearFragmentsBeforeCreate() {
+        val fragments = supportFragmentManager.fragments
+        if (fragments.size == 0){
+            return;
+        }
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        for ( fragment in fragments) {
+            fragmentTransaction.remove(fragment);
+        }
+        fragmentTransaction.commitNow();
+    }
+
 }

@@ -51,6 +51,7 @@ import com.fota.android.core.dialog.DialogUtils;
 import com.fota.android.core.event.Event;
 import com.fota.android.databinding.ActivityWithdrawBinding;
 import com.fota.android.moudles.wallet.history.WithDrawHistoryFragment;
+import com.fota.android.utils.ToastUtils;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.utils.apputils.TradeUtils;
 import com.fota.android.widget.TitleLayout;
@@ -127,6 +128,23 @@ public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements 
                 binding.amount.setText(model.getAmount());
                 break;
             case R.id.bt_sure:
+                try {
+                    if (TextUtils.isEmpty(binding.address.getText())){
+                        ToastUtils.INSTANCE.showToast(getString(R.string.please_input_currency_address));
+                        return;
+                    }
+                    if (TextUtils.isEmpty(binding.amount.getText())){
+                        ToastUtils.INSTANCE.showToast(getString(R.string.please_input_currency_number));
+                        return;
+                    }
+                    if (Double.valueOf(binding.amount.getText().toString()) < Double.valueOf(model.getMinWithdrawAmount())){
+                        ToastUtils.INSTANCE.showToast(getString(R.string.wallet_min_withdraw_money) + model.getMinWithdrawAmount() + model.getAssetName());
+                        return;
+                    }
+                }catch (Exception e){
+
+                }
+
                 getPresenter().withDrawCheck();
                 break;
             case R.id.select_asset:

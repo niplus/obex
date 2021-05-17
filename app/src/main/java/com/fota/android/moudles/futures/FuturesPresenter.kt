@@ -41,18 +41,18 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
     private var fromContact: FutureContractBean? = null
     private var fromKey: String? = null
     override fun removeChannel() {
-        super.removeChannel()
-        client.removeChannel(SocketKey.MineEntrustReqType, this)
-        client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this)
-        client.removeChannel(SocketKey.POSITION_LINE, this)
-        client.removeChannel(SocketKey.TradeWeiTuoReqType, this)
-        client.removeChannel(SocketKey.FUTURE_TOP, this)
+//        super.removeChannel()
+//        client.removeChannel(SocketKey.MineEntrustReqType, this)
+//        client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this)
+//        client.removeChannel(SocketKey.POSITION_LINE, this)
+//        client.removeChannel(SocketKey.TradeWeiTuoReqType, this)
+//        client.removeChannel(SocketKey.FUTURE_TOP, this)
     }
 
     override fun removeChildren() {
-        client.removeChannel(SocketKey.MinePositionReqType, this)
-        client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this)
-        client.removeChannel(SocketKey.TradeDealReqType, this)
+//        client.removeChannel(SocketKey.MinePositionReqType, this)
+//        client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this)
+//        client.removeChannel(SocketKey.TradeDealReqType, this)
     }
 
     override fun getExtras(bundle: Bundle) {
@@ -133,6 +133,8 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                     CommonSubscriber<BaseHttpEntity?>(FotaApplication.getInstance()) {
                     override fun onNext(baseHttpEntity: BaseHttpEntity?) {
                         if (view != null) {
+                            view!!.stopProgressDialog()
+                            view!!.cancelSuccess()
                             model.isCanceled = true
                             showTopInfo(modelPost)
                         }
@@ -239,6 +241,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
      * 指数的deal数据请求
      */
     open fun getAdditonalSpot(assetName: String) {
+        client.removeChannel(SocketKey.MARKET_SPOTINDEX, this)
         val socketEntity = WebSocketEntity<SocketEntrustParam>()
         val param = SocketEntrustParam(assetName)
 //        param.id =
@@ -402,7 +405,6 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                 view?.setContractAccount(map)
             }
             SocketKey.MARKET_SPOTINDEX->{
-
                 val spotIndex = Gson().fromJson<SpotIndex>(jsonString, SpotIndex::class.java)
                 view?.onSpotUpdate(spotIndex)
             }

@@ -1,24 +1,26 @@
 package com.fota.android.moudles.mine;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fota.android.R;
+import com.fota.android.app.BundleKeys;
 import com.fota.android.app.Constants;
 import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.FotaApplication;
 import com.fota.android.common.listener.ISystembar;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.utils.Pub;
+import com.fota.android.core.base.BaseFragment;
 import com.fota.android.core.base.SimpleFragmentActivity;
 import com.fota.android.core.base.list.MvpListFragment;
 import com.fota.android.core.event.Event;
@@ -26,6 +28,7 @@ import com.fota.android.core.event.EventWrapper;
 import com.fota.android.databinding.FragmentMineBinding;
 import com.fota.android.moudles.mine.bean.MineBean;
 import com.fota.android.utils.FtRounts;
+import com.fota.android.utils.KeyBoardUtils;
 import com.fota.android.utils.StatusBarUtil;
 import com.fota.android.utils.StringFormatUtils;
 import com.fota.android.utils.UserLoginUtil;
@@ -112,7 +115,9 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
             case R.id.imv_setting:
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("security", userSecurity);
-                SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.SettingFragment, bundle);
+                SimpleFragmentActivity.gotoFragmentActivity(getContext(),ConstantsPage.SettingFragment, bundle);
+
+//                startActivity(new Intent(requireContext(), SettingActivity.class));
 
 //                startActivity(new Intent(requireContext(), FuturesCalcActivity.class));
                 break;
@@ -163,6 +168,42 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
 
     }
 
+    /**
+     * 跳转到指定Fragment的界面
+     *
+     * @param fragmentClass
+     * @param args
+     */
+    public void gotoFragmentActivity(String fragmentClass, Bundle args) {
+        if (Pub.isStringEmpty(fragmentClass)) {
+            return;
+        }
+        try {
+            BaseFragment fragment = (BaseFragment) Class.forName(fragmentClass).newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        KeyBoardUtils.closeKeybord(requireContext());
+        if (FotaApplication.containerToobar(fragmentClass) >= 0) {
+            FtRounts.toMain(requireContext(), fragmentClass, args);
+            return;
+        }
+        if (UserLoginUtil.havaUser() || ConstantsPage.withoutLoginFragment.contains(fragmentClass)) {
+            Intent intent = new Intent(requireContext(), SimpleFragmentActivity.class);
+            if (args != null) {
+                intent.putExtra(BundleKeys.KEY_FRAGMENT_ARGUMENTS, args);
+            }
+            intent.putExtra(BundleKeys.KEY_FRAGMENT_CLASS, fragmentClass);
+            if (!(requireContext() instanceof Activity)) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+            startActivity(intent);
+        } else {
+            FtRounts.toQuickLogin(requireContext(), fragmentClass);
+        }
+    }
+
 
     @Override
     protected View setHeadView() {
@@ -184,7 +225,6 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onInitView(View view) {
         super.onInitView(view);
