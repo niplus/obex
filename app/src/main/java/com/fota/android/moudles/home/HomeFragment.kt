@@ -29,6 +29,7 @@ import com.fota.android.databinding.ItemHomeCoinBinding
 import com.fota.android.databinding.ItemHomeMenuBinding
 import com.fota.android.databinding.ItemMainCoinBinding
 import com.fota.android.moudles.futures.bean.ToTradeEvent
+import com.fota.android.moudles.initHeader
 import com.fota.android.moudles.market.TradeMarketKlineActivity
 import com.fota.android.moudles.market.bean.FutureItemEntity
 import com.fota.android.utils.FtRounts
@@ -102,6 +103,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 }
 
                 root.setOnClickListener {
+                    if (data.isEmpty()) return@setOnClickListener
                     LiveDataBus.getBus<ToTradeEvent>("trade").value = ToTradeEvent(data[position], true)
                 }
             }
@@ -363,7 +365,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 SimpleFragmentActivity.gotoFragmentActivity(context, ConstantsPage.NoticeCenterFragment)
             }
 
-            SmartRefreshLayoutUtils.initHeader(refreshLayout, context)
+            initHeader(refreshLayout, context)
             refreshLayout.setOnRefreshListener(OnRefreshListener {
                 viewModel.getBanner()
                 viewModel.getCoinData()

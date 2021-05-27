@@ -134,7 +134,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
                     override fun onNext(baseHttpEntity: BaseHttpEntity?) {
                         if (view != null) {
                             view!!.stopProgressDialog()
-                            view!!.cancelSuccess()
+//                            view!!.cancelSuccess()
                             model.isCanceled = true
                             showTopInfo(modelPost)
                         }
@@ -264,8 +264,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
 
         view?.onSelectView()
         view?.refreshCurrency()
-        //jiang 0818
-//        getContractDelivery();
+
         getContractAccount(selectContact.getContractId())
         getDepthFive(type, Pub.GetInt(selectContact.getContractId()))
         getNowTicker(type, Pub.GetInt(selectContact.getContractId()))
@@ -295,6 +294,26 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         return ConstantsReq.TRADE_TYPE_CONTACT
     }
 
+    fun removeSocket(){
+        client.removeChannel(SocketKey.MineEntrustReqType, this)
+        client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this)
+        client.removeChannel(SocketKey.POSITION_LINE, this)
+        client.removeChannel(SocketKey.TradeWeiTuoReqType, this)
+        client.removeChannel(SocketKey.FUTURE_TOP, this)
+        client.removeChannel(SocketKey.MinePositionReqType, this)
+        client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this)
+        client.removeChannel(SocketKey.TradeDealReqType, this)
+    }
+
+    fun resumeAddChannel(){
+        if (selectContact == null) return
+        getContractAccount(selectContact!!.getContractId())
+        getDepthFive(type, Pub.GetInt(selectContact!!.getContractId()))
+        getNowTicker(type, Pub.GetInt(selectContact!!.getContractId()))
+        getTimeLineDatas(type, Pub.GetInt(selectContact!!.getContractId()), "1m")
+        addConditionChannel()
+    }
+
     /**
      * 权益、保证金、保证金率
      */
@@ -303,15 +322,6 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         map.p("contractId", contactId)
         client.removeChannel(SocketKey.FUTURE_TOP, this)
         addChannel()
-        //        Http.getExchangeService().getContractAccount(map)
-//                .compose(new CommonTransformer<FutureTopInfoBean>())
-//                .subscribe(new CommonSubscriber<FutureTopInfoBean>() {
-//                    @Override
-//                    public void onNext(FutureTopInfoBean map) {
-//                        getView().setContractAccount(map);
-//                        addChannel();
-//                    }
-//                });
     }
 
     private fun addChannel() {
@@ -324,24 +334,7 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         if (super.getView() == null) return null
         return super.getView() as FutureTradeView
     }
-    /**
-     * 现货指数
-     */
-    //    public void getContractDelivery() {
-    //        if (selectParent == null) {
-    //            return;
-    //        }
-    //        BtbMap map = new BtbMap();
-    //        map.p("symbol", getSymbolByKey(selectParent.getName()));
-    //        Http.getExchangeService().getContractDelivery(map)
-    //                .compose(new CommonTransformer<BtbMap>())
-    //                .subscribe(new CommonSubscriber<BtbMap>() {
-    //                    @Override
-    //                    public void onNext(BtbMap map) {
-    //                        getView().setContractDelivery(map);
-    //                    }
-    //                });
-    //    }
+
     /**
      * 0-BTC指数，1-ETH指数，2-EOS指数，3-BCH指数，4-ETC指数，5-LTC指数
      * 这种转换最好在后端

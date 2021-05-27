@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -509,6 +510,16 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         super.onResume();
         changeWidth();
         SmartRefreshLayoutUtils.refreshHeadLanguage(mHeadBinding.refreshLayout, getContext());
+//        mvpPresenter.addAllChannel();
+        onRefresh();
+
+//        getPresenter().updateCurrency();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mvpPresenter.removeAllChannel();
     }
 
     protected void changeWidth() {
@@ -804,6 +815,9 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
                 }
             }
         }
+
+        if (getPresenter().selectItem != null)
+            getPresenter().getTimeLineDatas(getPresenter().getType(), Pub.GetInt(getPresenter().selectItem.getAssetId()), "1m");
     }
 
 

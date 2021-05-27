@@ -670,7 +670,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="39dp"
                                         android:background="@drawable/shape_3r_stroke_cacaca"
-                                        android:hint="请输入触发价格"
+                                        android:hint="@string/input_trigger_price"
                                         android:textSize="13dp"
                                         android:visibility="gone"
                                         android:id="@+id/edt_trigger_price"

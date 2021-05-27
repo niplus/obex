@@ -164,9 +164,9 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
                     vpPage.setCurrentItem(tab.position, false)
 
                     when (tab.position) {
-                        2 -> {
-                            (viewModel!!.fragments[tab.position] as ExchangeFragment).onRefresh()
-                        }
+//                        2 -> {
+//                            (viewModel!!.fragments[tab.position] as ExchangeFragment).onRefresh()
+//                        }
                         3 -> {
                             (viewModel!!.fragments[tab.position] as FuturesFragment).onRefresh()
                         }

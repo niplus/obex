@@ -21,6 +21,8 @@ import java.util.List;
  */
 public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMoneyPresenter> implements FuturesMoneyView {
 
+    private String closeContractId="";
+
     @Override
     protected boolean setRefreshEnable() {
         return false;
@@ -67,11 +69,9 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
 
                 holder.setText(R.id.average_price, model.getAveragePrice());
 
-                holder.setText(R.id.open_position_price, model.getOpenPositionPrice());
+                holder.setText(R.id.open_position_price, model.getPositionQty());
 
-                holder.setText(R.id.current_price, model.getCurrentPrice());
-
-                holder.setText(R.id.average_price, model.getAveragePrice());
+                holder.setText(R.id.current_price, model.getAvaQty());
 
                 holder.setText(R.id.margin, model.getMargin());
 
@@ -159,6 +159,7 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
     }
 
     private void deleteOrder(FuturesMoneyBean model) {
+        closeContractId = model.getContractId();
         ((FuturesFragment) getParentFragment()).removeMoney(model);
     }
 
@@ -173,6 +174,24 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
     @Override
     public void setDataList(List list) {
         super.setDataList(list);
+
+        if (!closeContractId.equals("")) {
+            int i = 0;
+            for (; i < list.size(); i++) {
+                FuturesMoneyBean futuresMoneyBean = (FuturesMoneyBean) list.get(i);
+                if (futuresMoneyBean.getContractId().equals(closeContractId)){
+                    break;
+                }
+            }
+
+            if (i == list.size() && getParentFragment() instanceof FuturesFragment) {
+                ((FuturesFragment)getParentFragment()).cancelSuccess();
+                closeContractId = "";
+            }
+
+        }
+
+
     }
 
     @Override

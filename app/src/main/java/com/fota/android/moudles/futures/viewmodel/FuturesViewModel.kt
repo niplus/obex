@@ -21,6 +21,7 @@ class FuturesViewModel: BaseViewModel() {
 
     private val respository = FuturesRepository()
      val stopOrderLiveData = MutableLiveData<Response<String>>()
+     val closeOrderLiveData = MutableLiveData<Response<String>>()
     val conditionOrderLiveData = MutableLiveData<Response<String>>()
 
     /**
@@ -39,7 +40,14 @@ class FuturesViewModel: BaseViewModel() {
             val result = respository.stopOrder(contractId, buyAlgoPrice, buyAlgoValue, buyOrderType, buyTriggerPrice,
             sellAlgoPrice, sellAlgoValue, sellOrderType, sellTriggerPrice)
             stopOrderLiveData.value = result
-            Log.i("nidongliang", "result: $result")
+        }
+
+    }
+
+    fun closeOrder(contractId: Int, totalAmount: String?, percent: String){
+        launchUI {
+            val result = respository.closeOrder(totalAmount, contractId, percent)
+            closeOrderLiveData.value = result
         }
 
     }

@@ -29,7 +29,6 @@ class Banner : FrameLayout {
         override fun onBindViewHolder(holder: MyViewHolder<ItemBannerBinding>, position: Int) {
             imageEngine?.loadImage(holder.dataBinding.image, paths[position])
             holder.dataBinding.root.setOnClickListener {
-                Log.i("nidongliang", "position: $position, itemCount: $itemCount")
                 val clickPosition = when(position){
                     itemCount - 1 -> 0
                     0 -> {itemCount - 3}

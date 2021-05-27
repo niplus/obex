@@ -40,36 +40,35 @@
         android:allowBackup="true"
         android:icon="@mipmap/icon_logo"
         android:label="@string/app_name"
+        android:maxAspectRatio="2.4"
+        android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme_White"
-        android:resizeableActivity="true"
-        android:maxAspectRatio="2.4"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon,android:theme">
+        <activity android:name=".moudles.InviteActivity"></activity>
 
         <meta-data
             android:name="design_width_in_dp"
-            android:value="375"/>
+            android:value="375" />
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.4" />
-
-        <!--适配华为（huawei）刘海屏-->
+            android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->
         <meta-data
             android:name="android.notch_support"
-            android:value="true"/>
-        <!--适配小米（xiaomi）刘海屏-->
+            android:value="true" /> <!-- 适配小米（xiaomi）刘海屏 -->
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
-        <activity android:name=".moudles.main.MainActivity"
-            android:launchMode="singleTask"
-            ></activity>
+
+        <activity
+            android:name=".moudles.main.MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".moudles.futures.FuturesCalcActivity" />
         <activity
             android:name=".moudles.welcome.SplashActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,7 +76,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".core.base.SimpleFragmentActivity"
             android:screenOrientation="portrait"
@@ -239,26 +237,25 @@
         <receiver
             android:name="cn.jpush.android.service.AlarmReceiver"
             android:exported="false" /> <!-- User defined.  For test only  用户自定义的广播接收器 -->
-<!--        <receiver-->
-<!--            android:name=".receiver.JGReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="false">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="cn.jpush.android.intent.REGISTRATION" /> &lt;!&ndash; Required  用户注册SDK的intent &ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> &lt;!&ndash; Required  用户接收SDK消息的intent &ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> &lt;!&ndash; Required  用户接收SDK通知栏信息的intent &ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> &lt;!&ndash; Required  用户打开自定义通知栏的intent &ndash;&gt;-->
-<!--                <action android:name="cn.jpush.android.intent.CONNECTION" /> &lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;-->
-<!--                <category android:name="${JPUSH_PKGNAME}" />-->
-<!--            </intent-filter>-->
-<!--        </receiver> &lt;!&ndash; User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调 &ndash;&gt;-->
-<!--        <receiver android:name=".receiver.FotaJPushMessageReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />-->
-
-<!--                <category android:name="${JPUSH_PKGNAME}" />-->
-<!--            </intent-filter>-->
-<!--        </receiver> &lt;!&ndash; Required  . Enable it you can get statistics data with channel &ndash;&gt;-->
+        <!-- <receiver -->
+        <!-- android:name=".receiver.JGReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="false"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="cn.jpush.android.intent.REGISTRATION" /> &lt;!&ndash; Required  用户注册SDK的intent &ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> &lt;!&ndash; Required  用户接收SDK消息的intent &ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> &lt;!&ndash; Required  用户接收SDK通知栏信息的intent &ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> &lt;!&ndash; Required  用户打开自定义通知栏的intent &ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.CONNECTION" /> &lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt; -->
+        <!-- <category android:name="${JPUSH_PKGNAME}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> &lt;!&ndash; User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调 &ndash;&gt; -->
+        <!-- <receiver android:name=".receiver.FotaJPushMessageReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" /> -->
+        <!-- <category android:name="${JPUSH_PKGNAME}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> &lt;!&ndash; Required  . Enable it you can get statistics data with channel &ndash;&gt; -->
         <meta-data
             android:name="JPUSH_CHANNEL"
             android:value="developer-default" />
@@ -278,8 +275,9 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/WXNoTitleBar" />
-        <activity android:name=".SettingActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".SettingActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"

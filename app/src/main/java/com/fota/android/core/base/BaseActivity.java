@@ -677,7 +677,7 @@ public class BaseActivity extends FragmentActivity
     }
 
     public void doAnim(View view, String po, int value) {
-        ViewWrapper viewWrapper = new ViewWrapper(view);
+        ViewWrapper viewWrapper = new ViewWrapper(view, null);
         ObjectAnimator.ofInt(viewWrapper, po, value).setDuration(1500).start();
     }
 

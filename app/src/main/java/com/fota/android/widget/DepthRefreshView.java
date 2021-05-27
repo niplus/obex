@@ -18,11 +18,9 @@ import com.fota.android.app.Constants;
 import com.fota.android.common.bean.exchange.CurrentPriceBean;
 import com.fota.android.common.bean.home.EntrustBean;
 import com.fota.android.commonlib.base.AppConfigs;
-import com.fota.android.commonlib.utils.GradientDrawableUtils;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.commonlib.utils.UIUtil;
 import com.fota.android.commonlib.view.DownTrigonView;
-import com.fota.android.core.anim.ViewWrapper;
 import com.fota.android.moudles.common.DepthFixNumberAdapter;
 import com.fota.android.widget.popwin.DigitalPopupWindow;
 import com.fota.android.widget.popwin.SelectItemDialog;
@@ -155,22 +153,24 @@ public class DepthRefreshView extends LinearLayout implements View.OnClickListen
                 if (model == null || model.getDoulePrice() == 0.0) {
                     holder.setText(R.id.txt_depth_price, Constants.NONE);
                     holder.setText(R.id.txt_depth_volume, Constants.NONE);
-                    View item = holder.getView(R.id.five_item_view);
-                    ObjectAnimator.ofInt(new ViewWrapper(item), "width", 0).setDuration(100).start();
+                    ColorView item = holder.getView(R.id.five_item_view);
+                    ObjectAnimator.ofFloat(item, "colorWidth", 0f).setDuration(100).start();
                     holder.getConvertView().setOnClickListener(null);
                     return;
                 }
 
                 double indexAmout = model.getDoubleAmount();
                 double rate = maxSellVol == 0.0 ? 0 : indexAmout / maxSellVol;
-                int width = (int) (totalWith * rate);
+                float width = (float) (totalWith * rate);
 
-                View item = holder.getView(R.id.five_item_view);
-                item.setBackground(getResources().getDrawable(R.drawable.ft_left_corner_2));
-                GradientDrawableUtils.setBgColor(item, AppConfigs.getDownColor());
-                GradientDrawableUtils.setBgAlpha(item, 30);
+                ColorView item = holder.getView(R.id.five_item_view);
 
-                ObjectAnimator.ofInt(new ViewWrapper(item), "width", width).setDuration(100).start();
+//                item.setBackground(getResources().getDrawable(R.drawable.ft_left_corner_2));
+//                GradientDrawableUtils.setBgColor(item, AppConfigs.getDownColor());
+//                GradientDrawableUtils.setBgAlpha(item, 30);
+                item.setColor(getColorWithAlpha(0.2f, AppConfigs.getDownColor()));
+
+                ObjectAnimator.ofFloat(item, "colorWidth", width).setDuration(100).start();
 //                holder.setText(R.id.txt_depth_price, model.getPriceCarry(currentDigital));
                 holder.setText(R.id.txt_depth_price, model.getPrice());
                 if (model.getDoubleAmount() > 1000.0) {
@@ -210,22 +210,22 @@ public class DepthRefreshView extends LinearLayout implements View.OnClickListen
                 if (model == null || model.getDoulePrice() == 0.0) {
                     holder.setText(R.id.txt_depth_price, Constants.NONE);
                     holder.setText(R.id.txt_depth_volume, Constants.NONE);
-                    View item = holder.getView(R.id.five_item_view);
-                    ObjectAnimator.ofInt(new ViewWrapper(item), "width", 0).setDuration(100).start();
+                    ColorView item = holder.getView(R.id.five_item_view);
+                    ObjectAnimator.ofFloat(item, "colorWidth", 0f).setDuration(100).start();
                     holder.getConvertView().setOnClickListener(null);
                     return;
                 }
 
                 double indexAmout = model.getDoubleAmount();
                 double rate = maxBuyVol == 0.0 ? 0 : indexAmout / maxBuyVol;
-                int width = (int) (totalWith * rate);
+                float width = (float) (totalWith * rate);
 
-                View item = holder.getView(R.id.five_item_view);
-                item.setBackground(getResources().getDrawable(R.drawable.ft_left_corner_2));
-                GradientDrawableUtils.setBgColor(item, AppConfigs.getUpColor());
-                GradientDrawableUtils.setBgAlpha(item, 30);
-
-                ObjectAnimator.ofInt(new ViewWrapper(item), "width", width).setDuration(100).start();
+                ColorView item = holder.getView(R.id.five_item_view);
+//                item.setBackground(getResources().getDrawable(R.drawable.ft_left_corner_2));
+//                GradientDrawableUtils.setBgColor(item, AppConfigs.getUpColor());
+//                GradientDrawableUtils.setBgAlpha(item, 30);
+                item.setColor(getColorWithAlpha(0.2f, AppConfigs.getUpColor()));
+                ObjectAnimator.ofFloat(item, "colorWidth", width).setDuration(100).start();
 //                holder.setText(R.id.txt_depth_price, model.getPriceCut(currentDigital));
                 holder.setText(R.id.txt_depth_price, model.getPrice());
                 if (model.getDoubleAmount() > 1000.0) {
@@ -251,6 +251,19 @@ public class DepthRefreshView extends LinearLayout implements View.OnClickListen
         bottomFive.setDepthAdapter(bottomFiveAdapter);
         bottomFiveAdapter.putList(null);
         bottomFive.onRefreshView(false);
+    }
+
+    public static int[] getRGB(int rgbColor) {
+        int red = (0xff0000 & rgbColor) >> 16;
+        int green = (0xff00 & rgbColor) >> 8;
+        int blue = (0xff & rgbColor);
+        return new int[]{red, green, blue};
+    }
+
+    public static int getColorWithAlpha(float alpha, int baseColor) {
+        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
+        int rgb = 0x00ffffff & baseColor;
+        return a + rgb;
     }
 
     /**
@@ -376,7 +389,6 @@ public class DepthRefreshView extends LinearLayout implements View.OnClickListen
             }
         }
         this.currentPrice = model;
-//        UIUtil.setText(txtTickerPrice, model.getPriceFloor(currentDigital));
         UIUtil.setText(txtTickerPrice, model.getPrice());
         UIUtil.setTextColor(txtTickerPrice, AppConfigs.getColor(depthAllContentIsup));
         UIUtil.setText(txtTickerTrend, model.getDailyReturn());

@@ -16,7 +16,7 @@ open class BottomDialog(context: Context): Dialog(context, R.style.BottomDialog)
         // 获取Window的LayoutParams
         val attributes = window.attributes
         attributes.width = WindowManager.LayoutParams.MATCH_PARENT
-        attributes.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+        attributes.gravity = Gravity.BOTTOM
         // 一定要重新设置, 才能生效
         // 一定要重新设置, 才能生效
         window.attributes = attributes

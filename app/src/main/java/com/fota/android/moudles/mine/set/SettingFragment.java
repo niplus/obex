@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -109,6 +110,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                     AppConfigs.setTheme(0);
 //                    notify(R.id.event_theme_changed);
                     getHoldingActivity().recreate();
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     EventWrapper.post(Event.create(R.id.mine_refreshbar));//通知我的页面刷新状态栏
                     Event event = Event.create(R.id.event_theme_changed);
                     event.putParam(Integer.class, R.id.event_theme_changed);
@@ -116,7 +118,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 } else {
                     AppConfigs.themeOrLangChanged = true;
                     AppConfigs.setTheme(1);
-
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     getHoldingActivity().recreate();
                     EventWrapper.post(Event.create(R.id.mine_refreshbar));//通知我的页面刷新状态栏
 //                    notify(R.id.event_theme_changed);

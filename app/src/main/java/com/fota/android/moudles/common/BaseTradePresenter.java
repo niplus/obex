@@ -1,6 +1,8 @@
 package com.fota.android.moudles.common;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.fota.android.app.FotaApplication;
@@ -217,7 +219,10 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
             socketEntity.getParam().setAssetName(bean.getAssetName());
             socketEntity.getParam().setContractType(bean.getContractType());
         }
+        socketEntity.setHandleType(2);
         socketEntity.setReqType(SocketKey.HangQingFenShiTuZheXianTuReqType);
+
+        Log.i("nidongliang", "socket entity: " + socketEntity);
         client.addChannel(socketEntity, BaseTradePresenter.this);
         if(bean.getType() == 2) {
             //交割日期

@@ -18,11 +18,13 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.blankj.utilcode.util.Utils;
 import com.fota.android.R;
 import com.fota.android.common.bean.home.DepthBean;
 import com.fota.android.commonlib.app.AppVariables;
+import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.base.BaseApplication;
 import com.fota.android.commonlib.utils.ErrorCodeUtil;
 import com.fota.android.commonlib.utils.Pub;
@@ -140,6 +142,11 @@ public class FotaApplication extends BaseApplication {
         NLog.INSTANCE.initLog(this);
         //fragment适配必须加上这行
         AutoSizeConfig.getInstance().setCustomFragment(true);
+        if (AppConfigs.getTheme() == 0){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     private void initNetAndScreenReceiver() {
@@ -245,8 +252,14 @@ public class FotaApplication extends BaseApplication {
         }
     }
 
+    public static boolean hasInitMMKV = false;
+
     public static boolean getLoginSrtatus() {
-        MMKV.initialize(FotaApplication.getContext());
+        if (!hasInitMMKV){
+            MMKV.initialize(FotaApplication.getContext());
+            hasInitMMKV = true;
+        }
+//        if (MMKV.defaultMMKV().in)
         if (MMKV.defaultMMKV().decodeBool("isLogin")) {
             islogin = true;
             MMKV.defaultMMKV().encode("isLogin", false);

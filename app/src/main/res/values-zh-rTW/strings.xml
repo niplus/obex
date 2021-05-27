@@ -515,7 +515,7 @@
 
     <string name="perp">永續</string>
     <string name="recharge_coin">充值幣種</string>
-    <string name="join_community">加入社群</string>
+    <string name="join_community">加入電報</string>
     <string name="new_guide">新手指南</string>
     <string name="grid_strategy">網格策略</string>
     <string name="event_details">活動詳情</string>
@@ -547,4 +547,67 @@
     <string name="trigger_price">觸發價格</string>
     <string name="sure_cancel_order">確定撤單？ </string>
     <string name="close_position">平倉</string>
+
+    <string name="my_commission">我的佣金</string>
+    <string name="my_invite">我的邀請</string>
+    <string name="commission_income">佣金收益</string>
+    <string name="yestoday_commission">昨日佣金</string>
+    <string name="week_commission">本週佣金</string>
+    <string name="transaction_statistics">交易統計</string>
+    <string name="transaction_hint">交易額為預估值，僅供參考，佣金請以返佣記錄為準</string>
+    <string name="yestoday_trans_volume">昨日交易額</string>
+    <string name="week_trans_volume">本週交易額</string>
+    <string name="my_invitation_code">我的邀請碼</string>
+    <string name="copy">複製</string>
+    <string name="invite_now">立即邀請</string>
+    <string name="exclusive_post">專屬海報</string>
+    <string name="copy_link">複製鏈接</string>
+    <string name="share_to">分享至</string>
+    <string name="sweep_face_to_face">面對面掃我接受邀請</string>
+    <string name="cooperation_benefit">合作共贏</string>
+    <string name="invite_post_content">CME的全品類全倉保證金系統\nOCC實時清潔算系統\n釋放用戶20%-30%的資金佔用率</string>
+    <string name="invite_post_hint">以強大的安全機制、保證金風控機制和可靠的底層架構，\n為您提供可靠的交易體驗。 </string>
+    <string name="invitation_code">邀請碼：</string>
+    <string name="futures_risk">合約交易有風險，交易需謹慎</string>
+    <string name="download_pic">下載圖片</string>
+    <string name="success_invite">成功邀請註冊</string>
+    <string name="my_invite_hint1">邀請統計包含間接邀請。 </string>
+    <string name="my_invite_hint2">今日、昨日以新加坡時間（UTC+8）劃分。數據每三分鐘刷 新一次</string>
+    <string name="today">今日</string>
+    <string name="yestoday">昨日</string>
+    <string name="total">累計</string>
+    <string name="invite_record">邀請記錄</string>
+    <string name="invite_account">被邀請人賬號</string>
+    <string name="user_level">用戶等級</string>
+    <string name="invite_time">邀請時間</string>
+    <string name="save_pic_success">圖片保存成功</string>
+    <string name="save_pic_failed">圖片保存失敗</string>
+    <string name="person">人</string>
+
+    <string name="srl_content_empty1">SmartRefreshLayout中沒有找到內容視圖。您是否忘記在xml佈局文件中添加？ </string>
+    <string name="srl_footer_failed1">加載失敗</string>
+    <string name="srl_footer_finish1">加載完成</string>
+    <string name="srl_footer_loading1">正在加載…</string>
+    <string name="srl_footer_nothing1">沒有更多數據了</string>
+    <string name="srl_footer_pulling1">上拉加載更多</string>
+    <string name="srl_footer_refreshing1">正在刷新…</string>
+    <string name="srl_footer_release1">釋放立即加載</string>
+    <string name="srl_header_failed1">刷新失敗</string>
+    <string name="srl_header_finish1">刷新完成</string>
+    <string name="srl_header_loading1">正在加載…</string>
+    <string name="srl_header_pulling1">下拉可以刷新</string>
+    <string name="srl_header_refreshing1">正在刷新…</string>
+    <string name="srl_header_release1">釋放立即刷新</string>
+    <string name="srl_header_secondary1">釋放進入二樓</string>
+    <string name="srl_header_update1">上次更新 M-d HH:mm</string>
+
+    <string name="number_of_position">持倉數量</string>
+    <string name="flat_quantity">可平數量</string>
+    <string name="realized_profit_loss">已實現盈虧</string>
+    <string name="capital_flow">資金流水</string>
+    <string name="currency">幣種</string>
+    <string name="input_trigger_price">請輸入觸發價格</string>
+    <string name="fund_fee">資金費</string>
+    <string name="transaction_fee">交易手續費</string>
+    <string name="sub_commission">分傭</string>
 </resources>

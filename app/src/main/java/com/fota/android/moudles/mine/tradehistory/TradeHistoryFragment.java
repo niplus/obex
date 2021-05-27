@@ -40,12 +40,14 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
     ContractWeituoFragment contractWeituoFragment;
     ContractChengjiaoFragment contractChengjiaoFragment;
     ConditionHistoryFragment conditionHistoryFragment;
+    CapitalFlowFragment capitalFlowFragment;
     public static int TYPE_USDT = 2;
     public static int TYPE_HEYUE = 1;
 
     public static int TYPE_WEITUO = 1;
     public static int TYPE_CHENGJIAO = 2;
     public static int TYPE_CONDITION = 3;
+    public static int TYPE_FUND= 4;
     int TYPE = TYPE_CHENGJIAO;
     int TYPE_NAME = TYPE_HEYUE;
 
@@ -96,12 +98,14 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
         contractChengjiaoFragment = new ContractChengjiaoFragment();
         contractWeituoFragment = new ContractWeituoFragment();
         conditionHistoryFragment = new ConditionHistoryFragment();
+        capitalFlowFragment = new CapitalFlowFragment();
 
         fragments.add(xianhuoChengjiaoFragment);
         fragments.add(xianhuoWeituoFragment);
         fragments.add(contractChengjiaoFragment);
         fragments.add(contractWeituoFragment);
         fragments.add(conditionHistoryFragment);
+        fragments.add(capitalFlowFragment);
         baseFragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager(),
                 fragments, null
         );
@@ -186,6 +190,9 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
                         TYPE = TYPE_CONDITION;
                         mBinding.viewPager.setCurrentItem(4);
                         conditionHistoryFragment.changeType(1);
+                    }else if (model.getValue().equals("5")){
+                        TYPE = TYPE_FUND;
+                        mBinding.viewPager.setCurrentItem(5);
                     }
                 }
             });

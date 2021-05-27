@@ -19,7 +19,15 @@ public class FuturesCompleteBean implements Serializable {
     //private String orderValue;
     private int orderType;
     private String matchValue;
+    private String realizedPnl;
 
+    public String getRealizedPnl() {
+        return realizedPnl;
+    }
+
+    public void setRealizedPnl(String realizedPnl) {
+        this.realizedPnl = realizedPnl;
+    }
 
     public void setFilledPrice(String filledPrice) {
         this.filledPrice = filledPrice;

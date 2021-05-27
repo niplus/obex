@@ -132,14 +132,14 @@
                         <TextView
                             style="@style/wrap_style"
                             android:layout_marginTop="5dp"
-                            android:text="@string/future_money_value"
+                            android:text="@string/number_of_position"
                             android:textColor="#FF606572"
                             android:textSize="9.6sp" />
 
                         <TextView
                             style="@style/wrap_style"
                             android:layout_marginTop="5dp"
-                            android:text="@string/future_money_now_value"
+                            android:text="@string/flat_quantity"
                             android:textColor="#FF606572"
                             android:textSize="9.6sp" />
 

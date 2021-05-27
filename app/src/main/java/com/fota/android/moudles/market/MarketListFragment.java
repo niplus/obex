@@ -212,7 +212,6 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
         notCardGroup.add("ETH");
         notCardGroup.add("SPOT");
 
-        Log.i("nidongliang", "onInitData");
     }
 
     @Override

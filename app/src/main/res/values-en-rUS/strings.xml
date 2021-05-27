@@ -269,7 +269,7 @@
     <string name="identity_front_msg_id">Front Side</string>
     <string name="identity_front_msg_huzhao">Upload ID Photo</string>
     <string name="identity_back_msg_id">Back Side</string>
-    <string name="identity_hold_msg_id">Hand Held</string>
+    <string name="identity_hold_msg_id">Holding ID</string>
     <string name="identity_idcard_error">Please enter your ID number correctly</string>
     <string name="identity_pic_id">Upload ID photo</string>
     <string name="identity_pic_passport">Upload the first page of your passport</string>
@@ -400,9 +400,9 @@
     <string name="mine_logout2">Log Out</string>
 
     //合约委托
-    <string name="contractweituo_type">Type</string>
-    <string name="contractweituo_price">Order Price</string>
-    <string name="contractweituo_money">Order Value</string>
+    <string name="contractweituo_type">Type Of Order</string>
+    <string name="contractweituo_price">Planning Price</string>
+    <string name="contractweituo_money">Quantity Of Order</string>
     <string name="contractweituo_state">Status</string>
     <string name="contractweituo_aveprice">Fill Price</string>
     <string name="contractweituo_donemoney">Filled Value</string>
@@ -547,7 +547,7 @@
 
     <string name="perp">PERP</string>
     <string name="recharge_coin">Recharge Currency</string>
-    <string name="join_community">Community</string>
+    <string name="join_community">Join Telegram</string>
     <string name="new_guide">Novice Guide</string>
     <string name="grid_strategy">Grid Strategy </string>
     <string name="event_details">Event Details</string>
@@ -576,7 +576,71 @@
     <string name="enter_limit_price"> Please enter the limit price</string>
     <string name="current"> Current commission</string>
     <string name="sure_close_position"> Are you sure to close the position? </string>
-    <string name="trigger_price"> Trigger price</string>
+    <string name="trigger_price">Trigger Price</string>
     <string name="sure_cancel_order"> Are you sure to cancel the order? </string>
     <string name="close_position">Close Position</string>
+
+    <string name="my_commission">My Commission</string>
+    <string name="my_invite">My Invitation</string>
+    <string name="commission_income">Commission Income</string>
+    <string name="yestoday_commission">Yesterday’s</string>
+    <string name="week_commission">Week\'s</string>
+    <string name="transaction_statistics">Transaction Statistics </string>
+    <string name="transaction_hint">The transaction amount is an estimated value, for reference only, the commission please refer to the rebate record</string>
+    <string name="yestoday_trans_volume">Testerday’s volume</string>
+    <string name="week_trans_volume">Week’s volume</string>
+    <string name="my_invitation_code">My invitation code</string>
+    <string name="copy">Copy</string>
+    <string name="invite_now">Invite Now</string>
+    <string name="exclusive_post">Exclusive Poster</string>
+    <string name="copy_link">Copy link</string>
+    <string name="share_to">Share to</string>
+    <string name="sweep_face_to_face">Face to face sweep me to accept the invitation</string>
+    <string name="cooperation_benefit">Cooperation for Mutual Benefit</string>
+    <string name="invite_post_content">CME Cross Margin System\nOCC Real-time Clearing and Settlement System\nreleasing 20%-30% of users\' capital</string>
+    <string name="invite_post_hint">With a strong security mechanism, margin risk control mechanism and dependable underlying system，\n we are offering you a reliable trading experience</string>
+    <string name="invitation_code">Invitation code：</string>
+    <string name="futures_risk">Discreet trading is suggested for the risk of the market</string>
+    <string name="download_pic">Download pictures</string>
+    <string name="success_invite">Successfully invited to register</string>
+    <string name="my_invite_hint1"> Invitation statistics include indirect invitations. </string>
+    <string name="my_invite_hint2">Today and yesterday are divided by Singapore time (UTC+8). The data is refreshed every three minutes</string>
+    <string name="today">Today</string>
+    <string name="yestoday">Yesterday </string>
+    <string name="total">Cumulative </string>
+    <string name="invite_record">Invitation Record</string>
+    <string name="invite_account">Account</string>
+    <string name="user_level">User level </string>
+    <string name="invite_time">Time</string>
+    <string name="save_pic_success">The picture was saved successfully</string>
+    <string name="save_pic_failed">Failed to save the picture </string>
+    <string name="person">person</string>
+
+    <string name="srl_content_empty1"> The content view is not found in SmartRefreshLayout. Did you forget to add it in the xml layout file? </string>
+    <string name="srl_footer_failed1"> Failed to load</string>
+    <string name="srl_footer_finish1"> Loading is complete</string>
+    <string name="srl_footer_loading1"> is loading...</string>
+    <string name="srl_footer_nothing1"> no more data</string>
+    <string name="srl_footer_pulling1"> pull up to load more</string>
+    <string name="srl_footer_refreshing1"> is refreshing...</string>
+    <string name="srl_footer_release1"> release immediately load </string>
+    <string name="srl_header_failed1"> refresh failed</string>
+    <string name="srl_header_finish1"> refresh complete</string>
+    <string name="srl_header_loading1"> is loading...</string>
+    <string name="srl_header_pulling1"> pull down to refresh </string>
+    <string name="srl_header_refreshing1"> is refreshing...</string>
+    <string name="srl_header_release1"> release immediately refresh </string>
+    <string name="srl_header_secondary1"> release into the second floor</string>
+    <string name="srl_header_update1">M-d HH:mm</string>
+
+    <string name="number_of_position">Number of positions held</string>
+    <string name="flat_quantity">Flat quantity </string>
+    <string name="realized_profit_loss">Realized profit and loss</string>
+    <string name="capital_flow">Capital flow </string>
+    <string name="currency">Currency</string>
+    <string name="input_trigger_price">Please enter the trigger price</string>
+
+    <string name="fund_fee">Funding fees</string>
+    <string name="transaction_fee">Transaction fees</string>
+    <string name="sub_commission">Sub commission</string>
 </resources>

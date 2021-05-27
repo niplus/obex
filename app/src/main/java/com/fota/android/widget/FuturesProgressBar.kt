@@ -33,7 +33,7 @@ class FuturesProgressBar: View {
     private val selectTextRectWidth = 30.dp
 
     //底部文字
-    private var divideString = if (isLever) arrayOf("1X", "25X", "50X", "75X", "100X")
+    var divideString = if (isLever) arrayOf("1X", "25X", "50X", "75X", "100X")
     else
         arrayOf("0%", "25%", "50%", "75%", "100%")
     private val bottomTextColor = 0xFF999999.toInt()
@@ -174,7 +174,7 @@ class FuturesProgressBar: View {
         drawBottomText(canvas)
     }
 
-    fun drawSelectText(canvas: Canvas){
+    private fun drawSelectText(canvas: Canvas){
         defaultCirclePaint.color = 0xC0303133.toInt()
         canvas.drawRoundRect(selectPointPosition -selectTextRectWidth / 2, 0f, selectPointPosition + selectTextRectWidth / 2, selectTextRectHeight, 5f, 5f, defaultCirclePaint)
 
@@ -197,7 +197,7 @@ class FuturesProgressBar: View {
             canvas.drawText("${lever}%", selectPointPosition, baseLine, bottomTextPaint)
     }
 
-    fun drawBottomText(canvas: Canvas){
+    private fun drawBottomText(canvas: Canvas){
         val baseline = getTextBaseline(45.dp, bottomTextPaint)
         bottomTextPaint.color = bottomTextColor
         divideString.forEachIndexed{index, text ->
@@ -275,7 +275,7 @@ class FuturesProgressBar: View {
         return false
     }
 
-    fun getCurrentLever(){
+    private fun getCurrentLever(){
         val selectPosition = selectPointPosition - (paddingLeft + selectCircleRadius)
         lever = when(selectPosition){
             0f -> {
@@ -296,7 +296,7 @@ class FuturesProgressBar: View {
         leverChangeListener?.invoke(lever)
     }
 
-    fun getTextBaseline(centerY: Float, paint: Paint): Float{
+    private fun getTextBaseline(centerY: Float, paint: Paint): Float{
         val fontMetrics: Paint.FontMetrics = Paint.FontMetrics()
         paint.getFontMetrics(fontMetrics)
         val offset = (fontMetrics.descent + fontMetrics.ascent) / 2

@@ -26,6 +26,7 @@ import com.fota.android.core.base.list.MvpListFragment;
 import com.fota.android.core.event.Event;
 import com.fota.android.core.event.EventWrapper;
 import com.fota.android.databinding.FragmentMineBinding;
+import com.fota.android.moudles.InviteActivity;
 import com.fota.android.moudles.mine.bean.MineBean;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.KeyBoardUtils;
@@ -34,7 +35,6 @@ import com.fota.android.utils.StringFormatUtils;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.recyclerview.EasyAdapter;
 import com.gyf.barlibrary.ImmersionBar;
-import com.tencent.mmkv.MMKV;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -134,35 +134,17 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.UsdtContractTransferFragment);
                 break;
             case R.id.ll_commission:
-//                CommissionPopup commissionPopup = new CommissionPopup(getActivity(),new CommissionBean());
-//                commissionPopup.setAnimationStyle(R.style.mypopwindow_anim_style);
-//                commissionPopup.show();
-                //ToastUitl.showShort(getString(R.string.coming_soon));
-                //FtRounts.toWebView(mContext, "", Constants.getH5BaseUrl() + Constants.URL_COMMISSION);
                 if (!UserLoginUtil.havaUser()) {
                     FtRounts.toQuickLogin(mContext);
                     return;
                 }
 
-                String userId = UserLoginUtil.getId();
-                if (!userId.equals("0"))
-                    FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/invite?userId=" + userId + "&language="+ MMKV.defaultMMKV().decodeString("language"));
-//                BtbMap map = new BtbMap();
-//                Http.getWalletService().invite(map)
-//                        .compose(new CommonTransformer<String>())
-//                        .subscribe(new CommonSubscriber<String>(this) {
-//
-//                            @Override
-//                            public void onNext(String list) {
-//                                FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/invite?userId=" + list);
-//                            }
-//
-//                            @Override
-//                            protected void onError(ApiException e) {
-//                                //super.onError(e);
-//                                FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/share");
-//                            }
-//                        });
+                startActivity(new Intent(requireActivity(), InviteActivity.class));
+
+//                String userId = UserLoginUtil.getId();
+//                if (!userId.equals("0"))
+//                    FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/invite?userId=" + userId + "&language="+ MMKV.defaultMMKV().decodeString("language"));
+
 
         }
 

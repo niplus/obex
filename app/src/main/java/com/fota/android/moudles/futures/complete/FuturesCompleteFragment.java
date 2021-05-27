@@ -71,6 +71,7 @@ public class FuturesCompleteFragment extends BaseExchageChlidFragment<FuturesCom
 
                 holder.setText(R.id.fee, model.getFee());
 
+                holder.setText(R.id.profit, model.getRealizedPnl());
             }
         };
     }

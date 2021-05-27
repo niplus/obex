@@ -480,7 +480,7 @@ public class WebSocketClient implements IWebSocketSubject {
                         chartLineEntity.setLow(value);
                     }
                     updateDatas.add(chartLineEntity);
-                    isAddFlagForKlineSocket = "add";
+                    isAddFlagForKlineSocket = "refresh";
                 }
             }
 
@@ -554,7 +554,6 @@ public class WebSocketClient implements IWebSocketSubject {
         WebSocketListener webSocketListener = new WebSocketListener() {
             @Override
             public void onOpen(final WebSocket webSocket, Response response) {
-                Log.i("nidongliang", "start webSocket: ");
                 //保存引用，用于后续操作
                 WebSocketClient.this.webSocket = webSocket;
                 setConnected(true);
@@ -567,8 +566,10 @@ public class WebSocketClient implements IWebSocketSubject {
                         List<IWebSocketObserver> list = tempObservers.get(key);
                         if(list != null) {
                             for (IWebSocketObserver each : list) {
-                                BasePresenter presenter = (BasePresenter)each;
-                                presenter.onRefresh();
+                                if (each instanceof BasePresenter) {
+                                    BasePresenter presenter = (BasePresenter) each;
+                                    presenter.onRefresh();
+                                }
                             }
                         }
                     }
@@ -611,7 +612,6 @@ public class WebSocketClient implements IWebSocketSubject {
     private void send(final WebSocketEntity entity, IWebSocketObserver observer) {
         try {
             String json = GsonSinglon.getInstance().toJson(entity);
-            Log.i("nidongliang", json);
             webSocket.send(json);
         } catch (Exception e) {
             e.printStackTrace();
@@ -622,16 +622,6 @@ public class WebSocketClient implements IWebSocketSubject {
             if (e instanceof NullPointerException) {
                 reconnect = 5;
                 reConnect(false);
-
-//                mHandler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        L.e("ws send error", connected + "");
-//                        if (isConnected()) {
-//                            reSend(entity);
-//                        }
-//                    }
-//                }, 10);
             }
         }
     }
@@ -670,6 +660,8 @@ public class WebSocketClient implements IWebSocketSubject {
             SocketMarketParam param = (SocketMarketParam) webSocketEntity.getParam();
             this.typeAndId = param.getType() + "-" + param.getId();
         }
+
+        Log.i("nidongliang", "websocket: " + webSocketEntity);
         send(webSocketEntity, observer);
     }
 

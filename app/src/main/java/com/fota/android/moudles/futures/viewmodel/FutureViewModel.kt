@@ -163,10 +163,6 @@ class FutureViewModel : BaseViewModel() {
 
                     //都没有选中第一个
                     if (!list.isNullOrEmpty() && selectContract.get() == null) {
-                        Log.i(
-                            "nidongliang",
-                            "select: ${list[0].content[0].contractName}, ${list[0].content[0].assetName}"
-                        )
                         setSelectContact(list[0], list[0].content[0])
                         selectContract.set(list[0].content[0])
                     }

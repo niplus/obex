@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.fota.android.moudles.InviteViewModel" />
+    </data>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/refreshLayout">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".moudles.CommissionFragment"
+        android:background="@drawable/shape_25r_fill_f7faff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/commission_income"
+            android:textColor="@color/color_333333_ffffff"
+            android:textSize="17sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/tv_commission"
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:src="@mipmap/icon_invite_coin"
+            app:layout_constraintStart_toEndOf="@+id/tv_commission"
+            app:layout_constraintTop_toTopOf="@+id/tv_commission"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_commission"
+            android:layout_marginStart="6dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_invite_card"
+            app:layout_constraintTop_toBottomOf="@+id/tv_commission"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginTop="7dp"
+            android:id="@+id/iv_commission"/>
+
+        <TextView
+            android:id="@+id/tv_day_commission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="31dp"
+            android:text='@{"≈"+viewModel.inviteInfo.lastDayBonus}'
+            android:textColor="#ff395fc3"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/iv_commission" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yestoday_commission"
+            android:textColor="@color/color_text1"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/textView"
+            android:layout_marginEnd="210dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_commission"
+            app:layout_constraintTop_toBottomOf="@+id/tv_day_commission" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"≈"+viewModel.inviteInfo.thisWeekBonus}'
+            android:textColor="#ff395fc3"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_commission"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_day_commission"
+            android:id="@+id/tv_weekly_commission"
+            android:textStyle="bold"
+            android:layout_marginEnd="40dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/week_commission"
+            android:textColor="@color/color_text1"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@+id/tv_weekly_commission" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/transaction_statistics"
+            android:textColor="@color/color_333333_ffffff"
+            android:textSize="17sp"
+            android:id="@+id/textView1"
+            app:layout_constraintStart_toStartOf="@+id/tv_commission"
+            app:layout_constraintTop_toBottomOf="@+id/iv_commission"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:src="@mipmap/icon_invite_coin"
+            app:layout_constraintStart_toEndOf="@+id/textView1"
+            app:layout_constraintTop_toTopOf="@+id/textView1"
+            app:layout_constraintBottom_toBottomOf="@+id/textView1"
+            android:layout_marginStart="6dp"/>
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="* "
+            android:textColor="#ff395fc3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/textView1"
+            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/transaction_hint"
+            android:textColor="#ff707a8a"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_hint"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_invite_card"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hint"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/iv_trade"/>
+
+        <TextView
+            android:id="@+id/tv_day_trade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:text='@{"≈"+viewModel.inviteInfo.lastDayDealAmount}'
+            android:textColor="#ff395fc3"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tv_day_commission"
+            app:layout_constraintTop_toTopOf="@+id/iv_trade" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yestoday_trans_volume"
+            android:textColor="@color/color_text1"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/tv_day_trade" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"≈"+viewModel.inviteInfo.thisWeekDealAmount}'
+            android:textColor="#ff395fc3"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_trade"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_day_trade"
+            android:id="@+id/tv_weekly_trade"
+            android:textStyle="bold"
+            android:layout_marginEnd="40dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/week_trans_volume"
+            android:textColor="@color/color_text1"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="@+id/tv_weekly_trade" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="138dp"
+            android:background="@color/page_color"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_invitation_code"
+            android:textColor="#ff707a8a"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@+id/view"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:id="@+id/tv_invite_label"/>
+
+        <TextView
+            android:id="@+id/tv_invite_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@{viewModel.inviteInfo.inviteCode}"
+            android:textColor="@color/color_text1"
+            android:textSize="17sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_invite_label"
+            app:layout_constraintStart_toEndOf="@+id/tv_invite_label" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/copy"
+            android:textColor="#ff395fc3"
+            android:textSize="14sp"
+            android:id="@+id/tv_copy"
+            app:layout_constraintStart_toEndOf="@+id/tv_invite_code"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_invite_code"
+            android:layout_marginStart="15dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="140dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="3dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/cd_invite"
+            app:cardBackgroundColor="@color/color_ffffff_192330"
+            app:layout_constraintTop_toBottomOf="@+id/tv_invite_label">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/invite_now"
+                android:textColor="@color/color_707a80_e5e5e5"
+                android:textSize="14sp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="140dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="3dp"
+            android:layout_marginStart="15dp"
+            android:id="@+id/cd_post"
+            app:cardBackgroundColor="@color/color_ffffff_192330"
+            app:layout_constraintStart_toEndOf="@+id/cd_invite"
+            app:layout_constraintTop_toBottomOf="@+id/tv_invite_label">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/exclusive_post"
+                android:textColor="@color/color_707a80_e5e5e5"
+                android:textSize="14sp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="@color/color_ffffff_192330"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp"
+            android:id="@+id/cv_qrcode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cd_post"
+            app:layout_constraintTop_toTopOf="@+id/cd_post"
+            app:layout_constraintBottom_toBottomOf="@+id/cd_post"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_qrcode"
+                android:layout_margin="3dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</layout>

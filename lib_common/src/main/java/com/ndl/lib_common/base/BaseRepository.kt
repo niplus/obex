@@ -1,7 +1,8 @@
 package com.ndl.lib_common.base
 
 import com.ndl.lib_common.R
-import java.lang.Exception
+import okhttp3.RequestBody
+import org.json.JSONObject
 
 /**
  * 仓库基类
@@ -9,7 +10,7 @@ import java.lang.Exception
 open class BaseRepository {
 
     //全局统一处理
-    suspend  fun <T> apiCall(call: suspend()->Response<T>): Response<T>{
+    suspend  fun <T> apiCall(call: suspend () -> Response<T>): Response<T>{
         val result = call.invoke()
         val msg = when(result.code){
             130001 -> R.string.error_code_130001
@@ -29,5 +30,12 @@ open class BaseRepository {
             }
         }
         return result
+    }
+
+    open fun getRequestBody(params: Map<String, Any>): RequestBody {
+        return RequestBody.create(
+            okhttp3.MediaType.parse("application/json; charset=utf-8"),
+            JSONObject(params).toString()
+        )
     }
 }

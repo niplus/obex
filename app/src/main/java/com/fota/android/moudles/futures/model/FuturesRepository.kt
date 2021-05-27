@@ -3,6 +3,7 @@ package com.fota.android.moudles.futures.model
 import com.fota.android.http.ApiService
 import com.fota.android.http.Http
 import com.fota.android.moudles.futures.bean.*
+import com.fota.android.moudles.mine.bean.FundDataBean
 import com.ndl.lib_common.base.BaseRepository
 import com.ndl.lib_common.base.Response
 
@@ -73,6 +74,21 @@ class FuturesRepository: BaseRepository() {
             Http.getRetrofit().create(ApiService::class.java).cancelConditionOrder(
                 CancelOrderEntitiy(orderId)
             )
+        }
+    }
+
+    suspend fun closeOrder(totalAmount: String?, contractId: Int, percent: String): Response<String>{
+        return apiCall {
+            Http.getRetrofit().create(ApiService::class.java).closeOrder(CloseOrderBean(totalAmount, contractId, percent))
+        }
+    }
+
+    suspend fun getFundData(): Response<FundDataBean>{
+        return apiCall {
+            val hashMap = hashMapOf<String, Any>()
+            hashMap["pageNo"] = "1"
+            hashMap["pageSize"] = "100"
+            Http.getRetrofit().create(ApiService::class.java).getFundData(getRequestBody(hashMap))
         }
     }
 

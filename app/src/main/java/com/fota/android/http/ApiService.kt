@@ -3,12 +3,14 @@ package com.fota.android.http
 import com.fota.android.common.bean.home.BannerBean
 import com.fota.android.commonlib.http.BaseHttpResult
 import com.fota.android.core.base.BtbMap
-import com.fota.android.moudles.futures.bean.CancelOrderEntitiy
-import com.fota.android.moudles.futures.bean.ConditionOrderEntity
-import com.fota.android.moudles.futures.bean.ConditionOrdersBean
-import com.fota.android.moudles.futures.bean.StopOrderEntity
+import com.fota.android.moudles.InviteBean
+import com.fota.android.moudles.InviteListBean
+import com.fota.android.moudles.InviteRecordBean
+import com.fota.android.moudles.futures.bean.*
 import com.fota.android.moudles.market.bean.MarketCardItemBean
+import com.fota.android.moudles.mine.bean.FundDataBean
 import com.ndl.lib_common.base.Response
+import okhttp3.RequestBody
 import retrofit2.http.*
 import rx.Observable
 
@@ -40,4 +42,20 @@ interface ApiService {
 
     @POST("contract/condition-order/cancel")
     suspend fun cancelConditionOrder(@Body body: CancelOrderEntitiy): Response<String>
+
+    @POST("trade/contract/close")
+    suspend fun closeOrder(@Body body: CloseOrderBean): Response<String>
+
+    @GET("activity/invite/rebate/list")
+    suspend fun getInviteInfo(): Response<InviteBean>
+
+    @GET("activity/invite/statistics")
+    suspend fun getInviteRecord(): Response<InviteRecordBean>
+
+    @GET("activity/invite/record")
+    suspend fun getInviteRecordList(): Response<InviteListBean>
+
+    @POST("asset/fund/data")
+    suspend fun getFundData(@Body body: RequestBody): Response<FundDataBean>
+
 }

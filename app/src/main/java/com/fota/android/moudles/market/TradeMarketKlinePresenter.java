@@ -86,11 +86,18 @@ public class TradeMarketKlinePresenter extends BaseTradePresenter<TradeMarketKli
      * 指数的deal数据请求
      */
     public void getAdditonalSpot() {
+        client.removeChannel(MARKET_SPOTINDEX, this);
         WebSocketEntity<SocketEntrustParam> socketEntity = new WebSocketEntity<>();
         SocketEntrustParam param = new SocketEntrustParam(futureBean.getAssetName());
         socketEntity.setParam(param);
         socketEntity.setReqType(MARKET_SPOTINDEX);
         client.addChannel(socketEntity, TradeMarketKlinePresenter.this);
+    }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        client.removeChannel(MARKET_SPOTINDEX, this);
     }
 
     private void onNextDeal(List<DealBean> deals) {

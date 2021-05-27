@@ -582,5 +582,39 @@
     <string name="sure_cancel_order">确定撤单？</string>
     <string name="close_position">平仓</string>
 
-
+    <string name="my_commission">我的佣金</string>
+    <string name="my_invite">我的邀请</string>
+    <string name="commission_income">佣金收益</string>
+    <string name="yestoday_commission">昨日佣金</string>
+    <string name="week_commission">本周佣金</string>
+    <string name="transaction_statistics">交易统计</string>
+    <string name="transaction_hint">交易额为预估值，仅供参考，佣金请以返佣记录为准</string>
+    <string name="yestoday_trans_volume">昨日交易额</string>
+    <string name="week_trans_volume">本周交易额</string>
+    <string name="my_invitation_code">我的邀请码</string>
+    <string name="copy">复制</string>
+    <string name="invite_now">立即邀请</string>
+    <string name="exclusive_post">专属海报</string>
+    <string name="copy_link">复制链接</string>
+    <string name="share_to">分享至</string>
+    <string name="sweep_face_to_face">面对面扫我接受邀请</string>
+    <string name="cooperation_benefit">合作共赢</string>
+    <string name="invite_post_content">CME的全品类全仓保证金系统\nOCC实时清洁算系统\n释放用户20%-30%的资金占用率</string>
+    <string name="invite_post_hint">以强大的安全机制、保证金风控机制和可靠的底层架构，\n为您提供可靠的交易体验。</string>
+    <string name="invitation_code">邀请码：</string>
+    <string name="futures_risk">合约交易有风险，交易需谨慎</string>
+    <string name="download_pic">下载图片</string>
+    <string name="success_invite">成功邀请注册</string>
+    <string name="my_invite_hint1">邀请统计包含间接邀请。</string>
+    <string name="my_invite_hint2">今日、昨日以新加坡时间（UTC+8）划分。数据每三分钟刷 新一次</string>
+    <string name="today">今日</string>
+    <string name="yestoday">昨日</string>
+    <string name="total">累计</string>
+    <string name="invite_record">邀请记录</string>
+    <string name="invite_account">被邀请人账号</string>
+    <string name="user_level">用户等级</string>
+    <string name="invite_time">邀请时间</string>
+    <string name="save_pic_success">图片保存成功</string>
+    <string name="save_pic_failed">图片保存失败</string>
+    <string name="person">人</string>
 </resources>

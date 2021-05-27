@@ -95,6 +95,30 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
 //        removeChildren();
     }
 
+    public void removeAllChannel(){
+        client.removeChannel(SocketKey.TradeWeiTuoReqType, this);
+        //time线
+        client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, this);
+        //ticker
+        client.removeChannel(SocketKey.HangQingNewlyPriceReqType, this);
+        client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
+        removeChildren();
+    }
+
+    public void addAllChannel(){
+        getView().refreshCurrency();
+        //联动请求
+        getDepthFive(getType(), Pub.GetInt(selectItem.getAssetId()));
+        getNowTicker(getType(), Pub.GetInt(selectItem.getAssetId()));
+        getTimeLineDatas(getType(), Pub.GetInt(selectItem.getAssetId()), "1m");
+        //jiang chart loading
+        if (getView() != null) {
+            getView().setOverShowLoading(0, true);
+            getView().setOverShowLoading(1, true);
+            getKlineDatas(3, Pub.GetInt(selectItem.getAssetId()), types[currentPeriodIndex]);
+        }
+    }
+
     protected void removeChildren() {
         client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this);
         client.removeChannel(SocketKey.MineAssetReqType, this);
@@ -214,7 +238,7 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
     /**
      * 更新数据
      */
-    private void updateCurrency() {
+    public void updateCurrency() {
         getView().refreshCurrency();
         //联动请求
         getDepthFive(getType(), Pub.GetInt(selectItem.getAssetId()));

@@ -14,7 +14,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 5
-        versionName "1.0.8"
+        versionName "1.0.9"
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
@@ -66,8 +66,11 @@ android {
             multiDexEnabled true
 //            buildConfigField "String", "BASE_URL", '"http://exbgdev.yuchains.com/mapi/"'
 //            buildConfigField "String", "WEBSOCKET_BASE_URL", '"ws://exbgdev.yuchains.com/mapi/websocket"'
-            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
-            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
+//            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
+//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
+
+            buildConfigField "String", "BASE_URL", '"https://pre.cboex.io/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://pre.cboex.io/mapi/websocket"'
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
@@ -191,8 +194,7 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
 
     implementation 'com.joker.HuanTanSheng:EasyPhotos:andX-2.5.6'
 

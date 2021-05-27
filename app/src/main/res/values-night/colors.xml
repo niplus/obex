@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="main_buy_color">#FF33C891</color>
+
+    <color name="trend_up">#68DD98</color>
+    <color name="trend_down">#E5747C</color>
+
+    <color name="page_color">#141719</color>
+    <color name="color_text1">#E5E5E5</color>
+    <color name="color_f7faff_141719">#141719</color>
+    <color name="color_333333_ffffff">#fff</color>
+    <color name="color_ffffff_192330">#192330</color>
+    <color name="color_707a80_e5e5e5">#e5e5e5</color>
+    <color name="color_eaf1ff_000000">#000000</color>
+    <color name="color_ecf2ff_0c1115">#0c1115</color>
+    <color name="color_f5f5f5_4d4d4d">#4d4d4d</color>
+</resources>

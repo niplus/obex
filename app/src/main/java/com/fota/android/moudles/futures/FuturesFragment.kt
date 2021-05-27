@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.widget.PopupWindow
 import androidx.databinding.DataBindingUtil
@@ -44,6 +45,7 @@ import com.fota.android.utils.*
 import com.fota.android.widget.btbwidget.FotaTextWatch
 import com.fota.android.widget.dialog.LeverDialog
 import com.fota.android.widget.dialog.MessageDialog
+import com.fota.android.widget.dialog.RemoveMoneyDialog
 import com.fota.android.widget.popwin.FutureTopWindow
 import com.fota.android.widget.popwin.SpinerPopWindow3
 import com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView
@@ -105,7 +107,12 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
 
     override fun onResume() {
         super.onResume()
-        presenter.addConditionChannel()
+        presenter.resumeAddChannel()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.removeSocket()
     }
 
     private lateinit var viewModel: FuturesViewModel
@@ -122,6 +129,11 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                 }
             }
         })
+
+        viewModel.closeOrderLiveData.observe(this, Observer {
+            stopProgressDialog()
+            messageDialog?.dismiss()
+        })
         viewModel.stopOrderLiveData.observe(this, Observer {
             stopProgressDialog()
             stopDialog?.dismiss()
@@ -132,8 +144,6 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         })
         mHeadBinding.kline.setChartType(FotaBigKLineBarChartView.ChartType.FUTURE)
         mHeadBinding.tline.setChartType(ImBeddedTimeLineBarChartView.ChartType.FUTURE)
-        //        mHeadBinding.tline.setChartType(ImBeddedTimeLineBarChartView.ChartType.USDT);
-//        mHeadBinding.tline.setChartType(FotaBigTimeLineBarChartView.ChartType.SPOT);
         val color =
             if (AppConfigs.isWhiteTheme()) getThemeColor(R.attr.font_color) else getThemeColor(
                 R.attr.font_color3
@@ -249,6 +259,8 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         }
         popWindow.showAsDropDown(mHeadBinding.tvType)
     }
+
+
 
     override fun initViewPager() {
         //jiang
@@ -956,10 +968,27 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         mHeadBinding.futuresFdYk.text = topInfo!!.floatProfit
     }
 
-    private var messageDialog: MessageDialog? = null
-    fun removeMoney(model: FuturesMoneyBean?) {
-        messageDialog = MessageDialog(requireContext(), getString(R.string.sure_close_position)) {
-            presenter.removeMoney(model!!)
+    private var messageDialog: RemoveMoneyDialog? = null
+    fun removeMoney(model: FuturesMoneyBean) {
+//        messageDialog = MessageDialog(requireContext(), getString(R.string.sure_close_position)) {
+//            presenter.removeMoney(model!!)
+//        }
+//        messageDialog!!.show()
+
+        messageDialog = RemoveMoneyDialog(requireContext())
+
+        messageDialog!!.dataBinding.apply {
+            tvShowNum.text = "${model.avaQty} / ${model.positionQty}"
+            tvCancel.setOnClickListener {
+                messageDialog!!.dismiss()
+            }
+
+            tvConfirm.setOnClickListener {
+                viewModel.closeOrder(model.contractId.toInt(),
+                    (model.avaQty.toDouble() * (progressBar.lever / 100f)).toString(),
+                    (progressBar.lever / 100f).toString()
+                )
+            }
         }
         messageDialog!!.show()
     }
@@ -1007,6 +1036,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     override fun onSpotUpdate(spotIndex: SpotIndex) {
         spotPrice = spotIndex.averagePrice
         UIUtil.setText(mHeadBinding.imbedTickerSpot, spotPrice)
+        validMaxMinPrice()
     }
 
     override fun clearEditText() {

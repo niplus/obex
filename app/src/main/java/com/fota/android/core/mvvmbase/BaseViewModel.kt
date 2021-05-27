@@ -1,5 +1,7 @@
 package com.fota.android.core.mvvmbase
 
+import android.view.View
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +14,9 @@ import java.lang.Exception
 open class BaseViewModel: ViewModel() {
     val error by lazy { MutableLiveData<ErrorMessage>() }
 
+    val title = ObservableField<String>()
+
+
     fun launchUI(block: suspend () -> Unit) = viewModelScope.launch {
         try {
             block()
@@ -20,5 +25,9 @@ open class BaseViewModel: ViewModel() {
         }catch (e: Exception){
             error.value = ErrorMessage(true, null, e.message)
         }
+    }
+
+    fun onBackClick(view: View){
+        (view.context as BaseActivity<*, *>).finish()
     }
 }

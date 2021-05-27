@@ -25,6 +25,7 @@ public class TradeHistoryPresenter extends BasePresenter {
         typeList.add(new KeyValue(getView().getXmlString(R.string.planing), "3"));
         typeList.add(new KeyValue(getView().getXmlString(R.string.history_planning), "4"));
         typeList.add(new KeyValue(getView().getXmlString(R.string.exchange_complete), "2"));
+        typeList.add(new KeyValue(getView().getXmlString(R.string.capital_flow), "5"));
 
         typeList1 = new ArrayList<>();
         typeList1.add(new KeyValue(getView().getXmlString(R.string.exchange_order), "1"));

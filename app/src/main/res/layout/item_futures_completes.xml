@@ -96,6 +96,14 @@
                             android:textColor="?attr/font_color4"
                             android:textSize="9.6sp" />
 
+                        <TextView
+                            style="@style/wrap_style"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/contractdeal_gechar"
+                            android:textColor="?attr/font_color4"
+                            android:textSize="9.6sp" />
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -113,6 +121,14 @@
 
                         <TextView
                             android:id="@+id/entrust_price"
+                            style="@style/wrap_style"
+                            android:layout_marginTop="10dp"
+                            android:text="--"
+                            android:textColor="?attr/font_color"
+                            android:textSize="9.6sp" />
+
+                        <TextView
+                            android:id="@+id/fee"
                             style="@style/wrap_style"
                             android:layout_marginTop="10dp"
                             android:text="--"
@@ -143,15 +159,17 @@
                         <TextView
                             style="@style/wrap_style"
                             android:layout_marginTop="10dp"
-                            android:text="@string/contractdeal_gechar"
+                            android:text="@string/realized_profit_loss"
                             android:textColor="?attr/font_color4"
                             android:textSize="9.6sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        style="@style/horizontal_weight_fill"
                         android:gravity="right|center_vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
@@ -163,7 +181,7 @@
                             android:textSize="9.6sp" />
 
                         <TextView
-                            android:id="@+id/fee"
+                            android:id="@+id/profit"
                             style="@style/wrap_style"
                             android:layout_marginTop="10dp"
                             android:text="--"
