@@ -413,16 +413,30 @@
 
                                     </RadioGroup>
 
-                                    <TextView
-                                        android:id="@+id/tv_type"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:background="@drawable/shape_3r_stroke_cacaca"
-                                        android:padding="5dp"
-                                        android:text="@string/market_order"
-                                        android:textColor="?attr/font_color"
-                                        android:textSize="10sp" />
+                                        android:orientation="horizontal"
+                                        android:gravity="center_vertical"
+                                        android:background="@drawable/shape_3r_stroke_cacaca">
+                                        <TextView
+                                            android:id="@+id/tv_type"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:padding="5dp"
+                                            android:layout_weight="1"
+                                            android:text="@string/market_order"
+                                            android:textColor="?attr/font_color"
+                                            android:textSize="10sp" />
+
+                                        <com.fota.android.commonlib.view.DownTrigonView
+                                            android:layout_width="7.9dp"
+                                            android:layout_height="4.6dp"
+                                            android:layout_marginLeft="3dp"
+                                            android:layout_marginEnd="10dp"
+                                            app:view_color="?attr/font_color4" />
+                                    </LinearLayout>
+
 
                                     <EditText
                                         android:id="@+id/edt_trigger_price"
@@ -448,7 +462,7 @@
 
                                         <LinearLayout
                                             android:id="@+id/price_type2"
-                                            android:layout_width="60dp"
+                                            android:layout_width="65dp"
                                             android:layout_height="40dp"
                                             android:gravity="center_vertical"
                                             android:onClick="@{view.onClick}"
