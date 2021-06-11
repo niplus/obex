@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +46,7 @@ import com.fota.android.moudles.exchange.money.ExchangeMoneyListFragment;
 import com.fota.android.moudles.exchange.orders.ExchangeOrdersFragment;
 import com.fota.android.moudles.futures.bean.ToTradeEvent;
 import com.fota.android.moudles.market.FullScreenKlineActivity;
+import com.fota.android.moudles.market.TradeMarketKlineActivity;
 import com.fota.android.moudles.market.bean.ChartLineEntity;
 import com.fota.android.moudles.market.bean.HoldingEntity;
 import com.fota.android.utils.KeyBoardUtils;
@@ -876,13 +876,20 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.UsdtContractTransferFragment);
                 break;
             case R.id.img_type_change:
-                isKline = !isKline;
-                if (isKline) {
-                    mHeadBinding.imgTypeChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.chart_time_line));
-                } else {
-                    mHeadBinding.imgTypeChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.chart_kline));
-                }
-                changeKtline();
+//                isKline = !isKline;
+//                if (isKline) {
+//                    mHeadBinding.imgTypeChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.chart_time_line));
+//                } else {
+//                    mHeadBinding.imgTypeChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.chart_kline));
+//                }
+//                changeKtline();
+                Intent intent = new Intent(requireActivity(), TradeMarketKlineActivity.class);
+                Bundle args = new Bundle();
+                args.putString("symbol", getPresenter().selectItem.getAssetName());
+                args.putInt("id",  Integer.valueOf(getPresenter().selectItem.getAssetId()));
+                args.putInt("type", 3);
+                intent.putExtras(args);
+                startActivity(intent);
                 break;
 
         }

@@ -4,18 +4,11 @@ import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.media.MediaScannerConnection
-import android.net.Uri
-import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -32,9 +25,6 @@ import com.fota.android.http.Http
 import com.fota.android.utils.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 class ShareDialog(
     context: Context,
@@ -44,12 +34,19 @@ class ShareDialog(
     profitLoss: String,
     openPrice: String,
     markPrice: String,
-val activity: Activity) : Dialog(context) {
+    shareUrl: String,
+    val activity: Activity
+) : Dialog(context) {
 
     var dataBinding: DialogShareBinding? = null
 
     init {
-        dataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_share, null, false)
+        dataBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.dialog_share,
+            null,
+            false
+        )
         setContentView(dataBinding!!.root)
 
         val params = window!!.attributes
@@ -99,7 +96,7 @@ val activity: Activity) : Dialog(context) {
                             inviteCode = list
                             tvInviteCode.text = list
                             val bitmap = ZXingUtils.Create2DCode(
-                                "https://invite.cboex.com/#/share?invitationCode=$list",
+                                shareUrl,
                                 UIUtil.dip2px(context, 45.0),
                                 UIUtil.dip2px(context, 45.0)
                             )
@@ -113,7 +110,7 @@ val activity: Activity) : Dialog(context) {
             }else{
                 tvInviteCode.text = inviteCode
                 val bitmap = ZXingUtils.Create2DCode(
-                    "https://invite.cboex.com/#/share?invitationCode=$inviteCode",
+                    shareUrl,
                     UIUtil.dip2px(context, 45.0),
                     UIUtil.dip2px(context, 45.0)
                 )
@@ -127,20 +124,16 @@ val activity: Activity) : Dialog(context) {
     }
 
     private fun getPath(): String? {
-        val bitmap: Bitmap? = getBitmap(dataBinding!!.container)
+        val bitmap: Bitmap? = BitmapUtils.getBitmap(dataBinding!!.container)
+        val path = FileUtils.saveImageToGallery(context, bitmap)
 
-        activity.saveBitmap2Public("test.jpg", bitmap!!){
-            MainScope().launch {
-                if (it) {
-                    ToastUitl.show("图片保存成功", Toast.LENGTH_SHORT)
-                    dismiss()
-                }else{
-                    ToastUitl.show("图片保存失败", Toast.LENGTH_SHORT)
-                }
-            }
-
+        if (!path.isNullOrEmpty()){
+            ToastUitl.show(context.getString(R.string.save_pic_success), Toast.LENGTH_SHORT)
+            dismiss()
+        }else{
+            ToastUitl.show(context.getString(R.string.save_pic_failed), Toast.LENGTH_SHORT)
         }
-        return ""
+        return path
     }
 
     /**
@@ -171,10 +164,7 @@ val activity: Activity) : Dialog(context) {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
         ) {
-            val path: String? = getPath()
-            if (!TextUtils.isEmpty(path)) {
-                Toast.makeText(context, "图片保存成功", Toast.LENGTH_SHORT).show()
-            }
+            getPath()
         } else {
             PermissionUtils.requestPermissions(
                 activity,

@@ -3,8 +3,6 @@ package com.fota.android.moudles.exchange;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fota.android.R;
-import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.utils.UIUtil;
 import com.fota.android.core.base.BasePresenter;
 import com.fota.android.core.base.list.MvpListFragment;
@@ -54,6 +52,7 @@ public abstract class BaseExchageChlidFragment<P extends BasePresenter> extends 
     public void onRefresh() {
         if (getActivity() == null) return;
         if (UserLoginUtil.havaUser()) {
+
             super.onRefresh();
         } else {
             setDataList(null);
@@ -61,11 +60,11 @@ public abstract class BaseExchageChlidFragment<P extends BasePresenter> extends 
     }
 
     protected void setHoldBg(ViewHolder holder) {
-        if (AppConfigs.isWhiteTheme()) {
-            holder.setBackgroundRes(R.id.order_main, R.drawable.ft2_corner_mian_color);
-        } else {
-            holder.setBackgroundRes(R.id.order_main, R.drawable.ft_corner_mian_color);
-        }
+//        if (AppConfigs.isWhiteTheme()) {
+//            holder.setBackgroundRes(R.id.order_main, R.drawable.ft2_corner_mian_color);
+//        } else {
+//            holder.setBackgroundRes(R.id.order_main, R.drawable.ft_corner_mian_color);
+//        }
     }
 
     @Override

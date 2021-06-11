@@ -14,7 +14,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 5
-        versionName "1.0.9"
+        versionName "1.0.10"
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
@@ -58,6 +58,11 @@ android {
         dataBinding true
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.config
@@ -66,11 +71,11 @@ android {
             multiDexEnabled true
 //            buildConfigField "String", "BASE_URL", '"http://exbgdev.yuchains.com/mapi/"'
 //            buildConfigField "String", "WEBSOCKET_BASE_URL", '"ws://exbgdev.yuchains.com/mapi/websocket"'
-//            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
-//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
+            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
 
-            buildConfigField "String", "BASE_URL", '"https://pre.cboex.io/mapi/"'
-            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://pre.cboex.io/mapi/websocket"'
+//            buildConfigField "String", "BASE_URL", '"https://pre.cboex.io/mapi/"'
+//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://pre.cboex.io/mapi/websocket"'
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
@@ -85,8 +90,11 @@ android {
             zipAlignEnabled false
             shrinkResources false
             multiDexEnabled true
-            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
-            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
+//            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
+//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
+
+            buildConfigField "String", "BASE_URL", '"https://pre.cboex.io/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://pre.cboex.io/mapi/websocket"'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
                     UMENG_APPKEY_VALUE: "5b7302acf29d984c40000527",
@@ -100,8 +108,8 @@ android {
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation project(path: ':lib_common')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -123,7 +131,7 @@ dependencies {
     implementation 'com.blankj:utilcode:1.13.6'
 
     // 远程依赖集成方式（推荐）
-    implementation 'com.tencent.bugly:crashreport_upgrade:1.3.6'
+//    implementation 'com.tencent.bugly:crashreport_upgrade:1.3.6'
 
     // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
     implementation 'com.tencent.tinker:tinker-android-lib:1.9.9'
@@ -213,4 +221,12 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
 
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    implementation 'androidx.activity:activity:1.2.3'
+    implementation 'androidx.fragment:fragment:1.3.4'
+    implementation 'com.github.tbruyelle:rxpermissions:0.12'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+    implementation 'com.tencent.bugly:crashreport:latest.release'
 }

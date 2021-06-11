@@ -44,6 +44,7 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme_White"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon,android:theme">
         <activity android:name=".moudles.InviteActivity"></activity>

@@ -3,12 +3,11 @@ package com.fota.android.moudles
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.fota.android.core.mvvmbase.BaseViewModel
-import com.ndl.lib_common.base.Response
 
 class InviteViewModel: BaseViewModel() {
 
     private val repository = InviteRepository()
-    val inviteInfo = ObservableField<InviteBean>()
+    val inviteInfoLiveData = ObservableField<InviteBean>()
     val inviteRecordLiveData = MutableLiveData<InviteRecordBean>()
     val inviteListLiveData = MutableLiveData<InviteListBean?>()
 
@@ -16,7 +15,7 @@ class InviteViewModel: BaseViewModel() {
         launchUI {
             val result = repository.getInviteInfo()
             if (result.code == 0){
-                inviteInfo.set(result.data)
+                inviteInfoLiveData.set(result.data)
             }
         }
     }

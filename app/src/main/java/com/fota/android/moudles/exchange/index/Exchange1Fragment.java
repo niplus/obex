@@ -2,10 +2,8 @@ package com.fota.android.moudles.exchange.index;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,9 +26,6 @@ import com.fota.android.common.bean.exchange.CurrentPriceBean;
 import com.fota.android.common.bean.exchange.ExchangeCurrency;
 import com.fota.android.common.bean.home.EntrustBean;
 import com.fota.android.common.listener.IUpdateExchangeFragment;
-import com.fota.android.commonlib.base.AppConfigs;
-import com.fota.android.commonlib.utils.DecimalDigitsInputFilter;
-import com.fota.android.commonlib.utils.GradientDrawableUtils;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.commonlib.utils.UIUtil;
 import com.fota.android.core.base.BaseFragment;
@@ -48,9 +43,7 @@ import com.fota.android.moudles.futures.bean.ToTradeEvent;
 import com.fota.android.moudles.market.FullScreenKlineActivity;
 import com.fota.android.moudles.market.bean.ChartLineEntity;
 import com.fota.android.moudles.market.bean.HoldingEntity;
-import com.fota.android.utils.KeyBoardUtils;
 import com.fota.android.utils.UserLoginUtil;
-import com.fota.android.utils.apputils.TradeUtils;
 import com.fota.android.widget.DepthRefreshView;
 import com.fota.android.widget.ViewPagerTitle;
 import com.fota.android.widget.btbwidget.FotaTextWatch;
@@ -203,7 +196,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         onRefresh();
         setIsFutures();
         refreshBuy();
-        refreshPriceType();
         initViewPager();
         initCoodingLayout();
         initListenter();
@@ -215,10 +207,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
             }
         });
         mHeadBinding.rightContainer.setListener(this);
-        mHeadBinding.imbedUpDown.setUp(true);
-
-        UIUtil.setRoundCornerBorderBg(mHeadBinding.exchangeLayoutTop,
-                AppConfigs.isWhiteTheme() ? 0x1A000000 : 0x1AFFFFFF);
 
 //        UIUtil.setRoundCornerBorderBg(mHeadBinding.futureLayoutTop,
 //                AppConfigs.isWhiteTheme() ? 0x1A000000 : 0x1AFFFFFF);
@@ -230,7 +218,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         mHeadBinding.tline.setChartType(ImBeddedTimeLineBarChartView.ChartType.USDT);
         mHeadBinding.kline.setScreenInterface(this);
         addPercentContainer();
-        UIUtil.setRoundCornerBorderBg(mHeadBinding.percentContainer, getAttrColor(R.attr.font_color4), 4);
     }
 
     /**
@@ -245,38 +232,8 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
             UserLoginUtil.checkLogin(getContext());
             return;
         }
-        if (mHeadBinding.percentContainer.getChildCount() == 0) {
-            return;
-        }
-        for (int i = 0; i < PERCENT_CHILD_COUNT; i++) {
-            float[] floats = getRadii(corner, i);
-            GradientDrawable gd = new GradientDrawable();//创建drawable
-            gd.setColor(getAttrColor(index == i ? R.attr.font_color4 : R.attr.bg_color2));
-            ((TextView) mHeadBinding.percentContainer.getChildAt(i * 2)).setTextColor(
-                    getAttrColor(index == i ? R.attr.font_color : R.attr.font_color4));
-            gd.setGradientType(GradientDrawable.OVAL);
-            gd.setCornerRadii(floats);
-            UIUtil.setBackgroundDrawable(mHeadBinding.percentContainer.getChildAt(i * 2), gd);
-        }
-        if (index >= 0) {
-            double maxValue = Pub.GetDouble(mHeadBinding.maxAmountValue.getText().toString()) * (index + 1) / PERCENT_CHILD_COUNT;
-            //这里不能调用setCountText 1死循环 2逻辑不对
-            String count = Pub.getPriceFormat(maxValue, getAmountPrecision());
-            mHeadBinding.amount.setTextWithOutChanged(count);
-            changeMoneyByAmount(count);
-        }
     }
 
-    private void changeMoneyByAmount(String count) {
-        double price = getPrice();
-        if (price > 0) {
-            double all = Pub.multiply(count, price + "");
-            mHeadBinding.money.setTextWithOutChanged(
-                    !"0".equals(Pub.zoomZero(Pub.getPriceFormat(all, getMoneyPrecision()))) ?
-                            Pub.zoomZero(Pub.getPriceFormat(all, getMoneyPrecision()))
-                            : "");
-        }
-    }
 
     /**
      * 获取白分比conner
@@ -304,7 +261,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         lp.gravity = Gravity.CENTER;
         //line LayoutParams
         LinearLayout.LayoutParams lpView = new LinearLayout.LayoutParams(1, LinearLayout.LayoutParams.MATCH_PARENT);
-        mHeadBinding.percentContainer.removeAllViews();
         for (int i = 0; i < PERCENT_CHILD_COUNT; i++) {
             if (i > 0) {
                 addLine(lpView);
@@ -326,7 +282,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         tvPercent.setText(percent + "%");
         tvPercent.setGravity(Gravity.CENTER);
         tvPercent.setLayoutParams(lp);
-        mHeadBinding.percentContainer.addView(tvPercent);
         final int finalI = i;
         tvPercent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -346,7 +301,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         int color = R.attr.font_color4;
         view.setBackgroundColor(getAttrColor(color));
         view.setLayoutParams(lpView);
-        mHeadBinding.percentContainer.addView(view);
     }
 
     private int getAttrColor(int color) {
@@ -363,17 +317,17 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
             public void click(int position) {
                 if (Pub.isListExists(fragments)) {
                     if (fragments.get(position) instanceof com.fota.android.core.mvvmbase.BaseFragment){
-                        mHeadBinding.contentLayout.setHasData(true);
+//                        mHeadBinding.contentLayout.setHasData(true);
                     }else {
-                        mHeadBinding.contentLayout.setHasData(
-                                ((BaseFragment) fragments.get(position)).hasData);
+//                        mHeadBinding.contentLayout.setHasData(
+//                                ((BaseFragment) fragments.get(position)).hasData);
 
                         boolean allHasData = false;
                         for (Fragment fragment : fragments) {
                             if (fragment instanceof  BaseFragment)
                                 allHasData = allHasData | ((BaseFragment) fragment).hasData;
                         }
-                        mHeadBinding.contentLayout.setHasDataAll(allHasData);
+//                        mHeadBinding.contentLayout.setHasDataAll(allHasData);
                     }
                 }
             }
@@ -386,7 +340,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         UIUtil.setVisibility(mHeadBinding.exchangeTopInfo, !isFutures());
         UIUtil.setVisibility(mHeadBinding.futuresTopInfo, isFutures());
 
-        UIUtil.setVisibility(mHeadBinding.exchangeLayout, !isFutures());
         UIUtil.setVisibility(mHeadBinding.futureLayout, isFutures());
 
 //        StatusBarUtil.setPaddingSmart(getContext(), isFutures() ? mHeadBinding.futuresTitle : mHeadBinding.exchangeTitle);
@@ -430,7 +383,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
             @Override
             protected void onTextChanged(String s) {
                 //我在输入数量  金额随我变动
-                changeMoneyByAmount(s);
                 setPercent(-1);
             }
         };
@@ -441,13 +393,7 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
             protected void onTextChanged(String s) {
                 double all = Pub.GetDouble(s);
                 //我在输入金额   数量随我变动
-                double price = getPrice();
                 double count = 0;
-                if (price > 0) {
-                    count = all / price;
-                    setCountTextWithOutChanged(count > 0 ? Pub.zoomZero(Pub.getPriceFormat(count, getAmountPrecision()))
-                            : "");
-                }
                 setPercent(-1);
             }
         };
@@ -457,35 +403,9 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
 
             @Override
             protected void onTextChanged(String s) {
-                double all = Pub.GetDouble(mHeadBinding.money.getText().toString());
-                double amount = Pub.GetDouble(mHeadBinding.amount.getText().toString());
-                double price = getPrice();
-                if (amount > 0) {
-                    all = Pub.multiply(getPrice() + "", mHeadBinding.amount.getText().toString());
-                    mHeadBinding.money.setTextWithOutChanged(!"0".endsWith(Pub.zoomZero(Pub.getPriceFormat(all, getMoneyPrecision()))) ?
-                            Pub.zoomZero(Pub.getPriceFormat(all, getMoneyPrecision()))
-                            : "");
-                } else {
-                    if (price > 0) {
-                        amount = all / price;
-                        String text = amount > 0 ?
-                                Pub.zoomZero(Pub.getPriceFormat(amount, getAmountPrecision()))
-                                : "";
-                        setCountTextWithOutChanged(text);
-                    }
-                }
                 setPercent(-1);
-                validMaxInfo();
             }
         };
-
-
-        mHeadBinding.amount.addTextChangedListener(amoutTextchange);
-
-        mHeadBinding.money.addTextChangedListener(moneyTextchange);
-
-        mHeadBinding.price.addTextChangedListener(priceTextchange);
-
     }
 
     /**
@@ -496,7 +416,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
     private void setCountText(String text) {
         //数量变动得把下方数据 清零
         setPercent(-1);
-        mHeadBinding.amount.setText(text);
     }
 
     /**
@@ -507,71 +426,15 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
     private void setCountTextWithOutChanged(String text) {
         //数量变动得把下方数据 清零
         setPercent(-1);
-        mHeadBinding.amount.setTextWithOutChanged(text);
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        changeWidth();
         SmartRefreshLayoutUtils.refreshHeadLanguage(mHeadBinding.refreshLayout, getContext());
     }
 
-    protected void changeWidth() {
-        mHeadBinding.priceType.post(new Runnable() {
-            @Override
-            public void run() {
-
-                int textWith = (int) UIUtil.getTextWidth(getContext(), getXmlString(R.string.exchange_his_price), 14);
-
-                int width = UIUtil.dip2px(getContext(), 12) + textWith;
-
-                ViewGroup.LayoutParams lpPrice = mHeadBinding.priceType.getLayoutParams();
-                lpPrice.width = width;
-                mHeadBinding.priceType.setLayoutParams(lpPrice);
-
-                ViewGroup.LayoutParams lpAmount = mHeadBinding.amountTip.getLayoutParams();
-                lpAmount.width = width;
-                mHeadBinding.amountTip.setLayoutParams(lpAmount);
-
-                ViewGroup.LayoutParams lpMoney = mHeadBinding.moneyTip.getLayoutParams();
-                lpMoney.width = width;
-                mHeadBinding.moneyTip.setLayoutParams(lpMoney);
-            }
-        });
-    }
-
-    /**
-     * 获取当前参考价格
-     *
-     * @return
-     */
-    private double getPrice() {
-        double price = Pub.GetDouble(mHeadBinding.price.getText().toString());
-        if (!isLimit) {
-            return Pub.GetDouble(mHeadBinding.rightContainer.getCurrentPrice());
-        }
-        return price;
-    }
-
-    protected void validMaxInfo() {
-        double price = getPrice();
-        mHeadBinding.maxAmount.setText(isBuy
-                ? getXmlString(R.string.exchange_can_buy) : getXmlString(R.string.exchange_can_sell));
-        String maxValue = "--";
-        if (UserLoginUtil.havaUser()) {
-            if (isBuy) {
-                if (price > 0) {
-                    double maxCount = getMaxMoney() / price;
-                    maxValue = Pub.getPriceFormat(maxCount, getAmountPrecision());
-                }
-            } else {
-                maxValue = Pub.getPriceFormat(getMaxMoney(), getAmountPrecision());
-            }
-        }
-        mHeadBinding.maxAmountValue.setText(maxValue);
-    }
 
     protected void initViewPager() {
         fragments = new ArrayList<>();
@@ -598,29 +461,7 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         if (price == null) {
             return;
         }
-        boolean isUp = !price.getDailyReturn().contains("-");
-//        mHeadBinding.imbedTickerPrice.setText(price.getPriceFloor(tickerDepthDecimal));
-        mHeadBinding.imbedTickerPrice.setText(price.getPrice());
-        UIUtil.setTextColor(mHeadBinding.imbedTickerPrice, AppConfigs.getColor(isUp));
-        mHeadBinding.imbedUpDown.setUp(isUp);
-        mHeadBinding.imbedTickerTrend.setText(price.getDailyReturn());
-        UIUtil.setTextColor(mHeadBinding.imbedTickerTrend, AppConfigs.getColor(isUp));
-        //受市场价影响
-        updateMoneyFromTicker();
-    }
 
-    /**
-     * 当五档和限价返回档时候
-     * 如果是金额为空 补充金额 通过充输入金额的方法提示
-     * 金额不为空 只需要补充最大可买金额即可
-     */
-    private void updateMoneyFromTicker() {
-//        if (Pub.isStringEmpty(mHeadBinding.money.getText().toString())) {
-//            mHeadBinding.price.setText(mHeadBinding.price.getText().toString());
-//        } else {
-//            validMaxInfo();
-//        }
-        validMaxInfo();
     }
 
     @Override
@@ -632,7 +473,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
             //mHeadBinding.rightContainer.setDollarEvaluation(dollarEvaluation);
             mHeadBinding.rightContainer.refreshDepth(buys, sells);
         }
-        updateMoneyFromTicker();
     }
 
     /**
@@ -663,7 +503,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
             HisData data = BeanChangeFactory.createNewHisData(m);
             time15Data.add(data);
         }
-        mHeadBinding.imbedNarrowChart.initData(time15Data);
         HoldingEntity entity = FotaApplication.getInstance().getHoldingEntity();
         mHeadBinding.tline.setmDigits(entity.getDecimal());
         mHeadBinding.tline.initData(time15Data);
@@ -816,16 +655,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.money_tip:
-                mHeadBinding.money.requestFocus();
-                KeyBoardUtils.openKeybord(mHeadBinding.money, getContext());
-                //
-                break;
-            case R.id.amount_tip:
-                mHeadBinding.amount.requestFocus();
-                KeyBoardUtils.openKeybord(mHeadBinding.amount, getContext());
-                //
-                break;
             case R.id.select_buy:
                 isBuy = true;
                 refreshBuy();
@@ -834,35 +663,16 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
                 isBuy = false;
                 refreshBuy();
                 break;
-            case R.id.btn_buy_sell:
-                if (!UserLoginUtil.havaUser()) {
-                    UserLoginUtil.checkLogin(getContext());
-                    return;
-                }
-                if (isLimit) {
-                    if (Pub.GetDouble(mHeadBinding.price.getText().toString()) <= 0) {
-                        showToast(R.string.exchange_toast_inputprice);
-                        return;
-                    }
-                }
-                if (Pub.GetDouble(mHeadBinding.amount.getText().toString()) <= 0) {
-                    showToast(getXmlString(R.string.exchange_account_hint));
-                    return;
-                }
-//                verifyPassword();
-
-                tradeToPresenter(UserLoginUtil.getCapital());
-                break;
             case R.id.exchange_change_currency:
             case R.id.exchange_currency:
                 mHeadBinding.exchangeChangeCurrencyArrow.reverse();
                 showPopWindow();
                 break;
             case R.id.price_type:
-            case R.id.price_other:
-                isLimit = !isLimit;
-                refreshPriceType();
-                break;
+//            case R.id.price_other:
+//                isLimit = !isLimit;
+//                refreshPriceType();
+//                break;
             case R.id.transfer2:
             case R.id.transfer:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.UsdtContractTransferFragment);
@@ -874,25 +684,25 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
                 } else {
                     mHeadBinding.imgTypeChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.chart_kline));
                 }
-                changeKtline();
+//                changeKtline();
                 break;
 
         }
     }
 
-    protected void changeKtline() {
-        if (isKline) {
-            if (mHeadBinding.kline != null && mHeadBinding.tline != null) {
-                mHeadBinding.kline.setVisibility(View.VISIBLE);
-                mHeadBinding.tline.setVisibility(View.GONE);
-            }
-        } else {
-            if (mHeadBinding.kline != null && mHeadBinding.tline != null) {
-                mHeadBinding.kline.setVisibility(View.GONE);
-                mHeadBinding.tline.setVisibility(View.VISIBLE);
-            }
-        }
-    }
+//    protected void changeKtline() {
+//        if (isKline) {
+//            if (mHeadBinding.kline != null && mHeadBinding.tline != null) {
+//                mHeadBinding.kline.setVisibility(View.VISIBLE);
+//                mHeadBinding.tline.setVisibility(View.GONE);
+//            }
+//        } else {
+//            if (mHeadBinding.kline != null && mHeadBinding.tline != null) {
+//                mHeadBinding.kline.setVisibility(View.GONE);
+//                mHeadBinding.tline.setVisibility(View.VISIBLE);
+//            }
+//        }
+//    }
 
     @Override
     protected boolean viewGroupFocused() {
@@ -924,48 +734,9 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
     protected void tradeToPresenter(String fundCode) {
         //1-限价单, 2-市价单
         getPresenter().getModel().setPriceType(isLimit ? 1 : 2);
-        if (isLimit) {
-            getPresenter().getModel().setPrice(mHeadBinding.price.getText().toString());
-        } else {
-            getPresenter().getModel().setPrice(null);
-        }
-        getPresenter().getModel().setTotalAmount(mHeadBinding.amount.getText().toString());
         getPresenter().submit(fundCode);
     }
 
-    /**
-     * 执行交易
-     *
-     * @param fundCode
-     */
-//    protected void changePasswordToToken(String fundCode) {
-//        TradeUtils.getInstance().changePasswordToToken(getContext(), fundCode,
-//                new TradeUtils.ChangePassWordListener() {
-//                    @Override
-//                    public void setPasswordToken(String token) {
-//                        tradeToPresenter(UserLoginUtil.getCapital());
-//                    }
-//                });
-//    }
-
-
-    /**
-     * 验证密码
-     */
-    protected void verifyPassword() {
-        TradeUtils.getInstance().validPassword(getContext(), mRequestCode, new TradeUtils.ExchangePasswordListener() {
-
-            @Override
-            public void noPassword() {
-                tradeToPresenter(UserLoginUtil.getCapital());
-            }
-
-            @Override
-            public void showPasswordDialog() {
-                showDialog();
-            }
-        });
-    }
 
 
     protected void showPopWindow() {
@@ -1000,52 +771,11 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         popupWindow.showAsDropDown(mHeadBinding.exchangeTitle);
     }
 
-    /**
-     * 0-对手价，1-指定价
-     * 刷新市价和现价
-     */
-    protected void refreshPriceType() {
-        mHeadBinding.price.setText(mHeadBinding.price.getText().toString());
-        UIUtil.setVisibility(mHeadBinding.price, isLimit);
-        UIUtil.setVisibility(mHeadBinding.priceOther, !isLimit);
-
-        UIUtil.setVisibility(mHeadBinding.moneyUnit, isLimit);
-
-        UIUtil.setVisibility(mHeadBinding.money, isLimit);
-        UIUtil.setVisibility(mHeadBinding.moneyOther, !isLimit);
-        UIUtil.setText(mHeadBinding.priceTypeTv, isLimit ? getXmlString(R.string.exchange_limit_price) : getXmlString(R.string.exchange_his_price));
-    }
-
 
     /**
      * 刷新与买卖有关的状态
      */
     protected void refreshBuy() {
-
-        GradientDrawableUtils.setBgAlpha(mHeadBinding.selectBuy, 30);
-        GradientDrawableUtils.setBgAlpha(mHeadBinding.selectSell, 30);
-
-
-        GradientDrawableUtils.setBgColor(mHeadBinding.selectBuy, isBuy ? AppConfigs.getUpColor() : getAttrColor(R.attr.bg_color));
-
-        mHeadBinding.selectBuy.setTextColor(isBuy ? AppConfigs.getUpColor() : getAttrColor(R.attr.font_color4));
-
-        GradientDrawableUtils.setBgColor(mHeadBinding.selectSell, !isBuy ? AppConfigs.getDownColor() : getAttrColor(R.attr.bg_color));
-        mHeadBinding.selectSell.setTextColor(!isBuy ? AppConfigs.getDownColor() : getAttrColor(R.attr.font_color4));
-
-        UIUtil.setRoundCornerBg(mHeadBinding.btnBuySell, AppConfigs.getColor(isBuy));
-
-        mHeadBinding.btnBuySell.setText(isBuy ? getXmlString(R.string.common_buy)
-                : getXmlString(R.string.common_sell));
-
-        getPresenter().getModel().setIsBuy(isBuy);
-
-        mHeadBinding.price.setText(mHeadBinding.price.getText().toString());
-
-        //UIUtil.setVisibility(mHeadBinding.priceOther, !isLimit);
-        mHeadBinding.priceOther.setText(isBuy ? getXmlString(R.string.exchange_optimal)
-                : getXmlString(R.string.exchange_optimal));
-
         setPercent(percentIndex);
     }
 
@@ -1093,17 +823,10 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         if (getSelectAssetItem() != null) {
             mHeadBinding.exchangeCurrency.setText(getSelectAssetItem().getKey());
         }
-        mHeadBinding.amount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(getAmountPrecision())});
-        mHeadBinding.price.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(getPricePrecision())});
-        mHeadBinding.money.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(getMoneyPrecision())});
 
         mHeadBinding.firstWalletUnit.setText(getXmlString(R.string.common_usable) + " " + getAssetName() + "：");
 
         mHeadBinding.secondWalletUnit.setText(getXmlString(R.string.common_usable) + " " + getSecondName() + "：");
-
-        mHeadBinding.amountUnit.setText(getAssetName());
-
-        mHeadBinding.moneyUnit.setText(getSecondName());
 
         //mHeadBinding.exchangeIcon
         Glide.with(getContext()).load(getSelectAssetItem().getCoinIconUrl())
@@ -1112,14 +835,7 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         //jiang
         mHeadBinding.rightContainer.resetTicker();
         mHeadBinding.rightContainer.setType(3, getSelectAssetItem().getAssetName());
-
-        validMaxInfo();
-
         setWalletAmount();
-
-        if (Pub.isStringEmpty(mHeadBinding.amount.getText().toString())) {
-            setCountText(getDefaultAmount());
-        }
 
     }
 
@@ -1261,7 +977,6 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
 
 
     protected void clearEditText() {
-        mHeadBinding.price.setText("");
         setCountText("");
         mHeadBinding.futuresChangeCurrencyArrow.requestFocus();
 //        KeyBoardUtils.closeKeybord(mHeadBinding.price, getContext());
@@ -1273,28 +988,18 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
     @Override
     public void onClickItem(EntrustBean bean) {
         isLimit = true;
-        refreshPriceType();
-        validMaxInfo();
-        mHeadBinding.price.setText(bean.getPrice());
+
     }
 
     @Override
     public void onTickClick(CurrentPriceBean currentPrice) {
         isLimit = true;
-        refreshPriceType();
-        validMaxInfo();
-        mHeadBinding.price.setText(currentPrice.getPrice());
+
     }
 
     @Override
     public void onRefreshDigital(String remove, String add) {
         getPresenter().changeDigitalChannel(remove, add);
-//        tickerDepthDecimal = add;
-        String price = mHeadBinding.imbedTickerPrice.getText().toString();
-//        if (tickerDepthDecimal != -1) {
-//            String price2 = Pub.getPriceStringForLengthRound(Pub.GetDouble(price), tickerDepthDecimal);
-//            mHeadBinding.imbedTickerPrice.setText(price2);
-//        }
     }
 
     @Override
@@ -1327,7 +1032,7 @@ public class Exchange1Fragment extends MvpFragment<ExchangePresenter>
         if (Pub.isListExists(fragments)) {
             int index = fragments.indexOf(fragment);
             if (index == mHeadBinding.viewPagerTitle.getIndex()) {
-                mHeadBinding.contentLayout.setHasData(hasData);
+//                mHeadBinding.contentLayout.setHasData(hasData);
             }
         }
     }

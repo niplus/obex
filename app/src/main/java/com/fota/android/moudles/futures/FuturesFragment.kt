@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.TextUtils
-import android.util.Log
 import android.view.*
 import android.widget.PopupWindow
 import androidx.databinding.DataBindingUtil
@@ -20,6 +19,7 @@ import com.fota.android.R
 import com.fota.android.app.BundleKeys
 import com.fota.android.app.FotaApplication
 import com.fota.android.common.bean.BeanChangeFactory
+import com.fota.android.common.bean.SpotBean
 import com.fota.android.common.bean.exchange.CurrentPriceBean
 import com.fota.android.common.bean.home.EntrustBean
 import com.fota.android.common.listener.IFuturesUpdateFragment
@@ -27,8 +27,10 @@ import com.fota.android.commonlib.base.AppConfigs
 import com.fota.android.commonlib.utils.*
 import com.fota.android.core.base.BaseFragmentAdapter
 import com.fota.android.core.base.BtbMap
+import com.fota.android.databinding.DialogChangeContractTypeBinding
 import com.fota.android.databinding.DialogSetStopPriceBinding
 import com.fota.android.databinding.ItemOrderTypeBinding
+import com.fota.android.moudles.InviteViewModel
 import com.fota.android.moudles.exchange.index.Exchange1Fragment
 import com.fota.android.moudles.futures.bean.SpotIndex
 import com.fota.android.moudles.futures.bean.ToTradeEvent
@@ -40,9 +42,11 @@ import com.fota.android.moudles.futures.view.ConditionOrderFragment
 import com.fota.android.moudles.futures.viewmodel.FuturesViewModel
 import com.fota.android.moudles.futures.viewmodel.FuturesViewModel.Companion.CONDITION
 import com.fota.android.moudles.market.FullScreenKlineActivity
+import com.fota.android.moudles.market.TradeMarketKlineActivity
 import com.fota.android.moudles.market.bean.ChartLineEntity
 import com.fota.android.utils.*
 import com.fota.android.widget.btbwidget.FotaTextWatch
+import com.fota.android.widget.dialog.BottomDialog
 import com.fota.android.widget.dialog.LeverDialog
 import com.fota.android.widget.dialog.MessageDialog
 import com.fota.android.widget.dialog.RemoveMoneyDialog
@@ -55,6 +59,7 @@ import com.ndl.lib_common.base.BaseAdapter
 import com.ndl.lib_common.base.MyViewHolder
 import com.ndl.lib_common.utils.LiveDataBus.getBus
 import com.ndl.lib_common.utils.showSnackMsg
+import org.json.JSONObject
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
@@ -66,6 +71,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     private var popupTopWindow: FutureTopWindow? = null
     private var preciseMargin: BtbMap? = null
     private var isLeverChange = false
+    private var inviteViewModel: InviteViewModel? = null
 
     /**
      *
@@ -75,7 +81,11 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     //chart relative
 
     private val  orderTypes by lazy {
-        mutableListOf(getString(R.string.planing), getString(R.string.limit))
+        mutableListOf(
+            getString(R.string.planing),
+            getString(R.string.limit),
+            getString(R.string.market_order)
+        )
     }
 
     /**
@@ -108,6 +118,9 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     override fun onResume() {
         super.onResume()
         presenter.resumeAddChannel()
+        if (UserLoginUtil.havaUser() && inviteViewModel?.inviteRecordLiveData?.value == null){
+            inviteViewModel?.getInviteRecord()
+        }
     }
 
     override fun onPause() {
@@ -119,6 +132,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     override fun onInitView(view: View) {
         super.onInitView(view)
         viewModel = ViewModelProvider(this).get(FuturesViewModel::class.java)
+        inviteViewModel = ViewModelProvider(this).get(InviteViewModel::class.java)
         viewModel.error.observe(this, Observer {
             stopProgressDialog()
             if (it != null) {
@@ -130,8 +144,20 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             }
         })
 
+        getBus<SpotBean>("Spot_price").observe(this, Observer {
+            if (it.param.isNullOrEmpty()) return@Observer
+            val name = JSONObject(it.param).getString("param")
+            if (name != presenter.selectContact?.getAssetName()) {
+                return@Observer
+            }
+            spotPrice = it.data.averagePrice
+            validMaxMinPrice()
+        })
+
+        refreshPriceType()
         viewModel.closeOrderLiveData.observe(this, Observer {
             stopProgressDialog()
+            showTopInfo(getXmlString(R.string.order_success))
             messageDialog?.dismiss()
         })
         viewModel.stopOrderLiveData.observe(this, Observer {
@@ -139,7 +165,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             stopDialog?.dismiss()
         })
         viewModel.conditionOrderLiveData.observe(this, Observer {
-            if (it.code == 0) showSnackMsg("下单成功")
+            if (it.code == 0) showSnackMsg(getString(R.string.make_order_success))
             stopProgressDialog()
         })
         mHeadBinding.kline.setChartType(FotaBigKLineBarChartView.ChartType.FUTURE)
@@ -160,6 +186,12 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                 mHeadBinding.price2.text.toString()
             } else {
                 currentPrice
+            }
+
+            if (price.isEmpty()) {
+                ToastUtils.showToast(getString(R.string.exchange_toast_inputprice))
+                mHeadBinding.fprogress.init(false)
+                return@label
             }
             val moneyUnit = price.divide(level, pricePrecision)
             val amountTotal = topInfo!!.available.divide(moneyUnit, amountPrecision)
@@ -214,52 +246,48 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     }
 
     private fun showOrderTypeWindow(){
-        val popView = LayoutInflater.from(requireContext()).inflate(
-            R.layout.dialog_futures_order_type,
-            null
-        )
+        val rootView = DataBindingUtil.inflate<DialogChangeContractTypeBinding>(LayoutInflater.from(requireContext()), R.layout.dialog_change_contract_type, null, false)
+        val bottomDialog = BottomDialog(requireContext())
 
-        val popWindow = PopupWindow(popView)
-        popWindow.setOnDismissListener {
-            val attr = requireActivity().window.attributes
-            attr.alpha = 1f
-            requireActivity().window.attributes = attr
-        }
-        popWindow.isOutsideTouchable = true
-        popWindow.width = mHeadBinding.tvType.width
-        popWindow.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        val attr = requireActivity().window.attributes
-        attr.alpha = 0.5f
-        requireActivity().window.attributes = attr
-        val recyclerView = popView.findViewById<RecyclerView>(R.id.rv_types)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = object : BaseAdapter<ItemOrderTypeBinding, String>(
-            orderTypes,
-            R.layout.item_order_type,
-            BR.name
-        ){
-            override fun onBindViewHolder(
-                holder: MyViewHolder<ItemOrderTypeBinding>,
-                position: Int
-            ) {
-                super.onBindViewHolder(holder, position)
-                holder.dataBinding.root.setOnClickListener {
-                    //position 刚好对应枚举
-                    viewModel.type = position
-
-                    mHeadBinding.tvType.text = data[position]
-                    if (position == 0){
-                        mHeadBinding.edtTriggerPrice.visibility = View.VISIBLE
-                    }else{
-                        mHeadBinding.edtTriggerPrice.visibility = View.GONE
-                    }
-                    popWindow.dismiss()
-                }
+        rootView.apply {
+            cancel.setOnClickListener { bottomDialog.dismiss() }
+            tvPlan.setOnClickListener {
+                changeType(0)
+                bottomDialog.dismiss()
+            }
+            tvLimit.setOnClickListener {
+                changeType(1)
+                bottomDialog.dismiss()
+            }
+            tvMarket.setOnClickListener {
+                changeType(2)
+                bottomDialog.dismiss()
             }
         }
-        popWindow.showAsDropDown(mHeadBinding.tvType)
+        bottomDialog.setContentView(rootView.root)
+        bottomDialog.show()
     }
 
+
+    private fun changeType(position: Int){
+        //position 刚好对应枚举
+        viewModel.type = position
+
+        mHeadBinding.tvType.text = orderTypes[position]
+        if (position == 0){
+            mHeadBinding.edtTriggerPrice.visibility = View.VISIBLE
+        }else{
+            mHeadBinding.edtTriggerPrice.visibility = View.GONE
+
+            if (position == 1){
+                isLimit = true
+                refreshPriceType()
+            }else{
+                isLimit = false
+                refreshPriceType()
+            }
+        }
+    }
 
 
     override fun initViewPager() {
@@ -314,11 +342,6 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         mHeadBinding.price2.addTextChangedListener(priceTextchange)
         mHeadBinding.amount2.addTextChangedListener(priceTextchange)
     }
-    //    @Override
-    //    protected void validMaxInfo() {
-    //        validMaxMinPrice();
-    //        validMaxValue();
-    //    }
     /**
      * 和价格挂钩
      * 和可用保证金挂钩
@@ -339,22 +362,6 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         }
     }
 
-    override fun changeWidth() {
-        mHeadBinding.priceType2.post {
-            val textWith = UIUtil.getTextWidth(
-                context,
-                getXmlString(R.string.exchange_his_price),
-                14
-            ).toInt()
-            val width = UIUtil.dip2px(context, 12.0) + textWith
-            val lpPrice = mHeadBinding.priceType2.layoutParams
-            lpPrice.width = width
-            mHeadBinding.priceType.layoutParams = lpPrice
-            val lpMoney = mHeadBinding.amount2Tip.layoutParams
-            lpMoney.width = width
-            mHeadBinding.amount2Tip.layoutParams = lpMoney
-        }
-    }
 
     /**
      * 最高限卖价
@@ -374,14 +381,6 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             if (isBuy) RoundingMode.DOWN else RoundingMode.UP
         )
     }
-
-    private val price: Double
-        private get() {
-            val price = Pub.GetDouble(mHeadBinding.price2.text.toString())
-            return if (!isLimit) {
-                Pub.GetDouble(mHeadBinding.rightContainer.currentPrice)
-            } else price
-        }
 
     override fun getMaxMoney(): Double {
         if (topInfo == null) {
@@ -408,11 +407,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         mHeadBinding.rightContainer.setType(2, presenter.selectContact!!.getContractName())
         val futureContractBean = presenter.selectContact
 
-//        if (futureContractBean.getContractType() == 3){
-//            mHeadBinding.futuresCurrency.text = "${futureContractBean.symbol} ${getString(R.string.perp)}"
-//        }else{
-            mHeadBinding.futuresCurrency.text = futureContractBean!!.getContractName()
-//        }
+        mHeadBinding.futuresCurrency.text = futureContractBean!!.getContractName()
 
         mHeadBinding.futuresTvLever.text = "X" + presenter.selectContact!!.getLever()
         if (Pub.isListExists(fragments)) {
@@ -424,9 +419,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             .into(mHeadBinding.futureIcon)
         if (Pub.isStringEmpty(mHeadBinding.amount2.text.toString())) {
             mHeadBinding.amount2.setText(
-//                BigDecimal(defaultAmount).setScale(amountPrecision).toPlainString(
-            //                )
-            ""
+                ""
             )
         }
         mHeadBinding.fprogress.init(true)
@@ -439,14 +432,6 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     override fun onRefreshTicker(price: CurrentPriceBean) {
         super.onRefreshTicker(price)
         currentPrice = price.price?:"0.0"
-        //受市场价影响
-        if (!isLimit) {
-            //暂时不需要设置
-            //mHeadBinding.price2.setText(mHeadBinding.price.getText().toString());
-        }
-        if (mHeadBinding.imbedSpot.visibility != View.VISIBLE) {
-            mHeadBinding.imbedSpot.visibility = View.VISIBLE
-        }
     }
 
     var currentPrice = "0.00"
@@ -466,15 +451,13 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         setDelievery()
         val chartList = FotaApplication.getInstance().getListFromTimesByType(2)
         val spotList = FotaApplication.getInstance().getListFromTimesByType(1)
-        //        freshChartView(chartList, spotList);
+        //freshChartView(chartList, spotList);
         //合约去掉现货指数
         freshChartView(chartList, null)
         //当前现货指数
         if (spotList != null && spotList.size > 0) {
             //更新下文本的内容
-//            UIUtil.setText(mHeadBinding.imbedTickerSpot, tempSpotPrice)
         }
-        validMaxMinPrice()
     }
 
     private fun freshChartView(
@@ -499,7 +482,6 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                 spotData.add(data)
             }
         }
-        mHeadBinding.imbedNarrowChart.initData(time15Data, spotData)
         val entity = FotaApplication.getInstance().holdingEntity
         mHeadBinding.tline.setmDigits(entity.decimal)
         mHeadBinding.tline.initData(time15Data, spotData)
@@ -538,7 +520,6 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             val length = chartList.size
             val m = chartList[length - 1]
             val data = BeanChangeFactory.createNewHisData(m)
-            lastData = data.close.toFloat()
             volume = data.vol
             val spotList = FotaApplication.getInstance().getListFromKlinesByType(1)
             if (spotList != null && spotList.size > 0) {
@@ -561,9 +542,8 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         klineDataConvert(chartList)
         mHeadBinding.kline.setNeedMoveToLast(true)
         mHeadBinding.kline.setmDigits(holdingEntity!!.decimal)
-        //        mHeadBinding.kline.initData(klineData, spotData);
         mHeadBinding.kline.initData(klineData, null)
-        if (holdingEntity != null && holdingEntity.holdingPrice != -1.0) {
+        if (holdingEntity.holdingPrice != -1.0) {
             mHeadBinding.kline.setLimitLine(
                 holdingEntity.holdingPrice,
                 holdingEntity.holdingDescription
@@ -578,10 +558,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     override fun notifyFromPresenter(action: Int) {
         when (action) {
             ORDER_SUCCESS -> mHeadBinding.amount2.setText(
-//                BigDecimal(defaultAmount).setScale(
-//                    amountPrecision
-//                ).toPlainString()
-            ""
+                ""
             )
             else -> super.event(action)
         }
@@ -601,7 +578,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     }
 
     override fun fullScreen() {
-        if (presenter == null || presenter.selectContact == null) {
+        if (presenter.selectContact == null) {
             return
         }
         val intent = Intent(activity, FullScreenKlineActivity::class.java)
@@ -682,23 +659,13 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
                 leverDialog!!.setLever(Integer.valueOf(level))
             }
             R.id.img_type_change2 -> {
-                isKline = !isKline
-                if (isKline) {
-                    mHeadBinding.imgTypeChange2.setImageResource(
-                        Pub.getThemeResource(
-                            context,
-                            R.attr.chart_time_line
-                        )
-                    )
-                } else {
-                    mHeadBinding.imgTypeChange2.setImageResource(
-                        Pub.getThemeResource(
-                            context,
-                            R.attr.chart_kline
-                        )
-                    )
-                }
-                changeKtline()
+                val intent = Intent(activity, TradeMarketKlineActivity::class.java)
+                val args = Bundle()
+                args.putString("symbol", presenter.selectContact!!.contractName)
+                args.putInt("id", presenter.selectContact!!.contractId.toInt())
+                args.putInt("type", 2)
+                intent.putExtras(args)
+                startActivity(intent)
             }
             R.id.amount2_tip -> {
                 mHeadBinding.amount2.requestFocus()
@@ -753,6 +720,8 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             }
             R.id.price_type2, R.id.price_other_2 -> {
                 isLimit = !isLimit
+                if (viewModel.type != 0)
+                     mHeadBinding.tvType.text = if (isLimit) getString(R.string.limit) else getString(R.string.market_order)
                 refreshPriceType()
             }
             R.id.iv_calc -> {
@@ -796,7 +765,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
      * 0-对手价，1-指定价
      * 刷新市价和现价
      */
-    override fun refreshPriceType() {
+    fun refreshPriceType() {
         UIUtil.setVisibility(mHeadBinding.priceOther2, !isLimit)
         UIUtil.setVisibility(mHeadBinding.price2, isLimit)
         UIUtil.setVisibility(mHeadBinding.price2Unit, isLimit)
@@ -826,28 +795,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     }
 
     override fun refreshBuy() {
-//        GradientDrawableUtils.setBgAlpha(mHeadBinding.selectBuy2, 30)
-//        GradientDrawableUtils.setBgAlpha(mHeadBinding.selectSell2, 30)
-//        GradientDrawableUtils.setBgColor(
-//                mHeadBinding.selectBuy2, if (isBuy) AppConfigs.getUpColor() else Pub.getColor(
-//                context, R.attr.bg_color
-//        )
-//        )
-//        mHeadBinding.selectBuy2.setTextColor(
-//                if (isBuy) AppConfigs.getUpColor() else Pub.getColor(
-//                        context, R.attr.font_color4
-//                )
-//        )
-//        GradientDrawableUtils.setBgColor(
-//                mHeadBinding.selectSell2, if (!isBuy) AppConfigs.getDownColor() else Pub.getColor(
-//                context, R.attr.bg_color
-//        )
-//        )
-//        mHeadBinding.selectSell2.setTextColor(
-//                if (!isBuy) AppConfigs.getDownColor() else Pub.getColor(
-//                        context, R.attr.font_color4
-//                )
-//        )
+
         UIUtil.setRoundCornerBg(mHeadBinding.btnBuySell2, AppConfigs.getColor(isBuy))
         presenter.model.setIsBuy(isBuy)
         mHeadBinding.priceOther2.text =
@@ -856,9 +804,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             if (isBuy) getXmlString(R.string.exchange_buy_wishheigh) else getXmlString(
                 R.string.exchange_sell_wishlow
             )
-        validMaxMinPrice()
 
-        //validMaxValue(); 直接设置setPreciseMargin(preciseMargin);
         setPreciseMargin(preciseMargin)
     }
 
@@ -895,23 +841,6 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         } else 2
     }
 
-    /**
-     * 最低现买价
-     *
-     * @return
-     */
-    val contractMaxMinPricePrecision: Int
-        get() = if (presenter.selectParent != null) {
-            presenter.selectParent!!.contractMaxMinPricePrecision
-        } else 1
-
-    /**
-     * 获取当前数量的小数位数
-     *
-     * @return
-     */
-    val contractMaxValuePrecision: Int
-        get() = 3
 
     override fun showPopWindow() {
         mHeadBinding.futuresChangeCurrencyArrow.reverse()
@@ -978,17 +907,30 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         messageDialog = RemoveMoneyDialog(requireContext())
 
         messageDialog!!.dataBinding.apply {
-            tvShowNum.text = "${model.avaQty} / ${model.positionQty}"
+            tvContent.text = getString(R.string.can_sell) + "=${model.avaQty}"
+            if (BigDecimal(model.avaQty).compareTo(BigDecimal(model.positionQty)) != 0){
+                tvShowNum.text = getString(R.string.have_order)
+            }else{
+                tvShowNum.visibility = View.GONE
+            }
+
+            if (model.avaQty.toDouble() == 0.0){
+                tvConfirm.isEnabled = false
+            }
+
             tvCancel.setOnClickListener {
                 messageDialog!!.dismiss()
             }
 
             tvConfirm.setOnClickListener {
-                viewModel.closeOrder(model.contractId.toInt(),
+                viewModel.closeOrder(
+                    model.contractId.toInt(),
                     (model.avaQty.toDouble() * (progressBar.lever / 100f)).toString(),
                     (progressBar.lever / 100f).toString()
                 )
             }
+
+            progressBar.isMax = true
         }
         messageDialog!!.show()
     }
@@ -1034,9 +976,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
     }
 
     override fun onSpotUpdate(spotIndex: SpotIndex) {
-        spotPrice = spotIndex.averagePrice
-        UIUtil.setText(mHeadBinding.imbedTickerSpot, spotPrice)
-        validMaxMinPrice()
+
     }
 
     override fun clearEditText() {

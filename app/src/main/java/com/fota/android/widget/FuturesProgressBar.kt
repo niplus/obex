@@ -53,6 +53,8 @@ class FuturesProgressBar: View {
 
     private var barWidth = 0f
 
+    var isMax = false
+
     var progress = 0
     set(value) {
         field = if (value > 100)
@@ -81,7 +83,6 @@ class FuturesProgressBar: View {
 
         val attrs = intArrayOf(R.attr.lever_dialog_bg, R.attr.lever_bar_default_color, R.attr.lever_bar_select_small_color)
         val typedArray = context.obtainStyledAttributes(attrs)
-//        background = typedArray.getColor(0, 0xFFFFFFFF.toInt())
         background = (getBackground() as ColorDrawable).color
         defaultColor = typedArray.getColor(1, 0xFFD9DADD.toInt())
         selectSmallColor = typedArray.getColor(2, 0xFFFFFFFF.toInt())
@@ -137,6 +138,12 @@ class FuturesProgressBar: View {
                 barWidth * (progress.toFloat() / 100f) + paddingLeft + selectCircleRadius
             }
             progress = 0
+        }
+
+        if (isMax){
+            selectPointPosition =  width - paddingRight - selectCircleRadius * 2
+            lever = 100
+            isMax = false
         }
         //底部bar
         barPaint.strokeWidth = barHeight
@@ -307,6 +314,11 @@ class FuturesProgressBar: View {
     fun init(enableTouch: Boolean){
         touchEnable = enableTouch
         selectPointPosition = paddingLeft + selectCircleRadius
+        invalidate()
+    }
+
+    fun toMax(){
+        selectPointPosition =  width - paddingRight - selectCircleRadius
         invalidate()
     }
 

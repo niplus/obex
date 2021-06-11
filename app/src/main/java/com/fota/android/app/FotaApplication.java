@@ -51,9 +51,7 @@ import com.fota.option.OptionConfig;
 import com.fota.option.OptionManager;
 import com.fota.option.websocket.data.AccountInfo;
 import com.ndl.lib_common.log.NLog;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.beta.upgrade.UpgradeStateListener;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mmkv.MMKV;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
@@ -100,6 +98,7 @@ public class FotaApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        CrashReport.initCrashReport(getApplicationContext(), "b7246b5cba", false);
         // android 7.0系统解决拍照的问题
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -163,46 +162,9 @@ public class FotaApplication extends BaseApplication {
 
     private void setBugyInfo() {
         setStrictMode();
-        // 设置是否开启热更新能力，默认为true
-        Beta.enableHotfix = true;
-        // 设置是否自动下载补丁
-        Beta.canAutoDownloadPatch = true;
-        // 设置是否提示用户重启
-        Beta.canNotifyUserRestart = true;
-        // 设置是否自动合成补丁
-        Beta.canAutoPatch = true;
-        /**
-         *  全量升级状态回调
-         */
-        Beta.upgradeStateListener = new UpgradeStateListener() {
-            @Override
-            public void onUpgradeFailed(boolean b) {
 
-            }
-
-            @Override
-            public void onUpgradeSuccess(boolean b) {
-
-            }
-
-            @Override
-            public void onUpgradeNoVersion(boolean b) {
-                //Toast.makeText(getApplicationContext(), "最新版本", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onUpgrading(boolean b) {
-                //Toast.makeText(getApplicationContext(), "onUpgrading", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDownloadCompleted(boolean b) {
-
-            }
-        };
 
         long start = System.currentTimeMillis();
-        Bugly.setUserId(this, UserLoginUtil.getTokenUnlogin());
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId,调试时将第三个参数设置为true
         long end = System.currentTimeMillis();
         Log.e("init time--->", end - start + "ms");
@@ -221,11 +183,6 @@ public class FotaApplication extends BaseApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        // you must install multiDex whatever tinker is installed!
-//        MultiDex.install(base);
-
-        // 安装tinker
-        Beta.installTinker();
     }
 
     /**

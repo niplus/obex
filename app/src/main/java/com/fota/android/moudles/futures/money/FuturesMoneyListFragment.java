@@ -2,10 +2,13 @@ package com.fota.android.moudles.futures.money;
 
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.fota.android.R;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.utils.GradientDrawableUtils;
 import com.fota.android.commonlib.utils.Pub;
+import com.fota.android.moudles.InviteViewModel;
 import com.fota.android.moudles.exchange.BaseExchageChlidFragment;
 import com.fota.android.moudles.futures.FuturesFragment;
 import com.fota.android.widget.dialog.ShareDialog;
@@ -22,6 +25,7 @@ import java.util.List;
 public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMoneyPresenter> implements FuturesMoneyView {
 
     private String closeContractId="";
+    private InviteViewModel inviteViewModel;
 
     @Override
     protected boolean setRefreshEnable() {
@@ -31,6 +35,7 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
     @Override
     protected void onInitView(View view) {
         super.onInitView(view);
+        inviteViewModel = new ViewModelProvider(getParentFragment()).get(InviteViewModel.class);
         onRefresh();
     }
 
@@ -55,7 +60,12 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
 
                 GradientDrawableUtils.setBgColor(holder.getView(R.id.order_left), AppConfigs.getColor(model.isBuy()));
 
-                GradientDrawableUtils.setBoardColor(holder.getView(R.id.buy_or_sell), AppConfigs.getColor(model.isBuy()));
+                if (model.isBuy()){
+                    GradientDrawableUtils.setBgColor(holder.getView(R.id.buy_or_sell),(int)0x3349AA6C);
+                }else {
+                    GradientDrawableUtils.setBgColor(holder.getView(R.id.buy_or_sell),(int)0x33CC5753);
+                }
+
 
                 holder.setTextColor(R.id.buy_or_sell, AppConfigs.getColor(model.isBuy()));
 
@@ -81,27 +91,6 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
 
                 holder.<LevelView>getView(R.id.futures_level).setLevel(model.getQuantile());
 
-//                holder.getConvertView().setOnLongClickListener(new View.OnLongClickListener() {
-//                    @Override
-//                    public boolean onLongClick(View v) {
-//                        if (model.isCanceled()) {
-//                            return false;
-//                        }
-//                        DialogUtils.showDialog(getContext(), new DialogModel(getXmlString(R.string.sure_liquidation))
-//                                .setSureText(getXmlString(R.string.sure))
-//                                .setSureClickListen(new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//
-//
-//                                    }
-//                                })
-//                                .setCancelText(getXmlString(R.string.cancel))
-//                        );
-//                        return false;
-//                    }
-//                });
-
                 holder.getView(R.id.tv_stop).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -116,26 +105,15 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
                     }
                 });
 
-                holder.setTextColor(R.id.futures_tv_lever, AppConfigs.getColor(model.isBuy()));
+//                holder.setTextColor(R.id.futures_tv_lever, AppConfigs.getColor(model.isBuy()));
 
-                GradientDrawableUtils.setBoardColor(holder.getView(R.id.futures_tv_lever), AppConfigs.getColor(model.isBuy()));
+//                GradientDrawableUtils.setBoardColor(holder.getView(R.id.futures_tv_lever), AppConfigs.getColor(model.isBuy()));
 
                 holder.setText(R.id.futures_tv_lever, "X" + model.getLever());
 
                 holder.getView(R.id.iv_share).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-//                        List<FutureItemEntity> applicationCache = FotaApplication.getInstance().getMarketsCardsList();
-//                        String price = "";
-//                        for (FutureItemEntity each : applicationCache){
-//                            if (each.getEntityType() == 2 && model.getContractId().equals(each.getEntityId()+"")){
-//                                price = each.getLastPrice();
-//                                if (model.getAveragePrice().contains("."))
-//                                    price = new BigDecimal(each.getLastPrice()).setScale(model.getAveragePrice().split("\\.")[1].length()).toPlainString();
-//                            }
-//                        }
-
                         new ShareDialog(getActivity(),
                                 model.isBuy(),
                                 model.getLever(),
@@ -143,6 +121,7 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
                                 model.getEarningRate(),
                                 model.getAveragePrice(),
                                 model.getLastMatchPrice(),
+                                inviteViewModel.getInviteRecordLiveData().getValue().getInviteUrl(),
                                 getActivity()).show();
                     }
                 });

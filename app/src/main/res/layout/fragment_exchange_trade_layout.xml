@@ -338,6 +338,7 @@
                         android:background="?attr/bg_color"
                         android:orientation="vertical"
                         android:paddingLeft="@dimen/space_10"
+                        android:visibility="gone"
                         app:layout_scrollFlags="scroll">
 
                         <com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView
@@ -888,6 +889,7 @@
                     android:layout_height="40dp"
                     android:background="?attr/bg_color"
                     android:orientation="vertical"
+                    android:visibility="gone"
                     app:layout_behavior="@string/behavior_excharge">
 
                     <FrameLayout

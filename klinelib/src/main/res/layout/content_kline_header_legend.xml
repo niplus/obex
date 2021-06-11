@@ -118,7 +118,8 @@
             android:paddingRight="4dp"
             android:text="15m"
             android:textAlignment="center"
-            android:textColor="?attr/font_color"
+            android:textColor="#333333"
+            android:textStyle="bold"
             android:textSize="10sp" />
 
         <TextView

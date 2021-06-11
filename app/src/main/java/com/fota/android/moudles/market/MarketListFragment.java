@@ -3,7 +3,6 @@ package com.fota.android.moudles.market;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -103,22 +102,7 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
                     holder.setText(R.id.txt_future_name, model.getFutureName().replace("永续", " " + getString(R.string.perp)) + add);
                     holder.setVisible(R.id.market_list_divide_line, !model.isShowTopMargin());
                     if (model.isShowTopMargin()) {
-//                        holder.setBackgroundRes(R.id.future_corner, R.drawable.ft_corner_bg_top);
-//                        String marginHeader = "";
-//                        switch (model.getEntityType()) {
-//                            case 1:
-//                                marginHeader = getString(R.string.common_index);
-//                                break;
-//                            case 2:
-//                                marginHeader = getString(R.string.common_future);
-//                                break;
-//                            case 3:
-//                                marginHeader = getString(R.string.common_spot);
-//                                break;
-//                        }
-//                        holder.setText(R.id.market_list_divide_margin, marginHeader);
                     } else if (model.isBottom()) {
-//                        holder.setBackgroundRes(R.id.future_corner, R.drawable.ft_corner_bg_bottom);
                     } else {
                         holder.setBackgroundRes(R.id.future_corner, R.drawable.ft_bg_color);
                     }
@@ -129,7 +113,7 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
                         holder.setText(R.id.txt_future_volume, model.getVolume());
                     }
                     if (model.getEntityType() != 3) {
-                        holder.setText(R.id.txt_future_price, model.getUscPrice() == null ? "- -" : model.getUscPrice());
+                        holder.setText(R.id.txt_future_price, model.getLastPrice() == null ? "- -" : model.getUscPrice());
 //                        holder.setVisible(R.id.txt_dollar_price, false);
                     } else {
 //                        holder.setVisible(R.id.txt_dollar_price, true);

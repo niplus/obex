@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="37dp"
             android:layout_marginTop="31dp"
-            android:text='@{"≈"+viewModel.inviteInfo.lastDayBonus}'
+            android:text='@{"≈"+viewModel.inviteInfoLiveData.lastDayBonus}'
             android:textColor="#ff395fc3"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -82,7 +82,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{"≈"+viewModel.inviteInfo.thisWeekBonus}'
+            android:text='@{"≈"+viewModel.inviteInfoLiveData.thisWeekBonus}'
             android:textColor="#ff395fc3"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="@+id/iv_commission"
@@ -160,7 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="31dp"
-            android:text='@{"≈"+viewModel.inviteInfo.lastDayDealAmount}'
+            android:text='@{"≈"+viewModel.inviteInfoLiveData.lastDayDealAmount}'
             android:textColor="#ff395fc3"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -181,7 +181,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{"≈"+viewModel.inviteInfo.thisWeekDealAmount}'
+            android:text='@{"≈"+viewModel.inviteInfoLiveData.thisWeekDealAmount}'
             android:textColor="#ff395fc3"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="@+id/iv_trade"
@@ -223,7 +223,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="@{viewModel.inviteInfo.inviteCode}"
+            android:text="@{viewModel.inviteInfoLiveData.inviteCode}"
             android:textColor="@color/color_text1"
             android:textSize="17sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_invite_label"

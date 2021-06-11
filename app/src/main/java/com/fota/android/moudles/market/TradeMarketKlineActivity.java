@@ -88,7 +88,7 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
     private int currentPeriodIndex = 2;
 
     private KlineTitleBarLayout mKlineTabBar;
-    private boolean isKline;
+    private boolean isKline = true;
 
     private DepthRefreshView mDepthTickerView;
 
@@ -316,6 +316,12 @@ public class TradeMarketKlineActivity extends MvpActivity<TradeMarketKlinePresen
     private void initHeadBar() {
         mKlineTabBar.setmRightImage2ClickListener(this);
         mKlineTabBar.setmRightImage1ClickListener(this);
+        mKlineTabBar.setIvRightManifyVisible(true);
+
+        if (mBinding.kline != null && mBinding.tline != null) {
+            mBinding.kline.setVisibility(View.VISIBLE);
+            mBinding.tline.setVisibility(View.GONE);
+        }
         if (entityType == 1) {
             mKlineTabBar.setIvRightTypeVisible(false);
         }

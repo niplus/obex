@@ -1,6 +1,7 @@
 package com.guoziwei.fota.chart.view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -213,10 +214,12 @@ public class BaseChartView extends LinearLayout {
                 public void onClick(View v) {
                     int childsLength = llPeriod.getChildCount();
                     for(int j=0;j<childsLength;j++) {
-                        each.setTextColor(CommonPub.getColor(getContext(), R.attr.font_color));
+                        each.setTextColor(CommonPub.getColor(getContext(), (int)0xff333333));
+                        each.setTypeface(Typeface.DEFAULT_BOLD);
                         if(j != index) {
                             TextView child = (TextView) llPeriod.getChildAt(j);
-                            child.setTextColor(CommonPub.getColor(getContext(), R.attr.font_color3));
+                            child.setTextColor(CommonPub.getColor(getContext(), R.attr.font_color));
+                            child.setTypeface(Typeface.DEFAULT);
                         }
                     }
                     periodInterface.periodClick(index);

@@ -24,7 +24,15 @@ public class ContractChengjiaoBean implements Serializable {
         private int orderDirection;
         private String matchValue;//成交金额
         private int orderType;
+        private String realizedPnl;
 
+        public String getRealizedPnl() {
+            return realizedPnl;
+        }
+
+        public void setRealizedPnl(String realizedPnl) {
+            this.realizedPnl = realizedPnl;
+        }
 
         public void setFilledPrice(String filledPrice) {
             this.filledPrice = filledPrice;

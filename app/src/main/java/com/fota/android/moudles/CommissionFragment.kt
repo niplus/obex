@@ -1,5 +1,6 @@
 package com.fota.android.moudles
 
+import android.Manifest
 import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -10,7 +11,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -18,19 +19,21 @@ import androidx.viewpager2.widget.ViewPager2
 import com.fota.android.R
 import com.fota.android.commonlib.utils.CommonUtils
 import com.fota.android.commonlib.utils.Pub
+import com.fota.android.commonlib.utils.ToastUitl
 import com.fota.android.commonlib.utils.UIUtil
 import com.fota.android.core.mvvmbase.BaseFragment
 import com.fota.android.databinding.FragmentCommissionBinding
 import com.fota.android.databinding.ItemInvitePostBinding
+import com.fota.android.utils.BitmapUtils
+import com.fota.android.utils.FileUtils
 import com.fota.android.utils.ZXingUtils
 import com.fota.android.utils.saveBitmap2Public
 import com.fota.android.widget.dialog.BottomDialog
-import com.fota.android.widget.recyclerview.SmartRefreshLayoutUtils
 import com.ndl.lib_common.base.BaseAdapter
 import com.ndl.lib_common.base.MyViewHolder
 import com.ndl.lib_common.utils.showSnackMsg
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.tbruyelle.rxpermissions3.RxPermissions
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -39,7 +42,7 @@ import kotlin.math.abs
 class CommissionFragment : BaseFragment<FragmentCommissionBinding, InviteViewModel>() {
 
     var qrBitmap: Bitmap? = null
-    val postData = mutableListOf<Int>(R.mipmap.img_post1, R.mipmap.img_post2, R.mipmap.img_post3)
+    val postData = mutableListOf( R.mipmap.img_post4, R.mipmap.img_post1, R.mipmap.img_post2, R.mipmap.img_post3)
 
     var clipManager : ClipboardManager? = null
     override fun getLayoutId(): Int {
@@ -67,19 +70,6 @@ class CommissionFragment : BaseFragment<FragmentCommissionBinding, InviteViewMod
         dataBinding.viewModel = viewModel
         dataBinding.apply {
             cdInvite.setOnClickListener {
-//                val dialog = BottomDialog(requireContext())
-//                dialog.setContentView(R.layout.dialog_platform_share)
-//                dialog.findViewById<View>(R.id.iv_copy_link).setOnClickListener {
-//                    val myClip = ClipData.newPlainText("text", this@CommissionFragment.viewModel.inviteRecordLiveData.value!!.inviteUrl) //str
-//                    clipManager?.setPrimaryClip(myClip)
-//                    showSnackMsg(CommonUtils.getResouceString(context, R.string.copy_success))
-//                    dialog.dismiss()
-//                }
-//                dialog.findViewById<View>(R.id.iv_close).setOnClickListener {
-//                    dialog.dismiss()
-//                }
-//                dialog.show()
-
                 val myClip = ClipData.newPlainText("text", this@CommissionFragment.viewModel.inviteRecordLiveData.value!!.inviteUrl) //str
                 clipManager?.setPrimaryClip(myClip)
                 showSnackMsg(CommonUtils.getResouceString(context, R.string.copy_success))
@@ -108,7 +98,7 @@ class CommissionFragment : BaseFragment<FragmentCommissionBinding, InviteViewMod
                         holder.dataBinding.apply {
                             ivPost.setImageResource(data[position])
                             ivQrcode.setImageBitmap(qrBitmap)
-                            tvInviteCode.text = getString(R.string.invitation_code) + this@CommissionFragment.viewModel.inviteInfo.get()!!.inviteCode
+                            tvInviteCode.text = getString(R.string.invitation_code) + this@CommissionFragment.viewModel.inviteInfoLiveData.get()!!.inviteCode
                         }
                     }
                 }
@@ -121,22 +111,28 @@ class CommissionFragment : BaseFragment<FragmentCommissionBinding, InviteViewMod
                     page.scaleY = scale
                 }
 
-
                 dialog.findViewById<View>(R.id.iv_save).setOnClickListener {
-                    val container = recyclerView.getChildAt(vpInvite.currentItem)
-                    GlobalScope.launch {
-                        val bitmap: Bitmap? = getBitmap(container)
-                        requireActivity().saveBitmap2Public("test.jpg", bitmap!!){
-                            MainScope().launch {
-                                if (it) {
-                                    showSnackMsg(getString(R.string.save_pic_success))
-                                    dialog.dismiss()
-                                }else{
-                                    showSnackMsg(getString(R.string.save_pic_failed))
+                    val permission = RxPermissions(this@CommissionFragment)
+                    permission
+                        .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .subscribe {
+                            if (it){
+                                val container = recyclerView.layoutManager!!.findViewByPosition(vpInvite.currentItem)
+                                GlobalScope.launch {
+                                    val bitmap: Bitmap? = BitmapUtils.getBitmap(container!!)
+                                    val path = FileUtils.saveImageToGallery(context, bitmap)
+                                    if (!path.isNullOrEmpty()){
+                                        showSnackMsg(getString(R.string.save_pic_success))
+                                        dialog.dismiss()
+                                    }else{
+                                        showSnackMsg(getString(R.string.save_pic_failed))
+                                    }
+
                                 }
+                            }else{
                             }
                         }
-                    }
+
                 }
                 dialog.show()
             }
@@ -179,7 +175,7 @@ class CommissionFragment : BaseFragment<FragmentCommissionBinding, InviteViewMod
      * @param view view
      * @return Bitmap
      */
-    fun getBitmap(view: View): Bitmap? {
+    private fun getBitmap(view: View): Bitmap? {
         val width = view.width
         val height = view.height
 

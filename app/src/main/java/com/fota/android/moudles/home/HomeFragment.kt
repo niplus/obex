@@ -28,6 +28,7 @@ import com.fota.android.databinding.FragmentHomeBinding
 import com.fota.android.databinding.ItemHomeCoinBinding
 import com.fota.android.databinding.ItemHomeMenuBinding
 import com.fota.android.databinding.ItemMainCoinBinding
+import com.fota.android.moudles.InviteActivity
 import com.fota.android.moudles.futures.bean.ToTradeEvent
 import com.fota.android.moudles.initHeader
 import com.fota.android.moudles.market.TradeMarketKlineActivity
@@ -58,11 +59,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             MenuBean(R.mipmap.icon_home_recharge, getString(R.string.recharge_coin)),
             MenuBean(R.mipmap.icon_home_community, getString(R.string.join_community)),
             MenuBean(R.mipmap.icon_home_invite, getString(R.string.commission_page_title)),
-            MenuBean(R.mipmap.icon_home_guide, getString(R.string.new_guide)),
-            MenuBean(R.mipmap.icon_home_grid, getString(R.string.grid_strategy)),
-            MenuBean(R.mipmap.icon_home_activity, getString(R.string.event_details)),
-            MenuBean(R.mipmap.icon_home_helper, getString(R.string.mine_help)),
-            MenuBean(R.mipmap.icon_home_more, getString(R.string.more))
+            MenuBean(R.mipmap.icon_home_guide, getString(R.string.new_guide))
+//            MenuBean(R.mipmap.icon_home_grid, getString(R.string.grid_strategy)),
+//            MenuBean(R.mipmap.icon_home_activity, getString(R.string.event_details)),
+//            MenuBean(R.mipmap.icon_home_helper, getString(R.string.mine_help)),
+//            MenuBean(R.mipmap.icon_home_more, getString(R.string.more))
     )
     }
 
@@ -223,15 +224,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                                     return@setOnClickListener
                                 }
 
-                                val userId = UserLoginUtil.getId()
-                                if (userId != "0") FtRounts.toWebView(
-                                        requireContext(),
-                                        "",
-                                        "https://invite.cboex.com/#/invite?userId=" + userId + "&language=" + MMKV.defaultMMKV()!!
-                                                .decodeString(
-                                                        "language"
-                                                )
-                                )
+                               startActivity(Intent(requireContext(), InviteActivity::class.java))
                             }
                             getString(R.string.new_guide) -> {
                                 FtRounts.toWebView(requireContext(),  getString(R.string.new_guide), Constants.URL_GUIDE)

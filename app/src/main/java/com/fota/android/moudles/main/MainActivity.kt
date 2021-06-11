@@ -60,8 +60,6 @@ import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
 
-
-
     private val tabString by lazy {
         mutableListOf(getString(R.string.main_tab5), getString(R.string.main_tab1), getString(R.string.main_tab2), getString(R.string.main_tab3), getString(R.string.main_tab4))
     }
@@ -83,23 +81,18 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
 //        fragments.add(FuturesFragment())
 //        fragments.add(MineFragment())
 
-        Log.i("===============", "oncreate")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.i("===============", "onResume")
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-
-        Log.i("===============", "onNewIntent")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        Log.i("===============", "onSaveInstanceState")
     }
 
     override fun getLayoutId(): Int {

@@ -23,6 +23,7 @@ public class FutureTopWindow extends BasePopWindow {
     private TextView available;
     private TextView securityBorder;
     private TextView effectiveLever;
+    private TextView fundingRate;
     //FtKeyValue selectItem;
 
     /**
@@ -49,6 +50,7 @@ public class FutureTopWindow extends BasePopWindow {
         available = (TextView) view.findViewById(R.id.available);
         securityBorder = (TextView) view.findViewById(R.id.security_border);
         effectiveLever = (TextView) view.findViewById(R.id.effective_lever);
+        fundingRate = view.findViewById(R.id.tv_funding_rate);
     }
 
 
@@ -63,12 +65,14 @@ public class FutureTopWindow extends BasePopWindow {
             UIUtil.setText(available, "--");
             UIUtil.setText(securityBorder, "--");
             UIUtil.setText(effectiveLever, "--");
+            UIUtil.setText(fundingRate, "--");
             return;
         }
         UIUtil.setText(accountMargin, bean.getAccountMargin());
         UIUtil.setText(available, bean.getAvailable());
         UIUtil.setText(securityBorder, bean.getSecurityBorder());
         UIUtil.setText(effectiveLever, bean.getEffectiveLever());
+        UIUtil.setText(fundingRate, bean.getFundFeeRate());
     }
 
     public Context getContext() {

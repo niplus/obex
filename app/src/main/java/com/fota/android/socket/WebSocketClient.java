@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.fota.android.app.GsonSinglon;
 import com.fota.android.app.SocketKey;
 import com.fota.android.common.bean.BeanChangeFactory;
+import com.fota.android.common.bean.SpotBean;
 import com.fota.android.common.bean.home.DepthBean;
 import com.fota.android.commonlib.http.BaseHttpResult;
 import com.fota.android.commonlib.utils.L;
@@ -161,9 +162,13 @@ public class WebSocketClient implements IWebSocketSubject {
                             entity = new SocketAdditionEntity<SocketEntrustParam>(handleType, code, "");
                             entity.setParam(param);
                             break;
-
                         default:
                             entity = new SocketAdditionEntity<SocketEntrustParam>(handleType, code, "");
+                    }
+
+                    if (reqType == SocketKey.MARKET_SPOTINDEX){
+                        SpotBean spotBean = new Gson().fromJson(message, SpotBean.class);
+                        LiveDataBus.INSTANCE.getBus("Spot_price").postValue(spotBean);
                     }
 
                     dealMessageType(gson, jsonString, reqType, entity);
@@ -580,6 +585,7 @@ public class WebSocketClient implements IWebSocketSubject {
             @Override
             public void onMessage(WebSocket webSocket, String text) {
                 super.onMessage(webSocket, text);
+//                Log.i("================", "socket message : " + text);
                 notifyObervers(text);
             }
 
@@ -612,6 +618,7 @@ public class WebSocketClient implements IWebSocketSubject {
     private void send(final WebSocketEntity entity, IWebSocketObserver observer) {
         try {
             String json = GsonSinglon.getInstance().toJson(entity);
+            Log.i("===================", "send: " + json);
             webSocket.send(json);
         } catch (Exception e) {
             e.printStackTrace();

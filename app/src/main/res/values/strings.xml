@@ -429,7 +429,7 @@
     <string name="future_applies">浮动盈亏</string>
     <string name="futures_earning_rate">收益率</string>
     <string name="exchange_totol_money">总量</string>
-    <string name="exchange_valuation_btc">估值(USDT)</string>
+    <string name="exchange_valuation_btc">估值(BTC)</string>
     <string name="future_applies2">浮动盈亏：</string>
     <string name="exchange_max_amount">最大可买数量</string>
     <string name="exchange_max_money">最大可买金额</string>
@@ -646,4 +646,9 @@
     <string name="fund_fee">资金费</string>
     <string name="transaction_fee">交易手续费</string>
     <string name="sub_commission">分佣</string>
+    <string name="can_sell">可平</string>
+    <string name="have_order">您当前有挂单，注意可平仓位小于持仓数量</string>
+    <string name="market_order">市价委托</string>
+    <string name="funding_rate">资金费率</string>
+    <string name="make_order_success">下单成功</string>
 </resources>

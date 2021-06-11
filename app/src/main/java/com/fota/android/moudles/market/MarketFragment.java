@@ -371,14 +371,7 @@ public class MarketFragment extends MvpFragment<
      * @param bannerList
      */
     private void setBannerList(final List<BannerBean> bannerList) {
-        if (!Pub.isListExists(bannerList)) {
-            mBinding.bannerImagebg.setVisibility(View.VISIBLE);
-        } else {
-            mBinding.bannerImagebg.setVisibility(View.GONE);
-        }
-
         setMZBannerData(bannerList);
-
     }
 
     /**

@@ -82,6 +82,8 @@ public class ContractChengjiaoFragment extends MvpListFragment<ContractChengjiao
 
                 holder.setText(R.id.fee, model.getFee());
 
+                holder.setText(R.id.profit, model.getRealizedPnl());
+
             }
 
             protected void setHoldBg(ViewHolder holder) {

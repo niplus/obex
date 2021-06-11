@@ -465,7 +465,7 @@
     <string name="regist_byemail">Email</string>
     <string name="common_login">Login</string>
     <string name="common_regist">Register</string>
-    <string name="short_amount">Amt.</string>
+    <string name="short_amount">Amt</string>
     <string name="select_recharge_asset">Asset Types</string>
     <string name="select_withdraw_asset">Asset Types</string>
     <string name="tradehis_contract">Futures</string>
@@ -556,8 +556,8 @@
     <string name="contrace_list">Contract</string>
     <string name="spot_list">Spot</string>
 
-    <string name="planing">Planning</string>
-    <string name="limit">Limiting</string>
+    <string name="planing">Planning order</string>
+    <string name="limit">Limiting order</string>
     <string name="history_planning"> Historical planing </string>
     <string name="stop_order_hint1"> Please enter the take profit trigger price</string>
     <string name="stop_order_hint2"> Please enter the profit price </string>
@@ -643,4 +643,10 @@
     <string name="fund_fee">Funding fees</string>
     <string name="transaction_fee">Transaction fees</string>
     <string name="sub_commission">Sub commission</string>
+
+    <string name="can_sell">Closeable Positions</string>
+    <string name="have_order">You currently have a pending order, note that the closeable position is less than open interest.</string>
+    <string name="market_order">Market order</string>
+    <string name="funding_rate">Funding Rate</string>
+    <string name="make_order_success">Successfully ordered</string>
 </resources>

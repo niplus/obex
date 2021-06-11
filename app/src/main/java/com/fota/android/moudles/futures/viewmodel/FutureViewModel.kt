@@ -221,10 +221,8 @@ class FutureViewModel : BaseViewModel() {
     open fun getAdditonalSpot(assetName: String) {
         val socketEntity = WebSocketEntity<SocketEntrustParam>()
         val param = SocketEntrustParam(assetName)
-//        param.id =
         socketEntity.param = param
         socketEntity.reqType = SocketKey.MARKET_SPOTINDEX
-//        client.addChannel(socketEntity, this)
     }
 
     fun setSelectContact(selectParent: ContractAssetBean?, selectContact: FutureContractBean?) {

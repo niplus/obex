@@ -42,14 +42,14 @@
             android:layout_height="25dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_name"
-            android:layout_marginStart="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="80dp"
             android:id="@+id/time_line"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{'$' + coin.lastPrice}"
+            android:text="@{coin.lastPrice}"
             android:textColor="?attr/color_666666_ffffff"
             android:textSize="12sp"
             app:layout_constraintTop_toTopOf="parent"

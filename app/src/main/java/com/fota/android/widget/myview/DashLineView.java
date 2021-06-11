@@ -10,9 +10,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.fota.android.R;
-import com.fota.android.commonlib.utils.Pub;
 
 
 public class DashLineView extends View {
@@ -24,7 +24,7 @@ public class DashLineView extends View {
     private int width;
     private int height;
 
-    private int defaultColor = Pub.getColor(getContext(), R.attr.font_color3);
+    private int defaultColor = ContextCompat.getColor(getContext(), R.color.color_e9e9e9_3c3c3c);
 
     public DashLineView(Context context) {
         this(context, null);

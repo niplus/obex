@@ -75,7 +75,7 @@
             style="@style/wrap_style"
             android:layout_gravity="right"
             android:gravity="right"
-            android:text="@string/market_amount_unit1"
+            android:text="@string/short_amount"
             android:textColor="?attr/font_color4"
             android:textSize="12sp" />
 

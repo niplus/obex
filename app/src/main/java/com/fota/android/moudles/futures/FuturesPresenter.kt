@@ -327,6 +327,9 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
     private fun addChannel() {
         val socketEntity = WebSocketEntity<BtbMap>()
         socketEntity.reqType = SocketKey.FUTURE_TOP
+        val params = BtbMap()
+        params["contractId"] = selectContact!!.getContractId()
+        socketEntity.param = params
         client.addChannel(socketEntity, this)
     }
 

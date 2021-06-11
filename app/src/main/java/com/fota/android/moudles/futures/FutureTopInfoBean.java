@@ -12,6 +12,7 @@ public class FutureTopInfoBean implements Serializable {
     private String floatProfit;
     private String accountMargin;
     private String effectiveLever;
+    private String fundFeeRate;
 
     public void setTotal(String total) {
         this.total = total;
@@ -77,4 +78,11 @@ public class FutureTopInfoBean implements Serializable {
         return effectiveLever;
     }
 
+    public String getFundFeeRate() {
+        return fundFeeRate;
+    }
+
+    public void setFundFeeRate(String fundFeeRate) {
+        this.fundFeeRate = fundFeeRate;
+    }
 }
