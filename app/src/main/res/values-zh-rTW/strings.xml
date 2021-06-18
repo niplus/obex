@@ -525,6 +525,7 @@
     <string name="spot_list">現貨列表</string>
 
     <string name="planing">計劃委託</string>
+    <string name="planing1">計劃委託</string>
     <string name="limit">限價委託</string>
     <string name="history_planning">歷史計劃委託</string>
     <string name="stop_order_hint1">請輸入止盈觸發價格</string>

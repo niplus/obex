@@ -72,17 +72,6 @@ class MainActivity : BaseActivity<ActivityMain2Binding, MainViewModel>() {
     )
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        fragments.clear()
-//        fragments.add(HomeFragment())
-//        fragments.add(MarketFragment())
-//        fragments.add(ExchangeFragment())
-//        fragments.add(FuturesFragment())
-//        fragments.add(MineFragment())
-
-    }
-
     override fun onResume() {
         super.onResume()
     }

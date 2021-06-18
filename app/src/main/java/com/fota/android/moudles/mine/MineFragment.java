@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fota.android.R;
+import com.fota.android.SettingActivity;
 import com.fota.android.app.BundleKeys;
 import com.fota.android.app.Constants;
 import com.fota.android.app.ConstantsPage;
@@ -113,11 +114,11 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
                 FtRounts.toUdeskService(mContext);
                 break;
             case R.id.imv_setting:
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("security", userSecurity);
-                SimpleFragmentActivity.gotoFragmentActivity(getContext(),ConstantsPage.SettingFragment, bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("security", userSecurity);
+//                SimpleFragmentActivity.gotoFragmentActivity(getContext(),ConstantsPage.SettingFragment, bundle);
 
-//                startActivity(new Intent(requireContext(), SettingActivity.class));
+                startActivity(new Intent(requireContext(), SettingActivity.class));
 
 //                startActivity(new Intent(requireContext(), FuturesCalcActivity.class));
                 break;

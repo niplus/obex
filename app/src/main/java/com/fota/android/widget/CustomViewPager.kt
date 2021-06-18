@@ -12,9 +12,11 @@ class CustomViewPager: ViewPager {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var height = 0;
         val child = getChildAt(currentItem)
-        child.measure(widthMeasureSpec, View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        var h = child.measuredHeight;
-        height = h
+        if (child != null) {
+            child.measure(widthMeasureSpec, View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            var h = child.measuredHeight;
+            height = h
+        }
 
 //        for (i in 0 until childCount) {
 //            val child = getChildAt(i)

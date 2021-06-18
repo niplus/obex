@@ -66,11 +66,11 @@ class ShareDialog(
             container.layoutParams = imageParams
 
             if (isBuy){
-                tvShareType.text ="买"
+                tvShareType.text ="多"
                 tvShareType.setTextColor(0xFF33C891.toInt())
                 tvShareProfitLoss.setTextColor(0xFF33C891.toInt())
             }else{
-                tvShareType.text ="卖"
+                tvShareType.text ="空"
                 tvShareType.setTextColor(0xFFC83333.toInt())
                 tvShareProfitLoss.setTextColor(0xFFC83333.toInt())
             }

@@ -237,6 +237,10 @@ public class Http {
         }
     }
 
+    public static OkHttpClient getClient() {
+        return client;
+    }
+
     /**
      * 设置缓存
      */
@@ -323,6 +327,8 @@ public class Http {
                         .addInterceptor(addHeaderInterceptor(null)) // token过滤
                         .cache(cache)  //添加缓存
                         .cookieJar(cookieJar)
+                        //设置ping帧发送时间
+                        .pingInterval(40, TimeUnit.SECONDS)
                         .connectTimeout(5L, TimeUnit.SECONDS)
                         .readTimeout(10L, TimeUnit.SECONDS)
                         .writeTimeout(20L, TimeUnit.SECONDS);

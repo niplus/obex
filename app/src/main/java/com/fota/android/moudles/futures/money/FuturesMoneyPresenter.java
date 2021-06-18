@@ -42,16 +42,8 @@ public class FuturesMoneyPresenter extends BaseListPresenter<FuturesMoneyView> {
     @Override
     public void onLoadData(final boolean isLoadMore) {
         super.onLoadData(isLoadMore);
-//        client.removeChannel(SocketKey.MinePositionReqType, this);
-//        BtbMap map = new BtbMap();
-//        if (isLoadMore) {
-//            pageNo++;
-//        } else {
-//            pageNo = 1;
-//        }
-//        addPageInfotoMap(map);
-//        addChannel();
 
+        Log.i("nidongliang1111", "onLoadData");
         client.removeChannel(SocketKey.MinePositionReqType, this);
         WebSocketEntity<BtbMap> socketEntity = new WebSocketEntity<>();
         socketEntity.setReqType(SocketKey.MinePositionReqType);

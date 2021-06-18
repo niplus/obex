@@ -61,6 +61,7 @@ public class WebSocketClient implements IWebSocketSubject {
     //jiang 断连的时候，用来暂存observers，用于重新订阅
     private ConcurrentHashMap<String, List<IWebSocketObserver>> tempObservers = new ConcurrentHashMap<>();
 
+
     /**
      * @param type
      * @param o
@@ -227,7 +228,6 @@ public class WebSocketClient implements IWebSocketSubject {
                 case SocketKey.TradeWeiTuoReqType://委托
                     DepthBean bean = gson.fromJson(jsonString, DepthBean.class);
                     String key = bean.getType() + "-" + bean.getId();
-//                    getInstance().getDepthMap().clear();
                     getInstance().getDepthMap().put(key, bean);
                     break;
                 case SocketKey.HangQingKaPianReqType://card

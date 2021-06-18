@@ -275,9 +275,9 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
 
         mHeadBinding.tvType.text = orderTypes[position]
         if (position == 0){
-            mHeadBinding.edtTriggerPrice.visibility = View.VISIBLE
+            mHeadBinding.llTrigger.visibility = View.VISIBLE
         }else{
-            mHeadBinding.edtTriggerPrice.visibility = View.GONE
+            mHeadBinding.llTrigger.visibility = View.GONE
 
             if (position == 1){
                 isLimit = true
@@ -301,7 +301,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
         val title: MutableList<String> = ArrayList()
         title.add(getXmlString(R.string.exchange_money))
         title.add(getXmlString(R.string.exchange_order))
-        title.add(getXmlString(R.string.planing))
+        title.add(getXmlString(R.string.planing1))
         title.add(getXmlString(R.string.exchange_complete))
         val baseFragmentAdapter = BaseFragmentAdapter(
             childFragmentManager,
@@ -721,7 +721,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             R.id.price_type2, R.id.price_other_2 -> {
                 isLimit = !isLimit
                 if (viewModel.type != 0)
-                     mHeadBinding.tvType.text = if (isLimit) getString(R.string.limit) else getString(R.string.market_order)
+                    mHeadBinding.tvType.text = if (isLimit) getString(R.string.limit) else getString(R.string.market_order)
                 refreshPriceType()
             }
             R.id.iv_calc -> {
@@ -1019,7 +1019,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             textView12.setOnClickListener {
                 if (tgBuy.isChecked){
                     if (TextUtils.isEmpty(edtBuyTriggerPrice.text)){
-                      showSnackMsg(getString(R.string.stop_order_hint1))
+                        showSnackMsg(getString(R.string.stop_order_hint1))
                         return@setOnClickListener
                     }
 

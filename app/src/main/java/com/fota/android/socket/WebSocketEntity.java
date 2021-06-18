@@ -103,4 +103,6 @@ public class WebSocketEntity<T> implements Serializable {
                 ", language='" + language + '\'' +
                 '}';
     }
+
+
 }

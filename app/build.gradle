@@ -14,7 +14,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 5
-        versionName "1.0.10"
+        versionName "1.0.11"
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
@@ -30,7 +30,7 @@ android {
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86','x86_64'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
         multiDexEnabled true
@@ -69,13 +69,8 @@ android {
             minifyEnabled false
             shrinkResources false
             multiDexEnabled true
-//            buildConfigField "String", "BASE_URL", '"http://exbgdev.yuchains.com/mapi/"'
-//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"ws://exbgdev.yuchains.com/mapi/websocket"'
-            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
-            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
-
-//            buildConfigField "String", "BASE_URL", '"https://pre.cboex.io/mapi/"'
-//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://pre.cboex.io/mapi/websocket"'
+            buildConfigField "String", "BASE_URL", '"http://exbgdev.yuchains.com/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"ws://exbgdev.yuchains.com/mapi/websocket"'
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
@@ -84,17 +79,34 @@ android {
                     JPUSH_PKGNAME     : "com.fota.android.debug"
             ]
         }
+
+        pre {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            multiDexEnabled true
+
+            buildConfigField "String", "BASE_URL", '"https://pre.cboex.io/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://pre.cboex.io/mapi/websocket"'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [
+                    UMENG_APPKEY_VALUE: "5b7302acf29d984c40000527",
+                    JPUSH_APPKEY_VALUE: "93b081207c7375bb2de10b50",
+                    JPUSH_PKGNAME     : "com.fota.android"
+            ]
+        }
         release {
             signingConfig signingConfigs.config
             minifyEnabled false
             zipAlignEnabled false
             shrinkResources false
             multiDexEnabled true
-//            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
-//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
+            buildConfigField "String", "BASE_URL", '"https://cboex.com/mapi/"'
+            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://cboex.com/mapi/websocket"'
 
-            buildConfigField "String", "BASE_URL", '"https://pre.cboex.io/mapi/"'
-            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://pre.cboex.io/mapi/websocket"'
+//            buildConfigField "String", "BASE_URL", '"https://pre.cboex.io/mapi/"'
+//            buildConfigField "String", "WEBSOCKET_BASE_URL", '"wss://pre.cboex.io/mapi/websocket"'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
                     UMENG_APPKEY_VALUE: "5b7302acf29d984c40000527",
@@ -229,4 +241,6 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     implementation 'com.tencent.bugly:crashreport:latest.release'
+
+    implementation("androidx.work:work-runtime-ktx:2.5.0")
 }

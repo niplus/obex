@@ -557,6 +557,7 @@
     <string name="spot_list">Spot</string>
 
     <string name="planing">Planning order</string>
+    <string name="planing1">Planning</string>
     <string name="limit">Limiting order</string>
     <string name="history_planning"> Historical planing </string>
     <string name="stop_order_hint1"> Please enter the take profit trigger price</string>
@@ -638,7 +639,7 @@
     <string name="realized_profit_loss">Realized profit and loss</string>
     <string name="capital_flow">Capital flow </string>
     <string name="currency">Currency</string>
-    <string name="input_trigger_price">Please enter the trigger price</string>
+    <string name="input_trigger_price">Enter the trigger price</string>
 
     <string name="fund_fee">Funding fees</string>
     <string name="transaction_fee">Transaction fees</string>

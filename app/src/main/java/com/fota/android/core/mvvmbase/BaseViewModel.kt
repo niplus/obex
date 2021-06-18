@@ -9,12 +9,15 @@ import com.ndl.lib_common.base.ErrorMessage
 import com.ndl.lib_common.base.HttpCodeEexceptioin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.io.File
 import java.lang.Exception
 
 open class BaseViewModel: ViewModel() {
     val error by lazy { MutableLiveData<ErrorMessage>() }
 
     val title = ObservableField<String>()
+
+    var file: File? = null
 
 
     fun launchUI(block: suspend () -> Unit) = viewModelScope.launch {

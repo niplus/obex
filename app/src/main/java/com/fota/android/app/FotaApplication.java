@@ -100,13 +100,13 @@ public class FotaApplication extends BaseApplication {
         super.onCreate();
         CrashReport.initCrashReport(getApplicationContext(), "b7246b5cba", false);
         // android 7.0系统解决拍照的问题
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy(builder.build());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                builder.detectFileUriExposure();
-            }
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+//            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+//            StrictMode.setVmPolicy(builder.build());
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                builder.detectFileUriExposure();
+//            }
+//        }
         applicationInstance = this;
         SharedPreferencesUtil.init(this);
         Utils.init(this);
@@ -161,7 +161,7 @@ public class FotaApplication extends BaseApplication {
     }
 
     private void setBugyInfo() {
-        setStrictMode();
+//        setStrictMode();
 
 
         long start = System.currentTimeMillis();
@@ -247,6 +247,7 @@ public class FotaApplication extends BaseApplication {
      * 某时刻只保留对应当前激活type-id参数的
      * 1 spot 2 future 3 usdt
      * spot 与 future 同期刷新，同时清空
+     *
      * 3usdt 独立
      */
     final Map<String, List<ChartLineEntity>> marketsTimesMap = new HashMap<>();

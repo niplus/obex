@@ -60,13 +60,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             MenuBean(R.mipmap.icon_home_community, getString(R.string.join_community)),
             MenuBean(R.mipmap.icon_home_invite, getString(R.string.commission_page_title)),
             MenuBean(R.mipmap.icon_home_guide, getString(R.string.new_guide))
-//            MenuBean(R.mipmap.icon_home_grid, getString(R.string.grid_strategy)),
-//            MenuBean(R.mipmap.icon_home_activity, getString(R.string.event_details)),
-//            MenuBean(R.mipmap.icon_home_helper, getString(R.string.mine_help)),
-//            MenuBean(R.mipmap.icon_home_more, getString(R.string.more))
     )
     }
-
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home

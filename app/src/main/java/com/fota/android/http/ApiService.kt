@@ -11,6 +11,7 @@ import com.fota.android.moudles.market.bean.MarketCardItemBean
 import com.fota.android.moudles.mine.bean.FundDataBean
 import com.ndl.lib_common.base.Response
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.http.*
 import rx.Observable
 
@@ -57,5 +58,9 @@ interface ApiService {
 
     @POST("asset/fund/data")
     suspend fun getFundData(@Body body: RequestBody): Response<FundDataBean>
+
+    @Streaming
+    @GET
+    suspend fun downLoad(@Url url: String): retrofit2.Response<ResponseBody>
 
 }

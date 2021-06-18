@@ -44,6 +44,7 @@ import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.LanguageKt;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.dialog.ShareDialog;
+import com.fota.android.widget.dialog.UpdateDialog;
 import com.fota.android.widget.popwin.CommomDialog;
 import com.ndl.lib_common.utils.LiveDataBus;
 
@@ -301,11 +302,15 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 //                        UserLoginUtil.delUser();
                         L.a("version ===   suc " + versionBean.toString());
                         updateVersionBean = versionBean;
-                        if (versionBean.isNewest()) {
-                            showToast(R.string.update_newest);
-                        } else {
-                            showUpdateDialog(versionBean);
-                        }
+
+                        UpdateDialog updateDialog = new UpdateDialog(requireActivity());
+                        UpdateDialog.Companion.setDownloadUrl(updateVersionBean.getUrl());
+                        updateDialog.show();
+//                        if (versionBean.isNewest()) {
+//                            showToast(R.string.update_newest);
+//                        } else {
+//                            showUpdateDialog(versionBean);
+//                        }
 
 
                     }

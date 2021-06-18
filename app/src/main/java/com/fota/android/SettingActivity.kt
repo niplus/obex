@@ -1,14 +1,22 @@
 package com.fota.android
 
+import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.text.TextUtils
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.fota.android.app.ConstantsPage
 import com.fota.android.app.FotaApplication
 import com.fota.android.commonlib.base.AppConfigs
@@ -31,19 +39,46 @@ import com.fota.android.moudles.mine.bean.MineBean
 import com.fota.android.moudles.mine.bean.MineBean.UserSecurity
 import com.fota.android.moudles.mine.bean.VersionBean
 import com.fota.android.service.UpdateIntentService
-import com.fota.android.utils.DeviceUtils
-import com.fota.android.utils.FtRounts
-import com.fota.android.utils.UserLoginUtil
-import com.fota.android.utils.getLanguageString
+import com.fota.android.utils.*
 import com.fota.android.widget.btbwidget.FotaButton
 import com.fota.android.widget.dialog.ShareDialog.Companion.inviteCode
+import com.fota.android.widget.dialog.UpdateDialog
+import com.fota.android.widget.dialog.UpdateDialog.Companion.downloadUrl
 import com.fota.android.widget.popwin.CommomDialog
 import com.ndl.lib_common.utils.LiveDataBus.getBus
-import com.ndl.lib_common.utils.showSnackMsg
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.io.File
 
 class SettingActivity : BaseActivity<FragmentSettingBinding, BaseViewModel>(), View.OnClickListener{
+    val launcher = registerForActivityResult(object : ActivityResultContract<File, File?>(){
+        var file: File? = null
+        override fun createIntent(context: Context, input: File?): Intent {
+            file = input
+            val packageURI = Uri.parse("package:$packageName")
+            Log.i("update_version", "permission open")
+            return Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI)
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): File? {
+            if (resultCode == Activity.RESULT_OK && file != null) return file!!
+            else {
+                Log.i("update_version", "file is null")
+                return null
+            }
+        }
+
+    }){
+        if (it != null)
+        AppUtils.installApk(this,it)
+    }
+
+    private var mUpdateDialog: UpdateDialog? = null
+    val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
+        mUpdateDialog?.startWork()
+    }
+
+
     private var logOut = false
 
     //    AppDownloadManager appDownloadManager = null;
@@ -134,8 +169,8 @@ class SettingActivity : BaseActivity<FragmentSettingBinding, BaseViewModel>(), V
         
     }
 
-    override fun createViewModel(): BaseViewModel? {
-        return null
+    override fun createViewModel(): BaseViewModel {
+        return ViewModelProvider(this).get(BaseViewModel::class.java)
     }
 
     override fun onClick(v: View?) {
@@ -238,6 +273,14 @@ class SettingActivity : BaseActivity<FragmentSettingBinding, BaseViewModel>(), V
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+
+        if (requestCode == 0x1){
+
+        }
+    }
     /**
      * 检测更新
      */
@@ -249,18 +292,19 @@ class SettingActivity : BaseActivity<FragmentSettingBinding, BaseViewModel>(), V
             .compose(CommonTransformer())
             .subscribe(object : CommonSubscriber<VersionBean>(this) {
                 override fun onNext(versionBean: VersionBean) {
-//                        UserLoginUtil.delUser();
                     L.a("version ===   suc $versionBean")
                     updateVersionBean = versionBean
-                    if (versionBean.isNewest) {
-                        showSnackMsg(getString(R.string.update_newest))
-                    } else {
-                        showUpdateDialog(versionBean)
-                    }
+                    mUpdateDialog = UpdateDialog(this@SettingActivity)
+                    downloadUrl = updateVersionBean!!.url
+                    mUpdateDialog!!.show()
+//                    if (versionBean.isNewest) {
+//                        showSnackMsg(getString(R.string.update_newest))
+//                    } else {
+//                        showUpdateDialog(versionBean)
+//                    }
                 }
 
                 override fun onError(e: ApiException) {
-//                        super.onError(e);
                     L.a("version ===   fail ")
                 }
             })
@@ -286,10 +330,8 @@ class SettingActivity : BaseActivity<FragmentSettingBinding, BaseViewModel>(), V
                         updateDialog!!.findViewById<View>(R.id.ll_cancel).visibility = View.GONE
                         updateDialog!!.findViewById<View>(R.id.submit).isEnabled = false
                         (updateDialog!!.findViewById<View>(R.id.submit) as FotaButton).setText(R.string.update_downloading)
-                        //                        appDownloadManager.downloadApk("http://172.16.50.201:8089/mapi/home/download", getString(R.string.app_name), getString(R.string.update_title));
                         if (TextUtils.isEmpty(versionBean.url)) return@OnClickListener
                         beforeUpdateWork(versionBean.url)
-                        //                        beforeUpdateWork("http://192.168.1.176:8084/mapi/home/download");
                     })
         if (versionBean.isCompulsory) {
             dialogModel.setCancelable(false).isCanCancelOnTouchOutside = false
@@ -309,10 +351,7 @@ class SettingActivity : BaseActivity<FragmentSettingBinding, BaseViewModel>(), V
      * @param url
      */
     private fun beforeUpdateWork(url: String) {
-//        if (!isEnableNotification()) {
-//            showNotificationAsk();
-//            return;
-//        }
+
         toIntentServiceUpdate(url)
     }
 
@@ -325,7 +364,6 @@ class SettingActivity : BaseActivity<FragmentSettingBinding, BaseViewModel>(), V
         updateIntent.putExtra("appName", "update-1.0.1")
         //随便一个apk的url进行模拟
         updateIntent.putExtra("downUrl", url)
-        //        updateIntent.putExtra("downUrl", "http://192.168.1.173:8084/home/download");
         startService(updateIntent)
     }
 
