@@ -1,3 +1,7 @@
+include ':KLineChartLib'
+include ':lib_common'
+include ':easyPhotos'
+include ':mpchart'
 include ':mzbanner'
 include ':lottie'
 include ':UdeskSDKUI'

@@ -1,12 +1,14 @@
 package com.fota.android.http;
 
+import android.util.Log;
+
+import com.fota.android.BuildConfig;
 import com.fota.android.app.Constants;
 import com.fota.android.app.FotaApplication;
-import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.http.HttpsUtils;
-import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.commonlib.utils.SharedPreferencesUtil;
 import com.fota.android.utils.DeviceUtils;
+import com.tencent.mmkv.MMKV;
 
 import java.util.concurrent.TimeUnit;
 
@@ -69,7 +71,8 @@ public class WebSocketUtils {
     public static WebSocket doWebSocket(WebSocketListener listener) {
         OkHttpClient client = getWebsocketClient();
         client.pingIntervalMillis();
-        String language = AppConfigs.getLanguege().getLanguage();
+//        String language = AppConfigs.getLanguege().getLanguage();
+        String language = MMKV.defaultMMKV().decodeString("language", "zh");
 
         //构造request对象
         Request request = new Request.Builder()
@@ -85,13 +88,7 @@ public class WebSocketUtils {
     }
 
     public static String getWsAddress() {
-        //return "wss://www.fota.com/mapi/websocket";
-//        return "ws://172.16.50.180:8089/mapi/websocket";
-        if (Constants.DEBUG) {
-            return Pub.isStringEmpty(AppConfigs.getWsAddress()) ? Constants.BASE_WEBSOCKET : AppConfigs.getWsAddress();
-        } else {
-            return Constants.BASE_WEBSOCKET_WSS;
-        }
+        return BuildConfig.WEBSOCKET_BASE_URL;
     }
 
 }

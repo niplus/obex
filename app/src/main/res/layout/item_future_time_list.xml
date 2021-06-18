@@ -12,14 +12,6 @@
     <!--android:layout_marginLeft="@dimen/small_dp"-->
     <!--android:layout_marginRight="@dimen/small_dp"-->
 
-    <TextView
-        android:id="@+id/market_list_divide_margin"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:background="?attr/reverse_bg"
-        android:layout_height="@dimen/normal_dp">
-
-    </TextView>
     <LinearLayout style="@style/horizontal_line"
         android:id="@+id/market_list_divide_line"
         android:background="?attr/reverse_bg2">
@@ -72,8 +64,8 @@
 
             <LinearLayout
                 android:id="@+id/ll_market_volume"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
+                android:visibility="gone"
                 android:layout_height="match_parent">
                 <TextView
                     android:layout_width="wrap_content"

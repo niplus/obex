@@ -1,5 +1,7 @@
 package com.fota.android.moudles.futures.complete;
 
+import android.util.Log;
+
 import com.fota.android.app.GsonSinglon;
 import com.fota.android.app.SocketKey;
 import com.fota.android.commonlib.http.BaseHttpPage;
@@ -62,6 +64,7 @@ public class FuturesCompletePresenter extends BaseListPresenter<BaseListView> {
         }
         switch (reqType) {
             case SocketKey.TradeDealReqType:
+                Log.i("nidongliang111", "jsonString: " + jsonString);
                 if (additionEntity.getCode() != 0) {
                     getView().refreshComplete();
                     return;

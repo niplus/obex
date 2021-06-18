@@ -40,12 +40,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.fota.android.LanguageContextWrapper;
 import com.fota.android.R;
 import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.IConstant;
@@ -70,9 +72,9 @@ import com.fota.android.core.dialog.DialogUtils;
 import com.fota.android.core.event.Event;
 import com.fota.android.core.event.EventSubscriber;
 import com.fota.android.core.event.EventWrapper;
-import com.fota.android.moudles.main.MainActivity;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.KeyBoardUtils;
+import com.fota.android.utils.LanguageKt;
 import com.fota.android.utils.StatusBarUtil;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.TitleLayout;
@@ -114,7 +116,6 @@ public class BaseActivity extends FragmentActivity
         proxy = BtbBaseProxy.with(this);
         initData(getIntent().getExtras());
         MobclickAgent.onResume(this);
-        switchLanguage();
         if (AppConfigs.getTheme() == AppConfigs.THEME_WHITE) {
             //默認是白天主題
             setTheme(R.style.AppTheme_White);
@@ -322,10 +323,13 @@ public class BaseActivity extends FragmentActivity
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(createLanguageContext(newBase));
+        Context context = LanguageContextWrapper.Companion.wrap(newBase, LanguageKt.getLocale());
+        super.attachBaseContext(context);
     }
 
     public static Context createLanguageContext(Context context) {
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return updateResources(context);
         } else {
@@ -434,7 +438,7 @@ public class BaseActivity extends FragmentActivity
      */
     public final void showToast(String s) {
         if (!TextUtils.isEmpty(s)) {
-            ToastUitl.showShort(s);
+            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -521,11 +525,7 @@ public class BaseActivity extends FragmentActivity
         super.finish();
     }
 
-    //判断当前的主界面是否存在
-    @SuppressWarnings("unused")
-    boolean haveMain() {
-        return isActivityExists(MainActivity.class);
-    }
+
 
     @SuppressWarnings("deprecation")
     boolean isActivityExists(Class<?> clazz) {
@@ -677,7 +677,7 @@ public class BaseActivity extends FragmentActivity
     }
 
     public void doAnim(View view, String po, int value) {
-        ViewWrapper viewWrapper = new ViewWrapper(view);
+        ViewWrapper viewWrapper = new ViewWrapper(view, null);
         ObjectAnimator.ofInt(viewWrapper, po, value).setDuration(1500).start();
     }
 

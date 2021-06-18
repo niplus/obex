@@ -3,6 +3,7 @@ package com.fota.android.core.base;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,7 +57,6 @@ import com.fota.android.utils.StatusBarUtil;
 import com.fota.android.widget.TitleLayout;
 import com.fota.android.widget.btbwidget.FotaButton;
 import com.fota.android.widget.btbwidget.FotaTextWatch;
-import com.gyf.barlibrary.ImmersionBar;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -87,7 +88,7 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     private static final Handler handler = new Handler();
 
     private String TAG;
-    protected BaseActivity mActivity;
+    protected Activity mActivity;
     protected Context mContext;
 
     private String mRefreshTag;
@@ -98,15 +99,16 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     private AppContextDelegate appContextDelegate;
     protected TitleLayout mTitleLayout;
     protected View emptyTopMargin;
-    private ImmersionBar mImmersionBar;
+//    private ImmersionBar mImmersionBar;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v(getTAG(), "onCreate");
+        initLoadingDialog();
         dataStatue = AppConfigs.getAppFlag();
-        mContext = mActivity = (BaseActivity) getActivity();
+        mContext = mActivity = getActivity();
         String tag = getClass().getSimpleName();
         if (TextUtils.isEmpty(TAG)) {
             TAG = tag;
@@ -181,7 +183,7 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     protected void onInitView(View view) {
         findViewById();
         initHeadLayout();
-        mImmersionBar = ImmersionBar.with(this);
+//        mImmersionBar = ImmersionBar.with(this);
     }
 
     protected void findViewById() {
@@ -785,15 +787,36 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
         return ContextCompat.getColor(getContext(), id);
     }
 
+
+    private Dialog mLoadingDialog;
     /**
      * 开启浮动加载进度条
      */
     @Override
     public void startProgressDialog() {
         //jiang nullException
-        if (mActivity != null) {
-            mActivity.startProgressDialog();
+//        if (mActivity != null) {
+//            mActivity.startProgressDialog();
+//        }
+
+        if (mLoadingDialog == null){
+            View view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_loading, null);
+            mLoadingDialog = new Dialog(requireContext(), R.style.CustomProgressDialog);
+            mLoadingDialog.setCancelable(true);
+            mLoadingDialog.setCanceledOnTouchOutside(false);
+            mLoadingDialog.setContentView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
+        mLoadingDialog.show();
+    }
+
+    private void initLoadingDialog() {
+        View view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_loading, null);
+//        TextView loadingText = (TextView) view.findViewById(R.id.id_tv_loading_dialog_text);
+//        loadingText.setText("加载中...");
+        mLoadingDialog = new Dialog(requireContext(), R.style.CustomProgressDialog);
+        mLoadingDialog.setCancelable(true);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
+        mLoadingDialog.setContentView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
     /**
@@ -802,10 +825,14 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
     @Override
     public void stopProgressDialog() {
         //jiang
-        if (mActivity != null) {
-            mActivity.stopProgressDialog();
-        }
+//        if (mActivity != null) {
+//            mActivity.stopProgressDialog();
+//        }
+
+        mLoadingDialog.dismiss();
     }
+
+
 
     /**
      * 选中输入框下划线加粗
@@ -874,11 +901,11 @@ public abstract class BaseFragment extends Fragment implements IConstant, EventS
      * 设置状态栏只有白色字体
      */
     public void setJustWhiteBarTxt() {
-        if (mImmersionBar == null)
-            return;
-        mImmersionBar.statusBarDarkFont(false, 0.2f);
-        mImmersionBar.statusBarColor(android.R.color.transparent);
-        mImmersionBar.init();
+//        if (mImmersionBar == null)
+//            return;
+//        mImmersionBar.statusBarDarkFont(false, 0.2f);
+//        mImmersionBar.statusBarColor(android.R.color.transparent);
+//        mImmersionBar.init();
     }
 
     public int getDataStatue() {

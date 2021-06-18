@@ -1,6 +1,7 @@
 package com.fota.android.moudles.exchange.index;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -84,7 +85,17 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
     }
 
     protected void removeChannel() {
-        //委托
+//        //委托
+//        client.removeChannel(SocketKey.TradeWeiTuoReqType, this);
+//        //time线
+//        client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, this);
+//        //ticker
+//        client.removeChannel(SocketKey.HangQingNewlyPriceReqType, this);
+//        client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
+//        removeChildren();
+    }
+
+    public void removeAllChannel(){
         client.removeChannel(SocketKey.TradeWeiTuoReqType, this);
         //time线
         client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, this);
@@ -92,6 +103,20 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
         client.removeChannel(SocketKey.HangQingNewlyPriceReqType, this);
         client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
         removeChildren();
+    }
+
+    public void addAllChannel(){
+        getView().refreshCurrency();
+        //联动请求
+        getDepthFive(getType(), Pub.GetInt(selectItem.getAssetId()));
+        getNowTicker(getType(), Pub.GetInt(selectItem.getAssetId()));
+        getTimeLineDatas(getType(), Pub.GetInt(selectItem.getAssetId()), "1m");
+        //jiang chart loading
+        if (getView() != null) {
+            getView().setOverShowLoading(0, true);
+            getView().setOverShowLoading(1, true);
+            getKlineDatas(3, Pub.GetInt(selectItem.getAssetId()), types[currentPeriodIndex]);
+        }
     }
 
     protected void removeChildren() {
@@ -156,7 +181,7 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
         model.setAssetId(String.valueOf(selectItem.getAssetId()));
         model.setAssetName(selectItem.getAssetName());
         ExchangeBody body = new ExchangeBody();
-        body.setTradeToken(fundCode);
+//        body.setTradeToken(fundCode);
         body.setObj(model);
         Http.getExchangeService().makeOrder(body)
                 .compose(new NothingTransformer<BaseHttpEntity>())
@@ -213,7 +238,7 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
     /**
      * 更新数据
      */
-    private void updateCurrency() {
+    public void updateCurrency() {
         getView().refreshCurrency();
         //联动请求
         getDepthFive(getType(), Pub.GetInt(selectItem.getAssetId()));
@@ -256,6 +281,7 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
                 if (bean == null) {
                     return;
                 }
+                Log.i("onUpdateImplSocket", "jsonString: " + jsonString);
                 onNextDepth(bean);
                 break;
             case SocketKey.HangQingFenShiTuZheXianTuReqType:

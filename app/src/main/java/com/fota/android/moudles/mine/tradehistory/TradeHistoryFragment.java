@@ -39,13 +39,17 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
     XianhuoChengjiaoFragment xianhuoChengjiaoFragment;
     ContractWeituoFragment contractWeituoFragment;
     ContractChengjiaoFragment contractChengjiaoFragment;
+    ConditionHistoryFragment conditionHistoryFragment;
+    CapitalFlowFragment capitalFlowFragment;
     public static int TYPE_USDT = 2;
     public static int TYPE_HEYUE = 1;
 
     public static int TYPE_WEITUO = 1;
     public static int TYPE_CHENGJIAO = 2;
+    public static int TYPE_CONDITION = 3;
+    public static int TYPE_FUND= 4;
     int TYPE = TYPE_CHENGJIAO;
-    int TYPE_NAME = TYPE_USDT;
+    int TYPE_NAME = TYPE_HEYUE;
 
     @Override
     protected void setTitle(String title) {
@@ -93,11 +97,15 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
         xianhuoWeituoFragment = new XianhuoWeituoFragment();
         contractChengjiaoFragment = new ContractChengjiaoFragment();
         contractWeituoFragment = new ContractWeituoFragment();
+        conditionHistoryFragment = new ConditionHistoryFragment();
+        capitalFlowFragment = new CapitalFlowFragment();
 
         fragments.add(xianhuoChengjiaoFragment);
         fragments.add(xianhuoWeituoFragment);
         fragments.add(contractChengjiaoFragment);
         fragments.add(contractWeituoFragment);
+        fragments.add(conditionHistoryFragment);
+        fragments.add(capitalFlowFragment);
         baseFragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager(),
                 fragments, null
         );
@@ -149,7 +157,7 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
                 @Override
                 public void onPopClick(FtKeyValue model, int position) {
                     mBinding.tvTypeCheck.setText(model.getKey());
-                    if (position == 0) {
+                    if (model.getValue().equals("1")) {
                         TYPE = TYPE_WEITUO;
 //                        mBinding.viewPager.setCurrentItem(0);
 //                        weituoFragment.getPresenter().setTypeAndRefresh(TYPE_NAME);
@@ -162,7 +170,7 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
                             xianhuoWeituoFragment.getPresenter().refresh();
                         }
 
-                    } else if (position == 1) {
+                    } else if (model.getValue().equals("2")) {
                         TYPE = TYPE_CHENGJIAO;
 //                        mBinding.viewPager.setCurrentItem(1);
 //                        chengjiaoFragment.getPresenter().setTypeAndRefresh(TYPE_NAME);
@@ -174,11 +182,29 @@ public class TradeHistoryFragment extends MvpFragment<TradeHistoryPresenter> imp
                             mBinding.viewPager.setCurrentItem(0);
                             xianhuoChengjiaoFragment.getPresenter().refresh();
                         }
+                    }else if (model.getValue().equals("3")){
+                        TYPE = TYPE_CONDITION;
+                        mBinding.viewPager.setCurrentItem(4);
+                        conditionHistoryFragment.changeType(0);
+                    }else if (model.getValue().equals("4")){
+                        TYPE = TYPE_CONDITION;
+                        mBinding.viewPager.setCurrentItem(4);
+                        conditionHistoryFragment.changeType(1);
+                    }else if (model.getValue().equals("5")){
+                        TYPE = TYPE_FUND;
+                        mBinding.viewPager.setCurrentItem(5);
                     }
                 }
             });
+
+//            popupTypeWindow.getAdapter().putList(getPresenter().gettypeList());
+            popupTypeWindow.setValue(getPresenter().gettypeList().get(3).getValue());
+        }
+
+        if (TYPE_NAME == TYPE_HEYUE){
             popupTypeWindow.getAdapter().putList(getPresenter().gettypeList());
-            popupTypeWindow.setValue(getPresenter().gettypeList().get(1).getValue());
+        }else {
+            popupTypeWindow.getAdapter().putList(getPresenter().getTypeList1());
         }
 //        popupTypeWindow.showAsDropDown(mBinding.tvTypeCheck, (mBinding.tvTypeCheck.getMeasuredWidth() - popupTypeWindow.getSelfWidth()) / 2, 0);
         popupTypeWindow.show(mBinding.tvTypeCheck);

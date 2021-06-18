@@ -70,7 +70,7 @@ public class XianhuoChengjiaoFragment extends MvpListFragment<XianhuoChengjiaoPr
 
 //                holder.setTextColor(R.id.asset_name, AppConfigs.getColor(model.isBuy()));
 
-                holder.setText(R.id.asset_name, model.getFormatAssetName());
+                holder.setText(R.id.asset_name, model.getFormatAssetName().replace("永续", " " + getString(R.string.perp)));
 
                 holder.setText(R.id.entrust_time, model.getFormatTime());
 

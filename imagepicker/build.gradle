@@ -26,6 +26,8 @@ dependencies {
     }
     api('com.fota.android:option-common:0.2.4@aar') {
         transitive = true; changing = true;
+        exclude group: 'com.squareup.retrofit2', module:'retrofit'
+        exclude group: 'com.squareup.retrofit2', module:'converter-gson'
     }
     //api('com.fota.android:option-common:0.0.10-SNAPSHOT@aar') { transitive = true; }
 

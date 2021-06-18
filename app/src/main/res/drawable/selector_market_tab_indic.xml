@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--部分手机会报resource not found，不能直接使用android:color,只能用shape代替-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="false">
+        <shape>
+            <solid android:color="#00000000"/>
+        </shape>
+    </item>
+    <item android:state_selected="true">
+        <shape>
+            <solid android:color="?attr/main_color"/>
+        </shape>
+    </item>
+</selector>

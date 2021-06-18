@@ -12,6 +12,7 @@ import java.util.List;
 public class TradeHistoryPresenter extends BasePresenter {
     List<FtKeyValue> nameList;
     List<FtKeyValue> typeList;
+    List<FtKeyValue> typeList1;
 
     public TradeHistoryPresenter(BaseView view) {
         super(view);
@@ -21,7 +22,15 @@ public class TradeHistoryPresenter extends BasePresenter {
     public void initList() {
         typeList = new ArrayList<>();
         typeList.add(new KeyValue(getView().getXmlString(R.string.exchange_order), "1"));
+        typeList.add(new KeyValue(getView().getXmlString(R.string.planing), "3"));
+        typeList.add(new KeyValue(getView().getXmlString(R.string.history_planning), "4"));
         typeList.add(new KeyValue(getView().getXmlString(R.string.exchange_complete), "2"));
+        typeList.add(new KeyValue(getView().getXmlString(R.string.capital_flow), "5"));
+
+        typeList1 = new ArrayList<>();
+        typeList1.add(new KeyValue(getView().getXmlString(R.string.exchange_order), "1"));
+        typeList1.add(new KeyValue(getView().getXmlString(R.string.exchange_complete), "2"));
+
         nameList = new ArrayList<>();
         nameList.add(new KeyValue(getView().getXmlString(R.string.tradehis_contract), "1"));
         nameList.add(new KeyValue(getView().getXmlString(R.string.tradehis_spot), "2"));
@@ -33,5 +42,9 @@ public class TradeHistoryPresenter extends BasePresenter {
 
     public List<FtKeyValue> getnameList() {
         return nameList;
+    }
+
+    public List<FtKeyValue> getTypeList1() {
+        return typeList1;
     }
 }

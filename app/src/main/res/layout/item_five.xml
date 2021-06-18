@@ -7,9 +7,9 @@
     android:background="@drawable/touch_bg"
     >
 
-    <View
+    <com.fota.android.widget.ColorView
         android:id="@+id/five_item_view"
-        android:layout_width="20dp"
+        android:layout_width="match_parent"
         android:layout_height="14dp"
         android:layout_gravity="right|center_vertical" />
 

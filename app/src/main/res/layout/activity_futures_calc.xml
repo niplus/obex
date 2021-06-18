@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.fota.android.moudles.futures.viewmodel.FuturesCalcViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color"
+        android:fitsSystemWindows="true"
+        tools:context=".moudles.futures.FuturesCalcActivity">
+
+        <com.fota.android.widget.TitleLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_hight"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/layout_title"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="?attr/futures_calc_line"
+            app:layout_constraintTop_toBottomOf="@+id/layout_title"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/his_option_pl"
+            android:textColor="#FF384B9E"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/tv_profit_tab"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            />
+
+        <View
+            android:layout_width="14dp"
+            android:layout_height="2dp"
+            android:background="#384B9E"
+            app:layout_constraintStart_toStartOf="@+id/tv_profit_tab"
+            app:layout_constraintEnd_toEndOf="@+id/tv_profit_tab"
+            app:layout_constraintTop_toBottomOf="@+id/tv_profit_tab"
+            android:layout_marginTop="11dp"
+            android:id="@+id/profit_tab_indicator"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/target_price"
+            android:textColor="#FF9BA5CE"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/layout_title"
+            app:layout_constraintStart_toEndOf="@+id/tv_profit_tab"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:id="@+id/tv_target_tab"
+            />
+
+        <View
+            android:layout_width="14dp"
+            android:layout_height="2dp"
+            android:background="#384B9E"
+            app:layout_constraintStart_toStartOf="@+id/tv_target_tab"
+            app:layout_constraintEnd_toEndOf="@+id/tv_target_tab"
+            app:layout_constraintTop_toBottomOf="@+id/tv_target_tab"
+            android:visibility="invisible"
+            android:layout_marginTop="11dp"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/profit_tab_indicator"
+            android:layout_marginTop="30dp"
+            android:id="@+id/rg_type">
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/exchange_buy_wishheigh"
+                android:textColor="@color/selector_futures_calc_type_text"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:background="?attr/btn_color"
+                android:checked="true"
+                android:id="@+id/rb_buy"
+                />
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/exchange_sell_wishlow"
+                android:textColor="@color/selector_futures_calc_type_text"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:background="?attr/sell_btn_color"
+                android:id="@+id/rb_sell"
+                />
+
+        </RadioGroup>
+
+        <com.fota.android.widget.ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            app:layout_constraintTop_toBottomOf="@+id/rg_type"
+            android:id="@+id/pb_lever"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/pb_lever"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:background="?attr/future_calc_input_bg"
+            android:id="@+id/ll_open"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/open_price"
+                android:textColor="?attr/future_calc_text1"
+                android:textSize="12sp"
+                />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="0.00"
+                android:inputType="number|numberDecimal"
+                android:textColor="#FF9BA5CE"
+                android:textColorHint="#FF9BA5CE"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:text="@={model.openPrice}"
+                android:background="@null"
+                android:singleLine="true"
+                android:layout_marginEnd="5dp"
+                android:id="@+id/edt_open"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USDT"
+                android:textColor="?attr/future_calc_text1"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/ll_open"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:background="?attr/future_calc_input_bg"
+            android:id="@+id/ll_close"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/close_price"
+                android:textColor="?attr/future_calc_text1"
+                android:textSize="12sp"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="0.00"
+                android:inputType="number|numberDecimal"
+                android:textColor="#FF9BA5CE"
+                android:textColorHint="#FF9BA5CE"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:gravity="right|center_vertical"
+                android:text="@={model.closePrice}"
+                android:background="@null"
+                android:id="@+id/edt_close"
+                android:layout_marginEnd="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USDT"
+                android:textColor="?attr/future_calc_text1"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/ll_close"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:background="?attr/future_calc_input_bg"
+            android:id="@+id/ll_volume"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/xianhuodeal_dealamount"
+                android:textColor="?attr/future_calc_text1"
+                android:textSize="12sp"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="0.00"
+                android:inputType="number|numberDecimal"
+                android:textColor="#FF9BA5CE"
+                android:textColorHint="#FF9BA5CE"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:gravity="right|center_vertical"
+                android:background="@null"
+                android:id="@+id/edt_amount"
+                android:text="@={model.volume}"
+                android:layout_marginEnd="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.coinName}"
+                android:textColor="?attr/future_calc_text1"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            app:layout_constraintTop_toBottomOf="@+id/ll_volume"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="20dp"
+            android:background="?attr/future_calc_result_bg"
+            android:id="@+id/v_result"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_result"
+            android:textColor="?attr/font_color"
+            android:textSize="14sp"
+            app:layout_constraintTop_toTopOf="@id/v_result"
+            app:layout_constraintStart_toStartOf="@+id/v_result"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/initial_margin"
+            android:textColor="?attr/future_calc_text1"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="@id/v_result"
+            app:layout_constraintStart_toStartOf="@+id/v_result"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/tv_start_deposit_label"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/his_option_pl"
+            android:textColor="?attr/future_calc_text1"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_start_deposit_label"
+            app:layout_constraintStart_toStartOf="@+id/tv_start_deposit_label"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_profit_label"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/response_rate"
+            android:textColor="?attr/future_calc_text1"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_profit_label"
+            app:layout_constraintStart_toStartOf="@+id/tv_profit_label"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_return_label"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.deposit}"
+            android:textColor="?attr/bar_select_color"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_start_deposit_label"
+            app:layout_constraintEnd_toEndOf="@+id/v_result"
+            android:layout_marginEnd="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.profit}"
+            android:textColor="?attr/bar_select_color"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_profit_label"
+            app:layout_constraintEnd_toEndOf="@+id/v_result"
+            android:layout_marginEnd="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.returnRate}"
+            android:textColor="?attr/bar_select_color"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_return_label"
+            app:layout_constraintEnd_toEndOf="@+id/v_result"
+            android:layout_marginEnd="10dp"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/confirm"
+            android:textColor="#FFFFFFFF"
+            android:textSize="12sp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/v_result"
+            android:layout_marginTop="30dp"
+            android:onClick="@{()->model.calc()}"
+            android:background="?attr/future_calc_btn_color"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

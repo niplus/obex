@@ -19,10 +19,10 @@
 
         <FrameLayout style="@style/horizontal_fill">
 
-
             <LinearLayout
                 android:id="@+id/exchange_title"
-                style="@style/horizontal_fill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="bottom"
@@ -73,7 +73,7 @@
                     android:onClick="@{view.onClick}"
                     android:src="?attr/common_change" />
 
-                <ImageView
+                       <ImageView
                     android:id="@+id/img_type_change"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -144,13 +144,22 @@
                     android:layout_gravity="center"
                     android:onClick="@{view.onClick}"
                     android:src="?attr/common_change" />
+                
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="?attr/icon_calc"
+                    android:layout_marginBottom="3dp"
+                    android:onClick="@{view.onClick}"
+                    android:id="@+id/iv_calc"
+                    android:layout_marginLeft="15dp"/>
 
                 <TextView
                     android:id="@+id/futures_tv_lever"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginLeft="15dp"
                     android:background="@drawable/ft_rectangle"
                     android:gravity="center"
                     android:onClick="@{view.onClick}"
@@ -329,6 +338,7 @@
                         android:background="?attr/bg_color"
                         android:orientation="vertical"
                         android:paddingLeft="@dimen/space_10"
+                        android:visibility="gone"
                         app:layout_scrollFlags="scroll">
 
                         <com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView
@@ -349,15 +359,16 @@
                         </com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView>
                     </LinearLayout>
 
-                    <androidx.core.widget.NestedScrollView
+                    <com.fota.android.widget.FutureScrollView
                         style="@style/horizontal_fill"
                         app:layout_scrollFlags="scroll">
 
-                        <LinearLayout
+                        <com.fota.android.widget.FuturesLinearLayout
                             style="@style/horizontal_fill"
                             android:background="?attr/bg_color"
                             android:paddingBottom="6dp"
                             android:paddingTop="6dp"
+                            android:clipChildren="false"
                             app:layout_scrollFlags="scroll">
 
                             <LinearLayout
@@ -461,6 +472,7 @@
                                         android:layout_height="20dp"
                                         android:onClick="@{view.onClick}"
                                         android:text="@string/short_amount"
+                                        android:maxLines="1"
                                         android:textColor="?attr/font_color4"
                                         android:textSize="14sp" />
 
@@ -499,6 +511,7 @@
                                         android:layout_height="20dp"
                                         android:onClick="@{view.onClick}"
                                         android:text="@string/common_money"
+                                        android:maxLines="1"
                                         android:textColor="?attr/font_color4"
                                         android:textSize="14sp" />
 
@@ -600,11 +613,12 @@
 
                             </LinearLayout>
 
-                            <LinearLayout
+                            <com.fota.android.widget.FuturesLinearLayout
                                 android:id="@+id/future_layout"
                                 style="@style/horizontal_weight1"
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:clipChildren="true">
 
                                 <LinearLayout
                                     android:id="@+id/future_layout_top"
@@ -701,7 +715,8 @@
                                 <LinearLayout
                                     style="@style/horizontal_fill"
                                     android:layout_marginTop="10dp"
-                                    android:gravity="center_vertical">
+                                    android:gravity="center_vertical"
+                                    android:elevation="1dp">
 
                                     <TextView
                                         android:id="@+id/amount2_tip"
@@ -760,6 +775,12 @@
                                         tools:text="USDT" />
 
                                 </LinearLayout>
+
+                                <com.fota.android.widget.FuturesProgressBar
+                                    style="@style/horizontal_fill"
+                                    android:layout_marginTop="-15dp"
+                                    android:background="?attr/bg_color"
+                                    android:id="@+id/fprogress"/>
 
                                 <LinearLayout
                                     style="@style/horizontal_fill"
@@ -821,7 +842,7 @@
                                     android:textSize="17sp"
                                     tools:text="@string/common_buy" />
 
-                            </LinearLayout>
+                            </com.fota.android.widget.FuturesLinearLayout>
 
                             <com.fota.android.widget.DepthRefreshView
                                 android:id="@+id/right_container"
@@ -833,9 +854,9 @@
 
                             </com.fota.android.widget.DepthRefreshView>
 
-                        </LinearLayout>
+                        </com.fota.android.widget.FuturesLinearLayout>
 
-                    </androidx.core.widget.NestedScrollView>
+                    </com.fota.android.widget.FutureScrollView>
 
 
                 </com.google.android.material.appbar.AppBarLayout>
@@ -868,6 +889,7 @@
                     android:layout_height="40dp"
                     android:background="?attr/bg_color"
                     android:orientation="vertical"
+                    android:visibility="gone"
                     app:layout_behavior="@string/behavior_excharge">
 
                     <FrameLayout

@@ -18,6 +18,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.blankj.utilcode.util.Utils;
 import com.fota.android.R;
@@ -26,7 +27,6 @@ import com.fota.android.commonlib.app.AppVariables;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.base.BaseApplication;
 import com.fota.android.commonlib.utils.ErrorCodeUtil;
-import com.fota.android.commonlib.utils.L;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.commonlib.utils.SharedPreferencesUtil;
 import com.fota.android.core.base.SimpleFragmentActivity;
@@ -43,15 +43,16 @@ import com.fota.android.socket.IWebSocketSubject;
 import com.fota.android.socket.WebSocketClient;
 import com.fota.android.socket.WebSocketEntity;
 import com.fota.android.utils.FtRounts;
+import com.fota.android.utils.LanguageKt;
 import com.fota.android.utils.StringFormatUtils;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.utils.apputils.DiffTimeUtils;
 import com.fota.option.OptionConfig;
 import com.fota.option.OptionManager;
 import com.fota.option.websocket.data.AccountInfo;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.beta.upgrade.UpgradeStateListener;
+import com.ndl.lib_common.log.NLog;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.mmkv.MMKV;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
@@ -63,6 +64,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
+import me.jessyan.autosize.AutoSizeConfig;
 
 
 /**
@@ -96,14 +98,15 @@ public class FotaApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        CrashReport.initCrashReport(getApplicationContext(), "b7246b5cba", false);
         // android 7.0系统解决拍照的问题
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy(builder.build());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                builder.detectFileUriExposure();
-            }
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+//            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+//            StrictMode.setVmPolicy(builder.build());
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                builder.detectFileUriExposure();
+//            }
+//        }
         applicationInstance = this;
         SharedPreferencesUtil.init(this);
         Utils.init(this);
@@ -130,8 +133,19 @@ public class FotaApplication extends BaseApplication {
         OptionManager.setConfig(config);
         OptionManager.setApplication(this);
         AppVariables.put("option-socket", "ws-client");
-        switchLanguage();
+
+        MMKV.initialize(this);
+//        switchLanguage();
         ErrorCodeUtil.getInstance().setOtherAppCodeUtils(FotaErrorUtils.getInstance());
+
+        NLog.INSTANCE.initLog(this);
+        //fragment适配必须加上这行
+        AutoSizeConfig.getInstance().setCustomFragment(true);
+        if (AppConfigs.getTheme() == 0){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     private void initNetAndScreenReceiver() {
@@ -147,49 +161,11 @@ public class FotaApplication extends BaseApplication {
     }
 
     private void setBugyInfo() {
-        setStrictMode();
-        // 设置是否开启热更新能力，默认为true
-        Beta.enableHotfix = true;
-        // 设置是否自动下载补丁
-        Beta.canAutoDownloadPatch = true;
-        // 设置是否提示用户重启
-        Beta.canNotifyUserRestart = true;
-        // 设置是否自动合成补丁
-        Beta.canAutoPatch = true;
-        /**
-         *  全量升级状态回调
-         */
-        Beta.upgradeStateListener = new UpgradeStateListener() {
-            @Override
-            public void onUpgradeFailed(boolean b) {
+//        setStrictMode();
 
-            }
-
-            @Override
-            public void onUpgradeSuccess(boolean b) {
-
-            }
-
-            @Override
-            public void onUpgradeNoVersion(boolean b) {
-                //Toast.makeText(getApplicationContext(), "最新版本", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onUpgrading(boolean b) {
-                //Toast.makeText(getApplicationContext(), "onUpgrading", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDownloadCompleted(boolean b) {
-
-            }
-        };
 
         long start = System.currentTimeMillis();
-        Bugly.setUserId(this, UserLoginUtil.getTokenUnlogin());
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId,调试时将第三个参数设置为true
-        Bugly.init(this, Constants.BUGLY_ID, Constants.DEBUG);
         long end = System.currentTimeMillis();
         Log.e("init time--->", end - start + "ms");
     }
@@ -207,11 +183,6 @@ public class FotaApplication extends BaseApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        // you must install multiDex whatever tinker is installed!
-//        MultiDex.install(base);
-
-        // 安装tinker
-        Beta.installTinker();
     }
 
     /**
@@ -238,7 +209,18 @@ public class FotaApplication extends BaseApplication {
         }
     }
 
+    public static boolean hasInitMMKV = false;
+
     public static boolean getLoginSrtatus() {
+        if (!hasInitMMKV){
+            MMKV.initialize(FotaApplication.getContext());
+            hasInitMMKV = true;
+        }
+//        if (MMKV.defaultMMKV().in)
+        if (MMKV.defaultMMKV().decodeBool("isLogin")) {
+            islogin = true;
+            MMKV.defaultMMKV().encode("isLogin", false);
+        }
         return islogin;
     }
 
@@ -265,6 +247,7 @@ public class FotaApplication extends BaseApplication {
      * 某时刻只保留对应当前激活type-id参数的
      * 1 spot 2 future 3 usdt
      * spot 与 future 同期刷新，同时清空
+     *
      * 3usdt 独立
      */
     final Map<String, List<ChartLineEntity>> marketsTimesMap = new HashMap<>();
@@ -464,11 +447,10 @@ public class FotaApplication extends BaseApplication {
     }
 
     public void switchLanguage() {
-        if (AppConfigs.getLanguegeInt() == -1) {
-            setLanguage();
-        }
-
-        Locale lacale = AppConfigs.getLanguege();
+//        if (AppConfigs.getLanguegeInt() == -1) {
+//            setLanguage();
+//        }
+        Locale lacale = LanguageKt.getLocale();
         Resources resources = getResources();
         DisplayMetrics dm = resources.getDisplayMetrics();
         Configuration config = resources.getConfiguration();
@@ -476,7 +458,6 @@ public class FotaApplication extends BaseApplication {
             config.setLocale(lacale);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 LocaleList localeList = new LocaleList(lacale);
-                LocaleList.setDefault(localeList);
                 config.setLocales(localeList);
                 getApplicationContext().createConfigurationContext(config);
             }
@@ -485,6 +466,8 @@ public class FotaApplication extends BaseApplication {
         }
         resources.updateConfiguration(config, dm);
     }
+
+
 
     public static int containerToobar(String className) {
         if (Pub.isListExists(tabbar)) {
@@ -512,26 +495,6 @@ public class FotaApplication extends BaseApplication {
         //PlatformConfig.setTwitter("3aIN7fuF685MuZ7jtXkQxalyi", "MK6FEYG63eWcpDFgRYw4w9puJhzDl0tyuqWjZ3M7XJuuG7mMbO");
         PlatformConfig.setTwitter("zCVjLl5rrTG3kldP2ZHVLOJGk", "jh3OfXdMujBdncQa6CCMEqVUEuC1LRybssGatd9kJCIB76prll");
 
-    }
-
-    /**
-     * 设置默认语言
-     */
-    private void setLanguage() {
-        Locale locale;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            locale = getResources().getConfiguration().getLocales().get(0);
-        } else {
-            locale = getResources().getConfiguration().locale;
-        }
-        //获取语言的正确姿势:
-        String lang = locale.getLanguage();// + "-" + locale.getCountry();
-        L.a("language = " + lang);
-        if ("zh".equals(lang)) {
-            AppConfigs.setLanguege(AppConfigs.LANGAUGE_SIMPLE_CHINESE);
-        } else {
-            AppConfigs.setLanguege(AppConfigs.LANGAUGE_ENGLISH);
-        }
     }
 
     @NonNull

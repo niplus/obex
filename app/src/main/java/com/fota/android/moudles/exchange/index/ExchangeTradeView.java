@@ -9,4 +9,6 @@ public interface ExchangeTradeView extends BaseTradeViewInterface {
     void showTopInfo(String name);
 
     void refreshComplete();
+
+    void cancelSuccess();
 }

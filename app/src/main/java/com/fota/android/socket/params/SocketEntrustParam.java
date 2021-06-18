@@ -46,4 +46,13 @@ public class SocketEntrustParam implements Serializable {
     public void setParam(String param) {
         this.param = param;
     }
+
+    @Override
+    public String toString() {
+        return "SocketEntrustParam{" +
+                "type=" + type +
+                ", id=" + id +
+                ", param='" + param + '\'' +
+                '}';
+    }
 }

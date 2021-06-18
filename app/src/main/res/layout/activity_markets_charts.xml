@@ -42,7 +42,7 @@
                         android:id="@+id/kline"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                     </com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView>
 
@@ -50,7 +50,7 @@
                         android:id="@+id/tline"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                     </com.guoziwei.fota.chart.view.fota.FotaBigTimeLineBarChartView>
                 </LinearLayout>

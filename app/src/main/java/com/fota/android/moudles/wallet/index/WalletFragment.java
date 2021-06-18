@@ -34,7 +34,6 @@ import com.fota.android.moudles.wallet.WithTransferFragment;
 import com.fota.android.moudles.wallet.history.WithDrawHistoryFragment;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.KeyBoardUtils;
-import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.TitleLayout;
 import com.fota.android.widget.btbwidget.ClearEdittext;
 import com.fota.android.widget.btbwidget.FotaButton;
@@ -87,12 +86,7 @@ public class WalletFragment extends WithTransferFragment<WalletPresenter> implem
                 holder.setText(R.id.tv_available_title, mContext.getResources().getString(R.string.common_usable) + "(" + model.getAssetName() + ")");
                 holder.setText(R.id.tv_val_title, mContext.getResources().getString(R.string.common_valuation) + "(BTC)");
                 holder.setText(R.id.tv_frozen_title, mContext.getResources().getString(R.string.common_freeze) + "(" + model.getAssetName() + ")");
-                if ("BTC".equals(model.getAssetName())) {
-                    holder.setVisible(R.id.ll_val, false);
-                } else {
-                    holder.setVisible(R.id.ll_val, true);
-
-                }
+                holder.setVisible(R.id.ll_val, !"BTC".equals(model.getAssetName()));
 //                holder.getConvertView().setOnClickListener(new View.OnClickListener() {
 //
 //                    @Override
@@ -173,7 +167,6 @@ public class WalletFragment extends WithTransferFragment<WalletPresenter> implem
     protected void onInitView(View view) {
         super.onInitView(view);
         binding.setView(this);
-
 
         binding.llExtract.setOnClickListener(this);
         binding.llRecharge.setOnClickListener(this);
@@ -339,7 +332,7 @@ public class WalletFragment extends WithTransferFragment<WalletPresenter> implem
                 if (!TextUtils.equals(mRequestCode, event.getParam(String.class))) {
                     return;
                 }
-                finalDo(UserLoginUtil.getCapital());
+                finalDo();
                 break;
             case R.id.event_capital_quickcheck_fail:
                 if (!TextUtils.equals(mRequestCode, event.getParam(String.class))) {

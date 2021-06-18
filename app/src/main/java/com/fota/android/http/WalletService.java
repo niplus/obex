@@ -2,6 +2,7 @@ package com.fota.android.http;
 
 import com.fota.android.common.bean.wallet.AddressEntity;
 import com.fota.android.common.bean.wallet.ContractAccountBean;
+import com.fota.android.common.bean.wallet.RateBean;
 import com.fota.android.common.bean.wallet.TransferBean;
 import com.fota.android.common.bean.wallet.TransferListItemBean;
 import com.fota.android.common.bean.wallet.WalletBean;
@@ -18,6 +19,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -25,6 +27,9 @@ public interface WalletService {
 
     @GET("trade/usdk/asset/info")
     Observable<BaseHttpResult<WalletBean>> getWallet();
+
+    @GET("asset/withdraw/asset/fee")
+    Observable<BaseHttpResult<RateBean>> getRate(@Query("assetName")String assetName, @Query("network")String network);
 
     @GET("asset/transfer/record/coin")
     Observable<BaseHttpResult<BaseHttpPage<WalletHistoryBean>>> getWitdrawtHistory(@QueryMap BtbMap map);

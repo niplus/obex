@@ -1,7 +1,119 @@
 <resources>
+    <style name="MY_AppTheme_Common" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/black</item>
+        <item name="colorPrimary">#FF20222D</item>
+        <item name="colorPrimaryDark">#FFA4ACBD</item>
+        <item name="colorAccent">@color/check_color</item>
 
+        <!--基本基本色-->
+        <!--reverse-->
+        <!--偏黑背景 以黑色为准 黑1白2 -->
+        <item name="reverse_bg">@color/bg_color_black</item>
+        <!--偏黑背景 以黑色为准 黑1白2 -->
+        <item name="reverse_bg2">@color/bg_color2_black</item>
+
+        <!--字体主色 深字体色-->
+        <item name="font_color">@color/font_color_black</item>
+        <!--字体主色 次深字体色-->
+        <item name="font_color2">@color/font_color2_black</item>
+        <!--字体辅助色 浅字体色-->
+        <item name="font_color3">@color/font_color3_black</item>
+        <!--不可用色 一般也表示没选中的颜色-->
+        <item name="font_color4">@color/font_color4_black</item>
+        <!--不可用色 一般也表示没选中的颜色-->
+        <item name="font_color5">@color/font_color5_black</item>
+
+        <!--线的颜色-->
+        <item name="line_color">@color/line_color_black</item>
+
+        <!--线的颜色-->
+        <item name="main_color">@color/main_color_black</item>
+
+        <!--深背景色-->
+        <item name="bg_color">@color/bg_color_black</item>
+        <!--浅背景色-->
+        <item name="bg_color2">@color/bg_color2_black</item>
+
+        <item name="market_bg2">#1D2029</item>
+        <!--1D2029-->
+
+        <!--<item name="digital_bg">#464A55</item>-->
+        <item name="login_regist_tv">#FFFFFF</item>
+        <item name="common_full_screen">@mipmap/chart_full_screen</item>
+
+        <!-- klinelib -->
+        <item name="k_highlight_color">#FFFFFFFF</item>
+        <item name="color_k_fota_bg">#FF181A22</item>
+        <item name="grid_line_color">@color/line_color_black</item>
+        <item name="limit_color">#adadad</item>
+        <item name="split_line_color">#DDDDDD</item>
+        <item name="normal_line_color">#be945c</item>
+        <item name="ave_color">#666</item>
+        <item name="hold_color">#E6000000</item>
+        <item name="axis_color">@color/font_color3_black</item>
+        <item name="color_bg_chart_info">#0A0A0A</item>
+        <item name="color_text_chart_key">#606572</item>
+        <item name="color_text_chart_value">#A4ACBD</item>
+    </style>
+    <style name="MY_AppTheme_White_Common" parent="Theme.AppCompat.DayNight.NoActionBar">
+
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorPrimary">#EEEEEE</item>
+        <item name="colorPrimaryDark">#666666</item>
+        <item name="colorAccent">@color/check_color</item>
+
+        <!--基本基本色-->
+        <!--偏黑背景 以黑色为准 黑1白2 -->
+        <item name="reverse_bg">@color/bg_color2_white</item>
+        <!--偏黑背景 以黑色为准 黑1白2 -->
+        <item name="reverse_bg2">@color/bg_color_white</item>
+
+
+        <!--字体主色 深字体色-->
+        <item name="font_color">@color/font_color_white</item>
+        <!--字体主色 次深字体色-->
+        <item name="font_color2">@color/font_color2_white</item>
+        <!--字体辅助色 浅字体色-->
+        <item name="font_color3">@color/font_color3_white</item>
+        <!--不可用色 一般也表示没选中的颜色-->
+        <item name="font_color4">@color/font_color4_white</item>
+        <!--不可用色 一般也表示没选中的颜色-->
+        <item name="font_color5">@color/font_color5_white</item>
+
+        <!--线的颜色-->
+        <item name="line_color">@color/line_color_white</item>
+
+        <!--线的颜色-->
+        <item name="main_color">@color/main_color_white</item>
+
+        <!--深背景色-->
+        <item name="bg_color">@color/bg_color_white</item>
+        <!--浅背景色-->
+        <item name="bg_color2">@color/bg_color2_white</item>
+
+        <item name="market_bg2">#FFFFFF</item>
+
+        <!--<item name="digital_bg">#D8D8D8</item>-->
+        <item name="login_regist_tv">#FF6694EE</item>
+        <item name="common_full_screen">@mipmap/chart_full_screen_white</item>
+
+        <!-- klinelib -->
+        <item name="k_highlight_color">#FF333333</item>
+        <item name="color_k_fota_bg">#FFFFFFFF</item>
+        <item name="grid_line_color">@color/line_color_white</item>
+        <item name="limit_color">#adadad</item>
+        <item name="split_line_color">#DDDDDD</item>
+        <item name="normal_line_color">#be945c</item>
+        <item name="ave_color">#666</item>
+        <item name="hold_color">#E6666666</item>
+        <item name="axis_color">@color/font_color3_black</item>
+        <item name="color_bg_chart_info">#333333</item>
+        <item name="color_text_chart_key">#AAAAAA</item>
+        <item name="color_text_chart_value">#FFFFFF</item>
+    </style>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="AppTheme_Common">
+    <style name="AppTheme" parent="MY_AppTheme_Common">
         <!-- Customize your theme here. -->
         <item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>
         <item name="android:windowBackground">@color/black</item>
@@ -95,12 +207,41 @@
         <item name="mine_fota_logo">@mipmap/mine_fota_logo_black</item>
         <item name="icon_contractlever_check">@mipmap/icon_contractlever_check</item>
         <item name="commission">@mipmap/commission_black</item>
+        <item name="icon_share">@mipmap/icon_share_night</item>
 
+        <item name="btn_color">@drawable/selector_futures_calc_type_bg_night</item>
+        <item name="sell_btn_color">@drawable/selector_futures_calc_sell_type_bg_night</item>
+        <item name="bar_default">#444751</item>
+        <item name="bar_select_color">#3C78D7</item>
+        <item name="progress_bottom_text_color">#E5E5E5</item>
+        <item name="future_calc_input_bg">@drawable/shape_futures_calc_input_bg_night</item>
+        <item name="future_calc_result_bg">#2D2F39</item>
+        <item name="future_calc_text1">#919296</item>
+        <item name="lever_dialog_bg">#2D2F39</item>
+        <item name="lever_bar_default_color">#444751</item>
+        <item name="lever_bar_select_small_color">#444751</item>
+        <item name="icon_cancel">@mipmap/icon_cancel_night</item>
+        <item name="icon_plus">@mipmap/icon_plus_night</item>
+        <item name="icon_sub">@mipmap/icon_sub_night</item>
+        <item name="icon_calc">@mipmap/icon_calc_night</item>
+        <item name="future_calc_btn_color">#59AD6D</item>
+        <item name="futures_calc_line">#5D5D5D</item>
+        <item name="home_background">#0C1115</item>
+        <item name="home_menu_bg">@mipmap/bg_menu_dark</item>
+        <item name="home_tab_color">#E5E5E5</item>
+        <item name="home_coin_list_name_color">#e5e5e5</item>
+        <item name="color_666666_bbbbbb">#bbbbbb</item>
+        <item name="color_666666_ffffff">#fff</item>
+        <item name="fast_buy_bg">@mipmap/img_fast_buy_dark</item>
     </style>
 
 
     <!-- Base application theme. -->
-    <style name="AppTheme_White" parent="AppTheme_White_Common">
+    <style name="AppTheme_White" parent="MY_AppTheme_White_Common">
+
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
 
         <item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>
         <item name="android:windowBackground">@color/welcome</item>
@@ -124,6 +265,8 @@
         <item name="market_notice_bg">#F8F9FD</item>
         <item name="tradehis_search">#6694EE</item>
         <item name="history_addition">#F3F5F9</item>
+
+
         <!--<item name="market_main_tab_border">#2D323B</item>-->
 
         <item name="common_arrow_up">@mipmap/common_arrow_up_white</item>
@@ -196,6 +339,33 @@
         <item name="mine_fota_logo">@mipmap/mine_fota_logo_white</item>
         <item name="icon_contractlever_check">@mipmap/icon_contractlever_check_white</item>
         <item name="commission">@mipmap/commission_white</item>
+        <item name="icon_share">@mipmap/icon_share</item>
+
+
+        <item name="btn_color">@drawable/selector_futures_calc_type_bg</item>
+        <item name="sell_btn_color">@drawable/selector_futures_calc_type_bg</item>
+        <item name="bar_default">#F3F5F9</item>
+        <item name="bar_select_color">#3D50A4</item>
+        <item name="progress_bottom_text_color">#394C9E</item>
+        <item name="future_calc_input_bg">@drawable/shape_futures_calc_input_bg</item>
+        <item name="future_calc_result_bg">#F0F2F8</item>
+        <item name="future_calc_text1">#9BA5CE</item>
+        <item name="lever_dialog_bg">#FFFFFF</item>
+        <item name="lever_bar_default_color">#D9DADD</item>
+        <item name="lever_bar_select_small_color">#FFFFFF</item>
+        <item name="icon_cancel">@mipmap/icon_cancel</item>
+        <item name="icon_plus">@mipmap/icon_plus</item>
+        <item name="icon_sub">@mipmap/icon_sub</item>
+        <item name="icon_calc">@mipmap/icon_calc</item>
+        <item name="future_calc_btn_color">#7C8FDD</item>
+        <item name="futures_calc_line">#F9F9F9</item>
+        <item name="home_background">#FFF</item>
+        <item name="home_menu_bg">@mipmap/bg_menu</item>
+        <item name="home_tab_color">#333333</item>
+        <item name="home_coin_list_name_color">#ff707a8a</item>
+        <item name="color_666666_bbbbbb">#666666</item>
+        <item name="color_666666_ffffff">#666666</item>
+        <item name="fast_buy_bg">@mipmap/img_fast_buy</item>
     </style>
 
     <style name="horizontal_fill">
@@ -405,6 +575,28 @@
 
     <style name="WXNoTitleBar" parent="@android:style/Theme.Translucent.NoTitleBar">
         <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <!--底部进出dialog-->
+    <style name="BottomDialog" parent="@android:style/Theme.Holo.Dialog">
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--阴影  -->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 还可以加入一些弹出和退出的动画 (lan)-->
+        <item name="android:windowAnimationStyle">@style/BottomDialogAnimation</item>
+    </style>
+
+    <!-- 自定义Dialog动画 -->
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_bottom_out</item>
     </style>
 
 </resources>

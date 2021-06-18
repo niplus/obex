@@ -1,36 +1,36 @@
 package com.fota.android.moudles.mine;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fota.android.R;
+import com.fota.android.SettingActivity;
+import com.fota.android.app.BundleKeys;
 import com.fota.android.app.Constants;
 import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.FotaApplication;
 import com.fota.android.common.listener.ISystembar;
 import com.fota.android.commonlib.base.AppConfigs;
-import com.fota.android.commonlib.http.exception.ApiException;
-import com.fota.android.commonlib.http.rx.CommonSubscriber;
-import com.fota.android.commonlib.http.rx.CommonTransformer;
 import com.fota.android.commonlib.utils.Pub;
-import com.fota.android.core.base.BtbMap;
+import com.fota.android.core.base.BaseFragment;
 import com.fota.android.core.base.SimpleFragmentActivity;
 import com.fota.android.core.base.list.MvpListFragment;
 import com.fota.android.core.event.Event;
 import com.fota.android.core.event.EventWrapper;
 import com.fota.android.databinding.FragmentMineBinding;
-import com.fota.android.http.Http;
+import com.fota.android.moudles.InviteActivity;
 import com.fota.android.moudles.mine.bean.MineBean;
 import com.fota.android.utils.FtRounts;
+import com.fota.android.utils.KeyBoardUtils;
 import com.fota.android.utils.StatusBarUtil;
 import com.fota.android.utils.StringFormatUtils;
 import com.fota.android.utils.UserLoginUtil;
@@ -114,13 +114,17 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
                 FtRounts.toUdeskService(mContext);
                 break;
             case R.id.imv_setting:
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("security", userSecurity);
-                SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.SettingFragment, bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("security", userSecurity);
+//                SimpleFragmentActivity.gotoFragmentActivity(getContext(),ConstantsPage.SettingFragment, bundle);
+
+                startActivity(new Intent(requireContext(), SettingActivity.class));
+
+//                startActivity(new Intent(requireContext(), FuturesCalcActivity.class));
                 break;
             case R.id.imv_notice:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.NoticeCenterFragment);
-                break;
+                break; 
             case R.id.ll_activite:
                 FtRounts.toWebView(mContext, mContext.getResources().getString(R.string.mine_activitys_title), Constants.getH5BaseUrl() + Constants.URL_ACTIVIES);
                 break;
@@ -131,34 +135,56 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.UsdtContractTransferFragment);
                 break;
             case R.id.ll_commission:
-//                CommissionPopup commissionPopup = new CommissionPopup(getActivity(),new CommissionBean());
-//                commissionPopup.setAnimationStyle(R.style.mypopwindow_anim_style);
-//                commissionPopup.show();
-                //ToastUitl.showShort(getString(R.string.coming_soon));
-                //FtRounts.toWebView(mContext, "", Constants.getH5BaseUrl() + Constants.URL_COMMISSION);
                 if (!UserLoginUtil.havaUser()) {
                     FtRounts.toQuickLogin(mContext);
                     return;
                 }
-                BtbMap map = new BtbMap();
-                Http.getWalletService().invite(map)
-                        .compose(new CommonTransformer<String>())
-                        .subscribe(new CommonSubscriber<String>(this) {
 
-                            @Override
-                            public void onNext(String list) {
-                                FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/share?invitationCode=" + list);
-                            }
+                startActivity(new Intent(requireActivity(), InviteActivity.class));
 
-                            @Override
-                            protected void onError(ApiException e) {
-                                //super.onError(e);
-                                FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/share");
-                            }
-                        });
+//                String userId = UserLoginUtil.getId();
+//                if (!userId.equals("0"))
+//                    FtRounts.toWebView(mContext, "", "https://invite.cboex.com/#/invite?userId=" + userId + "&language="+ MMKV.defaultMMKV().decodeString("language"));
+
 
         }
 
+    }
+
+    /**
+     * 跳转到指定Fragment的界面
+     *
+     * @param fragmentClass
+     * @param args
+     */
+    public void gotoFragmentActivity(String fragmentClass, Bundle args) {
+        if (Pub.isStringEmpty(fragmentClass)) {
+            return;
+        }
+        try {
+            BaseFragment fragment = (BaseFragment) Class.forName(fragmentClass).newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        KeyBoardUtils.closeKeybord(requireContext());
+        if (FotaApplication.containerToobar(fragmentClass) >= 0) {
+            FtRounts.toMain(requireContext(), fragmentClass, args);
+            return;
+        }
+        if (UserLoginUtil.havaUser() || ConstantsPage.withoutLoginFragment.contains(fragmentClass)) {
+            Intent intent = new Intent(requireContext(), SimpleFragmentActivity.class);
+            if (args != null) {
+                intent.putExtra(BundleKeys.KEY_FRAGMENT_ARGUMENTS, args);
+            }
+            intent.putExtra(BundleKeys.KEY_FRAGMENT_CLASS, fragmentClass);
+            if (!(requireContext() instanceof Activity)) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+            startActivity(intent);
+        } else {
+            FtRounts.toQuickLogin(requireContext(), fragmentClass);
+        }
     }
 
 
@@ -182,7 +208,6 @@ public class MineFragment extends MvpListFragment<MinePresenter> implements View
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onInitView(View view) {
         super.onInitView(view);

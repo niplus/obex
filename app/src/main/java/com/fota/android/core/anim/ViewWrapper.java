@@ -5,8 +5,14 @@ import android.view.View;
 public  class ViewWrapper {
 
     private View rView;
+    private View mRootView;
 
-    public ViewWrapper(View target) {
+    public ViewWrapper(View target, View rootView) {
+        rView = target;
+        mRootView = rootView;
+    }
+
+    public ViewWrapper(View target){
         rView = target;
     }
 
@@ -16,7 +22,9 @@ public  class ViewWrapper {
 
     public void setWidth(int width) {
         rView.getLayoutParams().width = width;
-        rView.requestLayout();
+//        rView.invalidate();
+        if (mRootView == null) rView.requestLayout();
+        else mRootView.requestLayout();
     }
 
     public int getHeight() {
@@ -25,6 +33,7 @@ public  class ViewWrapper {
 
     public void setHeight(int height) {
         rView.getLayoutParams().height = height;
-        rView.requestLayout();
+        if (mRootView == null) rView.requestLayout();
+        else mRootView.requestLayout();
     }
 }

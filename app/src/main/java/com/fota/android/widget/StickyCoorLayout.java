@@ -212,7 +212,7 @@ public class StickyCoorLayout extends LinearLayout implements NestedScrollingPar
     protected void onFinishInflate()
     {
         super.onFinishInflate();
-        mTop = findViewById(R.id.id_topview);
+//        mTop = findViewById(R.id.id_topview);
         mNav = findViewById(R.id.id_indicator);
         View view = findViewById(R.id.all_viewPager);
         if (!(view instanceof ViewPager))

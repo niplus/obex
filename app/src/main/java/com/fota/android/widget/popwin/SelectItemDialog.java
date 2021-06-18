@@ -15,6 +15,7 @@ import com.fota.android.core.base.ft.FtKeyValue;
 import com.fota.android.widget.recyclerview.EasyAdapter;
 import com.fota.android.widget.recyclerview.RecyclerViewUtils;
 import com.fota.android.widget.recyclerview.ViewHolder;
+import com.ndl.lib_common.log.NLog;
 
 import java.util.List;
 

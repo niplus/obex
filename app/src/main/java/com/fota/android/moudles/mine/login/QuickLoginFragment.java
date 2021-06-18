@@ -111,6 +111,7 @@ public class QuickLoginFragment extends BaseFragment implements View.OnClickList
                     L.a("finger Exception：" + exception.getLocalizedMessage());
                 }
             });
+            mFingerprintIdentify.init();
             initFinger();
             if (TextUtils.isEmpty(UserLoginUtil.getLoginedGesture())) {
                 initStatus(2);

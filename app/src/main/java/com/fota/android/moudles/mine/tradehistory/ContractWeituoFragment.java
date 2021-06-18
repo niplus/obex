@@ -72,7 +72,7 @@ public class ContractWeituoFragment extends MvpListFragment<ContractWeituoPresen
 
                 holder.setText(R.id.buy_or_sell, model.getFormatBuyOrSell(getContext()));
 
-                holder.setText(R.id.asset_name, model.getContractName());
+                holder.setText(R.id.asset_name, model.getContractName().replace("永续", " " + getString(R.string.perp)));
 
 
                 holder.setText(R.id.order_type, model.getFormatType(getContext()));

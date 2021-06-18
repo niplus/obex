@@ -20,6 +20,7 @@ import java.io.File;
  * 描    述：
  * 修订历史：
  * ================================================
+ *
  */
 public class GlideImageLoader implements ImageLoader {
 

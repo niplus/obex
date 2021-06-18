@@ -80,6 +80,17 @@ public class ExchangeCurrency extends BaseAsset {
     }
 
 
+    @Override
+    public String toString() {
+        return "ExchangeCurrency{" +
+                "usdtTradePricePrecision=" + usdtTradePricePrecision +
+                ", usdtTradeAmountPrecision=" + usdtTradeAmountPrecision +
+                ", usdtTradeValuePrecision=" + usdtTradeValuePrecision +
+                ", usdkMaxMinPricePrecision=" + usdkMaxMinPricePrecision +
+                ", defaultAmount='" + defaultAmount + '\'' +
+                ", coinIconUrl='" + coinIconUrl + '\'' +
+                '}';
+    }
 }
 
 

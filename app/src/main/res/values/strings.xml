@@ -268,6 +268,7 @@
     <string name="identity_front_msg_id">上传证件正面照片</string>
     <string name="identity_front_msg_huzhao">上传证件照</string>
     <string name="identity_back_msg_id">上传证件背面照片</string>
+    <string name="identity_hold_msg_id">上传证件手持照片</string>
     <string name="identity_idcard_error">请输入正确的身份证号</string>
     <string name="identity_pic_id">上传身份证</string>
     <string name="identity_pic_passport">上传证件</string>
@@ -316,7 +317,7 @@
     <string name="exchange_usable_btc">可用USDT：</string>
     <string name="exchange_comfirm_cancel_order">确定撤单？</string>
     <string name="exchange_money">持仓</string>
-    <string name="exchange_order">委托</string>
+    <string name="exchange_order">当前委托</string>
     <string name="exchange_complete">成交</string>
     <string name="exchange_limit_price">指定价</string>
     <string name="exchange_his_price">市场价</string>
@@ -428,7 +429,7 @@
     <string name="future_applies">浮动盈亏</string>
     <string name="futures_earning_rate">收益率</string>
     <string name="exchange_totol_money">总量</string>
-    <string name="exchange_valuation_btc">估值(USDT)</string>
+    <string name="exchange_valuation_btc">估值(BTC)</string>
     <string name="future_applies2">浮动盈亏：</string>
     <string name="exchange_max_amount">最大可买数量</string>
     <string name="exchange_max_money">最大可买金额</string>
@@ -477,10 +478,12 @@
     <string name="no_more_data">—— 已显示全部内容 ——</string>
     <string name="money_buy_market">由市场价决定</string>
     <string name="common_full_point">。</string>
-    <string name="login_suc">登录成功</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_success1">登录成功</string>
+
 
     <!--返佣-->
-    <string name="commission_page_title">邀请返佣</string>
+
     <string name="commission_save_suc">图片已保存</string>
     <string name="commission_title">半壁江山，等你来拿</string>
     <string name="commission_title_user">邀请您注册CBOEX.com\n数字资产期货期权交易平台</string>
@@ -518,7 +521,6 @@
     <string name="optionwelcome_notice_nonext">不再提示</string>
     <string name="nick_name_long">请设置2～12位昵称</string>
     <string name="set_nick_name">请输入昵称</string>
-    <string name="coming_soon">敬请期待</string>
     <string name="reset_gesture_password">修改手势密码</string>
     <string name="share_wechat">微信</string>
     <string name="share_circle">朋友圈</string>
@@ -526,4 +528,128 @@
     <string name="share_qq">QQ</string>
     <string name="share_twitter">推特</string>
 
+    <string name="main_tab5">首页</string>
+    <string name="main_tab1">行情</string>
+    <string name="main_tab2">现货</string>
+    <string name="main_tab3">合约</string>
+    <string name="main_tab4">我的</string>
+
+    <!--合约计算器， 杠杆-->
+    <string name="target_price">目标价格</string>
+    <string name="open_price">开仓价格</string>
+    <string name="close_price">平仓价格</string>
+    <string name="calc_result">计算结果</string>
+    <string name="initial_margin">起始保证金</string>
+    <string name="response_rate">回报率</string>
+    <string name="confirm">确认</string>
+    <string name="adjust_leverage">调整杠杆</string>
+    <string name="lever_warning">当前杠杆倍数较高，请注意风险。</string>
+    <string name="insufficient_margin">保证金不足</string>
+
+    <string name="perp">永续</string>
+    <string name="coming_soon">即将上线，敬请期待</string>
+    <string name="recharge_coin">充值币种</string>
+    <string name="join_community">加入电报</string>
+    <string name="new_guide">新手指南</string>
+    <string name="grid_strategy">网格策略</string>
+    <string name="event_details">活动详情</string>
+    <string name="more">更多</string>
+    <string name="quick_buy">快捷买卖数字货币</string>
+    <string name="contrace_list">合约列表</string>
+    <string name="spot_list">现货列表</string>
+
+    <string name="planing">计划委托</string>
+    <string name="planing1">计划委托</string>
+    <string name="limit">限价委托</string>
+    <string name="history_planning">历史计划委托</string>
+    <string name="stop_order_hint1">请输入止盈触发价格</string>
+    <string name="stop_order_hint2">请输入止盈价格</string>
+    <string name="stop_order_hint3">请输入止盈数量</string>
+    <string name="stop_order_hint4">请输入止损触发价格</string>
+    <string name="stop_order_hint5">请输入止损价格</string>
+    <string name="stop_order_hint6">请输入止损数量</string>
+    <string name="take_profit_stop_loss">止盈止损</string>
+    <string name="take_profit">止盈</string>
+    <string name="stop_loss">止损</string>
+    <string name="enable_take_profit">开启止盈</string>
+    <string name="disable_take_profit">关闭止盈</string>
+    <string name="enable_stop_loss">开启止损</string>
+    <string name="disable_stop_loss">关闭止损</string>
+    <string name="enter_trigger_price">请输入触发价</string>
+    <string name="enter_limit_price">请输入限价价格</string>
+    <string name="current">当前委托</string>
+    <string name="sure_close_position">确定平仓？</string>
+    <string name="trigger_price">触发价格</string>
+    <string name="sure_cancel_order">确定撤单？</string>
+    <string name="close_position">平仓</string>
+
+    <string name="commission_page_title">邀请返佣</string>
+    <string name="my_commission">我的佣金</string>
+    <string name="my_invite">我的邀请</string>
+    <string name="commission_income">佣金收益</string>
+    <string name="yestoday_commission">昨日佣金</string>
+    <string name="week_commission">本周佣金</string>
+    <string name="transaction_statistics">交易统计</string>
+    <string name="transaction_hint">交易额为预估值，仅供参考，佣金请以返佣记录为准</string>
+    <string name="yestoday_trans_volume">昨日交易额</string>
+    <string name="week_trans_volume">本周交易额</string>
+    <string name="my_invitation_code">我的邀请码</string>
+    <string name="copy">复制</string>
+    <string name="invite_now">立即邀请</string>
+    <string name="exclusive_post">专属海报</string>
+    <string name="copy_link">复制链接</string>
+    <string name="share_to">分享至</string>
+    <string name="sweep_face_to_face">面对面扫我接受邀请</string>
+    <string name="cooperation_benefit">合作共赢</string>
+    <string name="invite_post_content">CME的全品类全仓保证金系统\nOCC实时清洁算系统\n释放用户20%-30%的资金占用率</string>
+    <string name="invite_post_hint">以强大的安全机制、保证金风控机制和可靠的底层架构，\n为您提供可靠的交易体验。</string>
+    <string name="invitation_code">邀请码：</string>
+    <string name="futures_risk">合约交易有风险，交易需谨慎</string>
+    <string name="download_pic">下载图片</string>
+    <string name="success_invite">成功邀请注册</string>
+    <string name="my_invite_hint1">邀请统计包含间接邀请。</string>
+    <string name="my_invite_hint2">今日、昨日以新加坡时间（UTC+8）划分。数据每三分钟刷 新一次</string>
+    <string name="today">今日</string>
+    <string name="yestoday">昨日</string>
+    <string name="total">累计</string>
+    <string name="invite_record">邀请记录</string>
+    <string name="invite_account">被邀请人账号</string>
+    <string name="user_level">用户等级</string>
+    <string name="invite_time">邀请时间</string>
+    <string name="save_pic_success">图片保存成功</string>
+    <string name="save_pic_failed">图片保存失败</string>
+    <string name="person">人</string>
+
+
+    <string name="srl_content_empty1">SmartRefreshLayout中没有找到内容视图。您是否忘记在xml布局文件中添加？</string>
+    <string name="srl_footer_failed1">加载失败</string>
+    <string name="srl_footer_finish1">加载完成</string>
+    <string name="srl_footer_loading1">正在加载…</string>
+    <string name="srl_footer_nothing1">没有更多数据了</string>
+    <string name="srl_footer_pulling1">上拉加载更多</string>
+    <string name="srl_footer_refreshing1">正在刷新…</string>
+    <string name="srl_footer_release1">释放立即加载</string>
+    <string name="srl_header_failed1">刷新失败</string>
+    <string name="srl_header_finish1">刷新完成</string>
+    <string name="srl_header_loading1">正在加载…</string>
+    <string name="srl_header_pulling1">下拉可以刷新</string>
+    <string name="srl_header_refreshing1">正在刷新…</string>
+    <string name="srl_header_release1">释放立即刷新</string>
+    <string name="srl_header_secondary1">释放进入二楼</string>
+    <string name="srl_header_update1">上次更新 M-d HH:mm</string>
+
+    <string name="number_of_position">持仓数量</string>
+    <string name="flat_quantity">可平数量</string>
+    <string name="realized_profit_loss">已实现盈亏</string>
+    <string name="capital_flow">资金流水</string>
+    <string name="currency">币种</string>
+    <string name="input_trigger_price">请输入触发价格</string>
+    <string name="fund_fee">资金费</string>
+    <string name="transaction_fee">交易手续费</string>
+    <string name="sub_commission">分佣</string>
+    <string name="can_sell">可平</string>
+    <string name="have_order">您当前有挂单，注意可平仓位小于持仓数量</string>
+    <string name="market_order">市价委托</string>
+    <string name="funding_rate">资金费率</string>
+    <string name="make_order_success">下单成功</string>
 </resources>

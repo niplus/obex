@@ -30,6 +30,52 @@ public class FuturesMoneyBean implements Serializable {
 
     private boolean isCanceled;
 
+    private int closePrecision;
+    private int closePricePrecision;
+    private String avaQty;
+    private String positionQty;
+
+    private String lastMatchPrice;
+
+    public String getLastMatchPrice() {
+        return lastMatchPrice;
+    }
+
+    public void setLastMatchPrice(String lastMatchPrice) {
+        this.lastMatchPrice = lastMatchPrice;
+    }
+
+    public String getAvaQty() {
+        return avaQty;
+    }
+
+    public void setAvaQty(String avaQty) {
+        this.avaQty = avaQty;
+    }
+
+    public String getPositionQty() {
+        return positionQty;
+    }
+
+    public void setPositionQty(String positionQty) {
+        this.positionQty = positionQty;
+    }
+
+    public int getClosePrecision() {
+        return closePrecision;
+    }
+
+    public void setClosePrecision(int closePrecision) {
+        this.closePrecision = closePrecision;
+    }
+
+    public int getClosePricePrecision() {
+        return closePricePrecision;
+    }
+
+    public void setClosePricePrecision(int closePricePrecision) {
+        this.closePricePrecision = closePricePrecision;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -196,5 +242,29 @@ public class FuturesMoneyBean implements Serializable {
 
     public void setQuantile(int quantile) {
         this.quantile = quantile;
+    }
+
+    @Override
+    public String toString() {
+        return "FuturesMoneyBean{" +
+                "id='" + id + '\'' +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                ", userId='" + userId + '\'' +
+                ", contractId='" + contractId + '\'' +
+                ", contractName='" + contractName + '\'' +
+                ", positionType=" + positionType +
+                ", amount='" + amount + '\'' +
+                ", averagePrice='" + averagePrice + '\'' +
+                ", lever=" + lever +
+                ", applies='" + applies + '\'' +
+                ", margin='" + margin + '\'' +
+                ", contractSize='" + contractSize + '\'' +
+                ", openPositionPrice='" + openPositionPrice + '\'' +
+                ", currentPrice='" + currentPrice + '\'' +
+                ", earningRate='" + earningRate + '\'' +
+                ", quantile=" + quantile +
+                ", isCanceled=" + isCanceled +
+                '}';
     }
 }

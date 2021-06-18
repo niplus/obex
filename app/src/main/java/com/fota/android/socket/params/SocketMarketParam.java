@@ -56,4 +56,15 @@ public class SocketMarketParam implements Serializable {
     public void setResolution(String resolution) {
         this.resolution = resolution;
     }
+
+    @Override
+    public String toString() {
+        return "SocketMarketParam{" +
+                "type=" + type +
+                ", id=" + id +
+                ", resolution='" + resolution + '\'' +
+                ", contractType=" + contractType +
+                ", assetName='" + assetName + '\'' +
+                '}';
+    }
 }

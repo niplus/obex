@@ -74,13 +74,27 @@
 
                 </FrameLayout>
 
-                <TextView
-                    style="@style/horizontal_fill"
-                    android:background="?attr/reverse_bg"
-                    android:padding="10dp"
-                    android:text="@string/rechange_address"
-                    android:textColor="?attr/font_color3"
-                    android:textSize="13sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/reverse_bg"
+                        android:padding="10dp"
+                        android:text="@string/rechange_address"
+                        android:textColor="?attr/font_color3"
+                        android:textSize="13sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rv_net"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+
 
                 <LinearLayout
                     style="@style/horizontal_fill"

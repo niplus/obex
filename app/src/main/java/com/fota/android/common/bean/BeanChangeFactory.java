@@ -87,6 +87,21 @@ public class BeanChangeFactory {
         return results;
     }
 
+    public static List<EntrustBean> getSellEntrustBeans(List<EntrustBean> limits, int max) {
+        List<EntrustBean> results = null;
+        if (limits == null) {
+            return results;
+        }
+        List<EntrustBean> dynamicSellDatas = limits;
+        int length = dynamicSellDatas.size();
+        if (length >= max) {
+            results = dynamicSellDatas.subList(length - max, length);
+        } else {
+            results = dynamicSellDatas;
+        }
+        return results;
+    }
+
 //    public static int findMinSafeNum(MarketTimeLineBean bean) {
 //        int result = 0;
 //        if (bean.getTime() == null) {

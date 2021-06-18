@@ -15,3 +15,13 @@
 local.properties
 .idea/
 /mpchart/build
+klinelib/build
+lock9view/build
+app/release
+mpchart/build
+mzbanner/build
+easyPhotos/build
+lib_common/build
+lottie/build
+UdeskSDKUI/build
+.idea

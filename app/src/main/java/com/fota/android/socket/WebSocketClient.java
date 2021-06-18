@@ -11,11 +11,13 @@ import com.blankj.utilcode.util.StringUtils;
 import com.fota.android.app.GsonSinglon;
 import com.fota.android.app.SocketKey;
 import com.fota.android.common.bean.BeanChangeFactory;
+import com.fota.android.common.bean.SpotBean;
 import com.fota.android.common.bean.home.DepthBean;
 import com.fota.android.commonlib.http.BaseHttpResult;
 import com.fota.android.commonlib.utils.L;
 import com.fota.android.core.base.BasePresenter;
 import com.fota.android.http.WebSocketUtils;
+import com.fota.android.moudles.futures.bean.ConditionOrdersBean;
 import com.fota.android.moudles.market.bean.ChartLineEntity;
 import com.fota.android.moudles.market.bean.FutureItemEntity;
 import com.fota.android.moudles.market.bean.HoldingEntity;
@@ -30,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ndl.lib_common.utils.LiveDataBus;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -57,6 +60,7 @@ public class WebSocketClient implements IWebSocketSubject {
     private ConcurrentHashMap<String, List<IWebSocketObserver>> observers = new ConcurrentHashMap();
     //jiang 断连的时候，用来暂存observers，用于重新订阅
     private ConcurrentHashMap<String, List<IWebSocketObserver>> tempObservers = new ConcurrentHashMap<>();
+
 
     /**
      * @param type
@@ -135,14 +139,16 @@ public class WebSocketClient implements IWebSocketSubject {
         try {
             Gson gson = GsonSinglon.getInstance();
             final JSONObject resultJsonObj = new JSONObject(message);
-            if (resultJsonObj.getInt("code") == 0 && resultJsonObj.get("reqType") != null && resultJsonObj.get("handleType") != null) {
+            if (resultJsonObj.getInt("code") == 0) {
+                resultJsonObj.get("reqType");
+                resultJsonObj.get("handleType");
                 final BaseHttpResult result = gson.fromJson(message, BaseHttpResult.class);
                 String jsonString = gson.toJson(result.getData());
                 int handleType = resultJsonObj.getInt("handleType");
                 int reqType = resultJsonObj.getInt("reqType");
-//                String messageInJson = resultJsonObj.getString("message");
+                //                String messageInJson = resultJsonObj.getString("message");
                 int code = resultJsonObj.getInt("code");
-//                L.e("ws notify", reqType + "");
+                //                L.e("ws notify", reqType + "");
 
                 Object dataJson = new JSONTokener(jsonString).nextValue();
                 SocketAdditionEntity entity;
@@ -161,12 +167,17 @@ public class WebSocketClient implements IWebSocketSubject {
                             entity = new SocketAdditionEntity<SocketEntrustParam>(handleType, code, "");
                     }
 
+                    if (reqType == SocketKey.MARKET_SPOTINDEX){
+                        SpotBean spotBean = new Gson().fromJson(message, SpotBean.class);
+                        LiveDataBus.INSTANCE.getBus("Spot_price").postValue(spotBean);
+                    }
+
                     dealMessageType(gson, jsonString, reqType, entity);
                 } else if (dataJson instanceof JSONArray) {
                     final JSONArray dataJsonArr = (JSONArray) dataJson;
                     if (dataJsonArr.length() > 0) {
                         entity = new SocketAdditionEntity(handleType, code, "");
-                        if(reqType == SocketKey.HangQingTradeDetailReqType) {
+                        if (reqType == SocketKey.HangQingTradeDetailReqType) {
                             String paramString = resultJsonObj.getString("param");
                             SocketBaseParam param = (SocketBaseParam) gson.fromJson(paramString, SocketBaseParam.class);
                             entity = new SocketAdditionEntity<SocketBaseParam>(handleType, code, "");
@@ -217,7 +228,6 @@ public class WebSocketClient implements IWebSocketSubject {
                 case SocketKey.TradeWeiTuoReqType://委托
                     DepthBean bean = gson.fromJson(jsonString, DepthBean.class);
                     String key = bean.getType() + "-" + bean.getId();
-//                    getInstance().getDepthMap().clear();
                     getInstance().getDepthMap().put(key, bean);
                     break;
                 case SocketKey.HangQingKaPianReqType://card
@@ -243,6 +253,10 @@ public class WebSocketClient implements IWebSocketSubject {
                     HoldingEntity holdingEntity = getInstance().getHoldingEntity();
                     tempBean.setDecimal(holdingEntity == null ? 0 : holdingEntity.getDecimal());
                     getInstance().updateAppHoldingInfo(tempBean, reqType);
+                    break;
+                case SocketKey.CONDITION_ORDER:
+                    ConditionOrdersBean orders = new Gson().fromJson(jsonString, ConditionOrdersBean.class);
+                    LiveDataBus.INSTANCE.getBus("conditionOrder").postValue(orders);
                     break;
                 default://7最新成交价 8成交列表 15热门合约 1权益可用保证金率 等各页面自己处理
                     break;
@@ -293,7 +307,6 @@ public class WebSocketClient implements IWebSocketSubject {
             future.setLastPrice(each.getLastPrice());
             future.setTrend(each.getGain());
             future.setUscPrice(each.getUscPrice());
-//                        future.setFavorite(each.isCollect());
             future.setHot(each.isFire());
             future.setEntityId(each.getId());
             future.setEntityType(each.getType());
@@ -322,6 +335,8 @@ public class WebSocketClient implements IWebSocketSubject {
                 }
             }
         }
+
+        LiveDataBus.INSTANCE.getBus("HangQing").postValue(getInstance().getMarketsCardsList());
     }
 
     private void setCacheItem(FutureItemEntity future, FutureItemEntity cacheItem) {
@@ -470,7 +485,7 @@ public class WebSocketClient implements IWebSocketSubject {
                         chartLineEntity.setLow(value);
                     }
                     updateDatas.add(chartLineEntity);
-                    isAddFlagForKlineSocket = "add";
+                    isAddFlagForKlineSocket = "refresh";
                 }
             }
 
@@ -556,8 +571,10 @@ public class WebSocketClient implements IWebSocketSubject {
                         List<IWebSocketObserver> list = tempObservers.get(key);
                         if(list != null) {
                             for (IWebSocketObserver each : list) {
-                                BasePresenter presenter = (BasePresenter)each;
-                                presenter.onRefresh();
+                                if (each instanceof BasePresenter) {
+                                    BasePresenter presenter = (BasePresenter) each;
+                                    presenter.onRefresh();
+                                }
                             }
                         }
                     }
@@ -568,6 +585,7 @@ public class WebSocketClient implements IWebSocketSubject {
             @Override
             public void onMessage(WebSocket webSocket, String text) {
                 super.onMessage(webSocket, text);
+//                Log.i("================", "socket message : " + text);
                 notifyObervers(text);
             }
 
@@ -600,7 +618,7 @@ public class WebSocketClient implements IWebSocketSubject {
     private void send(final WebSocketEntity entity, IWebSocketObserver observer) {
         try {
             String json = GsonSinglon.getInstance().toJson(entity);
-            Log.i("wsocket_send", json);
+            Log.i("===================", "send: " + json);
             webSocket.send(json);
         } catch (Exception e) {
             e.printStackTrace();
@@ -611,16 +629,6 @@ public class WebSocketClient implements IWebSocketSubject {
             if (e instanceof NullPointerException) {
                 reconnect = 5;
                 reConnect(false);
-
-//                mHandler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        L.e("ws send error", connected + "");
-//                        if (isConnected()) {
-//                            reSend(entity);
-//                        }
-//                    }
-//                }, 10);
             }
         }
     }
@@ -644,7 +652,7 @@ public class WebSocketClient implements IWebSocketSubject {
         int requestType = webSocketEntity.reqType;
         webSocketEntity.setIsSubscribe(1);
         //添加 2 和 4之后，如果2和4的情况，不需要拦截
-        if (!registerObserver(requestType + "", observer) && webSocketEntity.handleType == 1) {
+        if (!registerObserver(requestType + "", observer) && webSocketEntity.handleType == 1 && webSocketEntity.reqType != SocketKey.CONDITION_ORDER) {
             return;
         }
         if (UserLoginUtil.getToken() != null) {
@@ -659,6 +667,8 @@ public class WebSocketClient implements IWebSocketSubject {
             SocketMarketParam param = (SocketMarketParam) webSocketEntity.getParam();
             this.typeAndId = param.getType() + "-" + param.getId();
         }
+
+        Log.i("nidongliang", "websocket: " + webSocketEntity);
         send(webSocketEntity, observer);
     }
 

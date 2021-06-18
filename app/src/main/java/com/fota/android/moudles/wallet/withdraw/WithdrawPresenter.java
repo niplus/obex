@@ -1,7 +1,9 @@
 package com.fota.android.moudles.wallet.withdraw;
 
-import com.fota.android.http.Http;
+import android.util.Log;
+
 import com.fota.android.app.FotaApplication;
+import com.fota.android.common.bean.wallet.RateBean;
 import com.fota.android.common.bean.wallet.WalletBean;
 import com.fota.android.common.bean.wallet.WalletItem;
 import com.fota.android.common.bean.wallet.WithDrawEntity;
@@ -11,6 +13,7 @@ import com.fota.android.commonlib.http.rx.CommonTransformer;
 import com.fota.android.commonlib.http.rx.NothingTransformer;
 import com.fota.android.core.base.BasePresenter;
 import com.fota.android.core.base.BtbMap;
+import com.fota.android.http.Http;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,18 @@ public class WithdrawPresenter extends BasePresenter<WithdrawView> {
         return items;
     }
 
+    public void getRate(String assetName, String net){
+        Http.getWalletService().getRate(assetName, net)
+                .compose(new CommonTransformer<RateBean>())
+                .subscribe(new CommonSubscriber<RateBean>() {
+                    @Override
+                    public void onNext(RateBean rateBean) {
+
+                        getView().setRate(rateBean);
+                    }
+                });
+    }
+
     /**
      * 获取钱包
      */
@@ -54,16 +69,16 @@ public class WithdrawPresenter extends BasePresenter<WithdrawView> {
                     public void onNext(WalletBean list) {
                         items = new ArrayList<>();
                         for (WalletItem bean : list.getItem()) {
-                            if ("USDT".equals(bean.getAssetName())) {
-                                WalletItem itemOmni = new WalletItem(bean);
-                                itemOmni.OMNI();
-                                WalletItem itemEth = new WalletItem(bean);
-                                itemEth.ETH();
-                                items.add(itemOmni);
-                                items.add(itemEth);
-                            } else {
+//                            if ("USDT".equals(bean.getAssetName())) {
+//                                WalletItem itemOmni = new WalletItem(bean);
+//                                itemOmni.OMNI();
+//                                WalletItem itemEth = new WalletItem(bean);
+//                                itemEth.ETH();
+//                                items.add(itemOmni);
+//                                items.add(itemEth);
+//                            } else {
                                 items.add(bean);
-                            }
+//                            }
                         }
                         getView().setSelectItem(items.get(0));
                     }
@@ -74,10 +89,8 @@ public class WithdrawPresenter extends BasePresenter<WithdrawView> {
     /**
      * 提交
      */
-    public void submit() {
-        if (model.getNetWork() == null) {
-            model.setNetWork(model.getAssetName());
-        }
+    public void submit(String net) {
+        model.setNetWork(net);
         Http.getWalletService().withDraw(model)
                 .compose(new CommonTransformer<BtbMap>())
                 .subscribe(new CommonSubscriber<BtbMap>(FotaApplication.getInstance()) {

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFF">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@mipmap/ic_update_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:id="@+id/iv_logo"/>
+    
+    <ImageView
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:src="@mipmap/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="有新版本，是否升级？"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo"
+        android:layout_marginTop="15dp"
+        android:id="@+id/tv_title"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1.41.1"
+        android:textColor="#ff333333"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="30dp"
+        android:textStyle="bold"
+        android:id="@+id/tv_version"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="更新内容：
+1. 这是内容站位这是内容站位这是内容站位
+2. 这是内容站位这是内容站位这是内容站位这是内容站位
+3. 这是内容站位这是内容站位
+4. 这是内容站位这是内容站位这是内容
+"
+        android:textColor="#ff333333"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_version"
+        android:layout_marginTop="9dp"
+        android:id="@+id/tv_content"
+        />
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content"
+        android:layout_marginTop="50dp"
+        android:progressDrawable="@drawable/shape_progressbar_color"
+        android:id="@+id/progress"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100%"
+        android:textColor="#ff707a8a"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/progress"
+        app:layout_constraintBottom_toTopOf="@+id/progress"
+        android:layout_marginBottom="3dp"
+        android:id="@+id/tv_progress"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="安装"
+        android:textColor="#ffffffff"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/progress"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/shape_3r_fill_6687dd"
+        android:gravity="center"
+        android:layout_marginTop="25dp"
+        android:id="@+id/tv_confirm"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_confirm"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

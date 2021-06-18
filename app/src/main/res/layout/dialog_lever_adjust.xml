@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_lever_dialog_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/adjust_leverage"
+            android:textSize="16sp"
+            android:textColor="?attr/font_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/tv_title" />
+
+        <ImageView
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:src="?attr/icon_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/iv_cancel"/>
+
+        <com.fota.android.widget.FuturesProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="?attr/lever_dialog_bg"
+            app:layout_constraintTop_toTopOf="@+id/tv_lever"
+            android:layout_marginTop="34dp"
+            android:id="@+id/progress"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:text="37X"
+            android:textSize="13sp"
+            android:textColor="?attr/font_color"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            android:background="@drawable/shape_lever_dialog_lever_bg"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/tv_lever"/>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:padding="3dp"
+            android:src="?attr/icon_plus"
+            android:id="@+id/iv_plus"
+            app:layout_constraintTop_toTopOf="@+id/tv_lever"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lever"
+            app:layout_constraintEnd_toEndOf="@+id/tv_lever"
+            />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:padding="3dp"
+            android:src="?attr/icon_sub"
+            android:id="@+id/iv_sub"
+            app:layout_constraintTop_toTopOf="@+id/tv_lever"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lever"
+            app:layout_constraintStart_toStartOf="@+id/tv_lever"
+           />
+
+
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="超过50x提示："-->
+<!--            android:textColor="#FF333333"-->
+<!--            android:textSize="11sp"-->
+<!--            -->
+<!--            android:visibility="gone"-->
+<!--            -->
+<!--            -->
+<!--            />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lever_warning"
+            android:textColor="#FFCC5753"
+            android:textSize="11sp"
+            android:id="@+id/tv_hint"
+            app:layout_constraintStart_toStartOf="@+id/progress"
+            app:layout_constraintTop_toBottomOf="@+id/progress"
+            android:layout_marginTop="10dp"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_btn_bg"
+            android:text="@string/confirm"
+            android:textColor="#FFFFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/progress"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="45dp"
+            android:id="@+id/btn_confirm"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_confirm"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

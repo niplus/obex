@@ -72,7 +72,7 @@ public class FileUtil {
     }
 
     public static File getDiskCacheDir(Context context, String uniqueName) {
-        return new File(context.getExternalCacheDir() + File.separator + uniqueName);
+        return new File(context.getFilesDir() + File.separator + uniqueName);
     }
 
     public static File getExternalCacheDir() {

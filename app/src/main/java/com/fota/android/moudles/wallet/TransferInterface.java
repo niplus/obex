@@ -14,7 +14,7 @@ public interface TransferInterface {
     public void onConfirm();
 
     //最后 提交 到服务端
-    public void finalDo(final String fundCode);
+    public void finalDo();
 
     //需要弹出密码输入框
     public void pwdDialogShow();

@@ -6,7 +6,7 @@ package com.fota.android.moudles.mine.login.bean;
 //        "code": "244"
 //        },
 
-import com.fota.android.commonlib.base.AppConfigs;
+import com.tencent.mmkv.MMKV;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +20,7 @@ public class CounrtyAreasBean implements Serializable {
     public static class Area implements Serializable {
         private String name_en;
         private String name_zh;
+        private String name_tw;
         private String key;
         private String code;
         private String letters;
@@ -33,16 +34,25 @@ public class CounrtyAreasBean implements Serializable {
         }
 
         public String getName_zh() {
-            if (AppConfigs.getLanguegeInt() == 1) {
-                return name_en;
-            } else {
-                return name_zh;
+            switch (MMKV.defaultMMKV().decodeString("language", "")){
+                case "en":
+                    return name_en;
+                case "tw":
+                    return name_tw;
+                default:
+                    return name_zh;
             }
+
         }
 
         public void setName_zh(String name_zh) {
             this.name_zh = name_zh;
         }
+        public void setName_tw(String name_tw) {
+            this.name_tw = name_tw;
+        }
+
+
 
         public String getKey() {
             return key;

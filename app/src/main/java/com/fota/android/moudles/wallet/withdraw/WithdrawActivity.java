@@ -4,26 +4,33 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
+import android.os.Build;
+import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import android.os.Build;
-import android.os.Bundle;
-
-import android.text.InputFilter;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.EditText;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.fota.android.MyViewHolder;
 import com.fota.android.R;
 import com.fota.android.app.BundleKeys;
 import com.fota.android.app.ConstantsPage;
 import com.fota.android.common.addressmanger.AddressListFragment;
 import com.fota.android.common.bean.wallet.AddressEntity;
+import com.fota.android.common.bean.wallet.RateBean;
 import com.fota.android.common.bean.wallet.WalletItem;
 import com.fota.android.common.bean.wallet.WithDrawEntity;
 import com.fota.android.common.listener.IAddress;
@@ -44,6 +51,7 @@ import com.fota.android.core.dialog.DialogUtils;
 import com.fota.android.core.event.Event;
 import com.fota.android.databinding.ActivityWithdrawBinding;
 import com.fota.android.moudles.wallet.history.WithDrawHistoryFragment;
+import com.fota.android.utils.ToastUtils;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.utils.apputils.TradeUtils;
 import com.fota.android.widget.TitleLayout;
@@ -57,6 +65,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements WithdrawView, IAddress, View
         .OnClickListener {
@@ -69,6 +79,11 @@ public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements 
     private double maxValue;
 
     public static final int WITHDRAW_PRE = 1;
+
+    public List<String> netData;
+
+    private String selectNet = "";
+
 
     @Override
     protected void onInitData(Bundle bundle) {
@@ -113,6 +128,23 @@ public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements 
                 binding.amount.setText(model.getAmount());
                 break;
             case R.id.bt_sure:
+                try {
+                    if (TextUtils.isEmpty(binding.address.getText())){
+                        ToastUtils.INSTANCE.showToast(getString(R.string.please_input_currency_address));
+                        return;
+                    }
+                    if (TextUtils.isEmpty(binding.amount.getText())){
+                        ToastUtils.INSTANCE.showToast(getString(R.string.please_input_currency_number));
+                        return;
+                    }
+                    if (Double.valueOf(binding.amount.getText().toString()) < Double.valueOf(model.getMinWithdrawAmount())){
+                        ToastUtils.INSTANCE.showToast(getString(R.string.wallet_min_withdraw_money) + model.getMinWithdrawAmount() + model.getAssetName());
+                        return;
+                    }
+                }catch (Exception e){
+
+                }
+
                 getPresenter().withDrawCheck();
                 break;
             case R.id.select_asset:
@@ -140,7 +172,7 @@ public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements 
     protected void onInitView(View view) {
         super.onInitView(view);
         getPresenter().getWallet();
-
+        netData = new ArrayList<>();
         if (AppConfigs.getTheme() == 0) {
             mTitleLayout.setRightIcon(R.mipmap.wallet_his_black);
         } else {
@@ -157,6 +189,51 @@ public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements 
                 addFragment(WithDrawHistoryFragment.newInstance(model.getAssetId()));
             }
         });
+
+        binding.rvNet.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rvNet.setAdapter(new RecyclerView.Adapter() {
+            @NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_withdraw_recharge_net, null, false);
+//                TextView tvNet = rootView.findViewById(R.id.tv_net);
+                return new MyViewHolder(rootView);
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                TextView view = ((MyViewHolder)holder).itemView.findViewById(R.id.tv_net);
+                view.setText(netData.get(position));
+
+                if (netData.get(position).endsWith(selectNet)){
+                    view.setTextColor((int)0xFF3C78D7);
+                    view.setBackgroundResource(R.drawable.shape_stroke_3c78d7);
+                }else {
+                    view.setTextColor((int)0xFF999999);
+                    view.setBackgroundResource(R.drawable.shape_stroke_cacaca);
+                }
+
+                view.setOnClickListener(v -> {
+                    selectNet = view.getText().toString();
+                    getPresenter().getRate(model.getAssetName(), selectNet);
+                    binding.rvNet.getAdapter().notifyDataSetChanged();
+                });
+
+            }
+
+            @Override
+            public int getItemCount() {
+                return netData.size();
+            }
+        });
+        binding.rvNet.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                if (parent.getChildAdapterPosition(view) != 0){
+                    outRect.left = 30;
+                }
+            }
+        });
     }
 
     private void initListener() {
@@ -166,25 +243,31 @@ public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements 
                 changeByAmount();
             }
         });
-        changeByAmount();
+//        changeByAmount();
     }
 
+    private RateBean selectRate;
+
     private void changeByAmount() {
+        if (selectRate == null)
+            return;
         //double value = Pub.GetDouble(binding.amount.getText().toString());
         double all = Pub.GetDouble(binding.amount.getText().toString());
         double fee = 0;
-        if (!Pub.isStringEmpty(model.getFixedFeeAmount())) {
+        if (!Pub.isStringEmpty(selectRate.getFixedFeeAmount())) {
             //固定手续费
-            fee = Pub.GetDouble(model.getFixedFeeAmount());//小于最小 取最下
+            fee = Pub.GetDouble(selectRate.getFixedFeeAmount());//小于最小 取最下
         } else {
             //无固定手续费
-            fee = Pub.multiply(all, Pub.GetDouble(model.getUsdtMinWithdrawProportion()));
-            double minFee = Pub.GetDouble(model.getUsdtMinWithdrawFee());
+            fee = Pub.multiply(all, Pub.GetDouble(selectRate.getWithdrawFeeRate()));
+            double minFee = Pub.GetDouble(selectRate.getWithdrawFeeRate());
             fee = Math.max(fee, minFee);//小于最小 取最下
+
+            if (all == 0) {
+                fee = 0;
+            }
         }
-        if (all == 0) {
-            fee = 0;
-        }
+
         String feeString = Pub.getPriceFormat(fee, getAmountPrecision(), RoundingMode.UP);
         getPresenter().getModel().setFee(String.valueOf(fee));
 
@@ -285,7 +368,7 @@ public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements 
         getPresenter().getModel().setSmsCode(code);
         getPresenter().getModel().setTradeToken(fundCode);
         getPresenter().getModel().setGoogleCode(googleCode);
-        getPresenter().submit();
+        getPresenter().submit(selectNet);
     }
 
     /**
@@ -363,12 +446,12 @@ public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements 
             case WITHDRAW_PRE:
                 //验证通过
                 double amount = Pub.GetDouble(binding.amount.getText().toString());
-                if (Pub.GetDouble(model.getMinWithdrawAmount()) > 0 &&
-                        amount < Pub.GetDouble(model.getMinWithdrawAmount())
+                if (selectRate != null && Pub.GetDouble(selectRate.getMinWithdrawFeeStandard()) > 0 &&
+                        amount < Pub.GetDouble(selectRate.getMinWithdrawFeeStandard())
                         ) {
                     StringBuilder sb = new StringBuilder();
                     sb.append(getXmlString(R.string.wallet_min_withdraw_money));
-                    sb.append(model.getMinWithdrawAmount());
+                    sb.append(selectRate.getMinWithdrawFeeStandard());
                     model.getAssetName();
                     showToast(sb.toString());
                     return;
@@ -460,9 +543,25 @@ public class WithdrawActivity extends MvpActivity<WithdrawPresenter> implements 
         });
         binding.amount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(getAmountPrecision())});
 
+
+        netData.clear();
+        selectNet = "";
+        if (model.getWnetwork() != null) {
+            netData.addAll(model.getWnetwork());
+            selectNet = model.getWnetwork().get(0);
+            getPresenter().getRate(model.getAssetName(), selectNet);
+        }
+        binding.rvNet.getAdapter().notifyDataSetChanged();
+
         setTip();
         initListener();
         bindValid(binding.btSure, binding.address, binding.amount);
+    }
+
+    @Override
+    public void setRate(RateBean rate) {
+        selectRate = rate;
+        changeByAmount();
     }
 
 

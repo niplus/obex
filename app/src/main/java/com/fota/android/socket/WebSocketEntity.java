@@ -1,8 +1,8 @@
 package com.fota.android.socket;
 
 import com.fota.android.app.Constants;
-import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.utils.UserLoginUtil;
+import com.tencent.mmkv.MMKV;
 
 import java.io.Serializable;
 
@@ -41,6 +41,16 @@ public class WebSocketEntity<T> implements Serializable {
 
     String language;
 
+    int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public int getReqType() {
         return reqType;
     }
@@ -60,7 +70,7 @@ public class WebSocketEntity<T> implements Serializable {
      *                    4 查询
      */
     public void setIsSubscribe(int isSubscribe) {
-        language = AppConfigs.getLanguege().getLanguage();
+        language = MMKV.defaultMMKV().decodeString("language", "zh");
         if (handleType == 0) {
             this.handleType = isSubscribe;
         }
@@ -81,4 +91,18 @@ public class WebSocketEntity<T> implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
+
+    @Override
+    public String toString() {
+        return "WebSocketEntity{" +
+                "reqType=" + reqType +
+                ", handleType=" + handleType +
+                ", param=" + param +
+                ", token='" + token + '\'' +
+                ", brokerId='" + brokerId + '\'' +
+                ", language='" + language + '\'' +
+                '}';
+    }
+
+
 }

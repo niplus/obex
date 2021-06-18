@@ -43,7 +43,16 @@ public class ContractAssetBean implements Serializable {
         this.contractMaxValuePrecision = contractMaxValuePrecision;
     }
 
+    String contractPrecision;
     private List<FutureContractBean> content;
+
+    public String getContractPrecision() {
+        return contractPrecision;
+    }
+
+    public void setContractPrecision(String contractPrecision) {
+        this.contractPrecision = contractPrecision;
+    }
 
     public String getName() {
         return name;

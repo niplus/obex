@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_code_130001"> loading data</string>
+    <string name="error_code_130002"> The operation failed</string>
+    <string name="error_code_120044"> order does not exist</string>
+    <string name="error_code_120045"> The condition order has been cancelled or triggered</string>
+    <string name="error_code_120046"> The commission price cannot be empty</string>
+    <string name="error_code_120047"> invalid trigger price</string>
+    <string name="error_code_120048"> The order has been cancelled</string>
+</resources>

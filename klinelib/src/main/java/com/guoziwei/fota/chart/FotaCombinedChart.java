@@ -162,7 +162,8 @@ public class FotaCombinedChart extends AppCombinedChart {
             setMarkerBoth(false);
         }
         super.onDraw(canvas);
-        //真正的绘制
+        //真正的绘制、
+
         if((mLastYFutureMarker != null && mLastYFutureMarker.isNeedDraw()) ||
                 (mLastYSpotMarker != null && mLastYSpotMarker.isNeedDraw())) {
             if (getCandleData() != null) {

@@ -85,6 +85,7 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
     protected boolean noDataError = false;
 
     public void setCard(boolean card) {
+        if (getView() == null) return;
         isCard = card;
 
         if (!isCard) {
@@ -98,26 +99,10 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
                         add = mContext.getResources().getString(R.string.market_index);
                     }
                     holder.setBackgroundColor(R.id.item_future, Pub.getColor(getContext(), R.attr.reverse_bg));
-                    holder.setText(R.id.txt_future_name, model.getFutureName() + add);
-                    holder.setVisible(R.id.market_list_divide_margin, model.isShowTopMargin());
+                    holder.setText(R.id.txt_future_name, model.getFutureName().replace("永续", " " + getString(R.string.perp)) + add);
                     holder.setVisible(R.id.market_list_divide_line, !model.isShowTopMargin());
                     if (model.isShowTopMargin()) {
-//                        holder.setBackgroundRes(R.id.future_corner, R.drawable.ft_corner_bg_top);
-//                        String marginHeader = "";
-//                        switch (model.getEntityType()) {
-//                            case 1:
-//                                marginHeader = getString(R.string.common_index);
-//                                break;
-//                            case 2:
-//                                marginHeader = getString(R.string.common_future);
-//                                break;
-//                            case 3:
-//                                marginHeader = getString(R.string.common_spot);
-//                                break;
-//                        }
-//                        holder.setText(R.id.market_list_divide_margin, marginHeader);
                     } else if (model.isBottom()) {
-//                        holder.setBackgroundRes(R.id.future_corner, R.drawable.ft_corner_bg_bottom);
                     } else {
                         holder.setBackgroundRes(R.id.future_corner, R.drawable.ft_bg_color);
                     }
@@ -128,10 +113,10 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
                         holder.setText(R.id.txt_future_volume, model.getVolume());
                     }
                     if (model.getEntityType() != 3) {
-                        holder.setText(R.id.txt_future_price, model.getUscPrice() == null ? "- -" : model.getUscPrice());
-                        holder.setVisible(R.id.txt_dollar_price, false);
+                        holder.setText(R.id.txt_future_price, model.getLastPrice() == null ? "- -" : model.getUscPrice());
+//                        holder.setVisible(R.id.txt_dollar_price, false);
                     } else {
-                        holder.setVisible(R.id.txt_dollar_price, true);
+//                        holder.setVisible(R.id.txt_dollar_price, true);
                         String temp = model.getUscPrice();
                         if (!TextUtils.isEmpty(temp)) {
                             String[] arrs = temp.split("/");
@@ -154,13 +139,12 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
             };
             mRecyclerView.setAdapter(adapter);
             mRecyclerView.setPadding(0, 0, 0, 0);
-            adapter.notifyDataSetChanged();
         } else {
             initLayoutManger();
             initMainAdapter();
             mRecyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
         }
+        adapter.notifyDataSetChanged();
         //改动了MVP的recycleView方式，需要自己添加headerView
         mRecyclerView.addHeaderView(headView);
     }
@@ -174,31 +158,9 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
             return;
         }
         if (groupListDatas.size() <= 0) {
-            boolean showTop;
-            for (String title : notCardGroup) {
-                showTop = true;
-                if (groupListDatas.size() > 0) {
-                    int index = groupListDatas.size();
-                    groupListDatas.get(index - 1).setBottom(true);
-                }
-                for (int i = 0; i < futureList.size(); i++) {
-                    FutureItemEntity each = futureList.get(i);
-                    // 去除 usdt 现货
-                    if (!symbol.equals("ALL")) {
-                        if (each.getEntityType() == 2) {
-                            if ((each.getFutureName().contains(title) || each.getFutureName().contains(title.toLowerCase()))) {
-                                showTop = addGroupData(showTop, title, each);
-                            }
-                        }
-                    } else {
-                        if ((each.getEntityType() == 1 && each.getFutureName().contains(title))
-                                || (each.getEntityType() == 2 && each.getFutureName().contains(title))) {
-                            showTop = addGroupData(showTop, title, each);
-                        } else if (title.equals("SPOT") && each.getEntityType() == 3) {
-                            showTop = addGroupData(showTop, title, each);
-                        }
-                    }
-                }
+            for (int i = 0; i < futureList.size(); i++) {
+                FutureItemEntity each = futureList.get(i);
+                addGroupData(true, "title", each);
             }
 
             if (groupListDatas.size() > 0) {
@@ -233,7 +195,7 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
         notCardGroup.add("BTC");
         notCardGroup.add("ETH");
         notCardGroup.add("SPOT");
-//        symbol = bundle.getString("symbol");
+
     }
 
     @Override
@@ -282,7 +244,7 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
                 }
                 View root = holder.getConvertView();
                 holder.setBackgroundColor(R.id.item_future_chart, Pub.getColor(getContext(), R.attr.reverse_bg));
-                holder.setText(R.id.txt_future_name, model.getFutureName() + add);
+                holder.setText(R.id.txt_future_name, model.getFutureName().replace("永续", " " + getString(R.string.perp)) + add);
                 holder.setText(R.id.txt_last_price, model.getLastPrice());
                 holder.setText(R.id.txt_up_down, model.getTrend());
                 holder.setTextColor(R.id.txt_last_price, AppConfigs.getColor(!model.getTrend().contains("-")));

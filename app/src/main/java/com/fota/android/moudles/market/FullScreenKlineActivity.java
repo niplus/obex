@@ -201,7 +201,8 @@ public class FullScreenKlineActivity extends MvpActivity<FullScreenKlinePresente
         if (isAdd) {//add 直接重刷
             klineDataConvert(chartList);
             if (entityType == 2) {
-                mBinding.kline.addData(futureData, spotData);
+//                mBinding.kline.addData(futureData, spotData);
+                mBinding.kline.addData(futureData, null);
             } else {
                 mBinding.kline.addData(futureData, null);
             }
@@ -237,17 +238,17 @@ public class FullScreenKlineActivity extends MvpActivity<FullScreenKlinePresente
             futureData.add(data);
         }
 
-        if (entityType == 2) {
-            List<ChartLineEntity> spotList = FotaApplication.getInstance().getListFromKlinesByType(1);
-            spotData.clear();
-            if (spotList != null) {
-                for (int i = 0; i < spotList.size(); i++) {
-                    ChartLineEntity m = spotList.get(i);
-                    HisData data = BeanChangeFactory.createNewHisData(m);
-                    spotData.add(data);
-                }
-            }
-        }
+//        if (entityType == 2) {
+//            List<ChartLineEntity> spotList = FotaApplication.getInstance().getListFromKlinesByType(1);
+//            spotData.clear();
+//            if (spotList != null) {
+//                for (int i = 0; i < spotList.size(); i++) {
+//                    ChartLineEntity m = spotList.get(i);
+//                    HisData data = BeanChangeFactory.createNewHisData(m);
+//                    spotData.add(data);
+//                }
+//            }
+//        }
     }
 
     @Override
@@ -281,7 +282,8 @@ public class FullScreenKlineActivity extends MvpActivity<FullScreenKlinePresente
         mBinding.kline.setNeedMoveToLast(true);
         mBinding.kline.setmDigits(holdingEntity.getDecimal());
         if (entityType == 2) {
-            mBinding.kline.initData(futureData, spotData);
+//            mBinding.kline.initData(futureData, spotData);
+            mBinding.kline.initData(futureData, null);
         } else {
             mBinding.kline.initData(futureData);
         }

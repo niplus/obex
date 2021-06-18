@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.bumptech.glide.Glide;
 import com.fota.android.R;
@@ -43,11 +44,12 @@ import com.fota.android.moudles.exchange.IExchangeFragment;
 import com.fota.android.moudles.exchange.complete.ExchangeCompleteFragment;
 import com.fota.android.moudles.exchange.money.ExchangeMoneyListFragment;
 import com.fota.android.moudles.exchange.orders.ExchangeOrdersFragment;
+import com.fota.android.moudles.futures.bean.ToTradeEvent;
 import com.fota.android.moudles.market.FullScreenKlineActivity;
+import com.fota.android.moudles.market.TradeMarketKlineActivity;
 import com.fota.android.moudles.market.bean.ChartLineEntity;
 import com.fota.android.moudles.market.bean.HoldingEntity;
 import com.fota.android.utils.KeyBoardUtils;
-import com.fota.android.utils.StatusBarUtil;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.utils.apputils.TradeUtils;
 import com.fota.android.widget.DepthRefreshView;
@@ -62,6 +64,7 @@ import com.guoziwei.fota.chart.view.BaseChartView;
 import com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView;
 import com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView;
 import com.guoziwei.fota.model.HisData;
+import com.ndl.lib_common.utils.LiveDataBus;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -133,7 +136,6 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         clearEditText();
         onRefresh();
         refreshBuy();
-        //refreshAssetView();
     }
 
     //chart relative
@@ -143,10 +145,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
      */
     final protected List<HisData> time15Data = new ArrayList<>(100);
     //已选择的kline 周期参数
-    protected int currentPeriodIndex = 2;
-//    protected static final String[] types = {"1m", "15m", "1h", "1d"};
-//    protected static final String[] dateFormats = {"HH:mm", "HH:mm", "HH:mm", "MM-dd"};
-    static final String[] types = {"1m", "5m", "15m", "30m", "1h", "4h", "6h", "1d", "1w"};
+    protected int currentPeriodIndex = 1;
     static final String[] dateFormats = {"HH:mm", "HH:mm", "HH:mm", "HH:mm", "HH:mm", "HH:mm", "HH:mm", "MM-dd", "yyyy-MM-dd"};
     /**
      * 合约数据or usdt兑换
@@ -160,6 +159,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
     protected View onCreateFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHeadBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_exchange_trade_layout, container, false);
         mHeadBinding.setView(this);
+        onRefresh();
         return mHeadBinding.getRoot();
     }
 
@@ -174,6 +174,26 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         if (bundle != null && bundle.containsKey("isBuy")) {
             isBuy = bundle.getBoolean("isBuy");
         }
+
+        LiveDataBus.INSTANCE.getBus("trade").observe(this, new Observer<Object>() {
+            @Override
+            public void onChanged(Object o) {
+                ToTradeEvent entity = (ToTradeEvent) o;
+                if (entity.getFutureItemEntity().getEntityType() == 3){
+                    if (getPresenter().getUsdtList() != null){
+                        for (ExchangeCurrency exchangeCurrency: getPresenter().getUsdtList()){
+                            if (exchangeCurrency.getAssetName().equals(entity.getFutureItemEntity().getFutureName())){
+                                getPresenter().setSelectItem(exchangeCurrency);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                isBuy = entity.isBuy();
+                refreshBuy();
+            }
+        });
     }
 
     @Override
@@ -363,7 +383,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         UIUtil.setVisibility(mHeadBinding.exchangeLayout, !isFutures());
         UIUtil.setVisibility(mHeadBinding.futureLayout, isFutures());
 
-        StatusBarUtil.setPaddingSmart(getContext(), isFutures() ? mHeadBinding.futuresTitle : mHeadBinding.exchangeTitle);
+//        StatusBarUtil.setPaddingSmart(getContext(), isFutures() ? mHeadBinding.futuresTitle : mHeadBinding.exchangeTitle);
 
     }
 
@@ -490,6 +510,16 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         super.onResume();
         changeWidth();
         SmartRefreshLayoutUtils.refreshHeadLanguage(mHeadBinding.refreshLayout, getContext());
+//        mvpPresenter.addAllChannel();
+        onRefresh();
+
+//        getPresenter().updateCurrency();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mvpPresenter.removeAllChannel();
     }
 
     protected void changeWidth() {
@@ -682,6 +712,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         klineDataConvert(chartList);
         mHeadBinding.kline.setNeedMoveToLast(true);
         mHeadBinding.kline.setmDigits(holdingEntity.getDecimal());
+
         mHeadBinding.kline.initData(klineData);
 
         if (holdingEntity != null && holdingEntity.getHoldingPrice() != -1) {
@@ -744,7 +775,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         if (getPresenter() == null || getPresenter().getSelectAssetItem() == null) {
             return;
         }
-        Intent intent = new Intent(mActivity, FullScreenKlineActivity.class);
+        Intent intent = new Intent(getActivity(), FullScreenKlineActivity.class);
         Bundle args = new Bundle();
         args.putString("symbol", getPresenter().selectItem.getKey());
         int id = Pub.GetInt(getPresenter().getSelectAssetItem().getAssetId());
@@ -769,6 +800,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
     public void onRefresh() {
         super.onRefresh();
 
+        if (getView() == null) return;
         if (!UserLoginUtil.havaUser()) {
 
         }
@@ -783,6 +815,9 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
                 }
             }
         }
+
+        if (getPresenter().selectItem != null)
+            getPresenter().getTimeLineDatas(getPresenter().getType(), Pub.GetInt(getPresenter().selectItem.getAssetId()), "1m");
     }
 
 
@@ -822,7 +857,9 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
                     showToast(getXmlString(R.string.exchange_account_hint));
                     return;
                 }
-                verifyPassword();
+//                verifyPassword();
+
+                tradeToPresenter(UserLoginUtil.getCapital());
                 break;
             case R.id.exchange_change_currency:
             case R.id.exchange_currency:
@@ -839,13 +876,20 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.UsdtContractTransferFragment);
                 break;
             case R.id.img_type_change:
-                isKline = !isKline;
-                if (isKline) {
-                    mHeadBinding.imgTypeChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.chart_time_line));
-                } else {
-                    mHeadBinding.imgTypeChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.chart_kline));
-                }
-                changeKtline();
+//                isKline = !isKline;
+//                if (isKline) {
+//                    mHeadBinding.imgTypeChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.chart_time_line));
+//                } else {
+//                    mHeadBinding.imgTypeChange.setImageResource(Pub.getThemeResource(getContext(), R.attr.chart_kline));
+//                }
+//                changeKtline();
+                Intent intent = new Intent(requireActivity(), TradeMarketKlineActivity.class);
+                Bundle args = new Bundle();
+                args.putString("symbol", getPresenter().selectItem.getAssetName());
+                args.putInt("id",  Integer.valueOf(getPresenter().selectItem.getAssetId()));
+                args.putInt("type", 3);
+                intent.putExtras(args);
+                startActivity(intent);
                 break;
 
         }
@@ -881,7 +925,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         dialog.setListener(new PasswordDialog.OnSureClickListener() {
             @Override
             public void onClick(String fundCode) {
-                changePasswordToToken(fundCode);
+                tradeToPresenter(fundCode);
             }
         });
         dialog.show();
@@ -909,15 +953,15 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
      *
      * @param fundCode
      */
-    protected void changePasswordToToken(String fundCode) {
-        TradeUtils.getInstance().changePasswordToToken(getContext(), fundCode,
-                new TradeUtils.ChangePassWordListener() {
-                    @Override
-                    public void setPasswordToken(String token) {
-                        tradeToPresenter(UserLoginUtil.getCapital());
-                    }
-                });
-    }
+//    protected void changePasswordToToken(String fundCode) {
+//        TradeUtils.getInstance().changePasswordToToken(getContext(), fundCode,
+//                new TradeUtils.ChangePassWordListener() {
+//                    @Override
+//                    public void setPasswordToken(String token) {
+//                        tradeToPresenter(UserLoginUtil.getCapital());
+//                    }
+//                });
+//    }
 
 
     /**
@@ -1033,6 +1077,11 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         mHeadBinding.refreshLayout.finishRefresh();
     }
 
+    @Override
+    public void cancelSuccess() {
+
+    }
+
     private Runnable closeInfo = new Runnable() {
 
         @Override
@@ -1050,6 +1099,7 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
     public void refreshCurrency() {
         refreshAssetView();
     }
+
 
     /**
      * 铲ge

@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 
 import com.fota.android.R;
 import com.fota.android.app.ConstantsPage;
@@ -39,8 +41,12 @@ import com.fota.android.moudles.mine.bean.VersionBean;
 import com.fota.android.service.UpdateIntentService;
 import com.fota.android.utils.DeviceUtils;
 import com.fota.android.utils.FtRounts;
+import com.fota.android.utils.LanguageKt;
 import com.fota.android.utils.UserLoginUtil;
+import com.fota.android.widget.dialog.ShareDialog;
+import com.fota.android.widget.dialog.UpdateDialog;
 import com.fota.android.widget.popwin.CommomDialog;
+import com.ndl.lib_common.utils.LiveDataBus;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -74,7 +80,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         } else {
             fragmentSettingBinding.btnLogout.setVisibility(View.GONE);
         }
-        fragmentSettingBinding.tvLanguage.setText(AppConfigs.getLanguegeString());
+        fragmentSettingBinding.tvLanguage.setText(LanguageKt.getLanguageString());
         fragmentSettingBinding.tvAboutfota.setOnClickListener(this);
         fragmentSettingBinding.rlLanguage.setOnClickListener(this);
 //        fragmentSettingBinding.rlBg.setOnClickListener(this);
@@ -105,6 +111,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                     AppConfigs.setTheme(0);
 //                    notify(R.id.event_theme_changed);
                     getHoldingActivity().recreate();
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     EventWrapper.post(Event.create(R.id.mine_refreshbar));//通知我的页面刷新状态栏
                     Event event = Event.create(R.id.event_theme_changed);
                     event.putParam(Integer.class, R.id.event_theme_changed);
@@ -112,7 +119,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 } else {
                     AppConfigs.themeOrLangChanged = true;
                     AppConfigs.setTheme(1);
-
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     getHoldingActivity().recreate();
                     EventWrapper.post(Event.create(R.id.mine_refreshbar));//通知我的页面刷新状态栏
 //                    notify(R.id.event_theme_changed);
@@ -130,6 +137,14 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     protected void onInitData(Bundle bundle) {
         super.onInitData(bundle);
         userSecurity = (MineBean.UserSecurity) bundle.getSerializable("security");
+
+        LiveDataBus.INSTANCE.getBus("recreate").observe(this, new Observer<Object>() {
+            @Override
+            public void onChanged(Object o) {
+                if (o.equals("true"))
+                    finish();
+            }
+        });
     }
 
     @Override
@@ -155,6 +170,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                         })
                 );
 
+//
                 break;
             case R.id.rl_language:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.LanguageFragment);
@@ -187,7 +203,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.tv_tradelever:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.TradeLeverFragment);
-
                 break;
 
         }
@@ -209,8 +224,10 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                     @Override
                     public void onNext(String outBean) {
                         UserLoginUtil.delUser();
+                        ShareDialog.Companion.setInviteCode("");
                         if (getView() == null) return;
                         FtRounts.toQuickLogin(mContext);
+                        FotaApplication.setLoginStatus(false);
                         getActivity().finish();
                     }
 
@@ -219,6 +236,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                         super.onError(e);
                         UserLoginUtil.delUser();
                         if (getView() == null) return;
+                        FotaApplication.setLoginStatus(false);
                         FtRounts.toQuickLogin(mContext);
                         finish();
                     }
@@ -284,11 +302,15 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 //                        UserLoginUtil.delUser();
                         L.a("version ===   suc " + versionBean.toString());
                         updateVersionBean = versionBean;
-                        if (versionBean.isNewest()) {
-                            showToast(R.string.update_newest);
-                        } else {
-                            showUpdateDialog(versionBean);
-                        }
+
+                        UpdateDialog updateDialog = new UpdateDialog(requireActivity());
+                        UpdateDialog.Companion.setDownloadUrl(updateVersionBean.getUrl());
+                        updateDialog.show();
+//                        if (versionBean.isNewest()) {
+//                            showToast(R.string.update_newest);
+//                        } else {
+//                            showUpdateDialog(versionBean);
+//                        }
 
 
                     }
@@ -479,4 +501,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
                 });
     }
+
+
 }

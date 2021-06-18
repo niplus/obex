@@ -1,44 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--&lt;!&ndash;基本基本色&ndash;&gt;-->
-    <!--&lt;!&ndash;深背景色&ndash;&gt;-->
-    <!--<color name="bg_color">?attr/bg_color</color>-->
-    <!--&lt;!&ndash;浅背景色&ndash;&gt;-->
-    <!--<color name="bg_color2">#FF20222D</color>-->
-    <!--&lt;!&ndash;前景色&ndash;&gt;-->
-    <!--<color name="fore_color">#FFFFFF</color>-->
-    <!--&lt;!&ndash;字体主色 深字体色&ndash;&gt;-->
-    <!--<color name="font_color">?attr/font_color</color>-->
-    <!--&lt;!&ndash;字体辅助色 浅字体色&ndash;&gt;-->
-    <!--<color name="font_gray">?attr/font_gray</color>-->
-    <!--&lt;!&ndash;不可用色 一般也表示没选中的颜色&ndash;&gt;-->
-    <!--<color name="unable">#FF464A55</color>-->
-    <!--&lt;!&ndash;线的颜色&ndash;&gt;-->
-    <!--<color name="line_color">?attr/line_color</color>-->
-
-    <!--不透明	100%	FF-->
-    <!--95%	F2-->
-    <!--90%	E6-->
-    <!--85%	D9-->
-    <!--80%	CC-->
-    <!--75%	BF-->
-    <!--70%	B3-->
-    <!--65%	A6-->
-    <!--60%	99-->
-    <!--55%	8C-->
-    <!--半透明	50%	80-->
-    <!--45%	73-->
-    <!--40%	66-->
-    <!--35%	59-->
-    <!--30%	4D-->
-    <!--25%	40-->
-    <!--20%	33-->
-    <!--15%	26-->
-    <!--10%	1A-->
-    <!--5%	0D-->
-    <!--全透明	0%	00-->
-
     <color name="main_buy_color">#FF33C891</color>
 
+    <color name="trend_up">#68DD98</color>
+    <color name="trend_down">#E5747C</color>
+
+    <color name="page_color">#FFFFFF</color>
+    <color name="color_text1">#333333</color>
+    <color name="color_f7faff_141719">#f7faff</color>
+    <color name="color_333333_ffffff">#333333</color>
+    <color name="color_ffffff_192330">#ffffff</color>
+    <color name="color_707a80_e5e5e5">#707a80</color>
+    <color name="color_eaf1ff_000000">#eaf1ff</color>
+    <color name="color_ecf2ff_0c1115">#ecf2ff</color>
+    <color name="color_f5f5f5_4d4d4d">#f5f5f5</color>
+    <color name="color_999999_66676d">#999999</color>
+    <color name="color_f9fafe_252835">#f9fafe</color>
+    <color name="color_e9e9e9_3c3c3c">#e9e9e9</color>
+    <color name="color_d8d8d8_979797">#33d8d8d8</color>
+    <color name="color_cacaca_44464d">#cacaca</color>
 </resources>

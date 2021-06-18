@@ -1,7 +1,5 @@
 package com.fota.android.moudles.mine.bean;
 
-import com.fota.android.commonlib.base.AppConfigs;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -52,21 +50,6 @@ public class CommissionBean implements Serializable {
 
         int rebateRatioSumInt = getInt(rebateDouble * 100);
         return rebateRatioSumInt + "%";
-    }
-
-    public String getFeeDiscount() {
-//        if (TextUtils.isEmpty(feeDiscount))
-//            return "";
-        double feeDiscountDouble = 0;
-        try {
-            feeDiscountDouble = Double.parseDouble(feeDiscount);
-        } catch (Exception e) {
-
-        }
-        if (AppConfigs.getLanguegeInt() == 1) {
-            feeDiscountDouble = 1 - feeDiscountDouble;
-        }
-        return fun2(feeDiscountDouble * 10) + "";
     }
 
     public String getUrl() {

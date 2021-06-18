@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="coin"
+            type="com.fota.android.moudles.market.bean.FutureItemEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/container">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{coin.futureName}"
+            android:textColor="?attr/home_coin_list_name_color"
+            android:textSize="11sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="19dp"
+            android:id="@+id/tv_coin_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{coin.trend}"
+            android:textColor="#ff68dd98"
+            android:textSize="9sp"
+            android:id="@+id/tv_trend"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_coin_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_coin_name"
+            android:layout_marginStart="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{coin.lastPrice}"
+            android:textColor="#ff68dd98"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_coin_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_coin_name"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_price" />
+
+        <com.fota.android.widget.MicroKlineTimeView
+            android:layout_width="75dp"
+            android:layout_height="15dp"
+            android:id="@+id/time_line"
+            app:layout_constraintStart_toStartOf="@+id/tv_coin_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price"
+            android:layout_marginTop="5dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

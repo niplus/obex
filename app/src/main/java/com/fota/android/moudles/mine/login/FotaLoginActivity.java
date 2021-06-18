@@ -165,7 +165,7 @@ public class FotaLoginActivity extends MvpActivity<FtLoginPresenter> implements 
         }
         SimpleFragmentActivity.gotoFragmentActivity(this, loginTo);
         MineInfoUtil.getMindeMsg();
-        showToast(R.string.login_suc);
+//        showToast(R.string.login_success1);
         finish();
 
     }

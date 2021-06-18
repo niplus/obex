@@ -113,6 +113,31 @@
     <attr name="mine_fota_logo" format="reference" />
     <attr name="icon_contractlever_check" format="reference" />
     <attr name="commission" format="reference" />
+    <attr name="icon_share" format="reference" />
 
-
+<!--    合约计算器，杠杆-->
+    <attr name="btn_color" format="reference"/>
+    <attr name="sell_btn_color" format="reference"/>
+    <attr name="future_calc_btn_color" format="color"/>
+    <attr name="bar_default" format="color"/>
+    <attr name="bar_select_color" format="color"/>
+    <attr name="progress_bottom_text_color" format="color"/>
+    <attr name="future_calc_input_bg" format="reference"/>
+    <attr name="future_calc_result_bg" format="color"/>
+    <attr name="future_calc_text1" format="color"/>
+    <attr name="lever_dialog_bg" format="color"></attr>
+    <attr name="lever_bar_default_color" format="color"/>
+    <attr name="lever_bar_select_small_color" format="color"/>
+    <attr name="icon_cancel" format="reference"/>
+    <attr name="icon_plus" format="reference"/>
+    <attr name="icon_sub" format="reference"/>
+    <attr name="icon_calc" format="reference"/>
+    <attr name="futures_calc_line" format="color"></attr>
+    <attr name="home_background" format="color"></attr>
+    <attr name="home_menu_bg" format="reference"/>
+    <attr name="home_tab_color" format="color"/>
+    <attr name="home_coin_list_name_color" format="color"/>
+    <attr name="color_666666_bbbbbb" format="color"/>
+    <attr name="color_666666_ffffff" format="color"/>
+    <attr name="fast_buy_bg" format="reference"/>
 </resources>

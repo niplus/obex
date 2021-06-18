@@ -25,7 +25,7 @@ public abstract class MvpFragment<P extends BasePresenter> extends BaseFragment 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mvpPresenter = createPresenter();
-        if (mvpPresenter != null) {
+        if (mvpPresenter != null && getArguments() != null) {
             mvpPresenter.getExtras(getArguments());
         }
     }

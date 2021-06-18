@@ -110,6 +110,7 @@ public class QuickCheckCapitalFragment extends BaseFragment implements View.OnCl
                     L.a("finger Exception：" + exception.getLocalizedMessage());
                 }
             });
+            mFingerprintIdentify.init();
             initFinger();
             if (TextUtils.isEmpty(UserLoginUtil.getLoginedGesture())) {
                 initStatus(2);

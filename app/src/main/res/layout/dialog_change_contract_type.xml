@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="?attr/font_color"
+            android:text="取消"
+            android:id="@+id/cancel"
+            android:background="?attr/bg_color"
+            app:layout_constraintTop_toBottomOf="@+id/tv_market"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="?attr/font_color"
+            android:text="@string/planing"
+            android:id="@+id/tv_plan"
+            android:background="?attr/bg_color"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:background="?attr/bg_color"
+            android:textColor="?attr/font_color"
+            android:text="@string/limit"
+            android:id="@+id/tv_limit"
+            app:layout_constraintTop_toBottomOf="@+id/tv_plan" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:background="?attr/bg_color"
+            android:textColor="?attr/font_color"
+            android:text="@string/market_order"
+            android:id="@+id/tv_market"
+            app:layout_constraintTop_toBottomOf="@+id/tv_limit" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/line_color"
+            app:layout_constraintTop_toBottomOf="@+id/tv_plan" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/line_color"
+            app:layout_constraintTop_toBottomOf="@+id/tv_limit" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -65,6 +65,20 @@ public class ExchangeMoneyListFragment extends BaseExchageChlidFragment<WalletPr
                 holder.setText(R.id.total_money, model.getAllAmount());
                 Glide.with(getContext()).load(model.getCoinIconUrl())
                         .into(holder.<ImageView>getView(R.id.asset_icon));
+
+//                holder.getView(R.id.iv_share).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        new ShareDialog(getActivity(),
+//                                model.isBuy(),
+//                                model.getLever(),
+//                                model.getContractName(),
+//                                model.getEarningRate(),
+//                                model.getAveragePrice(),
+//                                ((FuturesFragment)getParentFragment()).getCurrentPrice(),
+//                                getActivity()).show();
+//                    }
+//                });
             }
         };
     }

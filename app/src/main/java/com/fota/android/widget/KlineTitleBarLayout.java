@@ -143,7 +143,7 @@ public class KlineTitleBarLayout extends LinearLayout /*implements TitleInterfac
             return;
         }
         if (!TextUtils.isEmpty(title)) {
-            tvTitle.setText(title);
+            tvTitle.setText(title.replace("永续"," "  + getContext().getString(R.string.perp)));
         }
     }
 

@@ -211,6 +211,28 @@ public class FutureItemEntity implements Serializable, Comparable<FutureItemEnti
     }
 
     @Override
+    public String toString() {
+        return "FutureItemEntity{" +
+                "futureName='" + futureName + '\'' +
+                ", entityId=" + entityId +
+                ", isFavorite=" + isFavorite +
+                ", isHot=" + isHot +
+                ", lastPrice='" + lastPrice + '\'' +
+                ", uscPrice='" + uscPrice + '\'' +
+                ", trend='" + trend + '\'' +
+                ", entityType=" + entityType +
+                ", volume='" + volume + '\'' +
+                ", contractType=" + contractType +
+                ", assetName='" + assetName + '\'' +
+                ", collectTime=" + collectTime +
+                ", groupTitle='" + groupTitle + '\'' +
+                ", showTopMargin=" + showTopMargin +
+                ", bottom=" + bottom +
+                ", datas=" + datas +
+                '}';
+    }
+
+    @Override
     public int compareTo(@NonNull FutureItemEntity o) {
         int result = 0;
         if(o == null) {

@@ -502,6 +502,81 @@
                             android:visibility="gone" />
                     </RelativeLayout>
 
+                    <RelativeLayout
+                        android:id="@+id/rl_hold_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="12dp"
+                        android:background="?attr/id_bg">
+
+                        <RelativeLayout
+                            android:id="@+id/hold"
+                            android:layout_width="242dp"
+                            android:layout_height="150dp"
+                            android:layout_centerInParent="true">
+
+                            <RelativeLayout
+                                android:id="@+id/rl_hold"
+                                android:layout_width="242dp"
+                                android:layout_height="150dp">
+
+                                <ImageView
+                                    android:id="@+id/imv_hold"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="fitXY"
+                                    android:src="?attr/id_back" />
+
+                                <TextView
+                                    android:id="@+id/tv_hold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="30dp"
+                                    android:text="@string/identity_hold_msg_id"
+                                    android:textColor="?attr/font_color3"
+                                    android:textSize="12sp" />
+                            </RelativeLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/ll_loading_hold"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:focusable="true">
+
+                                <com.airbnb.lottie.LottieAnimationView
+                                    android:visibility="gone"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    app:lottie_autoPlay="true"
+                                    app:lottie_fileName="loading.json"
+                                    app:lottie_imageAssetsFolder="null"
+                                    app:lottie_loop="true" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/imv_del_hold"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_above="@+id/hold"
+                            android:layout_marginLeft="-12dp"
+                            android:layout_marginBottom="-12dp"
+                            android:layout_toRightOf="@+id/hold"
+                            android:adjustViewBounds="true"
+                            android:src="?attr/ident_del"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
                     <com.fota.android.widget.btbwidget.FotaButton
                         android:id="@+id/btn_submit"
                         android:layout_width="match_parent"
