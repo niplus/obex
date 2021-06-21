@@ -44,7 +44,6 @@ import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.LanguageKt;
 import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.widget.dialog.ShareDialog;
-import com.fota.android.widget.dialog.UpdateDialog;
 import com.fota.android.widget.popwin.CommomDialog;
 import com.ndl.lib_common.utils.LiveDataBus;
 
@@ -157,7 +156,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.btn_logout:
                 DialogUtils.showDialog(getContext(), new DialogModel()
-                        //.setView(DialogUtils.getDefaultStyleMsgTV(getContext(), getString(R.string.mine_logout)))
                         .setMessage(getString(R.string.mine_logout))
                         .setSureText(getString(R.string.sure))
                         .setCancelText(getString(R.string.cancel))
@@ -170,18 +168,14 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                         })
                 );
 
-//
                 break;
             case R.id.rl_language:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.LanguageFragment);
-//                addFragment(new LanguageFragment());
                 break;
             case R.id.tv_aboutfota:
                 SimpleFragmentActivity.gotoFragmentActivity(getContext(), ConstantsPage.AboutFotaFragment);
                 break;
             case R.id.tv_versionupdate:
-//                Beta.checkUpgrade();
-
                 checkUpdate();
                 break;
             case R.id.tv_safe:
@@ -303,14 +297,14 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                         L.a("version ===   suc " + versionBean.toString());
                         updateVersionBean = versionBean;
 
-                        UpdateDialog updateDialog = new UpdateDialog(requireActivity());
-                        UpdateDialog.Companion.setDownloadUrl(updateVersionBean.getUrl());
-                        updateDialog.show();
-//                        if (versionBean.isNewest()) {
-//                            showToast(R.string.update_newest);
-//                        } else {
-//                            showUpdateDialog(versionBean);
-//                        }
+//                        UpdateDialog updateDialog = new UpdateDialog(requireActivity());
+//                        UpdateDialog.Companion.setDownloadUrl(updateVersionBean.getUrl());
+//                        updateDialog.show();
+                        if (versionBean.isNewest()) {
+                            showToast(R.string.update_newest);
+                        } else {
+                            showUpdateDialog(versionBean);
+                        }
 
 
                     }

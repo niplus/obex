@@ -328,7 +328,7 @@ public class Http {
                         .cache(cache)  //添加缓存
                         .cookieJar(cookieJar)
                         //设置ping帧发送时间
-                        .pingInterval(40, TimeUnit.SECONDS)
+                        .pingInterval(30, TimeUnit.SECONDS)
                         .connectTimeout(5L, TimeUnit.SECONDS)
                         .readTimeout(10L, TimeUnit.SECONDS)
                         .writeTimeout(20L, TimeUnit.SECONDS);

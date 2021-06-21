@@ -2002,6 +2002,13 @@ string character_counter_overflowed_content_description
 string character_counter_pattern
 string chip_text
 string clear_text_end_icon_content_description
+string error_code_120044
+string error_code_120045
+string error_code_120046
+string error_code_120047
+string error_code_120048
+string error_code_130001
+string error_code_130002
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior

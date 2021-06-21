@@ -2,3 +2,10 @@ R_DEF: Internal format may change without notice
 local
 id image
 layout item_banner
+string error_code_120044
+string error_code_120045
+string error_code_120046
+string error_code_120047
+string error_code_120048
+string error_code_130001
+string error_code_130002

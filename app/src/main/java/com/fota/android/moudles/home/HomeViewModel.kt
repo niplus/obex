@@ -22,8 +22,7 @@ class HomeViewModel: BaseViewModel() {
 
     val futureListLiveData = MutableLiveData<List<FutureItemEntity>>()
 
-    private val client =
-        FotaApplication.getInstance().client
+    private val client = FotaApplication.getInstance().client
 
     private val repository = HomeRepository()
     fun getBanner(){
