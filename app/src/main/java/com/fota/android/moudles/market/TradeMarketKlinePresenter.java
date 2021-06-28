@@ -4,10 +4,10 @@ import android.text.TextUtils;
 
 import com.fota.android.app.FotaApplication;
 import com.fota.android.app.GsonSinglon;
-import com.fota.android.app.SocketKey;
 import com.fota.android.common.bean.exchange.CurrentPriceBean;
 import com.fota.android.common.bean.home.DealBean;
 import com.fota.android.common.bean.home.DepthBean;
+import com.fota.android.http.WebSocketClient1;
 import com.fota.android.moudles.common.BaseTradePresenter;
 import com.fota.android.moudles.market.bean.FutureItemEntity;
 import com.fota.android.moudles.market.bean.MarketIndexBean;
@@ -66,16 +66,16 @@ public class TradeMarketKlinePresenter extends BaseTradePresenter<TradeMarketKli
     @Override
     public void onHide() {
         //time线
-        client.removeChannel(HangQingFenShiTuZheXianTuReqType, this);
+        //client.removeChannel(HangQingFenShiTuZheXianTuReqType, this);
         //委托
-        client.removeChannel(TradeWeiTuoReqType, this);
-        client.removeChannel(HangQingNewlyPriceReqType, this);
-        client.removeChannel(HangQingTradeDetailReqType, this);
-        client.removeChannel(HangQingKlinePushReqType, this);
-        client.removeChannel(DELIVERY_TIME_CHANGED, this);
-        client.removeChannel(POSITION_LINE, this);
+        //client.removeChannel(TradeWeiTuoReqType, this);
+        //client.removeChannel(HangQingNewlyPriceReqType, this);
+        //client.removeChannel(HangQingTradeDetailReqType, this);
+        //client.removeChannel(HangQingKlinePushReqType, this);
+        //client.removeChannel(DELIVERY_TIME_CHANGED, this);
+        //client.removeChannel(POSITION_LINE, this);
         if(futureBean.getEntityType() == 1) {
-            client.removeChannel(SocketKey.MARKET_SPOTINDEX, this);
+            //client.removeChannel(SocketKey.MARKET_SPOTINDEX, this);
         }
         //此页面销毁，清空 app的k线和分时数据，以免影响 exchange和trade Fragment界面
         Map map = FotaApplication.getInstance().getMarketsTimesMap();
@@ -86,18 +86,18 @@ public class TradeMarketKlinePresenter extends BaseTradePresenter<TradeMarketKli
      * 指数的deal数据请求
      */
     public void getAdditonalSpot() {
-        client.removeChannel(MARKET_SPOTINDEX, this);
+        //client.removeChannel(MARKET_SPOTINDEX, this);
         WebSocketEntity<SocketEntrustParam> socketEntity = new WebSocketEntity<>();
         SocketEntrustParam param = new SocketEntrustParam(futureBean.getAssetName());
         socketEntity.setParam(param);
         socketEntity.setReqType(MARKET_SPOTINDEX);
-        client.addChannel(socketEntity, TradeMarketKlinePresenter.this);
+        WebSocketClient1.INSTANCE.register(socketEntity);
+        //client.addChannel(socketEntity, TradeMarketKlinePresenter.this);
     }
 
     @Override
     public void detachView() {
         super.detachView();
-        client.removeChannel(MARKET_SPOTINDEX, this);
     }
 
     private void onNextDeal(List<DealBean> deals) {
@@ -143,7 +143,8 @@ public class TradeMarketKlinePresenter extends BaseTradePresenter<TradeMarketKli
         WebSocketEntity<SocketBaseParam> socketEntity = new WebSocketEntity<>();
         socketEntity.setParam(new SocketBaseParam(futureBean.getEntityType(), futureBean.getEntityId()));
         socketEntity.setReqType(HangQingTradeDetailReqType);
-        client.addChannel(socketEntity, TradeMarketKlinePresenter.this);
+        WebSocketClient1.INSTANCE.register(socketEntity);
+        //client.addChannel(socketEntity, TradeMarketKlinePresenter.this);
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.List;
 public class BaseListPresenter<V extends BaseListView> extends BasePresenter<V> {
 
 
-    protected int pageNo;
+    protected int pageNo = 1;
     protected int pageSize = 10;
     protected boolean isLoadMore;
     protected boolean dataLoadComplete;
@@ -137,6 +137,18 @@ public class BaseListPresenter<V extends BaseListView> extends BasePresenter<V> 
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public int getPageNo() {
+        return pageNo;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public boolean isLoadMore() {
+        return isLoadMore;
     }
 
     public void onUpdateImplSocket(int reqType, String jsonString, SocketAdditionEntity additionEntity) {

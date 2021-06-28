@@ -7,20 +7,19 @@ import android.os.Bundle
 import android.text.InputFilter
 import android.text.TextUtils
 import android.view.*
-import android.widget.PopupWindow
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.fota.android.BR
 import com.fota.android.R
 import com.fota.android.app.BundleKeys
 import com.fota.android.app.FotaApplication
+import com.fota.android.app.SocketKey
+import com.fota.android.common.BusKey
 import com.fota.android.common.bean.BeanChangeFactory
 import com.fota.android.common.bean.SpotBean
 import com.fota.android.common.bean.exchange.CurrentPriceBean
+import com.fota.android.common.bean.home.DepthBean
 import com.fota.android.common.bean.home.EntrustBean
 import com.fota.android.common.listener.IFuturesUpdateFragment
 import com.fota.android.commonlib.base.AppConfigs
@@ -29,7 +28,6 @@ import com.fota.android.core.base.BaseFragmentAdapter
 import com.fota.android.core.base.BtbMap
 import com.fota.android.databinding.DialogChangeContractTypeBinding
 import com.fota.android.databinding.DialogSetStopPriceBinding
-import com.fota.android.databinding.ItemOrderTypeBinding
 import com.fota.android.moudles.InviteViewModel
 import com.fota.android.moudles.exchange.index.Exchange1Fragment
 import com.fota.android.moudles.futures.bean.SpotIndex
@@ -44,6 +42,7 @@ import com.fota.android.moudles.futures.viewmodel.FuturesViewModel.Companion.CON
 import com.fota.android.moudles.market.FullScreenKlineActivity
 import com.fota.android.moudles.market.TradeMarketKlineActivity
 import com.fota.android.moudles.market.bean.ChartLineEntity
+import com.fota.android.moudles.mine.login.bean.LoginBean
 import com.fota.android.utils.*
 import com.fota.android.widget.btbwidget.FotaTextWatch
 import com.fota.android.widget.dialog.BottomDialog
@@ -55,8 +54,6 @@ import com.fota.android.widget.popwin.SpinerPopWindow3
 import com.guoziwei.fota.chart.view.fota.FotaBigKLineBarChartView
 import com.guoziwei.fota.chart.view.fota.ImBeddedTimeLineBarChartView
 import com.guoziwei.fota.model.HisData
-import com.ndl.lib_common.base.BaseAdapter
-import com.ndl.lib_common.base.MyViewHolder
 import com.ndl.lib_common.utils.LiveDataBus.getBus
 import com.ndl.lib_common.utils.showSnackMsg
 import org.json.JSONObject
@@ -117,7 +114,6 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
 
     override fun onResume() {
         super.onResume()
-        presenter.resumeAddChannel()
         if (UserLoginUtil.havaUser() && inviteViewModel?.inviteRecordLiveData?.value == null){
             inviteViewModel?.getInviteRecord()
         }
@@ -144,7 +140,7 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             }
         })
 
-        getBus<SpotBean>("Spot_price").observe(this, Observer {
+        getBus<SpotBean>(SocketKey.MARKET_SPOTINDEX.toString()).observe(this, Observer {
             if (it.param.isNullOrEmpty()) return@Observer
             val name = JSONObject(it.param).getString("param")
             if (name != presenter.selectContact?.getAssetName()) {
@@ -153,7 +149,26 @@ class FuturesFragment : Exchange1Fragment(), IFuturesUpdateFragment, FutureTrade
             spotPrice = it.data.averagePrice
             validMaxMinPrice()
         })
-
+        getBus<LoginBean>(BusKey.EVENT_LOGIN).observe(this, Observer {
+            if (it != null){
+                presenter.registTopSocket()
+                presenter.addConditionChannel()
+                presenter.registMoneyList()
+                presenter.registContractEntrust()
+                presenter.registCompleteEntrust()
+            }else{
+                presenter.unRegistLoginSocket()
+            }
+        })
+        getBus<FutureTopInfoBean>(SocketKey.FUTURE_TOP.toString()).observe(this, Observer {
+            setContractAccount(it)
+        })
+        getBus<DepthBean>(SocketKey.TradeWeiTuoReqType.toString()).observe(this, Observer {
+            presenter.onNextDepth(it)
+        })
+        getBus<CurrentPriceBean>(SocketKey.HangQingNewlyPriceReqType.toString() + "").observe(this, Observer {
+            onRefreshTicker(it)
+        })
         refreshPriceType()
         viewModel.closeOrderLiveData.observe(this, Observer {
             stopProgressDialog()

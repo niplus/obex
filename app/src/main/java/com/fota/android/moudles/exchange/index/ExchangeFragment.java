@@ -23,9 +23,11 @@ import com.fota.android.R;
 import com.fota.android.app.BundleKeys;
 import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.FotaApplication;
+import com.fota.android.app.SocketKey;
 import com.fota.android.common.bean.BeanChangeFactory;
 import com.fota.android.common.bean.exchange.CurrentPriceBean;
 import com.fota.android.common.bean.exchange.ExchangeCurrency;
+import com.fota.android.common.bean.home.DepthBean;
 import com.fota.android.common.bean.home.EntrustBean;
 import com.fota.android.common.listener.IUpdateExchangeFragment;
 import com.fota.android.commonlib.base.AppConfigs;
@@ -72,6 +74,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -230,6 +233,40 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
         mHeadBinding.kline.setScreenInterface(this);
         addPercentContainer();
         UIUtil.setRoundCornerBorderBg(mHeadBinding.percentContainer, getAttrColor(R.attr.font_color4), 4);
+
+        LiveDataBus.INSTANCE.getBus(SocketKey.TradeWeiTuoReqType+"").observe(this, new Observer<Object>() {
+            @Override
+            public void onChanged(Object o) {
+                DepthBean depthBean = (DepthBean)o;
+                dealDepth(depthBean);
+            }
+        });
+
+        LiveDataBus.INSTANCE.getBus(SocketKey.HangQingNewlyPriceReqType+"").observe(this, new Observer<Object>() {
+            @Override
+            public void onChanged(Object o) {
+                CurrentPriceBean currentPriceBean = (CurrentPriceBean)o;
+                onRefreshTicker(currentPriceBean);
+            }
+        });
+    }
+
+    private void dealDepth(DepthBean depthBean){
+        if (depthBean == null) {
+            onRefreshDepth(null, null, null, 0f);
+            return;
+        }
+
+        List<EntrustBean> limitSells = BeanChangeFactory.getSellEntrustBeans(depthBean.getAsks(), 5);
+        List<EntrustBean> limitBuys = BeanChangeFactory.getEntrustBeans(depthBean.getBids(), 5);
+        if(limitSells != null) {
+            Collections.sort(limitSells);
+            Collections.reverse(limitSells);
+        }
+        if(limitBuys != null) {
+            Collections.sort(limitBuys);
+        }
+        onRefreshDepth(limitBuys, limitSells, depthBean.getPricisionList() == null ? null : depthBean.getPricisionList(), depthBean.getValuation());
     }
 
     /**
@@ -603,7 +640,6 @@ public class ExchangeFragment extends MvpFragment<ExchangePresenter>
             return;
         }
         boolean isUp = !price.getDailyReturn().contains("-");
-//        mHeadBinding.imbedTickerPrice.setText(price.getPriceFloor(tickerDepthDecimal));
         mHeadBinding.imbedTickerPrice.setText(price.getPrice());
         UIUtil.setTextColor(mHeadBinding.imbedTickerPrice, AppConfigs.getColor(isUp));
         mHeadBinding.imbedUpDown.setUp(isUp);

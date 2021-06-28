@@ -13,6 +13,7 @@ import com.fota.android.app.BundleKeys;
 import com.fota.android.app.ConstantsPage;
 import com.fota.android.app.FotaApplication;
 import com.fota.android.app.MD5Utils;
+import com.fota.android.common.BusKey;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.http.exception.ApiException;
 import com.fota.android.commonlib.utils.Pub;
@@ -28,6 +29,7 @@ import com.fota.android.utils.UserLoginUtil;
 import com.fota.android.utils.apputils.MineInfoUtil;
 import com.fota.android.widget.TitleLayout;
 import com.fota.android.widget.dialog.GoogleCheckDialog;
+import com.ndl.lib_common.utils.LiveDataBus;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -105,13 +107,6 @@ public class FotaLoginActivity extends MvpActivity<FtLoginPresenter> implements 
         mBinding.llEmailUncheck.setOnClickListener(this);
         mBinding.llPhoneUncheck.setOnClickListener(this);
         mBinding.llBack.setOnClickListener(this);
-//        mTitleLayout = findViewById(R.id.app_title_layout);
-//        mTitleLayout.setOnLeftButtonClickListener(new TitleLayout.OnLeftButtonClickListener() {
-//            @Override
-//            public void onLeftButtonClick(View v) {
-//                finish();
-//            }
-//        });
 
         bindValid(mBinding.btnLoginFt, mBinding.edtAccountEmail, mBinding.edtPassword, mBinding.edtAccountPhone);
         valid();
@@ -157,7 +152,6 @@ public class FotaLoginActivity extends MvpActivity<FtLoginPresenter> implements 
         } else {
             UserLoginUtil.saveLoginedAccount(mBinding.edtAccountPhone.getText().toString().replace(" ", ""));
         }
-//        EventWrapper.post(Event.create(R.id.event_main_changelanguage));
         EventWrapper.post(Event.create(R.id.mine_refresh));//通知我的页面更新
         EventWrapper.post(Event.create(R.id.login_quicktoast));//通知弹出设置快速登录提示
         if (ConstantsPage.SafeSettingFragment.equals(loginTo) && !UserLoginUtil.haveQuickLogin()) {
@@ -165,9 +159,8 @@ public class FotaLoginActivity extends MvpActivity<FtLoginPresenter> implements 
         }
         SimpleFragmentActivity.gotoFragmentActivity(this, loginTo);
         MineInfoUtil.getMindeMsg();
-//        showToast(R.string.login_success1);
+        LiveDataBus.INSTANCE.getBus(BusKey.EVENT_LOGIN).setValue(loginBean);
         finish();
-
     }
 
     @Override

@@ -1,2 +1,0 @@
-com/ndl/mpchart/BuildConfig.java
- com.ndl.mpchart.BuildConfig

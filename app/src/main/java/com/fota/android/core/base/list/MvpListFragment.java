@@ -2,11 +2,10 @@ package com.fota.android.core.base.list;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.fota.android.R;
 import com.fota.android.commonlib.http.exception.ApiException;
@@ -201,6 +200,8 @@ public abstract class MvpListFragment<P extends BasePresenter> extends MvpFragme
     }
 
     public void setDataList(List list) {
+        Log.i("nidongliang", "list: " + list);
+        if (list == null) return;
         if (mRecyclerView == null) {
             return;
         }

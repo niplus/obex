@@ -28,7 +28,7 @@ public class WalletPresenter extends BaseListPresenter<BaseListView> {
     public void onLoadData(final boolean isLoadMore) {
         super.onLoadData(isLoadMore);
         if(isSocket){
-            client.removeChannel(SocketKey.MineAssetReqType, this);
+//            //client.removeChannel(SocketKey.MineAssetReqType, this);
             addChannel();
             return;
         }
@@ -61,7 +61,7 @@ public class WalletPresenter extends BaseListPresenter<BaseListView> {
         map.put("pageNo", "1");
         map.p("pageSize", pageSize);
         socketEntity.setParam(map);
-        client.addChannel(socketEntity, this);
+//        //client.addChannel(socketEntity, this);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class WalletPresenter extends BaseListPresenter<BaseListView> {
 
     @Override
     public void detachView() {
-        client.removeChannel(SocketKey.MineAssetReqType, this);
+//        //client.removeChannel(SocketKey.MineAssetReqType, this);
         super.detachView();
     }
 }

@@ -9,9 +9,7 @@ import android.net.wifi.WifiManager;
 import android.os.Parcelable;
 import android.util.Log;
 
-import com.fota.android.app.FotaApplication;
 import com.fota.android.commonlib.utils.L;
-import com.fota.android.socket.WebSocketClient;
 
 public class NetScreenReceiver extends BroadcastReceiver {
     private static final String TAG = "OptionNetReceiver";
@@ -19,17 +17,18 @@ public class NetScreenReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         L.i("[OptionNetReceiver] onReceive - " + intent.getAction() + ", extras:  start");
-        WebSocketClient client = (WebSocketClient) FotaApplication.getInstance().getClient();
+//        WebSocketClient client = (WebSocketClient) FotaApplication.getInstance().getClient();
 
         //开关屏
         if (intent != null) {
             String action = intent.getAction();
             if (Intent.ACTION_SCREEN_ON.equals(action)) {
                 Log.e(TAG, "OptionNetReceiver --> ACTION_SCREEN_ON");
-                tryWebSocketReconnect(client);
+                //todo 重连
+//                tryWebSocketReconnect(client);
             } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
                 Log.e(TAG, "OptionNetReceiver --> ACTION_SCREEN_OFF");
-                resetWebSocketReconnect(client);
+//                resetWebSocketReconnect(client);
             } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
                 Log.e(TAG, "OptionNetReceiver --> ACTION_USER_PRESENT");
             }
@@ -76,37 +75,18 @@ public class NetScreenReceiver extends BroadcastReceiver {
                     if (info.getType() == ConnectivityManager.TYPE_WIFI
                             || info.getType() == ConnectivityManager.TYPE_MOBILE) {
                         Log.i(TAG, getConnectionType(info.getType()) + "连上");
-                        tryWebSocketReconnect(client);
+//                        tryWebSocketReconnect(client);
                     } else {
-                        resetWebSocketReconnect(client);
+//                        resetWebSocketReconnect(client);
                     }
                 } else {
                     Log.i(TAG, getConnectionType(info.getType()) + "断开");
-                    resetWebSocketReconnect(client);
+//                    resetWebSocketReconnect(client);
                 }
             }
         }
     }
 
-    /**
-     * @param client
-     * 重置 webSocketClient的reconncet次数为0
-     */
-    private void resetWebSocketReconnect(WebSocketClient client) {
-        if(client != null) {
-            client.resetReconnect();
-        }
-    }
-
-    /**
-     * @param client
-     * 尝试做重连，如果已经连上，什么都不做
-     */
-    private void tryWebSocketReconnect(WebSocketClient client) {
-        if(client != null) {
-            client.tryReconnect();
-        }
-    }
 
     private String getConnectionType(int type) {
         String connType = "";

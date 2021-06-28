@@ -2,10 +2,13 @@ package com.fota.android.moudles.futures.money;
 
 import android.view.View;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fota.android.R;
+import com.fota.android.app.SocketKey;
 import com.fota.android.commonlib.base.AppConfigs;
+import com.fota.android.commonlib.http.BaseHttpPage;
 import com.fota.android.commonlib.utils.GradientDrawableUtils;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.moudles.InviteViewModel;
@@ -15,6 +18,7 @@ import com.fota.android.widget.dialog.ShareDialog;
 import com.fota.android.widget.myview.LevelView;
 import com.fota.android.widget.recyclerview.EasyAdapter;
 import com.fota.android.widget.recyclerview.ViewHolder;
+import com.ndl.lib_common.utils.LiveDataBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +37,23 @@ public class FuturesMoneyListFragment extends BaseExchageChlidFragment<FuturesMo
     }
 
     @Override
+    protected boolean setLoadEnable() {
+        return false;
+    }
+
+    @Override
     protected void onInitView(View view) {
         super.onInitView(view);
         inviteViewModel = new ViewModelProvider(getParentFragment()).get(InviteViewModel.class);
         onRefresh();
+
+        LiveDataBus.INSTANCE.getBus(SocketKey.MinePositionReqType+"").observe(this, new Observer<Object>() {
+            @Override
+            public void onChanged(Object o) {
+                BaseHttpPage<FuturesMoneyBean> list = (BaseHttpPage<FuturesMoneyBean>)o;
+                getPresenter().setData(list.getItem(), getPresenter().isLoadMore());
+            }
+        });
     }
 
 

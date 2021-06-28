@@ -146,9 +146,7 @@ public class WebSocketClient implements IWebSocketSubject {
                 String jsonString = gson.toJson(result.getData());
                 int handleType = resultJsonObj.getInt("handleType");
                 int reqType = resultJsonObj.getInt("reqType");
-                //                String messageInJson = resultJsonObj.getString("message");
                 int code = resultJsonObj.getInt("code");
-                //                L.e("ws notify", reqType + "");
 
                 Object dataJson = new JSONTokener(jsonString).nextValue();
                 SocketAdditionEntity entity;

@@ -46,14 +46,14 @@ public class FullScreenKlinePresenter extends BasePresenter<FullScreenKlineViewI
     public void detachView() {
         super.detachView();
         //k线
-        client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
-        client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this);
-        client.removeChannel(SocketKey.POSITION_LINE, this);
+        //client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
+        //client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this);
+        //client.removeChannel(SocketKey.POSITION_LINE, this);
     }
 
     public void getFullScreenKlineDatas(final int type, final int id, final String period) {
         SocketMarketParam param = new SocketMarketParam(id, type, periodTypeSwitch(period));
-        client.removeChannel(SocketKey.HangQingKlinePushReqType, FullScreenKlinePresenter.this, param);
+        //client.removeChannel(SocketKey.HangQingKlinePushReqType, FullScreenKlinePresenter.this, param);
         //clear first
         getInstance().resetAppKLineData(type, null, null);
 
@@ -74,18 +74,18 @@ public class FullScreenKlinePresenter extends BasePresenter<FullScreenKlineViewI
                                 socketEntity.getParam().setContractType(bean.getContractType());
                             }
                             socketEntity.setReqType(SocketKey.HangQingKlinePushReqType);
-                            client.addChannel(socketEntity, FullScreenKlinePresenter.this);
+                            //client.addChannel(socketEntity, FullScreenKlinePresenter.this);
                             if(bean.getType() == 2) {
                                 //交割日期
                                 WebSocketEntity<SocketFutureParam> socketEntity1 = new WebSocketEntity<>();
                                 socketEntity1.setParam(new SocketFutureParam(bean.getContractType(), bean.getAssetName()));
                                 socketEntity1.setReqType(SocketKey.DELIVERY_TIME_CHANGED);
-                                client.addChannel(socketEntity1, FullScreenKlinePresenter.this);
+                                //client.addChannel(socketEntity1, FullScreenKlinePresenter.this);
                                 //个人持仓 如果登录的话
                                 WebSocketEntity<SocketFutureParam> socketEntity2 = new WebSocketEntity<>();
                                 socketEntity2.setParam(new SocketFutureParam(bean.getContractType(), bean.getAssetName()));
                                 socketEntity2.setReqType(SocketKey.POSITION_LINE);
-                                client.addChannel(socketEntity2, FullScreenKlinePresenter.this);
+                                //client.addChannel(socketEntity2, FullScreenKlinePresenter.this);
                             }
 
                             List<ChartLineEntity> datas = new ArrayList<>();

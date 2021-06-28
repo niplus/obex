@@ -81,10 +81,10 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
         socketEntity.setParam(socketEntrustParam);
         socketEntity.setReqType(SocketKey.TradeWeiTuoReqType);
         socketEntity.setHandleType(2);
-        client.addChannel(socketEntity, BaseTradePresenter.this);
+//        //client.addChannel(socketEntity, BaseTradePresenter.this);
     }
 
-    protected void onNextDepth(DepthBean bean) {
+    public void onNextDepth(DepthBean bean) {
         if(getView() == null) {
             return;
         }
@@ -121,13 +121,13 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
     }
 
     public void changeDigitalChannel(String remove, String add) {
-        client.removeChannel(SocketKey.TradeWeiTuoReqType, BaseTradePresenter.this, new SocketEntrustParam(type, entityId, remove));
-        client.removeChannel(SocketKey.HangQingNewlyPriceReqType, BaseTradePresenter.this, new SocketEntrustParam(type, entityId, remove));
+        //client.removeChannel(SocketKey.TradeWeiTuoReqType, BaseTradePresenter.this, new SocketEntrustParam(type, entityId, remove));
+        //client.removeChannel(SocketKey.HangQingNewlyPriceReqType, BaseTradePresenter.this, new SocketEntrustParam(type, entityId, remove));
 
 //        WebSocketEntity<SocketEntrustParam> socketEntity = new WebSocketEntity<>();
 //        socketEntity.setParam(new SocketEntrustParam(type, entityId, add + ""));
 //        socketEntity.setReqType(3);
-//        client.addChannel(socketEntity, BaseTradePresenter.this);
+//        //client.addChannel(socketEntity, BaseTradePresenter.this);
         basePrecision = add;
         getDepthFive(type, entityId, add);
         getNowTicker(type, entityId, add);
@@ -142,7 +142,7 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
      */
     public void getNowTicker(final int type, final int id, final String precision) {
         SocketBaseParam param = new SocketBaseParam(type, id);
-        client.removeChannel(SocketKey.HangQingNewlyPriceReqType, BaseTradePresenter.this, param);
+        //client.removeChannel(SocketKey.HangQingNewlyPriceReqType, BaseTradePresenter.this, param);
 
         WebSocketEntity<SocketEntrustParam> socketEntity = new WebSocketEntity<>();
         //3 usdk兑换 2 合约
@@ -152,7 +152,7 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
         }
         socketEntity.setParam(socketParam);
         socketEntity.setReqType(SocketKey.HangQingNewlyPriceReqType);
-        client.addChannel(socketEntity, BaseTradePresenter.this);
+//        //client.addChannel(socketEntity, BaseTradePresenter.this);
     }
 
     protected void onNextTicker(CurrentPriceBean map) {
@@ -166,11 +166,11 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
         this.type = type;
         this.entityId = id;
         SocketMarketParam param = new SocketMarketParam(id, type, periodTypeSwitch(period));
-        client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, BaseTradePresenter.this, param);
+        //client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, BaseTradePresenter.this, param);
         //jiang 1227 fix
         if(type == 2) {
-            client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, BaseTradePresenter.this);
-            client.removeChannel(SocketKey.POSITION_LINE, BaseTradePresenter.this);
+            //client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, BaseTradePresenter.this);
+            //client.removeChannel(SocketKey.POSITION_LINE, BaseTradePresenter.this);
         }
         final long currentTime = System.currentTimeMillis();
         String endTime = currentTime + "";
@@ -180,7 +180,8 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
                 .subscribe(new CommonSubscriber<MarketTimeLineBean>(FotaApplication.getInstance()) {
                     @Override
                     public void onNext(MarketTimeLineBean bean) {
-                        if (getView() != null) {
+                        if (bean != null && getView() != null) {
+                            Log.i("nidongliang===", "marketbean: " + bean);
                             // http之后开始订阅推送
                             socketSubsribe(bean, period);
 
@@ -223,24 +224,24 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
         socketEntity.setReqType(SocketKey.HangQingFenShiTuZheXianTuReqType);
 
         Log.i("nidongliang", "socket entity: " + socketEntity);
-        client.addChannel(socketEntity, BaseTradePresenter.this);
+        //client.addChannel(socketEntity, BaseTradePresenter.this);
         if(bean.getType() == 2) {
             //交割日期
             WebSocketEntity<SocketFutureParam> socketEntity1 = new WebSocketEntity<>();
             socketEntity1.setParam(new SocketFutureParam(bean.getContractType(), bean.getAssetName()));
             socketEntity1.setReqType(SocketKey.DELIVERY_TIME_CHANGED);
-            client.addChannel(socketEntity1, BaseTradePresenter.this);
+            //client.addChannel(socketEntity1, BaseTradePresenter.this);
             //个人持仓 如果登录的话
             WebSocketEntity<SocketFutureParam> socketEntity2 = new WebSocketEntity<>();
             socketEntity2.setParam(new SocketFutureParam(bean.getContractType(), bean.getAssetName()));
             socketEntity2.setReqType(SocketKey.POSITION_LINE);
-            client.addChannel(socketEntity2, BaseTradePresenter.this);
+            //client.addChannel(socketEntity2, BaseTradePresenter.this);
         }
     }
 
     public void getKlineDatas(final int type, final int id, final String period) {
         SocketMarketParam param = new SocketMarketParam(id, type, periodTypeSwitch(period));
-        client.removeChannel(SocketKey.HangQingKlinePushReqType, BaseTradePresenter.this, param);
+        //client.removeChannel(SocketKey.HangQingKlinePushReqType, BaseTradePresenter.this, param);
         //clear first
         getInstance().resetAppKLineData(type, null, null);
 
@@ -262,7 +263,7 @@ public class BaseTradePresenter<T extends BaseTradeViewInterface> extends BasePr
                                 socketEntity.getParam().setContractType(bean.getContractType());
                             }
                             socketEntity.setReqType(SocketKey.HangQingKlinePushReqType);
-                            client.addChannel(socketEntity, BaseTradePresenter.this);
+                            //client.addChannel(socketEntity, BaseTradePresenter.this);
 
                             List<ChartLineEntity> datas = new ArrayList<>();
                             List<ChartLineEntity> spots = new ArrayList<>();

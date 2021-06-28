@@ -1,13 +1,19 @@
 package com.fota.android.moudles.futures.complete;
 
+import android.util.Log;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
+
 import com.fota.android.R;
+import com.fota.android.app.SocketKey;
 import com.fota.android.commonlib.base.AppConfigs;
+import com.fota.android.commonlib.http.BaseHttpPage;
 import com.fota.android.commonlib.utils.GradientDrawableUtils;
 import com.fota.android.moudles.exchange.BaseExchageChlidFragment;
 import com.fota.android.widget.recyclerview.EasyAdapter;
 import com.fota.android.widget.recyclerview.ViewHolder;
+import com.ndl.lib_common.utils.LiveDataBus;
 
 public class FuturesCompleteFragment extends BaseExchageChlidFragment<FuturesCompletePresenter> {
 
@@ -23,6 +29,11 @@ public class FuturesCompleteFragment extends BaseExchageChlidFragment<FuturesCom
     }
 
     @Override
+    protected boolean setLoadEnable() {
+        return false;
+    }
+
+    @Override
     protected boolean setRefreshEnable() {
         return false;
     }
@@ -31,6 +42,15 @@ public class FuturesCompleteFragment extends BaseExchageChlidFragment<FuturesCom
     protected void onInitView(View view) {
         super.onInitView(view);
         onRefresh();
+        LiveDataBus.INSTANCE.getBus(SocketKey.TradeDealReqType+"").observe(this, new Observer<Object>() {
+            @Override
+            public void onChanged(Object o) {
+
+                BaseHttpPage<FuturesCompleteBean> list = (BaseHttpPage<FuturesCompleteBean>)o;
+                Log.i("nidongliang11111", "size: " + list.getItem().size());
+                getPresenter().setData(list.getItem(), getPresenter().isLoadMore());
+            }
+        });
     }
 
     @Override

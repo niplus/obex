@@ -96,7 +96,7 @@ public class MinePresenter extends BasePresenter<IMineView> {
         WebSocketEntity entity = new WebSocketEntity();
         entity.setReqType(SocketKey.MineMsgCenterHasUnreadPushReqType);
         entity.setToken(UserLoginUtil.getToken());
-        client.addChannel(entity, this);
+        //client.addChannel(entity, this);
     }
 
 

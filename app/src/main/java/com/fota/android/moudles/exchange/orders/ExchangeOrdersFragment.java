@@ -3,14 +3,23 @@ package com.fota.android.moudles.exchange.orders;
 import android.content.DialogInterface;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
+
 import com.fota.android.R;
+import com.fota.android.app.SocketKey;
+import com.fota.android.common.BusKey;
 import com.fota.android.commonlib.base.AppConfigs;
+import com.fota.android.commonlib.http.BaseHttpPage;
 import com.fota.android.commonlib.utils.GradientDrawableUtils;
+import com.fota.android.core.base.BtbMap;
 import com.fota.android.core.dialog.DialogModel;
 import com.fota.android.core.dialog.DialogUtils;
+import com.fota.android.http.WebSocketClient1;
 import com.fota.android.moudles.exchange.BaseExchageChlidFragment;
+import com.fota.android.socket.WebSocketEntity;
 import com.fota.android.widget.recyclerview.EasyAdapter;
 import com.fota.android.widget.recyclerview.ViewHolder;
+import com.ndl.lib_common.utils.LiveDataBus;
 
 public class ExchangeOrdersFragment extends BaseExchageChlidFragment<ExchangeOrdersPresenter> {
 
@@ -18,6 +27,32 @@ public class ExchangeOrdersFragment extends BaseExchageChlidFragment<ExchangeOrd
     protected void onInitView(View view) {
         super.onInitView(view);
         onRefresh();
+
+        LiveDataBus.INSTANCE.getBus(BusKey.EVENT_LOGIN).observe(this, new Observer<Object>() {
+            @Override
+            public void onChanged(Object o) {
+                if (o != null){
+                    WebSocketEntity<BtbMap> socketEntity = new WebSocketEntity<>();
+                    socketEntity.setReqType(SocketKey.MineEntrustReqType);
+                    BtbMap map = new BtbMap();
+                    map.p("pageNo", getPresenter().getPageNo());
+                    map.p("pageSize", getPresenter().getPageSize());
+                    map.put("type", "3");
+                    socketEntity.setParam(map);
+                    socketEntity.setHandleType(1);
+                    WebSocketClient1.INSTANCE.register(socketEntity);
+                }else {
+                    WebSocketClient1.INSTANCE.unRegist(SocketKey.MineEntrustReqType);
+                }
+            }
+        });
+        LiveDataBus.INSTANCE.getBus(SocketKey.MineEntrustReqType+"").observe(this, new Observer<Object>() {
+            @Override
+            public void onChanged(Object o) {
+                BaseHttpPage<ExchangeOrderBean> list =  (BaseHttpPage<ExchangeOrderBean>)o;
+                getPresenter().setData(list.getItem(), getPresenter().isLoadMore());
+            }
+        });
     }
 
     @Override

@@ -4,12 +4,10 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.fota.android.app.FotaApplication;
-import com.fota.android.app.SocketKey;
 import com.fota.android.commonlib.base.AppConfigs;
 import com.fota.android.commonlib.utils.SharedPreferencesUtil;
 import com.fota.android.http.Http;
 import com.fota.android.moudles.mine.login.bean.LoginBean;
-import com.fota.android.socket.WebSocketClient;
 import com.fota.option.OptionManager;
 
 import java.util.HashSet;
@@ -53,7 +51,7 @@ public class UserLoginUtil {
         SharedPreferencesUtil.getInstance().put(FTKey.LOGIN_PHONECOUNTRYCODE + getId(), "");
         SharedPreferencesUtil.getInstance().put(FTKey.LOGIN_ID, "");
 
-        FotaApplication.getInstance().getClient().removeChannel(SocketKey.LOG_OUT, null);//socket通知服务端退出登录
+//        FotaApplication.getInstance().getClient().removeChannel(SocketKey.LOG_OUT, null);//socket通知服务端退出登录
     }
 
     /**
@@ -428,8 +426,8 @@ public class UserLoginUtil {
      */
     public static void ipChanged(Context context) {
         Http.clearService();
-        WebSocketClient client = (WebSocketClient) FotaApplication.getInstance().getClient();
-        client.clearWebSocket(true);
+//        WebSocketClient client = (WebSocketClient) FotaApplication.getInstance().getClient();
+//        client.clearWebSocket(true);
         UserLoginUtil.delUser();
         FtRounts.reStartMain(context);
     }

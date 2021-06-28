@@ -6,6 +6,8 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
+import kotlin.math.max
+import kotlin.math.min
 
 class MicroKlineTimeView: View {
 
@@ -13,6 +15,8 @@ class MicroKlineTimeView: View {
     private var maxValue = 0.0
 
     private var heightUnit = 0.0
+
+    var lastTime = ""
 
     var closePriceList = mutableListOf<Double>()
     set(value) {
@@ -23,6 +27,20 @@ class MicroKlineTimeView: View {
 
         if (width != 0){
             initPath()
+        }
+        invalidate()
+    }
+
+    fun changeLast(price: Double, time: String){
+        if (this.lastTime != time){
+            closePriceList.add(price)
+            minValue = min(minValue, price)
+            maxValue = max(maxValue, price)
+        }else{
+            closePriceList.removeAt(closePriceList.lastIndex)
+            closePriceList.add(price)
+            minValue = closePriceList.min()?:0.0
+            maxValue = closePriceList.max()?:0.0
         }
         invalidate()
     }

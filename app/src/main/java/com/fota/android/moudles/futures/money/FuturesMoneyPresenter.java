@@ -43,8 +43,6 @@ public class FuturesMoneyPresenter extends BaseListPresenter<FuturesMoneyView> {
     public void onLoadData(final boolean isLoadMore) {
         super.onLoadData(isLoadMore);
 
-        Log.i("nidongliang1111", "onLoadData");
-        client.removeChannel(SocketKey.MinePositionReqType, this);
         WebSocketEntity<BtbMap> socketEntity = new WebSocketEntity<>();
         socketEntity.setReqType(SocketKey.MinePositionReqType);
         BtbMap map = new BtbMap();
@@ -56,7 +54,6 @@ public class FuturesMoneyPresenter extends BaseListPresenter<FuturesMoneyView> {
         addPageInfotoMap(map);
         socketEntity.setParam(map);
         socketEntity.setHandleType(WebSocketEntity.SEARCH);
-        client.addChannel(socketEntity, this);
 
         WebSocketEntity<BtbMap> bind = new WebSocketEntity<>();
         bind.setReqType(SocketKey.MinePositionReqType);
@@ -65,8 +62,6 @@ public class FuturesMoneyPresenter extends BaseListPresenter<FuturesMoneyView> {
         mapBind.p("pageSize", pageSize * pageNo);
         bind.setParam(mapBind);
         bind.setHandleType(WebSocketEntity.BIND);
-        client.addChannel(bind, this);
-
     }
 
     @Override
@@ -101,7 +96,7 @@ public class FuturesMoneyPresenter extends BaseListPresenter<FuturesMoneyView> {
 
     @Override
     public void detachView() {
-        client.removeChannel(SocketKey.MinePositionReqType, this);
+        //client.removeChannel(SocketKey.MinePositionReqType, this);
         super.detachView();
     }
 

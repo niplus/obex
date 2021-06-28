@@ -68,12 +68,12 @@ public class MarketPresenter extends BasePresenter<MarketViewInterface> {
     @Override
     public void detachView() {
         super.detachView();
-        client.removeChannel(SocketKey.HangQingKaPianReqType, this);
+        //client.removeChannel(SocketKey.HangQingKaPianReqType, this);
     }
 
     @Override
     public void onHide() {
-        client.removeChannel(SocketKey.HangQingKaPianReqType, this);
+        //client.removeChannel(SocketKey.HangQingKaPianReqType, this);
     }
 
     /**
@@ -154,7 +154,7 @@ public class MarketPresenter extends BasePresenter<MarketViewInterface> {
         //订阅 全部的卡片推送
         socketEntity.setParam(new SocketCardParam(1, "2"));
         socketEntity.setReqType(SocketKey.HangQingKaPianReqType);
-        client.addChannel(socketEntity, MarketPresenter.this);
+        //client.addChannel(socketEntity, MarketPresenter.this);
         List<FutureItemEntity> result = new ArrayList<>();
         for (MarketCardItemBean each : list) {
             FutureItemEntity future = new FutureItemEntity(each.getName());

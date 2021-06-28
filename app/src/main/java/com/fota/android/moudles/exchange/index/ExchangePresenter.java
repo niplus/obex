@@ -24,9 +24,11 @@ import com.fota.android.commonlib.http.rx.NothingTransformer;
 import com.fota.android.commonlib.utils.Pub;
 import com.fota.android.core.base.BtbMap;
 import com.fota.android.http.Http;
+import com.fota.android.http.WebSocketClient1;
 import com.fota.android.moudles.common.BaseTradePresenter;
 import com.fota.android.socket.SocketAdditionEntity;
 import com.fota.android.socket.WebSocketEntity;
+import com.fota.android.socket.params.SocketEntrustParam;
 
 import java.util.List;
 import java.util.Map;
@@ -86,22 +88,22 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
 
     protected void removeChannel() {
 //        //委托
-//        client.removeChannel(SocketKey.TradeWeiTuoReqType, this);
+//        //client.removeChannel(SocketKey.TradeWeiTuoReqType, this);
 //        //time线
-//        client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, this);
+//        //client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, this);
 //        //ticker
-//        client.removeChannel(SocketKey.HangQingNewlyPriceReqType, this);
-//        client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
+//        //client.removeChannel(SocketKey.HangQingNewlyPriceReqType, this);
+//        //client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
 //        removeChildren();
     }
 
     public void removeAllChannel(){
-        client.removeChannel(SocketKey.TradeWeiTuoReqType, this);
+        //client.removeChannel(SocketKey.TradeWeiTuoReqType, this);
         //time线
-        client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, this);
+        //client.removeChannel(SocketKey.HangQingFenShiTuZheXianTuReqType, this);
         //ticker
-        client.removeChannel(SocketKey.HangQingNewlyPriceReqType, this);
-        client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
+        //client.removeChannel(SocketKey.HangQingNewlyPriceReqType, this);
+        //client.removeChannel(SocketKey.HangQingKlinePushReqType, this);
         removeChildren();
     }
 
@@ -120,8 +122,8 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
     }
 
     protected void removeChildren() {
-        client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this);
-        client.removeChannel(SocketKey.MineAssetReqType, this);
+        //client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this);
+        //client.removeChannel(SocketKey.MineAssetReqType, this);
     }
 
 
@@ -239,17 +241,45 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
      * 更新数据
      */
     public void updateCurrency() {
+        Log.i("nidongliang11111", "updateCurrency");
+        unRegistSocket();
+        registSocket();
         getView().refreshCurrency();
-        //联动请求
-        getDepthFive(getType(), Pub.GetInt(selectItem.getAssetId()));
-        getNowTicker(getType(), Pub.GetInt(selectItem.getAssetId()));
-        getTimeLineDatas(getType(), Pub.GetInt(selectItem.getAssetId()), "1m");
         //jiang chart loading
         if (getView() != null) {
             getView().setOverShowLoading(0, true);
             getView().setOverShowLoading(1, true);
             getKlineDatas(3, Pub.GetInt(selectItem.getAssetId()), types[currentPeriodIndex]);
         }
+    }
+
+    public void registSocket(){
+        registDepthFive();
+        registNowTicker();
+    }
+
+    public void registDepthFive(){
+        //委托 http获取到实时委托之后开始订阅实时委托推送
+        WebSocketEntity<SocketEntrustParam> socketEntity = new WebSocketEntity<>();
+        SocketEntrustParam socketEntrustParam = new SocketEntrustParam(getType(), Pub.GetInt(selectItem.getAssetId()));
+        socketEntity.setParam(socketEntrustParam);
+        socketEntity.setReqType(SocketKey.TradeWeiTuoReqType);
+        socketEntity.setHandleType(2);
+        WebSocketClient1.INSTANCE.register(socketEntity);
+    }
+    public void registNowTicker(){
+        WebSocketEntity<SocketEntrustParam> socketEntity = new WebSocketEntity<>();
+        //3 usdk兑换 2 合约
+        SocketEntrustParam socketParam = new SocketEntrustParam(getType(), Pub.GetInt(selectItem.getAssetId()));
+        socketEntity.setParam(socketParam);
+        socketEntity.setReqType(SocketKey.HangQingNewlyPriceReqType);
+        socketEntity.setHandleType(2);
+        WebSocketClient1.INSTANCE.register(socketEntity);
+    }
+
+    public void unRegistSocket(){
+        WebSocketClient1.INSTANCE.unRegist(SocketKey.TradeWeiTuoReqType);
+        WebSocketClient1.INSTANCE.unRegist(SocketKey.HangQingNewlyPriceReqType);
     }
 
     /**
@@ -295,23 +325,6 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
                 getView().onRefreshKlineData("add".equals(jsonString) ? true : false);
                 break;
             case SocketKey.TradeSuccessNotiification:
-//                if (jsonString == null || getView() == null) {
-//                    return;
-//                }
-//                ExchangeTopInfo model = GsonSinglon.getInstance().fromJson(jsonString, ExchangeTopInfo.class);
-//                StringBuilder sb = new StringBuilder();
-//                sb.append("  ");
-//                sb.append(model.getAmount());
-//                sb.append(" ");
-//                sb.append(model.getSymbol());
-//                sb.append(" ");
-//                if (model.isBuy()) {
-//                    //0-对手价，1-指定价
-//                    sb.append(getView().getXmlString(R.string.common_weituo_buy));
-//                } else {
-//                    sb.append(getView().getXmlString(R.string.common_weituo_sell));
-//                }
-//                getView().showTopInfo(sb.toString());
                 break;
         }
 
@@ -323,13 +336,13 @@ public class ExchangePresenter extends BaseTradePresenter<ExchangeTradeView> {
 
     public void addTopInfoMessageLisenter() {
         //成交推送（导航栏）
-        client.removeChannel(SocketKey.TradeSuccessNotiification, this);
+        //client.removeChannel(SocketKey.TradeSuccessNotiification, this);
         WebSocketEntity<BtbMap> socketEntity = new WebSocketEntity<>();
         socketEntity.setReqType(SocketKey.TradeSuccessNotiification);
         BtbMap map = new BtbMap();
         map.p("type", getType());
         socketEntity.setParam(map);
-        client.addChannel(socketEntity, this);
+        //client.addChannel(socketEntity, this);
     }
 
     @Nullable

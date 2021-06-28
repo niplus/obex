@@ -39,8 +39,6 @@ import com.fota.android.moudles.market.bean.HoldingEntity;
 import com.fota.android.moudles.market.bean.MarketLineBean;
 import com.fota.android.moudles.market.bean.MarketTimeLineBean;
 import com.fota.android.receiver.NetScreenReceiver;
-import com.fota.android.socket.IWebSocketSubject;
-import com.fota.android.socket.WebSocketClient;
 import com.fota.android.socket.WebSocketEntity;
 import com.fota.android.utils.FtRounts;
 import com.fota.android.utils.LanguageKt;
@@ -73,7 +71,7 @@ import me.jessyan.autosize.AutoSizeConfig;
 
 public class FotaApplication extends BaseApplication {
 
-    IWebSocketSubject client;
+//    IWebSocketSubject client;
 
     static List<BottomMenuItem> tabbar;
 
@@ -81,9 +79,9 @@ public class FotaApplication extends BaseApplication {
         FotaApplication.tabbar = tabbar;
     }
 
-    public IWebSocketSubject getClient() {
-        return client;
-    }
+//    public IWebSocketSubject getClient() {
+//        return client;
+//    }
 
     private static FotaApplication applicationInstance;
 
@@ -119,7 +117,6 @@ public class FotaApplication extends BaseApplication {
         setBugyInfo();
         //Bugly.init(getApplicationContext(), Constants.BUGLY_ID, Constants.DEBUG);
 
-        initWebSocket();
         setLoginStatus(false);
 //        JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);            // 初始化 JPush
@@ -198,7 +195,7 @@ public class FotaApplication extends BaseApplication {
             WebSocketEntity entity = new WebSocketEntity();
             entity.setReqType(SocketKey.LOG_OUT);
             entity.setToken(UserLoginUtil.getToken());
-            getInstance().getClient().addChannel(entity, null);
+//            getInstance().getClient().addChannel(entity, null);
 
             //jiang 1213
             EventWrapper.post(Event.create(R.id.event_market_favor_login));
@@ -224,9 +221,9 @@ public class FotaApplication extends BaseApplication {
         return islogin;
     }
 
-    private void initWebSocket() {
-        client = new WebSocketClient();
-    }
+//    private void initWebSocket() {
+//        client = new WebSocketClient();
+//    }
 
     /**
      * 页签分时图数据

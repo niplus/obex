@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -24,6 +25,7 @@ import com.fota.android.core.base.list.MvpListFragment;
 import com.fota.android.core.event.Event;
 import com.fota.android.core.event.EventWrapper;
 import com.fota.android.http.Http;
+import com.fota.android.moudles.home.HomeRepository;
 import com.fota.android.moudles.market.bean.CardFavorParamBean;
 import com.fota.android.moudles.market.bean.CardItemParamBean;
 import com.fota.android.moudles.market.bean.ChartLineEntity;
@@ -83,6 +85,18 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
     }
 
     protected boolean noDataError = false;
+
+    @Override
+    protected void onInitView(View view) {
+        super.onInitView(view);
+
+        HomeRepository.Companion.getMarketInfoLivedata().observe(this, new Observer<List<FutureItemEntity>>() {
+            @Override
+            public void onChanged(List<FutureItemEntity> futureItemEntities) {
+                refreshData(symbol);
+            }
+        });
+    }
 
     public void setCard(boolean card) {
         if (getView() == null) return;
@@ -367,7 +381,7 @@ public class MarketListFragment extends MvpListFragment<BaseListPresenter>
         if (adapter != null) {
             futureList.clear();
             groupListDatas.clear();
-            List<FutureItemEntity> applicationCache = FotaApplication.getInstance().getMarketsCardsList();
+            List<FutureItemEntity> applicationCache = HomeRepository.Companion.getMarketInfoLivedata().getValue();
             //btc-eth-...
             if ("FAVOR".equals(typeOrDetail)) {
                 for (FutureItemEntity each : applicationCache) {

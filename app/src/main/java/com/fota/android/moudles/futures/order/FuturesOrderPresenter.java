@@ -31,7 +31,7 @@ public class FuturesOrderPresenter extends BaseListPresenter<BaseListView> {
     @Override
     public void onLoadData(final boolean isLoadMore) {
         super.onLoadData(isLoadMore);
-        client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this);
+        //client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this);
         WebSocketEntity<BtbMap> socketEntity = new WebSocketEntity<>();
         socketEntity.setReqType(SocketKey.MineEntrustReqType_CONTRACT);
         BtbMap map = new BtbMap();
@@ -39,7 +39,7 @@ public class FuturesOrderPresenter extends BaseListPresenter<BaseListView> {
         map.put("type", "2");
         socketEntity.setParam(map);
         socketEntity.setHandleType(WebSocketEntity.SEARCH);
-        client.addChannel(socketEntity, this);
+        //client.addChannel(socketEntity, this);
 
         WebSocketEntity<BtbMap> bind = new WebSocketEntity<>();
         bind.setReqType(SocketKey.MineEntrustReqType_CONTRACT);
@@ -49,7 +49,7 @@ public class FuturesOrderPresenter extends BaseListPresenter<BaseListView> {
         mapBind.put("type", "2");
         bind.setParam(mapBind);
         bind.setHandleType(WebSocketEntity.BIND);
-        client.addChannel(bind, this);
+        //client.addChannel(bind, this);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class FuturesOrderPresenter extends BaseListPresenter<BaseListView> {
 
     @Override
     public void detachView() {
-        client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this);
+        //client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this);
         super.detachView();
     }
 }

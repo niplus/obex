@@ -40,9 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MarketFragment extends MvpFragment<
-        MarketPresenter>
-        implements MarketViewInterface, ISystembar {
+public class MarketFragment extends MvpFragment<MarketPresenter> implements MarketViewInterface, ISystembar {
     private FragmentMarketsBinding mBinding;
     private List<String> coinTitles = new ArrayList<>();
     private boolean isCard = true;

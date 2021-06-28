@@ -4,11 +4,9 @@ package com.fota.android.core.base;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.fota.android.app.FotaApplication;
 import com.fota.android.commonlib.base.BaseView;
 import com.fota.android.commonlib.base.INetWork;
 import com.fota.android.socket.IWebSocketObserver;
-import com.fota.android.socket.IWebSocketSubject;
 import com.fota.android.socket.SocketAdditionEntity;
 
 /**
@@ -20,16 +18,16 @@ public class BasePresenter<V extends BaseView> implements Presenter<V>, IWebSock
 
     protected INetWork mINetWork;
 
-    protected IWebSocketSubject client;
+//    protected IWebSocketSubject client;
     protected static final Handler handler = new Handler();
 
     public BasePresenter(V view) {
-        client = FotaApplication.getInstance().getClient();
+//        client = FotaApplication.getInstance().getClient();
         attachView(view);
     }
 
     public BasePresenter(V view, INetWork mINetWork) {
-        client = FotaApplication.getInstance().getClient();
+//        client = FotaApplication.getInstance().getClient();
         attachView(view);
         this.mINetWork = mINetWork;
     }

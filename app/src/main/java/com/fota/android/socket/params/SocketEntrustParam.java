@@ -1,6 +1,7 @@
 package com.fota.android.socket.params;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class SocketEntrustParam implements Serializable {
 
@@ -45,6 +46,21 @@ public class SocketEntrustParam implements Serializable {
 
     public void setParam(String param) {
         this.param = param;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SocketEntrustParam that = (SocketEntrustParam) o;
+        return type == that.type &&
+                id == that.id &&
+                param.equals(that.param);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, id, param);
     }
 
     @Override

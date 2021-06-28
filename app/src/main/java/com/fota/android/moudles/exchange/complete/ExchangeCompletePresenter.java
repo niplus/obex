@@ -13,8 +13,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
-import static com.fota.android.app.SocketKey.MineDealReqType;
-
 public class ExchangeCompletePresenter extends BaseListPresenter<BaseListView> {
     /**
      * socket模式加载列表
@@ -33,7 +31,7 @@ public class ExchangeCompletePresenter extends BaseListPresenter<BaseListView> {
     public void onLoadData(final boolean isLoadMore) {
         super.onLoadData(isLoadMore);
         //取消订单
-        client.removeChannel(MineDealReqType, this);
+        //client.removeChannel(MineDealReqType, this);
 
         WebSocketEntity<BtbMap> socketEntity = new WebSocketEntity<>();
         socketEntity.setReqType(SocketKey.MineDealReqType);
@@ -41,7 +39,7 @@ public class ExchangeCompletePresenter extends BaseListPresenter<BaseListView> {
         addPageInfotoMap(map);
         socketEntity.setParam(map);
         socketEntity.setHandleType(WebSocketEntity.SEARCH);
-        client.addChannel(socketEntity, this);
+        //client.addChannel(socketEntity, this);
 
         WebSocketEntity<BtbMap> bind = new WebSocketEntity<>();
         bind.setReqType(SocketKey.MineDealReqType);
@@ -51,7 +49,7 @@ public class ExchangeCompletePresenter extends BaseListPresenter<BaseListView> {
         mapBind.p("pageSize", pageSize);
         bind.setParam(mapBind);
         bind.setHandleType(WebSocketEntity.BIND);
-        client.addChannel(bind, this);
+        //client.addChannel(bind, this);
     }
 
     @Override
@@ -81,7 +79,7 @@ public class ExchangeCompletePresenter extends BaseListPresenter<BaseListView> {
 
     @Override
     public void detachView() {
-        client.removeChannel(SocketKey.MineDealReqType, this);
+        //client.removeChannel(SocketKey.MineDealReqType, this);
         super.detachView();
     }
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fota.android.BR
 import com.fota.android.R
+import com.fota.android.app.SocketKey
 import com.fota.android.commonlib.base.AppConfigs
 import com.fota.android.commonlib.utils.GradientDrawableUtils
 import com.fota.android.core.mvvmbase.BaseFragment
@@ -39,7 +40,7 @@ class ConditionOrderFragment : BaseFragment<FragmentConditionOrderBinding, Condi
             dataBinding.rvConditionOrder.adapter?.notifyDataSetChanged()
         })
 
-        LiveDataBus.getBus<ConditionOrdersBean>("conditionOrder").observe(this, Observer {
+        LiveDataBus.getBus<ConditionOrdersBean>(SocketKey.CONDITION_ORDER.toString()).observe(this, Observer {
             orders.clear()
             if (!it.item.isNullOrEmpty()) {
                 orders.addAll(it.item)

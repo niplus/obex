@@ -53,9 +53,6 @@ abstract class BaseFragment<T : ViewDataBinding, H : BaseViewModel> : Fragment()
                 }
             }
         })
-//        viewModel.error.observe(this, Observer {
-//
-//        })
         initComp()
         initData()
         return dataBinding.root

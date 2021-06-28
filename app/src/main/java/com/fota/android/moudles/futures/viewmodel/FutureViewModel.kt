@@ -46,7 +46,6 @@ class FutureViewModel : BaseViewModel() {
     //private String key;
     var allList: List<ContractAssetBean?>? = null
     private var fromContact: FutureContractBean? = null
-    private var client: IWebSocketSubject = FotaApplication.getInstance().client
 
     private var model: ExchangeEntity? = null
 
@@ -82,11 +81,11 @@ class FutureViewModel : BaseViewModel() {
     var topInfo: FutureTopInfoBean? = null
 
 //    fun removeChannel(){
-//        client.removeChannel(SocketKey.MineEntrustReqType, this)
-//        client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this)
-//        client.removeChannel(SocketKey.POSITION_LINE, this)
-//        client.removeChannel(SocketKey.TradeWeiTuoReqType, this)
-//        client.removeChannel(SocketKey.FUTURE_TOP, this)
+//        //client.removeChannel(SocketKey.MineEntrustReqType, this)
+//        //client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this)
+//        //client.removeChannel(SocketKey.POSITION_LINE, this)
+//        //client.removeChannel(SocketKey.TradeWeiTuoReqType, this)
+//        //client.removeChannel(SocketKey.FUTURE_TOP, this)
 //    }
 
      fun submit(fundCode: String) {
@@ -233,7 +232,7 @@ class FutureViewModel : BaseViewModel() {
         this.selectParent = selectParent
         this.selectContact = selectContact
 
-//        client.removeChannel(SocketKey.MARKET_SPOTINDEX, this)
+//        //client.removeChannel(SocketKey.MARKET_SPOTINDEX, this)
 
         getAdditonalSpot(selectContact!!.assetName)
 
@@ -260,7 +259,7 @@ class FutureViewModel : BaseViewModel() {
     private fun getContractAccount(contactId: String?) {
         val map = BtbMap()
         map.p("contractId", contactId)
-//        client.removeChannel(SocketKey.FUTURE_TOP, this)
+//        //client.removeChannel(SocketKey.FUTURE_TOP, this)
         addChannel()
         //        Http.getExchangeService().getContractAccount(map)
 //                .compose(new CommonTransformer<FutureTopInfoBean>())
@@ -276,12 +275,12 @@ class FutureViewModel : BaseViewModel() {
     private fun addChannel() {
         val socketEntity = WebSocketEntity<BtbMap>()
         socketEntity.reqType = SocketKey.FUTURE_TOP
-//        client.addChannel(socketEntity, this)
+//        //client.addChannel(socketEntity, this)
     }
 
     fun getKlineDatas(type: Int, id: Int, period: String) {
         val param = SocketMarketParam(id, type, periodTypeSwitch(period))
-//        client.removeChannel(SocketKey.HangQingKlinePushReqType, this@BaseTradePresenter, param)
+//        //client.removeChannel(SocketKey.HangQingKlinePushReqType, this@BaseTradePresenter, param)
         //clear first
         FotaApplication.getInstance().resetAppKLineData(type, null, null)
         val currentTime = System.currentTimeMillis()
@@ -300,7 +299,7 @@ class FutureViewModel : BaseViewModel() {
                         socketEntity.param.contractType = bean.contractType
                     }
                     socketEntity.reqType = SocketKey.HangQingKlinePushReqType
-//                        client.addChannel(socketEntity, this@BaseTradePresenter)
+//                        //client.addChannel(socketEntity, this@BaseTradePresenter)
                     val datas: List<ChartLineEntity> = ArrayList()
                     val spots: List<ChartLineEntity> = ArrayList()
                     BeanChangeFactory.iterateKDataList(datas, spots, type, bean.line)
@@ -324,15 +323,15 @@ class FutureViewModel : BaseViewModel() {
 //        type = type
 //        this.entityId = id
         val param = SocketMarketParam(id, type, periodTypeSwitch(period!!))
-//        client.removeChannel(
+//        //client.removeChannel(
 //            SocketKey.HangQingFenShiTuZheXianTuReqType,
 //            this@BaseTradePresenter,
 //            param
 //        )
         //jiang 1227 fix
 //        if (type == 2) {
-//            client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this@BaseTradePresenter)
-//            client.removeChannel(SocketKey.POSITION_LINE, this@BaseTradePresenter)
+//            //client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this@BaseTradePresenter)
+//            //client.removeChannel(SocketKey.POSITION_LINE, this@BaseTradePresenter)
 //        }
         val currentTime = System.currentTimeMillis()
         val endTime = currentTime.toString() + ""

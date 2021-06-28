@@ -20,6 +20,7 @@ import com.fota.android.BR
 import com.fota.android.R
 import com.fota.android.app.Constants
 import com.fota.android.app.ConstantsPage
+import com.fota.android.app.SocketKey
 import com.fota.android.common.bean.home.MenuBean
 import com.fota.android.commonlib.base.AppConfigs
 import com.fota.android.core.base.SimpleFragmentActivity
@@ -44,7 +45,6 @@ import com.ndl.lib_common.utils.LiveDataBus
 import com.ndl.lib_common.utils.showSnackMsg
 import com.ndl.lib_common.widget.banner.ImageEngine
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
-import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -55,12 +55,12 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private val menuList by lazy {
-     mutableListOf(
-            MenuBean(R.mipmap.icon_home_recharge, getString(R.string.recharge_coin)),
-            MenuBean(R.mipmap.icon_home_community, getString(R.string.join_community)),
-            MenuBean(R.mipmap.icon_home_invite, getString(R.string.commission_page_title)),
-            MenuBean(R.mipmap.icon_home_guide, getString(R.string.new_guide))
-    )
+         mutableListOf(
+                MenuBean(R.mipmap.icon_home_recharge, getString(R.string.recharge_coin)),
+                MenuBean(R.mipmap.icon_home_community, getString(R.string.join_community)),
+                MenuBean(R.mipmap.icon_home_invite, getString(R.string.commission_page_title)),
+                MenuBean(R.mipmap.icon_home_guide, getString(R.string.new_guide))
+        )
     }
 
     override fun getLayoutId(): Int {
@@ -79,7 +79,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         override fun onBindViewHolder(holder: MyViewHolder<ItemHomeCoinBinding>, position: Int) {
             super.onBindViewHolder(holder, position)
             holder.dataBinding.apply {
-                timeLine.closePriceList = data[position].datas.map { it.close }.toMutableList()
+                if (data[position].datas.size == 1){
+                    timeLine.changeLast(data[position].datas[0].close, data[position].datas[0].time.toString())
+                }else{
+                    timeLine.closePriceList = data[position].datas.map { it.close }.toMutableList()
+                    timeLine.lastTime = data[position].datas.last().time.toString()
+                }
+
                 if (data[position].trend.contains("+")){
                     val colorValue = ContextCompat.getColor(requireContext(), R.color.trend_up)
                     tvTrend.setTextColor(colorValue)
@@ -108,6 +114,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
+
+
     override fun initData() {
         viewModel.apply {
             bannerLiveData.observe(this@HomeFragment, Observer { bannerList ->
@@ -119,8 +127,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
                 dataBinding.refreshLayout.finishRefresh()
             })
-
             futureListLiveData.observe(this@HomeFragment, Observer {
+                Log.i("nidongliang11111", "hideloaddialog")
+                hideLoadDialog()
+            })
+            HomeRepository.marketInfoLivedata.observe(this@HomeFragment, Observer {
                 mainCoinList.clear()
                 futureCoinList.clear()
                 spotCoinList.clear()
@@ -135,32 +146,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     dataBinding.rvMainSpot.adapter?.notifyDataSetChanged()
                     bottomAdapter.notifyDataSetChanged()
                 }
-
             })
 
-            LiveDataBus.getBus<List<FutureItemEntity>>("HangQing").observe(
-                    this@HomeFragment,
-                    Observer {
-                        mainCoinList.clear()
-                        futureCoinList.clear()
-                        spotCoinList.clear()
-                        it.forEach { entity ->
-                            if (entity.entityType == 3) {
-                                //合约列表
-                                spotCoinList.add(entity)
-//                        //主币种
-                            } else {
-                                if (mainCoinList.size != 3)
-                                    mainCoinList.add(entity)
-                                futureCoinList.add(entity)
-                            }
-                            dataBinding.rvMainSpot.adapter?.notifyDataSetChanged()
-                            bottomAdapter.notifyDataSetChanged()
-                        }
-                    })
-
             getBanner()
-            getCoinData()
         }
     }
 
@@ -371,17 +359,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.unRegistSocket()
+        Log.i("nidongliang11111", "homefragment onPause")
+    }
     override fun onResume() {
         super.onResume()
+        viewModel.getCoinData()
+        Log.i("nidongliang11111", "homefragment onResume")
         if (UserLoginUtil.havaUser()) {
             val account = UserLoginUtil.getLoginedAccount()
             if (!TextUtils.isEmpty(account) && account.contains("@")) {
-                dataBinding.tvLogin.setText(hideEmaile(account))
+                dataBinding.tvLogin.text = hideEmaile(account)
             } else if (!TextUtils.isEmpty(account)) {
-                dataBinding.tvLogin.setText(hidePhone(account))
+                dataBinding.tvLogin.text = hidePhone(account)
             }
         } else {
-            dataBinding.tvLogin.setText(getString(R.string.mine_login))
+            dataBinding.tvLogin.text = getString(R.string.mine_login)
         }
 
         SmartRefreshLayoutUtils.refreshHeadLanguage(dataBinding.refreshLayout, requireContext())

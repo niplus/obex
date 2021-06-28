@@ -1,7 +1,6 @@
 package com.fota.android.moudles.futures
 
 import android.os.Bundle
-import android.util.Log
 import com.fota.android.R
 import com.fota.android.app.*
 import com.fota.android.common.bean.exchange.ExchangeBody
@@ -15,6 +14,8 @@ import com.fota.android.commonlib.utils.Pub
 import com.fota.android.core.base.BtbMap
 import com.fota.android.http.ContractAssetBean
 import com.fota.android.http.Http
+import com.fota.android.http.WebSocketClient1
+import com.fota.android.http.WebSocketClient1.register
 import com.fota.android.moudles.exchange.index.ExchangeFragment
 import com.fota.android.moudles.exchange.index.ExchangePresenter
 import com.fota.android.moudles.exchange.index.ExchangeTradeView
@@ -42,17 +43,17 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
     private var fromKey: String? = null
     override fun removeChannel() {
 //        super.removeChannel()
-//        client.removeChannel(SocketKey.MineEntrustReqType, this)
-//        client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this)
-//        client.removeChannel(SocketKey.POSITION_LINE, this)
-//        client.removeChannel(SocketKey.TradeWeiTuoReqType, this)
-//        client.removeChannel(SocketKey.FUTURE_TOP, this)
+//        //client.removeChannel(SocketKey.MineEntrustReqType, this)
+//        //client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this)
+//        //client.removeChannel(SocketKey.POSITION_LINE, this)
+//        //client.removeChannel(SocketKey.TradeWeiTuoReqType, this)
+//        //client.removeChannel(SocketKey.FUTURE_TOP, this)
     }
 
     override fun removeChildren() {
-//        client.removeChannel(SocketKey.MinePositionReqType, this)
-//        client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this)
-//        client.removeChannel(SocketKey.TradeDealReqType, this)
+//        //client.removeChannel(SocketKey.MinePositionReqType, this)
+//        //client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this)
+//        //client.removeChannel(SocketKey.TradeDealReqType, this)
     }
 
     override fun getExtras(bundle: Bundle) {
@@ -237,18 +238,6 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         return null
     }
 
-    /**
-     * 指数的deal数据请求
-     */
-    open fun getAdditonalSpot(assetName: String) {
-        client.removeChannel(SocketKey.MARKET_SPOTINDEX, this)
-        val socketEntity = WebSocketEntity<SocketEntrustParam>()
-        val param = SocketEntrustParam(assetName)
-//        param.id =
-        socketEntity.param = param
-        socketEntity.reqType = SocketKey.MARKET_SPOTINDEX
-        client.addChannel(socketEntity, this)
-    }
 
     fun setSelectContact(selectParent: ContractAssetBean?, selectContact: FutureContractBean?) {
         //jiang 切换基准币种，需要重置精度
@@ -257,25 +246,16 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         }
         this.selectParent = selectParent
         this.selectContact = selectContact
-
-        client.removeChannel(SocketKey.MARKET_SPOTINDEX, this)
-
-        getAdditonalSpot(selectContact!!.assetName)
+        registSpotPrice(selectContact!!.assetName)
 
         view?.onSelectView()
         view?.refreshCurrency()
 
         getContractAccount(selectContact.getContractId())
-        getDepthFive(type, Pub.GetInt(selectContact.getContractId()))
-        getNowTicker(type, Pub.GetInt(selectContact.getContractId()))
-        getTimeLineDatas(type, Pub.GetInt(selectContact.getContractId()), "1m")
+
+        registDepthFive()
+        registNowTicker()
         addConditionChannel()
-        //jiang chart loading
-        if (view != null) {
-            view!!.setOverShowLoading(0, true)
-            view!!.setOverShowLoading(1, true)
-            getKlineDatas(2, Pub.GetInt(selectContact.getContractId()), types[currentPeriodIndex])
-        }
     }
 
      fun addConditionChannel(){
@@ -287,7 +267,8 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         socketEntity.reqType = SocketKey.CONDITION_ORDER
         socketEntity.setHandleType(1)
         socketEntity.type = 2
-        client.addChannel(socketEntity, this)
+         register(socketEntity)
+//        //client.addChannel(socketEntity, this)
     }
 
     override fun getType(): Int {
@@ -295,14 +276,14 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
     }
 
     fun removeSocket(){
-        client.removeChannel(SocketKey.MineEntrustReqType, this)
-        client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this)
-        client.removeChannel(SocketKey.POSITION_LINE, this)
-        client.removeChannel(SocketKey.TradeWeiTuoReqType, this)
-        client.removeChannel(SocketKey.FUTURE_TOP, this)
-        client.removeChannel(SocketKey.MinePositionReqType, this)
-        client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this)
-        client.removeChannel(SocketKey.TradeDealReqType, this)
+//        //client.removeChannel(SocketKey.MineEntrustReqType, this)
+//        //client.removeChannel(SocketKey.DELIVERY_TIME_CHANGED, this)
+//        //client.removeChannel(SocketKey.POSITION_LINE, this)
+//        //client.removeChannel(SocketKey.TradeWeiTuoReqType, this)
+//        //client.removeChannel(SocketKey.FUTURE_TOP, this)
+//        //client.removeChannel(SocketKey.MinePositionReqType, this)
+//        //client.removeChannel(SocketKey.MineEntrustReqType_CONTRACT, this)
+//        //client.removeChannel(SocketKey.TradeDealReqType, this)
     }
 
     fun resumeAddChannel(){
@@ -320,8 +301,8 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
     fun getContractAccount(contactId: String?) {
         val map = BtbMap()
         map.p("contractId", contactId)
-        client.removeChannel(SocketKey.FUTURE_TOP, this)
         addChannel()
+        registTopSocket()
     }
 
     private fun addChannel() {
@@ -329,8 +310,87 @@ open class FuturesPresenter(view: ExchangeTradeView?) : ExchangePresenter(view) 
         socketEntity.reqType = SocketKey.FUTURE_TOP
         val params = BtbMap()
         params["contractId"] = selectContact!!.getContractId()
+        socketEntity.setHandleType(2)
         socketEntity.param = params
-        client.addChannel(socketEntity, this)
+    }
+
+    fun registTopSocket(){
+        val socketEntity = WebSocketEntity<BtbMap>()
+        socketEntity.reqType = SocketKey.FUTURE_TOP
+        val params = BtbMap()
+        params["contractId"] = selectContact!!.getContractId()
+        socketEntity.param = params
+        socketEntity.setHandleType(2)
+        WebSocketClient1.register(socketEntity)
+    }
+
+    override fun registDepthFive() {
+        //委托 http获取到实时委托之后开始订阅实时委托推送
+        val socketEntity = WebSocketEntity<SocketEntrustParam>()
+        val socketEntrustParam = SocketEntrustParam(type, Pub.GetInt(selectContact?.getContractId()))
+        socketEntity.param = socketEntrustParam
+        socketEntity.reqType = SocketKey.TradeWeiTuoReqType
+        socketEntity.setHandleType(2)
+        register(socketEntity)
+    }
+
+    fun registMoneyList(){
+        val bind = WebSocketEntity<BtbMap>()
+        bind.reqType = SocketKey.MinePositionReqType
+        bind.setHandleType(1)
+        val mapBind = BtbMap()
+        mapBind.p("pageNo", "1")
+        mapBind.p("pageSize", 30)
+        bind.param = mapBind
+        register(bind)
+    }
+
+    fun registSpotPrice(assetName: String){
+        val socketEntity = WebSocketEntity<SocketEntrustParam>()
+        val param = SocketEntrustParam(assetName)
+        socketEntity.param = param
+        socketEntity.reqType = SocketKey.MARKET_SPOTINDEX
+        register(socketEntity)
+    }
+
+    override fun registNowTicker() {
+        val socketEntity = WebSocketEntity<SocketEntrustParam>()
+        //3 usdk兑换 2 合约
+        val socketParam = SocketEntrustParam(type, Pub.GetInt(selectContact?.getContractId()))
+        socketEntity.param = socketParam
+        socketEntity.reqType = SocketKey.HangQingNewlyPriceReqType
+        socketEntity.setHandleType(2)
+        register(socketEntity)
+    }
+
+    fun registContractEntrust(){
+        val bind = WebSocketEntity<BtbMap>()
+        bind.reqType = SocketKey.MineEntrustReqType_CONTRACT
+        val mapBind = BtbMap()
+        mapBind.p("pageNo", "1")
+        mapBind.p("pageSize", 30)
+        mapBind["type"] = "2"
+        bind.param = mapBind
+        bind.setHandleType(1)
+        register(bind)
+    }
+
+    fun registCompleteEntrust(){
+        //client.addChannel(socketEntity, this);
+        val bind = WebSocketEntity<BtbMap>()
+        bind.reqType = SocketKey.TradeDealReqType
+        //成交 只订阅第一条
+        val mapBind = BtbMap()
+        mapBind.p("pageNo", "1")
+        mapBind.p("pageSize", 50)
+        bind.param = mapBind
+        bind.setHandleType(1)
+        register(bind)
+    }
+
+    //取消订阅需要注册的
+    fun unRegistLoginSocket(){
+        WebSocketClient1.unRegist(SocketKey.FUTURE_TOP)
     }
 
     override fun getView(): FutureTradeView? {
